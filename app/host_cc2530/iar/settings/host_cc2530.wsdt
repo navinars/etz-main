@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>host_cc2530/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>269</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>915</ColumnWidth1><ColumnWidth2>244</ColumnWidth2><ColumnWidth3>61</ColumnWidth3></Build>
+      <TerminalIO/>
+      <Find-in-Files>
+        
+        
+        
+      <ColumnWidth0>388</ColumnWidth0><ColumnWidth1>55</ColumnWidth1><ColumnWidth2>666</ColumnWidth2></Find-in-Files>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1073</ColumnWidth1></Debug-Log>
+    <SourceBrowser/><Breakpoints><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows></Breakpoints></Static>
+    <Windows>
+      
+      
+    <Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-26493-24574</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>host_cc2530</ExpandedNode><ExpandedNode>host_cc2530/APP</ExpandedNode><ExpandedNode>host_cc2530/MAC</ExpandedNode></NodeDict></Session>
+          </Tab>
+        <Tab><Identity>TabID-31619-13467</Identity><TabName>Source Browser</TabName><Factory>SourceBrowser</Factory><Session><TypeFilter>2147483647</TypeFilter><FileFilter>1</FileFilter></Session></Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd1><Wnd4>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-9994-24679</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-8996-31434</Identity>
+            <TabName>Find in Files</TabName>
+            <Factory>Find-in-Files</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-4020-397</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd4><Wnd5><Tabs><Tab><Identity>TabID-18257-13513</Identity><TabName>Breakpoints</TabName><Factory>Breakpoints</Factory></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd5></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\app\main.c</Filename><XPos>0</XPos><YPos>20</YPos><SelStart>1225</SelStart><SelEnd>1225</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mac\mac.h</Filename><XPos>0</XPos><YPos>133</YPos><SelStart>9588</SelStart><SelEnd>9588</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mac\mac.c</Filename><XPos>0</XPos><YPos>119</YPos><SelStart>3043</SelStart><SelEnd>3043</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\util\util_timer.c</Filename><XPos>0</XPos><YPos>41</YPos><SelStart>1314</SelStart><SelEnd>1314</SelEnd></Tab><ActiveTab>3</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mac\mac_buf.c</Filename><XPos>0</XPos><YPos>13</YPos><SelStart>481</SelStart><SelEnd>493</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mac\mac_hw.c</Filename><XPos>0</XPos><YPos>9</YPos><SelStart>882</SelStart><SelEnd>882</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mcu\hal_rf.c</Filename><XPos>0</XPos><YPos>421</YPos><SelStart>10141</SelStart><SelEnd>10141</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mcu\hal_timer.c</Filename><XPos>0</XPos><YPos>508</YPos><SelStart>16482</SelStart><SelEnd>16482</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mac\mac_gen.c</Filename><XPos>0</XPos><YPos>65</YPos><SelStart>2323</SelStart><SelEnd>2323</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mcu\sfr-bits.h</Filename><XPos>0</XPos><YPos>170</YPos><SelStart>5582</SelStart><SelEnd>5582</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-004cdc48><key>iaridepm.enu1</key></Toolbar-004cdc48></Sizes></Row0><Row1><Sizes/></Row1><Row2><Sizes/></Row2></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>471</Bottom><Right>343</Right><x>-2</x><y>-2</y><xscreen>256</xscreen><yscreen>214</yscreen><sizeHorzCX>200000</sizeHorzCX><sizeHorzCY>293956</sizeHorzCY><sizeVertCX>269531</sizeVertCX><sizeVertCY>649725</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>212</Bottom><Right>915</Right><x>-2</x><y>-2</y><xscreen>917</xscreen><yscreen>214</yscreen><sizeHorzCX>716406</sizeHorzCX><sizeHorzCY>293956</sizeHorzCY><sizeVertCX>200000</sizeVertCX><sizeVertCY>293956</sizeVertCY></Rect></Wnd4><Wnd5><Rect><Top>0</Top><Left>0</Left><Bottom>0</Bottom><Right>1024198662</Right><x>913</x><y>-2</y><xscreen>369</xscreen><yscreen>214</yscreen><sizeHorzCX>288281</sizeHorzCX><sizeHorzCY>293956</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>274725</sizeVertCY></Rect></Wnd5></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+
