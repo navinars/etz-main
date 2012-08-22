@@ -10,7 +10,6 @@ static 	mac_pib_t 	pib;
 static  mac_pcb_t	pcb;
 
 
-static void RfRxFrmDoneIsr(void);
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -21,10 +20,14 @@ static void RfRxFrmDoneIsr(void);
  */
 void mac_init(void)
 {
+	
+	/* Initialise RF radio.*/
+	halRfInit();
+	
 	pib.coord_addr.mode			= SHORT_ADDR;
 	pib.coord_addr.short_addr	= 0x0000;		// Net coord short address is 0x0000;
 	pib.coord					= false;
-	pib.short_addr				= 0xFFFF;		// Default node short address is 0xFFFF.
+	pib.short_addr				= 0x0000;		// Default node short address is 0xFFFF.
 	pib.pan_id					= 0xFFFF;		// Default PAN ID is 0xFFFF.
 	
 	// Read MAC address in FALSH.
@@ -32,7 +35,7 @@ void mac_init(void)
 	pib.assoc_permit			= false;		// Node's association is permit.
 	pcb.mac_state				= MLME_SCAN;
 
-	pib.curr_channel			= 21;
+	pib.curr_channel			= 20;
 	pib.rx_on_when_idle			= true;
 	pib.max_csma_backoffs		= 3;
 	pib.min_be					= 3;
@@ -47,14 +50,13 @@ void mac_init(void)
 	halRfSetShortAddr(pib.short_addr);
 	halRfSetPanId(pib.pan_id);
 	
-	/* Initialise RF radio.*/
-	halRfInit();
+	halRfRxInterruptConfig(RfRxFrmDoneIsr);
+	
+	mac_buf_init();
 	
 	halRfReceiveOn();
 	
-	halRfEnableRxInterrupt();
-	
-	halRfRxInterruptConfig(RfRxFrmDoneIsr);
+	halIntOn();
 }
 
 /********************************************************************************************************
@@ -84,86 +86,62 @@ mac_pcb_t *mac_pcb_get(void)
 }
 
 /* ------------------------------------------------------------------------------------------------------
- *										  mac_out
+ *										mac_handle
  *
- * Describtion : none.
+ * Describtion : RF event handle.
  *
  */
-void mac_out(mac_buf_t *buf)
+void mac_event_handle(void)
 {
-	halRfDisableRxInterrupt();
-	
-	halRfWriteTxBuf(buf->dptr, buf->len);
-	
-	halRfEnableRxInterrupt();
-	
-	halRfTransmit();
+	mac_buf_t *rxbuf = read_rx_buf();
+	if(rxbuf->alloc == true)
+	{
+		mac_hdr_t hdr;
+		mac_parse_hdr(rxbuf, &hdr);
+		
+		switch(hdr.mac_frm_ctrl.frame_type)
+		{
+		case MAC_BEACON:
+			if(strstr((const char *)rxbuf->dptr, "dooya") != NULL)
+			{
+				halLedToggle(2);
+			}
+			break;
+			
+		case MAC_DATA:
+			break;
+			
+		case MAC_ACK:
+			break;
+			
+		case MAC_COMMAND:
+			break;
+			
+		default:
+			break;
+		}
+		reset_rx_buf();
+	}
 }
 
 /* ------------------------------------------------------------------------------------------------------
- *										mac_tx_handle
+ *										data_updata
  *
  * Describtion : RF tx function.
  *
  */
-void mac_tx_handle(address_t *dest_addr, U8 *pdata, U8 len, bool ack_req, bool dsn)
+void mac_host_beacon(void)
 {
-	
-	mac_hdr_t hdr;
-	mac_buf_t buf;
-	
-	memset(&hdr, 0, sizeof(mac_hdr_t));
-	hdr.mac_frm_ctrl.frame_type		= MAC_DATA;
-	hdr.mac_frm_ctrl.ack_req		= ack_req;
-	hdr.mac_frm_ctrl.frame_ver		= MAC_802_15_4_2006;
-	hdr.dsn							= dsn;
-	hdr.dest_pan_id					= pib.pan_id;
-	hdr.src_pan_id					= 0xFFFF;
-	hdr.mac_frm_ctrl.pan_id_compr	= true;						// Put off source PAN ID.
-	memcpy(&hdr.src_addr, &pib.ext_addr, sizeof(address_t));
-    memcpy(&hdr.dest_addr, dest_addr, sizeof(address_t));
-	
-	// generate the header
-	mac_gen_header(&buf, &hdr);
-	
-	// send the frame to the tx handler for processing
-	mac_out(&buf);
-}
-
-/* ------------------------------------------------------------------------------------------------------
- *										mac_tx_handle
- *
- * Describtion : RF tx function.
- *
- */
-void data_updata(void)
-{
-	U8 data[3], len;
+	U8 data[20], len, option;
 	address_t destAddr;
 
-	memcpy(data, "ok", 3);
+	memcpy(data, "dooya", 6);
 	len = sizeof(data);
 	
 	destAddr.mode = SHORT_ADDR;
-	destAddr.short_addr = 0x0000;
+	destAddr.short_addr = 0xFFFF;
 	
-	mac_tx_handle(&destAddr, data, len, true, pib.dsn);
+	option = MAC_BEACON;
+	mac_tx_handle(&destAddr, data, len, option);
 }
 
-/* ------------------------------------------------------------------------------------------------------
- *										RfRxFrmDoneIsr
- *
- * Describtion : none.
- *
- */
-static void RfRxFrmDoneIsr(void)
-{
-	// Clear interrupt and disable new RX frame done interrupt
-	halRfDisableRxInterrupt();
-	
-//	halRfReadRxBuf(&len, 1);
-//	halRfReadRxBuf(buf, len);
-	
-	// Enable RX frame done interrupt again
-	halRfEnableRxInterrupt();
-}

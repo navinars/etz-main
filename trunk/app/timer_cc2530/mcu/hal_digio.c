@@ -25,15 +25,6 @@ static ISR_FUNC_PTR port2_isr_tbl[5] = {0};
 
 
 /* Find a better place for this! */
-#if chip==2430 || chip==2431
-#define PICTL_PADSC_BM 0x40
-#define PICTL_P2IEN_BM 0x20
-#define PICTL_P0IENH_BM 0x10
-#define PICTL_P0IENL_BM 0x08
-#define PICTL_P2ICON_BM 0x04
-#define PICTL_P1ICON_BM 0x02
-#define PICTL_P0ICON_BM 0x01
-#elif chip==2530 || chip==2531
 #define PICTL_PADSC_BM 0x80
 #define PICTL_P2IEN_BM 0x40
 #define PICTL_P0IENH_BM 0x20
@@ -43,7 +34,6 @@ static ISR_FUNC_PTR port2_isr_tbl[5] = {0};
 #define PICTL_P1ICONL_BM 0x02
 #define PICTL_P1ICON_BM 0x06 // Combined - for compatibility
 #define PICTL_P0ICON_BM 0x01
-#endif
 
 /***********************************************************************************
 * GLOBAL FUNCTIONS
@@ -279,28 +269,6 @@ uint8 halDigioIntEnable(const digioConfig *p)
 {
      switch (p->port)
     {
-#if chip==2430 || chip==2431      
-    case 0: 
-      P0IE = 1;    // set P0IE bit
-      if (p->pin < 4) {
-        PICTL |= PICTL_P0IENL_BM; // set P0IENL
-      }
-      else {
-        PICTL |= PICTL_P0IENH_BM; // set P0IENH
-      }
-            break;
-    case 1:
-      IEN2 |= 0x10;    // set P1IE bit
-      P1IEN |= p->pin_bm;
-      break;
-    case 2:
-      IEN2 |= 0x02;     
-      PICTL |= PICTL_P2IEN_BM; // Set P2IEN
-      break;
-    default: 
-      return(HAL_DIGIO_ERROR);
-    }
-#elif chip==2530 || chip==2531
     case 0: 
       P0IE = 1;    // set P0IE bit
       P0IEN |= p->pin_bm;
@@ -316,7 +284,6 @@ uint8 halDigioIntEnable(const digioConfig *p)
     default: 
       return(HAL_DIGIO_ERROR);
     }
-#endif
     return(HAL_DIGIO_OK);
 }
 
@@ -334,25 +301,6 @@ uint8 halDigioIntDisable(const digioConfig *p)
 {
    switch (p->port)
     {
-#if chip==2430 || chip==2431  
-    case 0: 
-      if (p->pin  < 4) {
-        PICTL &= ~PICTL_P0IENL_BM; // clear P0IENL
-      }
-      else {
-        PICTL &= ~PICTL_P0IENH_BM;    // clear P0IENH
-      }
-            break;
-    case 1:
-      P1IEN &= ~p->pin_bm;
-      break;
-    case 2:
-      PICTL &= ~PICTL_P2IEN_BM; // Clear P2IEN
-      break;
-    default: 
-      return(HAL_DIGIO_ERROR);
-    }
-#elif chip==2530 || chip==2531
     case 0: 
       P0IEN &= ~p->pin_bm;
       break;
@@ -365,7 +313,6 @@ uint8 halDigioIntDisable(const digioConfig *p)
     default: 
       return(HAL_DIGIO_ERROR);
     }
-#endif
     return(HAL_DIGIO_OK);
 }
 

@@ -288,7 +288,7 @@ U16 mac_gen_superfrm_spec(void)
 *
 * Note(s)     : none.
 */
-static void mac_gen_beacon (mac_buf_t *buf)
+void mac_gen_beacon (mac_buf_t *buf)
 {
 	/* Depend on NWK layer's data*/
 //	nwk_gen_beacon(buf);
@@ -332,6 +332,6 @@ void mac_gen_beacon_frm(mac_buf_t *buf, mac_hdr_t *hdr)
 	hdr->dest_addr.mode				= NO_PAN_ID_ADDR;
 	hdr->dsn						= pib->dsn++;
 	
-	mac_gen_beacon(buf);
+//	mac_gen_beacon(buf);
 	mac_gen_header(buf, hdr);
 }
