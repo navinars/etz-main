@@ -1,4 +1,0 @@
----- T1CCTL3 Matches (4 in 2 files) ----
-Hal_timer.c (e:\dooya\zigbee-dev\host_cc2530\mcu):#define TCHN_T1CCTL3   &(X_T1CCTL3)
-ioCC2530.h (e:\dooya\zigbee-dev):#define T1CCTL3         XREG( 0x62A3 )
-ioCC2530.h (e:\dooya\zigbee-dev):#define XX_T1CCTL3      XREG( 0x62A3 )
