@@ -102,4 +102,6 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 	ST0 = (unsigned char) timer_value;
 	
 	halIntOn();
+	X_SLEEPCMD |= 0x02;
+	PCON = 1;
 }
