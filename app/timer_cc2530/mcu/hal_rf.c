@@ -13,6 +13,7 @@
 #include "hal_mcu.h"
 #include "hal_int.h"
 #include "hal_rf.h"
+#include "hal_led.h"
 #include "util.h"
 #include "string.h"
 #include "sfr-bits.h"
@@ -27,9 +28,9 @@
 #define CHIPREVISION              REV_A
 
 // CC2530 RSSI Offset
-#define RSSI_OFFSET                               73
-#define RSSI_OFFSET_LNA_HIGHGAIN                  79
-#define RSSI_OFFSET_LNA_LOWGAIN                   67
+#define RSSI_OFFSET                  73
+#define RSSI_OFFSET_LNA_HIGHGAIN     79
+#define RSSI_OFFSET_LNA_LOWGAIN      67
 
 // Various radio settings
 #define AUTO_ACK                   0x20
@@ -70,34 +71,6 @@
 #define CC2530_RF_CCA_THRES CCA_THRES_USER_GUIDE /* User guide recommendation */
 #endif /* CC2530_RF_CONF_CCA_THRES */
 
-// CC2590-CC2591 support
-#if INCLUDE_PA==2591
-
-// Support for PA/LNA
-#define HAL_PA_LNA_INIT()
-
-// Select CC2591 RX high gain mode
-#define HAL_PA_LNA_RX_HGM() st( uint8 i; P0_7 = 1; for (i=0; i<8; i++) asm("NOP"); )
-
-// Select CC2591 RX low gain mode
-#define HAL_PA_LNA_RX_LGM() st( uint8 i; P0_7 = 0; for (i=0; i<8; i++) asm("NOP"); )
-
-// TX power lookup index
-#define HAL_RF_TXPOWER_0_DBM          0
-#define HAL_RF_TXPOWER_13_DBM         1
-#define HAL_RF_TXPOWER_16_DBM         2
-#define HAL_RF_TXPOWER_18_DBM         3
-#define HAL_RF_TXPOWER_20_DBM         4
-
-// TX power values
-#define CC2530_91_TXPOWER_0_DBM       0x25
-#define CC2530_91_TXPOWER_13_DBM      0x85
-#define CC2530_91_TXPOWER_16_DBM      0xA5
-#define CC2530_91_TXPOWER_18_DBM      0xC5
-#define CC2530_91_TXPOWER_20_DBM      0xE5
-
-#else 
-
 // dummy macros when not using CC2591
 #define HAL_PA_LNA_INIT()
 #define HAL_PA_LNA_RX_LGM()
@@ -107,7 +80,6 @@
 #define HAL_RF_TXPOWER_0_DBM      1
 #define HAL_RF_TXPOWER_4_DBM	  2
 
-#endif
 
 /***********************************************************************************
 * GLOBAL DATA
@@ -455,21 +427,29 @@ void halRfReadRxBuf(uint8* pData, uint8 length)
 *
 * @return  uint8 - SUCCESS or FAILED
 */
-uint8 halRfTransmit(void)
+int halRfTransmit(void)
 {
     uint8 status;
 
-	while(!(FSMSTAT1 & FSMSTAT1_CCA));
-	while(FSMSTAT1 & FSMSTAT1_SFD);
+	/* Check channel clear.*/
+	if(!(FSMSTAT1 & FSMSTAT1_CCA))
+	{
+		return FAILED;
+	}
 	
+	while(FSMSTAT1 & FSMSTAT1_SFD);
+
+	halLedSet(1);
     ISTXON(); // Sending
 
-    // Waiting for transmission to finish
-    while(!(RFIRQF1 & IRQ_TXDONE) );
-
-    RFIRQF1 = ~IRQ_TXDONE;
+	// Waiting for transmission to finish
+//	while(!(RFIRQF1 & IRQ_TXDONE) );
+	while(FSMSTAT1 & FSMSTAT1_TX_ACTIVE);
+	
+//	RFIRQF1 = ~IRQ_TXDONE;
     status= SUCCESS;
 
+	halLedClear(1);
     return status;
 }
 
@@ -606,7 +586,7 @@ HAL_ISR_FUNCTION( rfIsr, RF_VECTOR )
     if( RFIRQF0 & IRQ_RXPKTDONE )
     {
         if(pfISR){
-            (*pfISR)();                 // Execute the custom ISR
+            (*pfISR)();              // Execute the custom ISR
         }
         S1CON = 0;                   // Clear general RF interrupt flag
         RFIRQF0 &= ~IRQ_RXPKTDONE;   // Clear RXPKTDONE interrupt

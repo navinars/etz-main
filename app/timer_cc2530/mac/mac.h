@@ -318,7 +318,6 @@ typedef struct
 */
 extern U8 			mac_TaskId;
 
-
 /*
 *********************************************************************************************************
 *                                            GLOBALE TABLES
@@ -330,15 +329,43 @@ extern mac_pib_t *mac_pib_get(void);
 
 extern mac_pcb_t *mac_pcb_get(void);
 
-extern void data_updata(void);
+extern void mac_event_handle(void);
+
+extern void mac_host_beacon(void);
+
+
+//---------------------------------------mac_buf.c-------------------------------------------------------
+extern void mac_buf_init(void);
+
+extern mac_buf_t *read_rx_buf(void);
+
+extern mac_buf_t *read_tx_buf(void);
+
+extern void reset_rx_buf(void);
+
+extern void reset_tx_buf(void);
+
 
 //---------------------------------------mac_gen.c-------------------------------------------------------
 extern void mac_gen_header(mac_buf_t *buf, mac_hdr_t *hdr);
 
+extern void mac_gen_cmd(mac_buf_t *buf, mac_cmd_t *cmd);
+
 extern U16  mac_gen_superfrm_spec(void);
 
+extern void mac_gen_beacon_frm(mac_buf_t *buf, mac_hdr_t *hdr);
 
 
-/**********************************************************************************/
+//---------------------------------------mac_hw.c--------------------------------------------------------
+extern int  send(mac_buf_t *buf);
+
+extern int  mac_tx_handle(address_t *dest_addr, U8 *pdata, U8 len, U8 option);
+
+extern void RfRxFrmDoneIsr(void);
+
+//---------------------------------------mac_parse.c--------------------------------------------------------
+extern void mac_parse_hdr(mac_buf_t *buf, mac_hdr_t *hdr);
+
+
 #endif
 

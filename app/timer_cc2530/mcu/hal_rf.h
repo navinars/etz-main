@@ -57,7 +57,7 @@
 // Generic RF interface
 uint8 halRfInit(void);
 uint8 halRfSetTxPower(uint8 power);
-uint8 halRfTransmit(void);
+int   halRfTransmit(void);
 void  halRfSetGain(uint8 gainMode);     // With CC2590/91 only
 
 uint8 halRfGetChipId(void);

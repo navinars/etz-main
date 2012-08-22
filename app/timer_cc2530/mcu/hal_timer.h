@@ -60,26 +60,31 @@ extern "C"
  *                                            CONSTANTS
  ***************************************************************************************************/
 /* Timer ID definitions */
-#define HAL_TIMER_0                0x00    // 8bit timer
-#define HAL_TIMER_1                0x01    // 16bit Mac timer
-#define HAL_TIMER_2                0x02    // 8bit timer
-#define HAL_TIMER_3                0x03    // 16bit timer
+#define HAL_TIMER_1                0x00    // 16bit timer
+#define HAL_TIMER_2                0x01    // 16bit Mac timer
+#define HAL_TIMER_3                0x02    // 8bit timer
+#define HAL_TIMER_4                0x03    // 8bit timer
 #define HAL_TIMER_MAX              4       // Max number of timer
 
 /* Operation Modes for timer */
-#define HAL_TIMER_MODE_NORMAL     0x01    // Normal Mode
-#define HAL_TIMER_MODE_CTC        0x02    // Clear Timer On Compare
-#define HAL_TIMER_MODE_MASK       (HAL_TIMER_MODE_NORMAL | HAL_TIMER_MODE_CTC)
+#define HAL_TIMER_MODE_NORMAL     0x01    // Free-running, repeatedly count from 0x0000 to 0xFFFF.
+#define HAL_TIMER_MODE_CTC        0x02    // Modulo, repeatedly count from 0x0000 to T1CC0.
+#define HAL_TIMER_MODE_UD         0x04    // Up/down, repeatedly count from 0x0000 to T1CC0 and from T1CC0 down to 0x0000.
+#define HAL_TIMER_MODE_MASK       (HAL_TIMER_MODE_NORMAL | HAL_TIMER_MODE_CTC | HAL_TIMER_MODE_UD)
 
 /* Channel definitions */
 #define HAL_TIMER_CHANNEL_SINGLE   0x01    // Single Channel - default
-#define HAL_TIMER_CHANNEL_A        0x02    // Channel A
-#define HAL_TIMER_CHANNEL_B        0x04    // Channel B
-#define HAL_TIMER_CHANNEL_C        0x08    // Channel C
+#define HAL_TIMER_CHANNEL_0        0x02    // Channel A
+#define HAL_TIMER_CHANNEL_1        0x04    // Channel B
+#define HAL_TIMER_CHANNEL_2        0x08    // Channel C
+#define HAL_TIMER_CHANNEL_3        0x10    // Channel D
+#define HAL_TIMER_CHANNEL_4        0x20    // Channel E
 #define HAL_TIMER_CHANNEL_MASK    (HAL_TIMER_CHANNEL_SINGLE |  \
-                                   HAL_TIMER_CHANNEL_A |       \
-                                   HAL_TIMER_CHANNEL_B |       \
-                                   HAL_TIMER_CHANNEL_C)
+                                   HAL_TIMER_CHANNEL_0 |       \
+                                   HAL_TIMER_CHANNEL_1 |       \
+                                   HAL_TIMER_CHANNEL_2 |	   \
+                                   HAL_TIMER_CHANNEL_3 |	   \
+                                   HAL_TIMER_CHANNEL_4)
 
 /* Channel mode definitions */
 #define HAL_TIMER_CH_MODE_INPUT_CAPTURE   0x01    // Channel Mode Input-Capture

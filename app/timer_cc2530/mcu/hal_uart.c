@@ -214,7 +214,7 @@ void halUartInit(uint8 baudrate, uint8 options)
 	
 	// Set P2 prority - USART0 over USART1 if both are defined
 	P2DIR &= ~P2DIR_PRIPO;
-	P2DIR |= HAL_UART_PRIPO;
+	P2DIR |= HAL_UART_PORT;
 	
 	PERCFG &= ~HAL_UART_PERCFG_BIT;    // Set UART0 I/O location to P0.
 	
@@ -405,14 +405,6 @@ uint16 halUartGetNumRxBytes(void)
 */
 void halUartEnableRxFlow(uint8 enable)
 {
-    // Enable RX flow
-    if(enable) {
-        HAL_RTS_CLR();
-    }
-    // Disable RX flow
-    else {
-        HAL_RTS_SET();
-    }
 }
 
 /***********************************************************************************
