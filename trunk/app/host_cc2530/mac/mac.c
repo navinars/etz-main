@@ -55,8 +55,6 @@ void mac_init(void)
 	mac_buf_init();
 	
 	halRfReceiveOn();
-	
-	halIntOn();
 }
 
 /********************************************************************************************************
@@ -102,11 +100,16 @@ void mac_event_handle(void)
 		switch(hdr.mac_frm_ctrl.frame_type)
 		{
 		case MAC_BEACON:
+			if(strstr((const char *)rxbuf->dptr, "dooya") != NULL)
+			{
+				mac_parse_data(rxbuf, &hdr);
+//				halLedToggle(2);
+			}
 			break;
 			
 		case MAC_DATA:
 			break;
-
+			
 		case MAC_ACK:
 			break;
 			
@@ -119,6 +122,7 @@ void mac_event_handle(void)
 		reset_rx_buf();
 	}
 }
+
 /* ------------------------------------------------------------------------------------------------------
  *										data_updata
  *
@@ -139,5 +143,4 @@ void mac_host_beacon(void)
 	option = MAC_BEACON;
 	mac_tx_handle(&destAddr, data, len, option);
 }
-
 
