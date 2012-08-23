@@ -101,15 +101,17 @@ void RfRxFrmDoneIsr(void)
 	
 	// Clear interrupt and disable new RX frame done interrupt
 	halRfDisableRxInterrupt();
-
+	
 	rxbuf->alloc = true;
 	
 	memset(rxbuf, 0, sizeof(mac_buf_t));
 	rxbuf->dptr = rxbuf->buf;
-
+	
 	halRfReadRxBuf(&len, 1);
 	rxbuf->len = len;
 	halRfReadRxBuf(rxbuf->dptr, len);
+	
+	rxbuf->alloc = true;
 	
 	// Enable RX frame done interrupt again
 	halRfEnableRxInterrupt();

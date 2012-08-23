@@ -363,8 +363,11 @@ extern int  mac_tx_handle(address_t *dest_addr, U8 *pdata, U8 len, U8 option);
 
 extern void RfRxFrmDoneIsr(void);
 
+
 //---------------------------------------mac_parse.c--------------------------------------------------------
 extern void mac_parse_hdr(mac_buf_t *buf, mac_hdr_t *hdr);
+
+extern void mac_parse_data(mac_buf_t *buf, mac_hdr_t *hdr);
 
 
 #endif

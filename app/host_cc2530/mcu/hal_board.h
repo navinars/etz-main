@@ -82,5 +82,7 @@
  */
 void halBoardInit(void);
 void clock_init(void);
+void set_sleeptimer(U32 value);
+U32 read_sleeptimer(void);
 
 #endif

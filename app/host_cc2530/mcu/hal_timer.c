@@ -614,7 +614,6 @@ uint8 halTimerSetChannelMode (uint8 hwtimerid, uint8 channelMode)
   			halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL0;
 			*(halTimerChannel[hwtimerid].TxCCTL) &= ~(0xFF);
 			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_MODE;
-			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
 			break;
 		case HAL_TIMER_CH_MODE_INPUT_CAPTURE:       /* Not Supported */
 			/*
@@ -634,7 +633,6 @@ uint8 halTimerSetChannelMode (uint8 hwtimerid, uint8 channelMode)
   			halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL1;
 			*(halTimerChannel[hwtimerid].TxCCTL) &= ~(0xFF);
 			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_MODE;
-			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
 			break;
 		case HAL_TIMER_CH_MODE_INPUT_CAPTURE:       /* Not Supported */
 			/*
@@ -654,7 +652,6 @@ uint8 halTimerSetChannelMode (uint8 hwtimerid, uint8 channelMode)
   			halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL2;
 			*(halTimerChannel[hwtimerid].TxCCTL) &= ~(0xFF);
 			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_MODE;
-			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
 			break;
 		case HAL_TIMER_CH_MODE_INPUT_CAPTURE:       /* Not Supported */
 			/*
@@ -674,7 +671,6 @@ uint8 halTimerSetChannelMode (uint8 hwtimerid, uint8 channelMode)
   			halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL3;
 			*(halTimerChannel[hwtimerid].TxCCTL) &= ~(0xFF);
 			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_MODE;
-			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
 			break;
 		case HAL_TIMER_CH_MODE_INPUT_CAPTURE:       /* Not Supported */
 			/*
@@ -694,7 +690,6 @@ uint8 halTimerSetChannelMode (uint8 hwtimerid, uint8 channelMode)
   			halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL4;
 			*(halTimerChannel[hwtimerid].TxCCTL) &= ~(0xFF);
 			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_MODE;
-			*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
 			break;
 		case HAL_TIMER_CH_MODE_INPUT_CAPTURE:       /* Not Supported */
 			/*
@@ -730,8 +725,6 @@ uint8 HalTimerInterruptEnable (uint8 hwtimerid, uint8 channelMode, bool enable)
 	switch (channelMode)
 	{
 	case HAL_TIMER_CH_MODE_OVERFLOW:
-	case HAL_TIMER_CH_MODE_OUTPUT_COMPARE:
-	case HAL_TIMER_CH_MODE_INPUT_CAPTURE:
 		if (enable)
 		{
 		*(halTimerChannel[hwtimerid].TxOVF) |= halTimerChannel[hwtimerid].ovfbit;
@@ -741,6 +734,9 @@ uint8 HalTimerInterruptEnable (uint8 hwtimerid, uint8 channelMode, bool enable)
 		*(halTimerChannel[hwtimerid].TxOVF) &= ((halTimerChannel[hwtimerid].ovfbit) ^ 0xFF);
 		}
 		break;
+	case HAL_TIMER_CH_MODE_OUTPUT_COMPARE:
+	case HAL_TIMER_CH_MODE_INPUT_CAPTURE:
+		break;
 
 	default:
 		return HAL_TIMER_INVALID_CH_MODE;
@@ -748,6 +744,31 @@ uint8 HalTimerInterruptEnable (uint8 hwtimerid, uint8 channelMode, bool enable)
 
 	if (halTimerRecord[hwtimerid].intEnable)
 	{
+		switch (halTimerRecord[hwtimerid].channel)
+		{
+			case HAL_TIMER_CHANNEL_0:
+				halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL0;
+				*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
+				break;
+			case HAL_TIMER_CHANNEL_1:
+				halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL1;
+				*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
+				break;
+			case HAL_TIMER_CHANNEL_2:
+				halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL2;
+				*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
+				break;
+			case HAL_TIMER_CHANNEL_3:
+				halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL3;
+				*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
+				break;
+			case HAL_TIMER_CHANNEL_4:
+				halTimerChannel[HW_TIMER_1].TxCCTL =  TCHN_T1CCTL4;
+				*(halTimerChannel[hwtimerid].TxCCTL) |= T1CCTL_IM;
+				break;
+			default:
+				break;
+		}
 		IEN1 |= halTimerChannel[hwtimerid].intbit;
 	}
 	else

@@ -34,7 +34,7 @@ void mac_buf_init(void)
 void reset_rx_buf(void)
 {
 	memset(&rxbuf, 0, sizeof(mac_buf_t));
-	rxbuf.dptr = &rxbuf.buf[128];
+	rxbuf.dptr = &rxbuf.buf[0];
 }
 
 /* ------------------------------------------------------------------------------------------------------
