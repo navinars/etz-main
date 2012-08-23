@@ -730,8 +730,6 @@ uint8 HalTimerInterruptEnable (uint8 hwtimerid, uint8 channelMode, bool enable)
 	switch (channelMode)
 	{
 	case HAL_TIMER_CH_MODE_OVERFLOW:
-	case HAL_TIMER_CH_MODE_OUTPUT_COMPARE:
-	case HAL_TIMER_CH_MODE_INPUT_CAPTURE:
 		if (enable)
 		{
 		*(halTimerChannel[hwtimerid].TxOVF) |= halTimerChannel[hwtimerid].ovfbit;
@@ -740,6 +738,9 @@ uint8 HalTimerInterruptEnable (uint8 hwtimerid, uint8 channelMode, bool enable)
 		{
 		*(halTimerChannel[hwtimerid].TxOVF) &= ((halTimerChannel[hwtimerid].ovfbit) ^ 0xFF);
 		}
+		break;
+	case HAL_TIMER_CH_MODE_OUTPUT_COMPARE:
+	case HAL_TIMER_CH_MODE_INPUT_CAPTURE:
 		break;
 
 	default:

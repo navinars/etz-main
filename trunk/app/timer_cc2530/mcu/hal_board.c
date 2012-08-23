@@ -21,7 +21,7 @@
 
 /* Sleep timer runs on the 32k RC osc. */
 /* One clock tick is 7.8 ms */
-#define TICK_VAL (32768/128)  /* 256 */
+#define TICK_VAL 32768*5//(32768/128)  /* 256 */
 
 
 /***********************************************************************************
@@ -80,7 +80,8 @@ void clock_init(void)
 	ST1 = (unsigned char) (timer_value >> 8);
 	ST0 = (unsigned char) timer_value;
 	
-	STIE = 1; /* IEN0.STIE interrupt enable */
+	STIF = 0;
+	STIE = 1; /* Sleep timer interrupt enable */
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -92,7 +93,9 @@ void clock_init(void)
 HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 {
 	halIntOff();
-	
+	STIF = 0;
+	STIE = 1;
+	timer_value = 0;
 	timer_value = ST0;
 	timer_value += ((unsigned long int) ST1) << 8;
 	timer_value += ((unsigned long int) ST2) << 16;
@@ -101,7 +104,8 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 	ST1 = (unsigned char) (timer_value >> 8);
 	ST0 = (unsigned char) timer_value;
 	
+	halLedToggle(2);
 	halIntOn();
-	X_SLEEPCMD |= 0x02;
-	PCON = 1;
+//	X_SLEEPCMD |= 0x02;
+//	PCON = 1;
 }

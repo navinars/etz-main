@@ -35,11 +35,13 @@ int main(void)
 	
 	timer1_init();			// Initialise timer 1(16bit).
 
-	mac_init();				// Initialise radio.
+//	mac_init();				// Initialise radio.
 	
 	for(;;)
 	{
-		mac_event_handle();
+		SLEEPCMD = (SLEEPCMD & ~0x02) | 0x02;
+		PCON = 1;
+//		mac_event_handle();
 	}
 }
 
