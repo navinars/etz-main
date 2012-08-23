@@ -102,7 +102,8 @@ void mac_event_handle(void)
 		case MAC_BEACON:
 			if(strstr((const char *)rxbuf->dptr, "dooya") != NULL)
 			{
-				halLedToggle(2);
+				mac_parse_data(rxbuf, &hdr);
+//				halLedToggle(2);
 			}
 			break;
 			

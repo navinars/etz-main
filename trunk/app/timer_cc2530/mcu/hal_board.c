@@ -21,7 +21,7 @@
 
 /* Sleep timer runs on the 32k RC osc. */
 /* One clock tick is 7.8 ms */
-#define TICK_VAL 32768*5//(32768/128)  /* 256 */
+#define TICK_VAL 32768*1//(32768/128)  /* 256 */
 
 
 /***********************************************************************************
@@ -69,7 +69,8 @@ void clock_init(void)
 {
 	/* Tickspeed 500 kHz for timers[1-4] */
 	CLKCONCMD |= CLKCONCMD_TICKSPD2 | CLKCONCMD_TICKSPD1;
-	while(CLKCONSTA != CLKCONCMD);
+//	while(CLKCONSTA != CLKCONCMD);
+	while(!(CLKCONSTA & (CLKCONCMD_TICKSPD2 | CLKCONCMD_TICKSPD1)));
 	
 	/* Initialize tick value */
 	timer_value = ST0;
@@ -94,18 +95,55 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 {
 	halIntOff();
 	STIF = 0;
-	STIE = 1;
-	timer_value = 0;
+//	STIE = 1;
+//	timer_value = 0;
+	
+	set_sleeptimer(TICK_VAL);
+	
+	halLedToggle(1);
+	halIntOn();
+//	X_SLEEPCMD |= 0x02;
+//	PCON = 0x01;
+}
+
+/* ------------------------------------------------------------------------------------------------------
+ * @fn		set_sleeptimer
+ *
+ * @brief
+ *
+ */
+void set_sleeptimer(U32 value)
+{
+	/* When power on, wait for a positive transition on the 32-kHz clock.*/
+//	while(!(SLEEPSTA & SLEEPSRA_CLK32K));
 	timer_value = ST0;
 	timer_value += ((unsigned long int) ST1) << 8;
 	timer_value += ((unsigned long int) ST2) << 16;
-	timer_value += TICK_VAL;
+	timer_value += value;
+	
+	/* Wait LDRDY is up, writing is allowed.*/
+//	while(!(STLOAD & LDRDY));
+	
+	/* Set sleep timer compare value.*/
 	ST2 = (unsigned char) (timer_value >> 16);
 	ST1 = (unsigned char) (timer_value >> 8);
 	ST0 = (unsigned char) timer_value;
-	
-	halLedToggle(2);
-	halIntOn();
-//	X_SLEEPCMD |= 0x02;
-//	PCON = 1;
 }
+
+/* ------------------------------------------------------------------------------------------------------
+ * @fn		read_sleeptimer
+ *
+ * @brief
+ *
+ */
+U32 read_sleeptimer(void)
+{
+	/* When power on, wait for a positive transition on the 32-kHz clock.*/
+//	while(!(SLEEPSTA & SLEEPSRA_CLK32K));
+	timer_value = ST0;
+	timer_value += ((unsigned long int) ST1) << 8;
+	timer_value += ((unsigned long int) ST2) << 16;
+	
+	return timer_value;
+}
+

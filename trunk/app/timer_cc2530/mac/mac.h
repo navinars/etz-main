@@ -366,6 +366,8 @@ extern void RfRxFrmDoneIsr(void);
 //---------------------------------------mac_parse.c--------------------------------------------------------
 extern void mac_parse_hdr(mac_buf_t *buf, mac_hdr_t *hdr);
 
+extern void mac_parse_data(mac_buf_t *buf, mac_hdr_t *hdr);
+
 
 #endif
 
