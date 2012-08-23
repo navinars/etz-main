@@ -61,6 +61,10 @@
 #define SLEEP_MODE1          0x02
 #define SLEEP_MODE0          0x01
 
+#define SLEEPSRA_CLK32K		 0x01
+
+#define LDRDY				 0x01
+
 /* PCON */
 #define PCON_IDLE 0x01
 

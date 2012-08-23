@@ -72,3 +72,13 @@ void mac_parse_hdr(mac_buf_t *buf, mac_hdr_t *hdr)
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------
+ *										mac_parse_data
+ *
+ * Description : Parse the mac header frame control field from the RX buffer.
+ *
+ */
+void mac_parse_data(mac_buf_t *buf, mac_hdr_t *hdr)
+{
+	
+}

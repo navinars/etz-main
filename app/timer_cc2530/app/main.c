@@ -27,6 +27,7 @@
  *												main()
  *
  * Description : main function.
+ *
  */
 int main(void)
 {
@@ -34,14 +35,15 @@ int main(void)
 	halBoardInit();
 	
 	timer1_init();			// Initialise timer 1(16bit).
-
-//	mac_init();				// Initialise radio.
+	
+	mac_init();				// Initialise radio.
+	
+	SLEEPCMD = (SLEEPCMD & ~0x02) | 0x02;
 	
 	for(;;)
 	{
-		SLEEPCMD = (SLEEPCMD & ~0x02) | 0x02;
-		PCON = 1;
-//		mac_event_handle();
+//		PCON = 0x01;
+		mac_event_handle();
 	}
 }
 
