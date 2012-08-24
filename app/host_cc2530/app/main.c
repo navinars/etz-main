@@ -24,6 +24,12 @@
 
 
 /* ------------------------------------------------------------------------------------------------------
+ *                                            Local Function
+ * -------------------------------------------------------------------------------------------------------
+ */
+extern void EnterSleepModeDisableInterruptsOnWakeup(void);
+
+/* ------------------------------------------------------------------------------------------------------
  *												main()
  *
  * Description : main function.
@@ -39,10 +45,21 @@ int main(void)
 	mac_init();				// Initialise radio.
 	
 	SLEEPCMD = (SLEEPCMD & ~0x02) | 0x02;
+	EnterSleepModeDisableInterruptsOnWakeup();
 	
 	for(;;)
 	{
-//		PCON = 0x01;
+		if(pconflag == 1)
+		{
+			pconflag = 0;
+			halLedClear(1);
+			EnterSleepModeDisableInterruptsOnWakeup();
+//			PCON = 0x01;
+			asm("NOP");
+			asm("NOP");
+			asm("NOP");
+//			EA = 1;
+		}
 		mac_event_handle();
 	}
 }

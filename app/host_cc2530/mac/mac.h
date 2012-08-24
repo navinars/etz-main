@@ -331,7 +331,7 @@ extern mac_pcb_t *mac_pcb_get(void);
 
 extern void mac_event_handle(void);
 
-extern void mac_host_beacon(void);
+extern void mac_host_bcn(void);
 
 
 //---------------------------------------mac_buf.c-------------------------------------------------------
@@ -367,7 +367,7 @@ extern void RfRxFrmDoneIsr(void);
 //---------------------------------------mac_parse.c--------------------------------------------------------
 extern void mac_parse_hdr(mac_buf_t *buf, mac_hdr_t *hdr);
 
-extern void mac_parse_data(mac_buf_t *buf, mac_hdr_t *hdr);
+extern void mac_parse_bcn(mac_buf_t *buf, mac_hdr_t *hdr);
 
 
 #endif
