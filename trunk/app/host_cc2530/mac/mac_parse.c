@@ -78,7 +78,14 @@ void mac_parse_hdr(mac_buf_t *buf, mac_hdr_t *hdr)
  * Description : Parse the mac header frame control field from the RX buffer.
  *
  */
-void mac_parse_data(mac_buf_t *buf, mac_hdr_t *hdr)
+void mac_parse_bcn(mac_buf_t *buf, mac_hdr_t *hdr)
 {
-	
+	U32 sleeptinme;
+
+	sleeptinme = *(U32 *)buf->dptr;
+
+	set_sleeptimer(sleeptinme);
+	set_timer1isr(1);
+	halLedSet(2);
 }
+

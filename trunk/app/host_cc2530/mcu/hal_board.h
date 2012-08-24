@@ -19,6 +19,10 @@
 /***********************************************************************************
  * CONSTANTS
  */
+/* Sleep timer runs on the 32.768k external RC. */
+/* One clock tick is 7.8 ms */
+#define TICK_VAL 32768*2//(32768/128)  /* 256 */
+
 
 // Internal (MCU) RAM addresses
 #define MCU_RAM_BEG 0x0100
@@ -76,7 +80,9 @@
 #define HAL_LED_TGL_3()                 MCU_IO_TGL(HAL_BOARD_IO_LED_3_PORT, HAL_BOARD_IO_LED_3_PIN)
 #define HAL_LED_TGL_4()                 MCU_IO_TGL(HAL_BOARD_IO_LED_4_PORT, HAL_BOARD_IO_LED_4_PIN)
 
-
+/* ----------- Cache Prefetch control ---------- */
+#define PREFETCH_ENABLE()     st( FCTL = 0x08; )
+#define PREFETCH_DISABLE()    st( FCTL = 0x04; )
 /***********************************************************************************
  * FUNCTION PROTOTYPES
  */

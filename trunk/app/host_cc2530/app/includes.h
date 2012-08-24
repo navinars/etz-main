@@ -29,6 +29,7 @@
 #include "hal_uart.h"
 #include "hal_flash.h"
 #include "hal_led.h"
+#include "hal_board.h"
 
 
 /* ------------------------------------------------------------------------------------------------

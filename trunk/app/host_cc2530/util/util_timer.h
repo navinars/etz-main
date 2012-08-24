@@ -29,8 +29,15 @@
 
 
 /***********************************************************************************
+* GLOBAL VARIABLE
+*/
+extern volatile unsigned char pconflag;
+
+
+/***********************************************************************************
 * GLOBAL FUNCTIONS
 */
 extern void timer1_init(void);
+extern void set_timer1isr(U16 sec);
 
 #endif
