@@ -1,0 +1,12 @@
+#include "ioCC2530.h"
+
+	PUBLIC EnterSleepModeDisableInterruptsOnWakeup
+	FUNCTION EnterSleepModeDisableInterruptsOnWakeup,0201H
+	RSEG NEAR_CODE:CODE:NOROOT(2)
+	EnterSleepModeDisableInterruptsOnWakeup:
+	MOV PCON,#1
+;	CLR EA
+	NOP
+	RET
+	END
+	
