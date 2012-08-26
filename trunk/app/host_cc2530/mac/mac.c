@@ -7,7 +7,7 @@
 
 
 static 	mac_pib_t 	pib;
-static  mac_pcb_t	pcb;
+//static  mac_pcb_t	pcb;
 
 
 
@@ -33,7 +33,7 @@ void mac_init(void)
 	// Read MAC address in FALSH.
 	HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_IEEE_OSET, pib.ext_addr, Z_EXTADDR_LEN);
 	pib.assoc_permit			= false;		// Node's association is permit.
-	pcb.mac_state				= MLME_SCAN;
+//	pcb.mac_state				= MLME_SCAN;
 
 	pib.curr_channel			= 20;
 	pib.rx_on_when_idle			= true;
@@ -80,7 +80,8 @@ mac_pib_t *mac_pib_get(void)
 */
 mac_pcb_t *mac_pcb_get(void)
 {
-	return &pcb;
+//	return &pcb;
+	return NULL;
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -141,7 +142,7 @@ void mac_host_bcn(void)
 	
 	*(U32 *)(&data[6]) = TICK_VAL;
 	
-	len = sizeof(data) + 4;
+	len = 6 + 4;
 	
 	destAddr.mode = SHORT_ADDR;
 	destAddr.short_addr = 0xFFFF;

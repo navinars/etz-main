@@ -16,13 +16,12 @@
 #include "hal_clock.h"
 #include "hal_board.h"
 #include "hal_led.h"
+#include "hal_timer.h"
+#include "hal_rf.h"
 
 #include "sfr-bits.h"
 
-/* Sleep timer runs on the 32k RC osc. */
-/* One clock tick is 7.8 ms */
-#define TICK_VAL 32768*1//(32768/128)  /* 256 */
-
+#include "util_timer.h"
 
 /***********************************************************************************
 * LOCAL FUNCTIONS
@@ -38,6 +37,8 @@ __xdata static unsigned long timer_value = 0;
 /***********************************************************************************
 * GLOBAL FUNCTIONS
 */
+extern void EnterSleepModeDisableInterruptsOnWakeup(void);
+
 
 /***********************************************************************************
 * @fn      halBoardInit
@@ -72,6 +73,8 @@ void clock_init(void)
 //	while(CLKCONSTA != CLKCONCMD);
 	while(!(CLKCONSTA & (CLKCONCMD_TICKSPD2 | CLKCONCMD_TICKSPD1)));
 	
+	PREFETCH_ENABLE();
+	
 	/* Initialize tick value */
 	timer_value = ST0;
 	timer_value += ((unsigned long int) ST1) << 8;
@@ -82,7 +85,7 @@ void clock_init(void)
 	ST0 = (unsigned char) timer_value;
 	
 	STIF = 0;
-	STIE = 1; /* Sleep timer interrupt enable */
+//	STIE = 1; /* Sleep timer interrupt enable */
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -95,13 +98,20 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 {
 	halIntOff();
 	STIF = 0;
-//	STIE = 1;
-//	timer_value = 0;
+	STIE = 1;
 	
 	set_sleeptimer(TICK_VAL);
 	
-	halLedToggle(1);
+	halLedSet(1);
+	
+	halRfReceiveOn();
+	
+	/* Start Timer3, 100.*/
+	HalTimerStart(HAL_TIMER_1, 3906*1);
+	HalTimerStart(HAL_TIMER_3, 390);
+//	pconflag = 1;
 	halIntOn();
+//	EnterSleepModeDisableInterruptsOnWakeup();
 //	X_SLEEPCMD |= 0x02;
 //	PCON = 0x01;
 }
@@ -115,14 +125,14 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 void set_sleeptimer(U32 value)
 {
 	/* When power on, wait for a positive transition on the 32-kHz clock.*/
-//	while(!(SLEEPSTA & SLEEPSRA_CLK32K));
+	while(!(SLEEPSTA & SLEEPSRA_CLK32K));
 	timer_value = ST0;
 	timer_value += ((unsigned long int) ST1) << 8;
 	timer_value += ((unsigned long int) ST2) << 16;
 	timer_value += value;
 	
 	/* Wait LDRDY is up, writing is allowed.*/
-//	while(!(STLOAD & LDRDY));
+	while(!(STLOAD & LDRDY));
 	
 	/* Set sleep timer compare value.*/
 	ST2 = (unsigned char) (timer_value >> 16);
