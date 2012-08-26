@@ -87,7 +87,6 @@ int mac_tx_handle(address_t *dest_addr, U8 *pdata, U8 len, U8 option)
 }
 
 
-
 /* ------------------------------------------------------------------------------------------------------
  *										RfRxFrmDoneIsr
  *

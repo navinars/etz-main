@@ -106,6 +106,7 @@
 #define HAL_TIMER34_OPMODE_FREERUN  0x00  /* Free Running Mode, Count from 0 to Max */
 #define HAL_TIMER34_OPMODE_MODULO   0x02  /* Modulo Mode, Count from 0 to CompareValue */
 #define HAL_TIMER34_OPMODE_BITS     0x03  /* Bits 1:0 */
+#define HAL_TIMER34_OPMODE_CLR		0x04
 
 #define HAL_TIMER_MODE_STOP         0x03
 
@@ -328,7 +329,7 @@ uint8 HalTimerStart (uint8 timerId, uint32 timePerTick)
 		halTimerSetCount (hwtimerid, timePerTick);
 		halTimerSetPrescale (hwtimerid, halTimerRecord[hwtimerid].prescale);
 		halTimerSetOpMode (hwtimerid, halTimerRecord[hwtimerid].opMode);
-		halTimerSetChannelMode (hwtimerid, halTimerRecord[hwtimerid].channelMode);// no used.
+		halTimerSetChannelMode (hwtimerid, halTimerRecord[hwtimerid].channelMode);
 		
 		if (hwtimerid == HW_TIMER_3)
 		{
@@ -393,13 +394,16 @@ uint8 HalTimerStop (uint8 timerId)
   switch (hwtimerid)
   {
     case HW_TIMER_1:
+		T1CNTL = 0x00;
       halTimerSetOpMode(HW_TIMER_1, HAL_TIMER_MODE_STOP);
       break;
     case HW_TIMER_3:
       T3CTL &= ~(HAL_TIMER34_START);
+	  T3CTL |= HAL_TIMER34_OPMODE_CLR;	// Clear T3CNT
       break;
     case HW_TIMER_4:
       T4CTL &= ~(HAL_TIMER34_START);
+	  T4CTL |= HAL_TIMER34_OPMODE_CLR;
       break;
     default:
       return HAL_TIMER_INVALID_ID;
@@ -426,6 +430,7 @@ uint8 halTimerSetCount (uint8 hwtimerid, uint32 timePerTick)
 //	count = (uint16)((timePerTick * halTimerRecord[hwtimerid].clock) / halTimerRecord[hwtimerid].prescaleVal);
 	high = (uint8) (timePerTick >> 8);
 	low = (uint8) timePerTick;
+	
 	switch (halTimerRecord[hwtimerid].channel)
 	{
 	case HAL_TIMER_CHANNEL_SINGLE:

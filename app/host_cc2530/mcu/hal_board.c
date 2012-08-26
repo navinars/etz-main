@@ -17,6 +17,7 @@
 #include "hal_board.h"
 #include "hal_led.h"
 #include "hal_timer.h"
+#include "hal_rf.h"
 
 #include "sfr-bits.h"
 
@@ -102,6 +103,8 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 	set_sleeptimer(TICK_VAL);
 	
 	halLedSet(1);
+	
+	halRfReceiveOn();
 	
 	/* Start Timer3, 100.*/
 	HalTimerStart(HAL_TIMER_1, 3906*1);

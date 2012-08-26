@@ -100,10 +100,13 @@ void mac_event_handle(void)
 		switch(hdr.mac_frm_ctrl.frame_type)
 		{
 		case MAC_BEACON:
-			if(strstr((const char *)rxbuf->dptr, "dooya") != NULL)
+			if( pib.coord != true)		// Host can't receive beacon frame.
 			{
-				mac_parse_data(rxbuf, &hdr);
-//				halLedToggle(2);
+				if(strstr((const char *)rxbuf->dptr, "dooy") != NULL)
+				{
+					rxbuf->dptr += 6;
+					mac_parse_bcn(rxbuf, &hdr);
+				}
 			}
 			break;
 			
@@ -129,13 +132,16 @@ void mac_event_handle(void)
  * Describtion : RF tx function.
  *
  */
-void mac_host_beacon(void)
+void mac_host_bcn(void)
 {
 	U8 data[20], len, option;
 	address_t destAddr;
 
 	memcpy(data, "dooya", 6);
-	len = sizeof(data);
+	
+	*(U32 *)(&data[6]) = TICK_VAL;
+	
+	len = sizeof(data) + 4;
 	
 	destAddr.mode = SHORT_ADDR;
 	destAddr.short_addr = 0xFFFF;

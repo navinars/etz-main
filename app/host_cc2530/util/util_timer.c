@@ -123,7 +123,7 @@ static void util_Timer3CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 	case HAL_TIMER_CHANNEL_SINGLE:
 		break;
 	case HAL_TIMER_CHANNEL_0:
-//		mac_host_bcn();
+		mac_host_bcn();
 		halLedToggle(2);
 		break;
 	case HAL_TIMER_CHANNEL_1:
