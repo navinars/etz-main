@@ -7,7 +7,7 @@
 
 
 static 	mac_pib_t 	pib;
-static  mac_pcb_t	pcb;
+//static  mac_pcb_t	pcb;
 
 
 
@@ -33,7 +33,7 @@ void mac_init(void)
 	// Read MAC address in FALSH.
 	HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_IEEE_OSET, pib.ext_addr, Z_EXTADDR_LEN);
 	pib.assoc_permit			= false;		// Node's association is permit.
-	pcb.mac_state				= MLME_SCAN;
+//	pcb.mac_state				= MLME_SCAN;
 
 	pib.curr_channel			= 20;
 	pib.rx_on_when_idle			= true;
@@ -80,7 +80,8 @@ mac_pib_t *mac_pib_get(void)
 */
 mac_pcb_t *mac_pcb_get(void)
 {
-	return &pcb;
+//	return &pcb;
+	return 0;
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -132,14 +133,14 @@ void mac_event_handle(void)
  * Describtion : RF tx function.
  *
  */
-void mac_host_bcn(void)
+void mac_host_bcn(U16 offset)
 {
 	U8 data[20], len, option;
 	address_t destAddr;
 
 	memcpy(data, "dooya", 6);
 	
-	*(U32 *)(&data[6]) = TICK_VAL;
+	*(U32 *)(&data[6]) = TICK_VAL - offset;
 	
 	len = sizeof(data) + 4;
 	

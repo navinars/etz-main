@@ -10,8 +10,6 @@
  *											Local Variable
  * ------------------------------------------------------------------------------------------------------
  */
-//__xdata static unsigned char timer3_value = 0;
-volatile unsigned char pconflag = 0;
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -20,6 +18,7 @@ volatile unsigned char pconflag = 0;
  */
 static void util_Timer1CallBack ( uint8 timerId, uint8 channel, uint8 channelMode );
 static void util_Timer3CallBack ( uint8 timerId, uint8 channel, uint8 channelMode );
+
 
 /* ------------------------------------------------------------------------------------------------------
  *									timer1_init()
@@ -52,12 +51,13 @@ void timer1_init(void)
 				   util_Timer1CallBack);
 	HalTimerStart(HAL_TIMER_1, 3906*3);		// 1s run timer1 ISR on channel 1.
 	*/
-	
+
+	/* Initialise timer 3, not using ISR.*/
 	HalTimerConfig(HAL_TIMER_3,
-				   HAL_TIMER_MODE_CTC,
-				   HAL_TIMER_CHANNEL_0, 
-				   HAL_TIMER_CH_MODE_OUTPUT_COMPARE,
-				   TRUE,
+				   HAL_TIMER_MODE_NORMAL,
+				   HAL_TIMER_CHANNEL_SINGLE, 
+				   HAL_TIMER_CH_MODE_OVERFLOW,
+				   false,
 				   util_Timer3CallBack);
 //	HalTimerStart(HAL_TIMER_3, 250);		// 1s run timer1 ISR on channel 1.
 	
@@ -81,18 +81,18 @@ static void util_Timer1CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 	case HAL_TIMER_CHANNEL_SINGLE:
 		break;
 	case HAL_TIMER_CHANNEL_0:			// Every 3s HOST send beacon frame.
-//		mac_host_bcn();
-//		halLedToggle(1);
-		halRfReceiveOff();
+		halRfReceiveOff();				// Turn off FSM modul.
 		HalTimerStop(HAL_TIMER_1);
 		HalTimerStop(HAL_TIMER_3);
 		halLedClear(2);
-//		SLEEPCMD = (SLEEPCMD & ~0x02) | 0x02;
-		pconflag = 1;
-//		PCON = 0x01;
+		if (!(sysflag & SYS_FLAG_SLEEP_SET))
+		{
+			halRfReceiveOn();
+			break;
+		}
+		sysflag |= SYS_FLAG_SLEEP_START;
 		break;
 	case HAL_TIMER_CHANNEL_1:
-//		halLedToggle(2);
 		break;
 	case HAL_TIMER_CHANNEL_2:
 		break;
@@ -123,7 +123,6 @@ static void util_Timer3CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 	case HAL_TIMER_CHANNEL_SINGLE:
 		break;
 	case HAL_TIMER_CHANNEL_0:
-		mac_host_bcn();
 		halLedToggle(2);
 		break;
 	case HAL_TIMER_CHANNEL_1:

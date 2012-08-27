@@ -49,16 +49,11 @@ int main(void)
 	
 	for(;;)
 	{
-		if(pconflag == 1)
+		if(sysflag & SYS_FLAG_SLEEP_START)
 		{
-			pconflag = 0;
+			sysflag &= ~SYS_FLAG_SLEEP_START;
 			halLedClear(1);
 			EnterSleepModeDisableInterruptsOnWakeup();
-//			PCON = 0x01;
-			asm("NOP");
-			asm("NOP");
-			asm("NOP");
-//			EA = 1;
 		}
 		mac_event_handle();
 	}
