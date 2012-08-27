@@ -82,10 +82,15 @@ void mac_parse_bcn(mac_buf_t *buf, mac_hdr_t *hdr)
 {
 	U32 sleeptinme;
 
-	sleeptinme = *(U32 *)buf->dptr;
+	if (!(sysflag & SYS_FLAG_SLEEP_SET))
+	{
+		sleeptinme = *(U32 *)buf->dptr;
 
-	set_sleeptimer(sleeptinme);
-	set_timer1isr(1);
-	halLedSet(2);
+		set_sleeptimer(sleeptinme);
+		set_timer1isr(1);
+		halLedSet(2);
+
+		sysflag |= SYS_FLAG_SLEEP_SET;
+	}
 }
 

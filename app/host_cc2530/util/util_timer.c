@@ -10,8 +10,7 @@
  *											Local Variable
  * ------------------------------------------------------------------------------------------------------
  */
-//__xdata static unsigned char timer3_value = 0;
-volatile unsigned char pconflag = 0;
+__xdata volatile unsigned long st_offset = 0;
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -59,7 +58,7 @@ void timer1_init(void)
 				   HAL_TIMER_CH_MODE_OUTPUT_COMPARE,
 				   TRUE,
 				   util_Timer3CallBack);
-//	HalTimerStart(HAL_TIMER_3, 250);		// 1s run timer1 ISR on channel 1.
+//	HalTimerStart(HAL_TIMER_3, 250);		// 1s run timer1 ISR on channel 0.
 	
 }
 
@@ -86,13 +85,15 @@ static void util_Timer1CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 		halRfReceiveOff();
 		HalTimerStop(HAL_TIMER_1);
 		HalTimerStop(HAL_TIMER_3);
+		
+		st_offset = 0;
+		
 		halLedClear(2);
-//		SLEEPCMD = (SLEEPCMD & ~0x02) | 0x02;
-		pconflag = 1;
-//		PCON = 0x01;
+		
+		sysflag |= SYS_FLAG_SLEEP_START;
+		
 		break;
 	case HAL_TIMER_CHANNEL_1:
-//		halLedToggle(2);
 		break;
 	case HAL_TIMER_CHANNEL_2:
 		break;
@@ -123,7 +124,8 @@ static void util_Timer3CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 	case HAL_TIMER_CHANNEL_SINGLE:
 		break;
 	case HAL_TIMER_CHANNEL_0:
-		mac_host_bcn();
+		mac_host_bcn(st_offset);
+		st_offset += 3277;
 		halLedToggle(2);
 		break;
 	case HAL_TIMER_CHANNEL_1:
@@ -151,3 +153,5 @@ void set_timer1isr(U16 sec)
 			   util_Timer1CallBack);
 	HalTimerStart(HAL_TIMER_1, 3906*sec);		// 3s run timer1 ISR on channel 0.
 }
+
+

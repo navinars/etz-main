@@ -32,6 +32,7 @@
 */
 /* Do NOT remove the absolute address and do NOT remove the initialiser here */
 __xdata static unsigned long timer_value = 0;
+__xdata volatile unsigned short sysflag = 0;
 
 
 /***********************************************************************************
@@ -76,13 +77,7 @@ void clock_init(void)
 	PREFETCH_ENABLE();
 	
 	/* Initialize tick value */
-	timer_value = ST0;
-	timer_value += ((unsigned long int) ST1) << 8;
-	timer_value += ((unsigned long int) ST2) << 16;
-	timer_value += TICK_VAL;
-	ST2 = (unsigned char) (timer_value >> 16);
-	ST1 = (unsigned char) (timer_value >> 8);
-	ST0 = (unsigned char) timer_value;
+	set_sleeptimer(TICK_VAL);
 	
 	STIF = 0;
 	STIE = 1; /* Sleep timer interrupt enable */
@@ -109,11 +104,8 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 	/* Start Timer3, 100.*/
 	HalTimerStart(HAL_TIMER_1, 3906*1);
 	HalTimerStart(HAL_TIMER_3, 390);
-//	pconflag = 1;
+	
 	halIntOn();
-//	EnterSleepModeDisableInterruptsOnWakeup();
-//	X_SLEEPCMD |= 0x02;
-//	PCON = 0x01;
 }
 
 /* ------------------------------------------------------------------------------------------------------

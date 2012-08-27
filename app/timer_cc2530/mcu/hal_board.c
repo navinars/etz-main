@@ -28,16 +28,16 @@
 */
 
 /***********************************************************************************
-* GLOBAL VARIABLES
+* LOCAL VARIABLES
 */
 /* Do NOT remove the absolute address and do NOT remove the initialiser here */
 __xdata static unsigned long timer_value = 0;
+__xdata volatile unsigned short sysflag = 0;
 
 
 /***********************************************************************************
 * GLOBAL FUNCTIONS
 */
-extern void EnterSleepModeDisableInterruptsOnWakeup(void);
 
 
 /***********************************************************************************
@@ -73,6 +73,7 @@ void clock_init(void)
 //	while(CLKCONSTA != CLKCONCMD);
 	while(!(CLKCONSTA & (CLKCONCMD_TICKSPD2 | CLKCONCMD_TICKSPD1)));
 	
+	/* Put on cache.*/
 	PREFETCH_ENABLE();
 	
 	/* Initialize tick value */
@@ -109,11 +110,10 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 	/* Start Timer3, 100.*/
 	HalTimerStart(HAL_TIMER_1, 3906*1);
 	HalTimerStart(HAL_TIMER_3, 390);
-//	pconflag = 1;
+
+	sysflag &= ~SYS_FLAG_SLEEP_SET;
+	
 	halIntOn();
-//	EnterSleepModeDisableInterruptsOnWakeup();
-//	X_SLEEPCMD |= 0x02;
-//	PCON = 0x01;
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -138,6 +138,9 @@ void set_sleeptimer(U32 value)
 	ST2 = (unsigned char) (timer_value >> 16);
 	ST1 = (unsigned char) (timer_value >> 8);
 	ST0 = (unsigned char) timer_value;
+	
+	STIF = 0;
+	STIE = 1; /* Sleep timer interrupt enable */
 }
 
 /* ------------------------------------------------------------------------------------------------------

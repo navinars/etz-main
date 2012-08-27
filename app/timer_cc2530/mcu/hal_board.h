@@ -21,7 +21,7 @@
  */
 /* Sleep timer runs on the 32.768k external RC. */
 /* One clock tick is 7.8 ms */
-#define TICK_VAL 32768*2//(32768/128)  /* 256 */
+#define TICK_VAL 32768*5//(32768/128)  /* 256 */
 
 
 // Internal (MCU) RAM addresses
@@ -83,12 +83,30 @@
 /* ----------- Cache Prefetch control ---------- */
 #define PREFETCH_ENABLE()     st( FCTL = 0x08; )
 #define PREFETCH_DISABLE()    st( FCTL = 0x04; )
+
+
+/***********************************************************************************
+* GLOBAL ENUM
+*/
+typedef enum
+{
+	SYS_FLAG_SLEEP_START	= 0x0001,
+	SYS_FLAG_SLEEP_SET		= 0x0002,
+	
+} system_flag_enums_t;
+
+/***********************************************************************************
+* GLOBAL VARIABLES
+*/
+extern volatile unsigned short sysflag;
+
+
 /***********************************************************************************
  * FUNCTION PROTOTYPES
  */
 void halBoardInit(void);
 void clock_init(void);
 void set_sleeptimer(U32 value);
-U32 read_sleeptimer(void);
+U32  read_sleeptimer(void);
 
 #endif

@@ -133,14 +133,14 @@ void mac_event_handle(void)
  * Describtion : RF tx function.
  *
  */
-void mac_host_bcn(void)
+void mac_host_bcn(U16 offset)
 {
 	U8 data[20], len, option;
 	address_t destAddr;
 
 	memcpy(data, "dooya", 6);
 	
-	*(U32 *)(&data[6]) = TICK_VAL;
+	*(U32 *)(&data[6]) = TICK_VAL - offset;
 	
 	len = 6 + 4;
 	

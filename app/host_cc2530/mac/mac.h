@@ -331,7 +331,7 @@ extern mac_pcb_t *mac_pcb_get(void);
 
 extern void mac_event_handle(void);
 
-extern void mac_host_bcn(void);
+extern void mac_host_bcn(U16 offset);
 
 
 //---------------------------------------mac_buf.c-------------------------------------------------------
