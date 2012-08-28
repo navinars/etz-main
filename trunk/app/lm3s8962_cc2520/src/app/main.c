@@ -1,5 +1,17 @@
+/* ------------------------------------------------------------------------------------------------------
+* File: main.c
+*
+* -------------------------------------------------------------------------------------------------------
+*/
 #include "includes.h"
 
+
+/* ------------------------------------------------------------------------------------------------------
+ *											Local Variable
+ * ------------------------------------------------------------------------------------------------------
+ */
+ 
+ 
 /* Peripheral definitions for EK-LM3S8962 board */
 // SSI port
 #define SDC_SSI_BASE            SSI0_BASE
@@ -19,11 +31,23 @@
 #define SDC_CS_GPIO_SYSCTL_PERIPH  SYSCTL_PERIPH_GPIOG
 #define SDC_CS                     GPIO_PIN_0
 
-
+/* ------------------------------------------------------------------------------------------------------
+ *											Local Function
+ * ------------------------------------------------------------------------------------------------------
+ */
 void ssi_init(void);
 void CC2520_SPI_ENABLE(void);
 void CC2520_SPI_DISABLE(void);
 
+
+/* ------------------------------------------------------------------------------------------------------
+ *									main()
+ *
+ * Description : main function.
+ *
+ * Argument(s) : none.
+ *
+ */
 int main(void)
 {
 	unsigned long dat;
@@ -32,7 +56,7 @@ int main(void)
     a workaround to allow the PLL to operate reliably. */
     if( DEVICE_IS_REVA2 )
     {
-        SysCtlLDOSet( SYSCTL_LDO_2_75V );
+		SysCtlLDOSet( SYSCTL_LDO_2_75V );
     }
 	
 	//
@@ -43,8 +67,11 @@ int main(void)
 
 	ssi_init();
 	
+	CC2520_SPI_DISABLE();
 	CC2520_SPI_ENABLE();
+	SSIDataPut(SDC_SSI_BASE, 0x10);
 	SSIDataPut(SDC_SSI_BASE, 0x00);
+	SSIDataPut(SDC_SSI_BASE, 0xFF);
 	SSIDataGet(SDC_SSI_BASE, &dat);
 	CC2520_SPI_DISABLE();
 	
@@ -58,7 +85,14 @@ int main(void)
 	}
 }
 
-
+/* ------------------------------------------------------------------------------------------------------
+ *									ssi_init()
+ *
+ * Description : timer1 initlisation.
+ *
+ * Argument(s) : none.
+ *
+ */
 void ssi_init(void)
 {
     /*
@@ -69,27 +103,39 @@ void ssi_init(void)
     /* Enable the peripherals used to drive the SDC on SSI, and the CS */
     SysCtlPeripheralEnable(SDC_SSI_SYSCTL_PERIPH);
     SysCtlPeripheralEnable(SDC_GPIO_SYSCTL_PERIPH);
-    SysCtlPeripheralEnable(SDC_CS_GPIO_SYSCTL_PERIPH);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
 
     /* Configure the appropriate pins to be SSI instead of GPIO */
     GPIOPinTypeSSI(SDC_GPIO_PORT_BASE, SDC_SSI_PINS);
     GPIOPadConfigSet(SDC_GPIO_PORT_BASE, SDC_SSI_PINS, GPIO_STRENGTH_4MA,
                      GPIO_PIN_TYPE_STD_WPU);
-    GPIOPinTypeGPIOOutput(SDC_CS_GPIO_PORT_BASE, SDC_CS);
-    GPIOPadConfigSet(SDC_CS_GPIO_PORT_BASE, SDC_CS, GPIO_STRENGTH_4MA,
+	
+    GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_7);
+    GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PIN_7, GPIO_STRENGTH_4MA,
                      GPIO_PIN_TYPE_STD_WPU);
+	
+	/* Configure the PC4*/
+    GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_4);
+    GPIOPadConfigSet(GPIO_PORTC_BASE, GPIO_PIN_4, GPIO_STRENGTH_4MA,
+                     GPIO_PIN_TYPE_STD_WPU);
+	
+	GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_4, GPIO_PIN_4);
 	
 	/* Configure the SSI0 port */
     SSIConfigSetExpClk(SDC_SSI_BASE, SysCtlClockGet(), SSI_FRF_MOTO_MODE_0,
-                       SSI_MODE_MASTER, 400000, 8);
+                       SSI_MODE_MASTER, 8000000, 8);
     SSIEnable(SDC_SSI_BASE);
+	
+	CC2520_SPI_DISABLE();
 }
 
 void CC2520_SPI_ENABLE(void)
 {
-	GPIOPinWrite(SDC_GPIO_PORT_BASE, SDC_SSI_FSS, 0);
+	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_7, 0);
 }
+
 void CC2520_SPI_DISABLE(void)
 {
-	GPIOPinWrite(SDC_GPIO_PORT_BASE, SDC_SSI_FSS, 1);
+	GPIOPinWrite(GPIO_PORTA_BASE, GPIO_PIN_7, GPIO_PIN_7);
 }
+
