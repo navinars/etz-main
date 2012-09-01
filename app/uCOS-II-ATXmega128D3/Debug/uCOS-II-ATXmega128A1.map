@@ -1,0 +1,1190 @@
+Archive member included because of file (symbol)
+
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_mulsi3.o)
+                              app.o (__mulsi3)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_udivmodsi4.o)
+                              app.o (__udivmodsi4)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_exit.o)
+                              d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o (exit)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_copy_data.o)
+                              app.o (__do_copy_data)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_clear_bss.o)
+                              app.o (__do_clear_bss)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+                              BSP/bsp.o (vsprintf)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+                              d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o) (vfprintf)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+                              d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o) (strnlen_P)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+                              d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o) (strnlen)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+                              d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o) (fputc)
+d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+                              d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o) (__ultoa_invert)
+
+Allocating common symbols
+Common symbol       size              file
+
+OSTmrFreeList       0x2               uCOS-II/source/os_core.o
+OSTmrWheelTbl       0x20              uCOS-II/source/os_core.o
+OSLockNesting       0x1               uCOS-II/source/os_core.o
+OSTmrSemSignal      0x2               uCOS-II/source/os_core.o
+OSRunning           0x1               uCOS-II/source/os_core.o
+OSTaskStkSize       0x2               uCOS-II/os_cpu_c.o
+OSIdleCtr           0x4               uCOS-II/source/os_core.o
+OSTmrUsed           0x2               uCOS-II/source/os_core.o
+OSPrioHighRdy       0x1               uCOS-II/source/os_core.o
+OSFlagTbl           0x69              uCOS-II/source/os_core.o
+OSTmrTbl            0x270             uCOS-II/source/os_core.o
+OSPrioCur           0x1               uCOS-II/source/os_core.o
+OSTaskStkSizeHard   0x2               uCOS-II/os_cpu_c.o
+OSTCBList           0x2               uCOS-II/source/os_core.o
+OSTickStepState     0x1               uCOS-II/source/os_core.o
+OSTaskStatStk       0x168             uCOS-II/source/os_core.o
+OSCtxSwCtr          0x4               uCOS-II/source/os_core.o
+OSTmrFree           0x2               uCOS-II/source/os_core.o
+OSIdleCtrMax        0x4               uCOS-II/source/os_core.o
+OSTCBFreeList       0x2               uCOS-II/source/os_core.o
+OSCPUUsage          0x1               uCOS-II/source/os_core.o
+OSTaskCtr           0x1               uCOS-II/source/os_core.o
+OSQTbl              0x38              uCOS-II/source/os_core.o
+OSTCBHighRdy        0x2               uCOS-II/source/os_core.o
+OSQFreeList         0x2               uCOS-II/source/os_core.o
+OSRdyGrp            0x1               uCOS-II/source/os_core.o
+OSRdyTbl            0x8               uCOS-II/source/os_core.o
+OSTmrTaskStk        0x168             uCOS-II/source/os_core.o
+OSEventFreeList     0x2               uCOS-II/source/os_core.o
+OSIntNesting        0x1               uCOS-II/source/os_core.o
+OSTCBCur            0x2               uCOS-II/source/os_core.o
+OSTmrTime           0x4               uCOS-II/source/os_core.o
+OSTime              0x4               uCOS-II/source/os_core.o
+OSTmrSem            0x2               uCOS-II/source/os_core.o
+OSTaskIdleStk       0x168             uCOS-II/source/os_core.o
+OSEventTbl          0x12c             uCOS-II/source/os_core.o
+OSTCBTbl            0x4c8             uCOS-II/source/os_core.o
+OSFlagFreeList      0x2               uCOS-II/source/os_core.o
+OSStatRdy           0x1               uCOS-II/source/os_core.o
+OSTCBPrioTbl        0x80              uCOS-II/source/os_core.o
+OSIdleCtrRun        0x4               uCOS-II/source/os_core.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00100000         xr
+data             0x00802000         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+LOAD app.o
+LOAD app_vect.o
+LOAD BSP/bsp.o
+LOAD BSP/bsp_isr.o
+LOAD uC-CPU/cpu_a.o
+LOAD uC-LIB/lib_ascii.o
+LOAD uC-LIB/lib_mem.o
+LOAD uC-LIB/lib_str.o
+LOAD uCOS-II/os_cpu_a.o
+LOAD uCOS-II/os_cpu_c.o
+LOAD uCOS-II/os_dbg.o
+LOAD uCOS-II/source/os_core.o
+LOAD uCOS-II/source/os_flag.o
+LOAD uCOS-II/source/os_mbox.o
+LOAD uCOS-II/source/os_mem.o
+LOAD uCOS-II/source/os_mutex.o
+LOAD uCOS-II/source/os_q.o
+LOAD uCOS-II/source/os_sem.o
+LOAD uCOS-II/source/os_task.o
+LOAD uCOS-II/source/os_time.o
+LOAD uCOS-II/source/os_tmr.o
+LOAD d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a
+LOAD d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a
+LOAD d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0xb478
+ *(.vectors)
+ .vectors       0x00000000      0x1c8 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ .vectors       0x000001c8      0x1f0 app_vect.o
+                0x000001c8                __vector_1
+                0x000001cc                __vector_2
+                0x000001d0                __vector_3
+                0x000001d4                __vector_4
+                0x000001d8                __vector_5
+                0x000001dc                __vector_6
+                0x000001e0                __vector_7
+                0x000001e4                __vector_8
+                0x000001e8                __vector_9
+                0x000001ec                __vector_10
+                0x000001f0                __vector_11
+                0x000001f4                __vector_12
+                0x000001f8                __vector_13
+                0x000001fc                __vector_14
+                0x00000200                __vector_15
+                0x00000204                __vector_16
+                0x00000208                __vector_17
+                0x0000020c                __vector_18
+                0x00000210                __vector_19
+                0x00000214                __vector_20
+                0x00000218                __vector_21
+                0x0000021c                __vector_22
+                0x00000220                __vector_23
+                0x00000224                __vector_24
+                0x00000228                __vector_25
+                0x0000022c                __vector_26
+                0x00000230                __vector_27
+                0x00000234                __vector_28
+                0x00000238                __vector_29
+                0x0000023c                __vector_30
+                0x00000240                __vector_31
+                0x00000244                __vector_32
+                0x00000248                __vector_33
+                0x0000024c                __vector_34
+                0x00000250                __vector_35
+                0x00000254                __vector_36
+                0x00000258                __vector_37
+                0x0000025c                __vector_38
+                0x00000260                __vector_39
+                0x00000264                __vector_40
+                0x00000268                __vector_41
+                0x0000026c                __vector_42
+                0x00000270                __vector_43
+                0x00000274                __vector_44
+                0x00000278                __vector_45
+                0x0000027c                __vector_46
+                0x00000280                __vector_47
+                0x00000284                __vector_48
+                0x00000288                __vector_49
+                0x0000028c                __vector_50
+                0x00000290                __vector_51
+                0x00000294                __vector_52
+                0x00000298                __vector_53
+                0x0000029c                __vector_54
+                0x000002a0                __vector_55
+                0x000002a4                __vector_56
+                0x000002a8                __vector_57
+                0x000002ac                __vector_58
+                0x000002b0                __vector_59
+                0x000002b4                __vector_60
+                0x000002b8                __vector_61
+                0x000002bc                __vector_62
+                0x000002c0                __vector_63
+                0x000002c4                __vector_64
+                0x000002c8                __vector_65
+                0x000002cc                __vector_66
+                0x000002d0                __vector_67
+                0x000002d4                __vector_68
+                0x000002d8                __vector_69
+                0x000002dc                __vector_70
+                0x000002e0                __vector_71
+                0x000002e4                __vector_72
+                0x000002e8                __vector_73
+                0x000002ec                __vector_74
+                0x000002f0                __vector_75
+                0x000002f4                __vector_76
+                0x000002f8                __vector_77
+                0x000002fc                __vector_78
+                0x00000300                __vector_79
+                0x00000304                __vector_80
+                0x00000308                __vector_81
+                0x0000030c                __vector_82
+                0x00000310                __vector_83
+                0x00000314                __vector_84
+                0x00000318                __vector_85
+                0x0000031c                __vector_86
+                0x00000320                __vector_87
+                0x00000324                __vector_88
+                0x00000328                __vector_89
+                0x0000032c                __vector_90
+                0x00000330                __vector_91
+                0x00000334                __vector_92
+                0x00000338                __vector_93
+                0x0000033c                __vector_94
+                0x00000340                __vector_95
+                0x00000344                __vector_96
+                0x00000348                __vector_97
+                0x0000034c                __vector_98
+                0x00000350                __vector_99
+                0x00000354                __vector_100
+                0x00000358                __vector_101
+                0x0000035c                __vector_102
+                0x00000360                __vector_103
+                0x00000364                __vector_104
+                0x00000368                __vector_105
+                0x0000036c                __vector_106
+                0x00000370                __vector_107
+                0x00000374                __vector_108
+                0x00000378                __vector_109
+                0x0000037c                __vector_110
+                0x00000380                __vector_111
+                0x00000384                __vector_112
+                0x00000388                __vector_113
+                0x0000038c                __vector_114
+                0x00000390                __vector_115
+                0x00000394                __vector_116
+                0x00000398                __vector_117
+                0x0000039c                __vector_118
+                0x000003a0                __vector_119
+                0x000003a4                __vector_120
+                0x000003a8                __vector_121
+                0x000003ac                __vector_122
+                0x000003b0                __vector_123
+                0x000003b4                __vector_124
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x000003b8                . = ALIGN (0x2)
+                0x000003b8                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x000003b8        0x0 linker stubs
+ *(.trampolines*)
+                0x000003b8                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x000003b8                __ctors_start = .
+ *(.ctors)
+                0x000003b8                __ctors_end = .
+                0x000003b8                __dtors_start = .
+ *(.dtors)
+                0x000003b8                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x000003b8        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+                0x000003b8                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x000003b8       0x10 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x000003c8       0x1a d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_copy_data.o)
+                0x000003c8                __do_copy_data
+ .init4         0x000003e2       0x10 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_clear_bss.o)
+                0x000003e2                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000003f2        0x8 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+ *(.init9)
+ *(.text)
+ .text          0x000003fa        0x4 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+                0x000003fa                __bad_interrupt
+ .text          0x000003fe      0x81c app.o
+                0x000003fe                main
+                0x00000b94                App_TaskCreateHook
+                0x00000bae                App_TaskDelHook
+                0x00000bc8                App_TaskIdleHook
+                0x00000bd6                App_TaskStatHook
+                0x00000be4                App_TaskSwHook
+                0x00000bf2                App_TCBInitHook
+                0x00000c0c                App_TimeTickHook
+ .text          0x00000c1a        0x0 app_vect.o
+ .text          0x00000c1a      0xe26 BSP/bsp.o
+                0x00000c1a                BSP_Init
+                0x00000c38                BSP_IntDisAll
+                0x00000c4e                BSP_CPU_ClkFreq
+                0x00000c84                BSP_PLL_FreqGet
+                0x00000cec                BSP_PLL_FreqSet
+                0x00000dc2                BSP_PLL_SrcGet
+                0x00000e12                BSP_PLL_SrcGetFreq
+                0x00000e8c                BSP_PLL_SrcSet
+                0x00000eee                BSP_SysClk_DevSetPre
+                0x00000f48                BSP_SysClk_DevGetFreq
+                0x0000110e                BSP_SysClk_FreqGet
+                0x000011ca                BSP_SysClk_SrcEn
+                0x000012a0                BSP_SysClk_SrcSet
+                0x00001310                BSP_SysClk_SrcGet
+                0x00001382                BSP_XOSC_SrcSet
+                0x00001408                BSP_XOSC_SrcGet
+                0x00001470                BSP_XOSC_FreqGet
+                0x000014ba                BSP_LED_On
+                0x00001504                BSP_LED_Off
+                0x0000154e                BSP_LED_Toggle
+                0x00001598                BSP_PB_GetStatus
+                0x000015e2                BSP_Ser_Init
+                0x000016b6                BSP_Ser_WrByte
+                0x000016f6                BSP_Ser_RdByte
+                0x00001736                BSP_Ser_WrStr
+                0x00001776                BSP_Ser_RdStr
+                0x000018a4                BSP_Ser_Printf
+                0x000019f8                BSP_TmrHandler
+ .text          0x00001a40       0xda BSP/bsp_isr.o
+                0x00001a40                BSP_TickISR
+ .text          0x00001b1a        0xa uC-CPU/cpu_a.o
+                0x00001b1a                CPU_SR_Save
+                0x00001b20                CPU_SR_Restore
+ .text          0x00001b24      0x4c2 uC-LIB/lib_ascii.o
+                0x00001b24                ASCII_IsAlpha
+                0x00001b82                ASCII_IsAlnum
+                0x00001c0c                ASCII_IsLower
+                0x00001c3e                ASCII_IsUpper
+                0x00001c70                ASCII_IsDig
+                0x00001ca2                ASCII_IsDigHex
+                0x00001cec                ASCII_IsBlank
+                0x00001d1e                ASCII_IsSpace
+                0x00001d68                ASCII_IsPrint
+                0x00001d9a                ASCII_IsGraph
+                0x00001dcc                ASCII_IsPunct
+                0x00001eb4                ASCII_IsCtrl
+                0x00001eec                ASCII_ToLower
+                0x00001f2c                ASCII_ToUpper
+                0x00001f6c                ASCII_Cmp
+ .text          0x00001fe6      0x3f4 uC-LIB/lib_mem.o
+                0x00001fe6                Mem_Init
+                0x00001ff4                Mem_Clr
+                0x0000201c                Mem_Set
+                0x0000210e                Mem_Copy
+                0x00002254                Mem_Cmp
+ .text          0x000023da      0xc8e uC-LIB/lib_str.o
+                0x000023da                Str_Len
+                0x0000241e                Str_Copy
+                0x000024ce                Str_Copy_N
+                0x0000259c                Str_Cat
+                0x0000267a                Str_Cat_N
+                0x00002776                Str_Cmp
+                0x000028f4                Str_Cmp_N
+                0x00002a9e                Str_Char
+                0x00002b2e                Str_Char_N
+                0x00002bdc                Str_Char_Last
+                0x00002c6c                Str_Str
+                0x00002d56                Str_FmtNbr_Int32U
+                0x00002f72                Str_FmtNbr_Int32S
+ .text          0x00003068      0x1e8 uCOS-II/os_cpu_a.o
+                0x00003068                OS_CPU_SR_Save
+                0x0000306e                OS_CPU_SR_Restore
+                0x00003072                OSStartHighRdy
+                0x000030ea                OSCtxSw
+                0x000031d2                OSIntCtxSw
+ .text          0x00003250      0x4b8 uCOS-II/os_cpu_c.o
+                0x00003250                OSInitHookBegin
+                0x00003266                OSInitHookEnd
+                0x00003274                OSTaskCreateHook
+                0x00003296                OSTaskDelHook
+                0x000032b8                OSTaskIdleHook
+                0x000032ca                OSTaskStatHook
+                0x000032dc                OSTaskStkInit
+                0x00003696                OSTaskSwHook
+                0x000036a8                OSTCBInitHook
+                0x000036ca                OSTimeTickHook
+ .text          0x00003708      0x18e uCOS-II/os_dbg.o
+                0x00003708                OSDebugInit
+ .text          0x00003896     0x1ab2 uCOS-II/source/os_core.o
+                0x00003896                OSEventNameGet
+                0x00003922                OSEventNameSet
+                0x000039c6                OSEventPendMulti
+                0x00003f0c                OSInit
+                0x00003f4a                OSIntEnter
+                0x00003f72                OSIntExit
+                0x0000403a                OSSchedLock
+                0x0000407c                OSSchedUnlock
+                0x000040e2                OSStart
+                0x00004136                OSStatInit
+                0x000041a8                OSTimeTick
+                0x0000434a                OSVersion
+                0x0000435c                OS_Dummy
+                0x0000436a                OS_EventTaskRdy
+                0x000044b8                OS_EventTaskWait
+                0x000045b6                OS_EventTaskWaitMulti
+                0x00004700                OS_EventTaskRemove
+                0x0000479e                OS_EventTaskRemoveMulti
+                0x0000487e                OS_EventWaitListInit
+                0x00004c4e                OS_MemClr
+                0x00004c94                OS_MemCopy
+                0x00004cf0                OS_Sched
+                0x00004dea                OS_StrCopy
+                0x00004e50                OS_StrLen
+                0x00004e8c                OS_TaskIdle
+                0x00004ed4                OS_TaskStat
+                0x00004fd2                OS_TaskStatStkChk
+                0x0000507a                OS_TCBInit
+ .text          0x00005348     0x10ec uCOS-II/source/os_flag.o
+                0x00005348                OSFlagAccept
+                0x0000556a                OSFlagCreate
+                0x0000562e                OSFlagDel
+                0x000057dc                OSFlagNameGet
+                0x00005866                OSFlagNameSet
+                0x00005908                OSFlagPend
+                0x00005d52                OSFlagPendGetFlagsRdy
+                0x00005d8c                OSFlagPost
+                0x00006032                OSFlagQuery
+                0x00006206                OS_FlagInit
+                0x00006386                OS_FlagUnlink
+ .text          0x00006434      0x738 uCOS-II/source/os_mbox.o
+                0x00006434                OSMboxAccept
+                0x0000648e                OSMboxCreate
+                0x0000653e                OSMboxDel
+                0x000066da                OSMboxPend
+                0x0000688e                OSMboxPendAbort
+                0x00006958                OSMboxPost
+                0x000069ec                OSMboxPostOpt
+                0x00006abe                OSMboxQuery
+ .text          0x00006b6c        0x0 uCOS-II/source/os_mem.o
+ .text          0x00006b6c      0xcbc uCOS-II/source/os_mutex.o
+                0x00006b6c                OSMutexAccept
+                0x00006c80                OSMutexCreate
+                0x00006db0                OSMutexDel
+                0x00006fe4                OSMutexPend
+                0x00007472                OSMutexPost
+                0x000075ee                OSMutexQuery
+ .text          0x00007828      0xd14 uCOS-II/source/os_q.o
+                0x00007828                OSQAccept
+                0x00007918                OSQCreate
+                0x00007a8c                OSQDel
+                0x00007c82                OSQFlush
+                0x00007cf0                OSQPend
+                0x00007f0e                OSQPendAbort
+                0x00007fd8                OSQPost
+                0x000080e4                OSQPostFront
+                0x000081fa                OSQPostOpt
+                0x000083b2                OSQQuery
+                0x000084b6                OS_QInit
+ .text          0x0000853c      0x6e8 uCOS-II/source/os_sem.o
+                0x0000853c                OSSemAccept
+                0x000085ae                OSSemCreate
+                0x0000865e                OSSemDel
+                0x000087fa                OSSemPend
+                0x0000897a                OSSemPendAbort
+                0x00008a44                OSSemPost
+                0x00008ade                OSSemQuery
+                0x00008b8c                OSSemSet
+ .text          0x00008c24      0xf82 uCOS-II/source/os_task.o
+                0x00008c24                OSTaskChangePrio
+                0x00008fd2                OSTaskCreate
+                0x000090ec                OSTaskCreateExt
+                0x0000923c                OSTaskDel
+                0x000094aa                OSTaskDelReq
+                0x0000954c                OSTaskNameGet
+                0x0000961a                OSTaskNameSet
+                0x000096fc                OSTaskResume
+                0x00009812                OSTaskStkChk
+                0x00009982                OSTaskSuspend
+                0x00009a98                OSTaskQuery
+                0x00009b2a                OS_TaskStkClr
+ .text          0x00009ba6      0x3cc uCOS-II/source/os_time.o
+                0x00009ba6                OSTimeDly
+                0x00009c66                OSTimeDlyHMSM
+                0x00009daa                OSTimeDlyResume
+                0x00009ede                OSTimeGet
+                0x00009f2a                OSTimeSet
+ .text          0x00009f72      0xee6 uCOS-II/source/os_tmr.o
+                0x00009f72                OSTmrCreate
+                0x0000a0ce                OSTmrDel
+                0x0000a1a0                OSTmrNameGet
+                0x0000a25c                OSTmrRemainGet
+                0x0000a41a                OSTmrStateGet
+                0x0000a4a4                OSTmrStart
+                0x0000a57a                OSTmrStop
+                0x0000a6e6                OSTmrSignal
+                0x0000a842                OSTmr_Init
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_mulsi3.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_udivmodsi4.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_exit.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_copy_data.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_clear_bss.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ .text          0x0000ae58        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+                0x0000ae58                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x0000ae58       0x3e d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_mulsi3.o)
+                0x0000ae58                __mulsi3
+ .text.libgcc   0x0000ae96       0x44 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_udivmodsi4.o)
+                0x0000ae96                __udivmodsi4
+ .text.libgcc   0x0000aeda        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_exit.o)
+ .text.libgcc   0x0000aeda        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000aeda        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_clear_bss.o)
+ .text.avr-libc
+                0x0000aeda       0x46 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+                0x0000aeda                vsprintf
+ .text.avr-libc
+                0x0000af20      0x414 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+                0x0000af20                vfprintf
+ .text.avr-libc
+                0x0000b334       0x16 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+                0x0000b334                strnlen_P
+ .text.avr-libc
+                0x0000b34a       0x16 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+                0x0000b34a                strnlen
+ .text.avr-libc
+                0x0000b360       0x58 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+                0x0000b360                fputc
+ .text.avr-libc
+                0x0000b3b8       0xbc d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+                0x0000b3b8                __ultoa_invert
+                0x0000b474                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x0000b474        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_exit.o)
+                0x0000b474                _exit
+                0x0000b474                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x0000b474        0x4 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_exit.o)
+ *(.fini0)
+                0x0000b478                _etext = .
+
+.data           0x00802000      0x2f6 load address 0x0000b478
+                0x00802000                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00802000        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+ .data          0x00802000       0xbb app.o
+ .data          0x008020bb        0x0 app_vect.o
+ .data          0x008020bb        0x9 BSP/bsp.o
+ .data          0x008020c4        0x0 BSP/bsp_isr.o
+ .data          0x008020c4        0x0 uC-CPU/cpu_a.o
+ .data          0x008020c4        0x0 uC-LIB/lib_ascii.o
+ .data          0x008020c4        0x0 uC-LIB/lib_mem.o
+ .data          0x008020c4       0x94 uC-LIB/lib_str.o
+ .data          0x00802158        0x0 uCOS-II/os_cpu_a.o
+ .data          0x00802158        0x0 uCOS-II/os_cpu_c.o
+ .data          0x00802158       0x60 uCOS-II/os_dbg.o
+                0x00802158                OSDebugEn
+                0x0080215a                OSEndiannessTest
+                0x0080215e                OSEventMax
+                0x00802160                OSEventNameSize
+                0x00802162                OSEventEn
+                0x00802164                OSEventSize
+                0x00802166                OSEventTblSize
+                0x00802168                OSFlagEn
+                0x0080216a                OSFlagGrpSize
+                0x0080216c                OSFlagNodeSize
+                0x0080216e                OSFlagWidth
+                0x00802170                OSFlagMax
+                0x00802172                OSFlagNameSize
+                0x00802174                OSLowestPrio
+                0x00802176                OSMboxEn
+                0x00802178                OSMemEn
+                0x0080217a                OSMemMax
+                0x0080217c                OSMemNameSize
+                0x0080217e                OSMemSize
+                0x00802180                OSMemTblSize
+                0x00802182                OSMutexEn
+                0x00802184                OSPtrSize
+                0x00802186                OSQEn
+                0x00802188                OSQMax
+                0x0080218a                OSQSize
+                0x0080218c                OSRdyTblSize
+                0x0080218e                OSSemEn
+                0x00802190                OSStkWidth
+                0x00802192                OSTaskCreateEn
+                0x00802194                OSTaskCreateExtEn
+                0x00802196                OSTaskDelEn
+                0x00802198                OSTaskIdleStkSize
+                0x0080219a                OSTaskProfileEn
+                0x0080219c                OSTaskMax
+                0x0080219e                OSTaskNameSize
+                0x008021a0                OSTaskStatEn
+                0x008021a2                OSTaskStatStkSize
+                0x008021a4                OSTaskStatStkChkEn
+                0x008021a6                OSTaskSwHookEn
+                0x008021a8                OSTCBPrioTblMax
+                0x008021aa                OSTCBSize
+                0x008021ac                OSTicksPerSec
+                0x008021ae                OSTimeTickHookEn
+                0x008021b0                OSTmrTblSize
+                0x008021b2                OSTmrWheelTblSize
+                0x008021b4                OSVersionNbr
+                0x008021b6                OSDataSize
+ .data          0x008021b8      0x11c uCOS-II/source/os_core.o
+                0x008021b8                OSUnMapTbl
+ .data          0x008022d4        0x0 uCOS-II/source/os_flag.o
+ .data          0x008022d4        0x0 uCOS-II/source/os_mbox.o
+ .data          0x008022d4        0x0 uCOS-II/source/os_mem.o
+ .data          0x008022d4        0x0 uCOS-II/source/os_mutex.o
+ .data          0x008022d4        0x0 uCOS-II/source/os_q.o
+ .data          0x008022d4        0x0 uCOS-II/source/os_sem.o
+ .data          0x008022d4        0x0 uCOS-II/source/os_task.o
+ .data          0x008022d4        0x0 uCOS-II/source/os_time.o
+ .data          0x008022d4       0x22 uCOS-II/source/os_tmr.o
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_mulsi3.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_udivmodsi4.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_exit.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_copy_data.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_clear_bss.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ .data          0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x008022f6                . = ALIGN (0x2)
+                0x008022f6                _edata = .
+                0x008022f6                PROVIDE (__data_end, .)
+
+.bss            0x008022f6     0x1301
+                0x008022f6                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x008022f6        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+ .bss           0x008022f6      0x48b app.o
+ .bss           0x00802781        0x0 app_vect.o
+ .bss           0x00802781       0x51 BSP/bsp.o
+ .bss           0x008027d2        0x0 BSP/bsp_isr.o
+ .bss           0x008027d2        0x0 uC-CPU/cpu_a.o
+ .bss           0x008027d2        0x0 uC-LIB/lib_ascii.o
+ .bss           0x008027d2        0x0 uC-LIB/lib_mem.o
+ .bss           0x008027d2        0x0 uC-LIB/lib_str.o
+ .bss           0x008027d2        0x0 uCOS-II/os_cpu_a.o
+ .bss           0x008027d2        0x2 uCOS-II/os_cpu_c.o
+ .bss           0x008027d4        0x0 uCOS-II/os_dbg.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_core.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_flag.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_mbox.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_mem.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_mutex.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_q.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_sem.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_task.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_time.o
+ .bss           0x008027d4        0x0 uCOS-II/source/os_tmr.o
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_mulsi3.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_udivmodsi4.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_exit.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_copy_data.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avrxmega6\libgcc.a(_clear_bss.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ .bss           0x008027d4        0x0 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x008027d4        0x4 uCOS-II/os_cpu_c.o
+                0x008027d4                OSTaskStkSize
+                0x008027d6                OSTaskStkSizeHard
+ COMMON         0x008027d8      0xe1f uCOS-II/source/os_core.o
+                0x008027d8                OSTmrFreeList
+                0x008027da                OSTmrWheelTbl
+                0x008027fa                OSLockNesting
+                0x008027fb                OSTmrSemSignal
+                0x008027fd                OSRunning
+                0x008027fe                OSIdleCtr
+                0x00802802                OSTmrUsed
+                0x00802804                OSPrioHighRdy
+                0x00802805                OSFlagTbl
+                0x0080286e                OSTmrTbl
+                0x00802ade                OSPrioCur
+                0x00802adf                OSTCBList
+                0x00802ae1                OSTickStepState
+                0x00802ae2                OSTaskStatStk
+                0x00802c4a                OSCtxSwCtr
+                0x00802c4e                OSTmrFree
+                0x00802c50                OSIdleCtrMax
+                0x00802c54                OSTCBFreeList
+                0x00802c56                OSCPUUsage
+                0x00802c57                OSTaskCtr
+                0x00802c58                OSQTbl
+                0x00802c90                OSTCBHighRdy
+                0x00802c92                OSQFreeList
+                0x00802c94                OSRdyGrp
+                0x00802c95                OSRdyTbl
+                0x00802c9d                OSTmrTaskStk
+                0x00802e05                OSEventFreeList
+                0x00802e07                OSIntNesting
+                0x00802e08                OSTCBCur
+                0x00802e0a                OSTmrTime
+                0x00802e0e                OSTime
+                0x00802e12                OSTmrSem
+                0x00802e14                OSTaskIdleStk
+                0x00802f7c                OSEventTbl
+                0x008030a8                OSTCBTbl
+                0x00803570                OSFlagFreeList
+                0x00803572                OSStatRdy
+                0x00803573                OSTCBPrioTbl
+                0x008035f3                OSIdleCtrRun
+                0x008035f7                PROVIDE (__bss_end, .)
+                0x0000b478                __data_load_start = LOADADDR (.data)
+                0x0000b76e                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008035f7        0x0
+                0x008035f7                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008035f7                PROVIDE (__noinit_end, .)
+                0x008035f7                _end = .
+                0x008035f7                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000      0xc9c
+ *(.stab)
+ .stab          0x00000000      0x6e4 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+ .stab          0x000006e4       0x9c d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+                                 0xa8 (size before relaxing)
+ .stab          0x00000780       0x9c d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+                                 0xa8 (size before relaxing)
+ .stab          0x0000081c      0x480 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+                                0x48c (size before relaxing)
+
+.stabstr        0x00000000      0x1b6
+ *(.stabstr)
+ .stabstr       0x00000000      0x1b6 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6/crtx128d3.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x2e0
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 app.o
+ .debug_aranges
+                0x00000020       0x20 app_vect.o
+ .debug_aranges
+                0x00000040       0x20 BSP/bsp.o
+ .debug_aranges
+                0x00000060       0x20 BSP/bsp_isr.o
+ .debug_aranges
+                0x00000080       0x20 uC-CPU/cpu_a.o
+ .debug_aranges
+                0x000000a0       0x20 uC-LIB/lib_ascii.o
+ .debug_aranges
+                0x000000c0       0x20 uC-LIB/lib_mem.o
+ .debug_aranges
+                0x000000e0       0x20 uC-LIB/lib_str.o
+ .debug_aranges
+                0x00000100       0x20 uCOS-II/os_cpu_a.o
+ .debug_aranges
+                0x00000120       0x20 uCOS-II/os_cpu_c.o
+ .debug_aranges
+                0x00000140       0x20 uCOS-II/os_dbg.o
+ .debug_aranges
+                0x00000160       0x20 uCOS-II/source/os_core.o
+ .debug_aranges
+                0x00000180       0x20 uCOS-II/source/os_flag.o
+ .debug_aranges
+                0x000001a0       0x20 uCOS-II/source/os_mbox.o
+ .debug_aranges
+                0x000001c0       0x20 uCOS-II/source/os_mutex.o
+ .debug_aranges
+                0x000001e0       0x20 uCOS-II/source/os_q.o
+ .debug_aranges
+                0x00000200       0x20 uCOS-II/source/os_sem.o
+ .debug_aranges
+                0x00000220       0x20 uCOS-II/source/os_task.o
+ .debug_aranges
+                0x00000240       0x20 uCOS-II/source/os_time.o
+ .debug_aranges
+                0x00000260       0x20 uCOS-II/source/os_tmr.o
+ .debug_aranges
+                0x00000280       0x20 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_aranges
+                0x000002a0       0x20 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_aranges
+                0x000002c0       0x20 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+
+.debug_pubnames
+                0x00000000     0x1301
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0xac app.o
+ .debug_pubnames
+                0x000000ac      0x23a BSP/bsp.o
+ .debug_pubnames
+                0x000002e6      0x11a uC-LIB/lib_ascii.o
+ .debug_pubnames
+                0x00000400       0x50 uC-LIB/lib_mem.o
+ .debug_pubnames
+                0x00000450       0xd4 uC-LIB/lib_str.o
+ .debug_pubnames
+                0x00000524       0xf5 uCOS-II/os_cpu_c.o
+ .debug_pubnames
+                0x00000619      0x332 uCOS-II/os_dbg.o
+ .debug_pubnames
+                0x0000094b      0x465 uCOS-II/source/os_core.o
+ .debug_pubnames
+                0x00000db0       0xd0 uCOS-II/source/os_flag.o
+ .debug_pubnames
+                0x00000e80       0x96 uCOS-II/source/os_mbox.o
+ .debug_pubnames
+                0x00000f16       0x76 uCOS-II/source/os_mutex.o
+ .debug_pubnames
+                0x00000f8c       0xa9 uCOS-II/source/os_q.o
+ .debug_pubnames
+                0x00001035       0x8a uCOS-II/source/os_sem.o
+ .debug_pubnames
+                0x000010bf       0xe5 uCOS-II/source/os_task.o
+ .debug_pubnames
+                0x000011a4       0x62 uCOS-II/source/os_time.o
+ .debug_pubnames
+                0x00001206       0xa1 uCOS-II/source/os_tmr.o
+ .debug_pubnames
+                0x000012a7       0x1f d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_pubnames
+                0x000012c6       0x1f d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_pubnames
+                0x000012e5       0x1c d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+
+.debug_info     0x00000000     0xa097
+ *(.debug_info)
+ .debug_info    0x00000000      0x820 app.o
+ .debug_info    0x00000820       0xa3 app_vect.o
+ .debug_info    0x000008c3     0x111d BSP/bsp.o
+ .debug_info    0x000019e0       0xa4 BSP/bsp_isr.o
+ .debug_info    0x00001a84       0xa5 uC-CPU/cpu_a.o
+ .debug_info    0x00001b29      0x411 uC-LIB/lib_ascii.o
+ .debug_info    0x00001f3a      0x34a uC-LIB/lib_mem.o
+ .debug_info    0x00002284      0x72f uC-LIB/lib_str.o
+ .debug_info    0x000029b3       0xa9 uCOS-II/os_cpu_a.o
+ .debug_info    0x00002a5c      0x520 uCOS-II/os_cpu_c.o
+ .debug_info    0x00002f7c     0x1054 uCOS-II/os_dbg.o
+ .debug_info    0x00003fd0     0x1406 uCOS-II/source/os_core.o
+ .debug_info    0x000053d6      0xa9b uCOS-II/source/os_flag.o
+ .debug_info    0x00005e71      0x748 uCOS-II/source/os_mbox.o
+ .debug_info    0x000065b9       0x57 uCOS-II/source/os_mem.o
+ .debug_info    0x00006610      0x7ee uCOS-II/source/os_mutex.o
+ .debug_info    0x00006dfe      0x9a9 uCOS-II/source/os_q.o
+ .debug_info    0x000077a7      0x722 uCOS-II/source/os_sem.o
+ .debug_info    0x00007ec9      0xab8 uCOS-II/source/os_task.o
+ .debug_info    0x00008981      0x5b1 uCOS-II/source/os_time.o
+ .debug_info    0x00008f32      0xaf2 uCOS-II/source/os_tmr.o
+ .debug_info    0x00009a24      0x1bc d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_info    0x00009be0      0x350 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_info    0x00009f30      0x167 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000     0x18da
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x190 app.o
+ .debug_abbrev  0x00000190       0x14 app_vect.o
+ .debug_abbrev  0x000001a4      0x1e9 BSP/bsp.o
+ .debug_abbrev  0x0000038d       0x14 BSP/bsp_isr.o
+ .debug_abbrev  0x000003a1       0x14 uC-CPU/cpu_a.o
+ .debug_abbrev  0x000003b5       0xc0 uC-LIB/lib_ascii.o
+ .debug_abbrev  0x00000475       0xd2 uC-LIB/lib_mem.o
+ .debug_abbrev  0x00000547       0xf4 uC-LIB/lib_str.o
+ .debug_abbrev  0x0000063b       0x14 uCOS-II/os_cpu_a.o
+ .debug_abbrev  0x0000064f      0x161 uCOS-II/os_cpu_c.o
+ .debug_abbrev  0x000007b0      0x104 uCOS-II/os_dbg.o
+ .debug_abbrev  0x000008b4      0x1fb uCOS-II/source/os_core.o
+ .debug_abbrev  0x00000aaf      0x164 uCOS-II/source/os_flag.o
+ .debug_abbrev  0x00000c13      0x130 uCOS-II/source/os_mbox.o
+ .debug_abbrev  0x00000d43       0x2a uCOS-II/source/os_mem.o
+ .debug_abbrev  0x00000d6d      0x15c uCOS-II/source/os_mutex.o
+ .debug_abbrev  0x00000ec9      0x156 uCOS-II/source/os_q.o
+ .debug_abbrev  0x0000101f      0x156 uCOS-II/source/os_sem.o
+ .debug_abbrev  0x00001175      0x157 uCOS-II/source/os_task.o
+ .debug_abbrev  0x000012cc      0x13d uCOS-II/source/os_time.o
+ .debug_abbrev  0x00001409      0x1ae uCOS-II/source/os_tmr.o
+ .debug_abbrev  0x000015b7       0xeb d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_abbrev  0x000016a2      0x15f d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_abbrev  0x00001801       0xd9 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+
+.debug_line     0x00000000     0x8c96
+ *(.debug_line)
+ .debug_line    0x00000000      0x53c app.o
+ .debug_line    0x0000053c       0xb8 app_vect.o
+ .debug_line    0x000005f4      0xbb2 BSP/bsp.o
+ .debug_line    0x000011a6       0x4f BSP/bsp_isr.o
+ .debug_line    0x000011f5       0x43 uC-CPU/cpu_a.o
+ .debug_line    0x00001238      0x692 uC-LIB/lib_ascii.o
+ .debug_line    0x000018ca      0x444 uC-LIB/lib_mem.o
+ .debug_line    0x00001d0e      0xa82 uC-LIB/lib_str.o
+ .debug_line    0x00002790       0x79 uCOS-II/os_cpu_a.o
+ .debug_line    0x00002809      0x2f9 uCOS-II/os_cpu_c.o
+ .debug_line    0x00002b02      0x20f uCOS-II/os_dbg.o
+ .debug_line    0x00002d11     0x117f uCOS-II/source/os_core.o
+ .debug_line    0x00003e90      0xcdb uCOS-II/source/os_flag.o
+ .debug_line    0x00004b6b      0x6df uCOS-II/source/os_mbox.o
+ .debug_line    0x0000524a       0x3e uCOS-II/source/os_mem.o
+ .debug_line    0x00005288      0x878 uCOS-II/source/os_mutex.o
+ .debug_line    0x00005b00      0x9d4 uCOS-II/source/os_q.o
+ .debug_line    0x000064d4      0x66e uCOS-II/source/os_sem.o
+ .debug_line    0x00006b42      0xac7 uCOS-II/source/os_task.o
+ .debug_line    0x00007609      0x2c9 uCOS-II/source/os_time.o
+ .debug_line    0x000078d2      0xa88 uCOS-II/source/os_tmr.o
+ .debug_line    0x0000835a      0x1a8 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_line    0x00008502      0x64d d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_line    0x00008b4f      0x147 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+
+.debug_frame    0x00000000      0xe80
+ *(.debug_frame)
+ .debug_frame   0x00000000      0x130 app.o
+ .debug_frame   0x00000130      0x210 BSP/bsp.o
+ .debug_frame   0x00000340      0x100 uC-LIB/lib_ascii.o
+ .debug_frame   0x00000440       0x60 uC-LIB/lib_mem.o
+ .debug_frame   0x000004a0       0xe0 uC-LIB/lib_str.o
+ .debug_frame   0x00000580       0xb0 uCOS-II/os_cpu_c.o
+ .debug_frame   0x00000630       0x20 uCOS-II/os_dbg.o
+ .debug_frame   0x00000650      0x240 uCOS-II/source/os_core.o
+ .debug_frame   0x00000890       0xe0 uCOS-II/source/os_flag.o
+ .debug_frame   0x00000970       0x90 uCOS-II/source/os_mbox.o
+ .debug_frame   0x00000a00       0x80 uCOS-II/source/os_mutex.o
+ .debug_frame   0x00000a80       0xc0 uCOS-II/source/os_q.o
+ .debug_frame   0x00000b40       0x90 uCOS-II/source/os_sem.o
+ .debug_frame   0x00000bd0       0xd0 uCOS-II/source/os_task.o
+ .debug_frame   0x00000ca0       0x60 uCOS-II/source/os_time.o
+ .debug_frame   0x00000d00      0x120 uCOS-II/source/os_tmr.o
+ .debug_frame   0x00000e20       0x20 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_frame   0x00000e40       0x20 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_frame   0x00000e60       0x20 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+
+.debug_str      0x00000000     0x2307
+ *(.debug_str)
+ .debug_str     0x00000000      0x52a app.o
+                                0x576 (size before relaxing)
+ .debug_str     0x0000052a      0x76b BSP/bsp.o
+                                0x8d7 (size before relaxing)
+ .debug_str     0x00000c95      0x13c uC-LIB/lib_ascii.o
+                                0x22d (size before relaxing)
+ .debug_str     0x00000dd1      0x18f uC-LIB/lib_mem.o
+                                0x28c (size before relaxing)
+ .debug_str     0x00000f60      0x1ef uC-LIB/lib_str.o
+                                0x356 (size before relaxing)
+ .debug_str     0x0000114f       0xdc uCOS-II/os_cpu_c.o
+                                0x3f7 (size before relaxing)
+ .debug_str     0x0000122b      0x562 uCOS-II/os_dbg.o
+                                0x8e5 (size before relaxing)
+ .debug_str     0x0000178d      0x307 uCOS-II/source/os_core.o
+                                0x96d (size before relaxing)
+ .debug_str     0x00001a94      0x14a uCOS-II/source/os_flag.o
+                                0x532 (size before relaxing)
+ .debug_str     0x00001bde       0xc4 uCOS-II/source/os_mbox.o
+                                0x453 (size before relaxing)
+ .debug_str     0x00001ca2       0x1b uCOS-II/source/os_mem.o
+                                 0xda (size before relaxing)
+ .debug_str     0x00001cbd       0xc9 uCOS-II/source/os_mutex.o
+                                0x492 (size before relaxing)
+ .debug_str     0x00001d86       0xaf uCOS-II/source/os_q.o
+                                0x4b5 (size before relaxing)
+ .debug_str     0x00001e35       0x9c uCOS-II/source/os_sem.o
+                                0x43e (size before relaxing)
+ .debug_str     0x00001ed1      0x11a uCOS-II/source/os_task.o
+                                0x541 (size before relaxing)
+ .debug_str     0x00001feb       0x7a uCOS-II/source/os_time.o
+                                0x3e1 (size before relaxing)
+ .debug_str     0x00002065      0x132 uCOS-II/source/os_tmr.o
+                                0x5b3 (size before relaxing)
+ .debug_str     0x00002197       0x6f d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+                                0x123 (size before relaxing)
+ .debug_str     0x00002206       0xab d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+                                0x177 (size before relaxing)
+ .debug_str     0x000022b1       0x56 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+                                 0xfb (size before relaxing)
+
+.debug_loc      0x00000000      0x759
+ *(.debug_loc)
+ .debug_loc     0x00000000       0x58 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_loc     0x00000058      0x6b1 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_loc     0x00000709       0x50 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(uCOS-II-ATXmega128A1.elf elf32-avr)
+LOAD linker stubs
+
+.debug_pubtypes
+                0x00000000      0xdda
+ .debug_pubtypes
+                0x00000000       0xd7 app.o
+ .debug_pubtypes
+                0x000000d7      0x125 BSP/bsp.o
+ .debug_pubtypes
+                0x000001fc       0x3e uC-LIB/lib_ascii.o
+ .debug_pubtypes
+                0x0000023a       0x77 uC-LIB/lib_mem.o
+ .debug_pubtypes
+                0x000002b1       0x87 uC-LIB/lib_str.o
+ .debug_pubtypes
+                0x00000338       0x9c uCOS-II/os_cpu_c.o
+ .debug_pubtypes
+                0x000003d4      0x126 uCOS-II/os_dbg.o
+ .debug_pubtypes
+                0x000004fa      0x154 uCOS-II/source/os_core.o
+ .debug_pubtypes
+                0x0000064e       0xd6 uCOS-II/source/os_flag.o
+ .debug_pubtypes
+                0x00000724       0xd8 uCOS-II/source/os_mbox.o
+ .debug_pubtypes
+                0x000007fc       0x12 uCOS-II/source/os_mem.o
+ .debug_pubtypes
+                0x0000080e       0xda uCOS-II/source/os_mutex.o
+ .debug_pubtypes
+                0x000008e8       0xe4 uCOS-II/source/os_q.o
+ .debug_pubtypes
+                0x000009cc       0xd6 uCOS-II/source/os_sem.o
+ .debug_pubtypes
+                0x00000aa2       0xd6 uCOS-II/source/os_task.o
+ .debug_pubtypes
+                0x00000b78       0xaa uCOS-II/source/os_time.o
+ .debug_pubtypes
+                0x00000c22       0xf4 uCOS-II/source/os_tmr.o
+ .debug_pubtypes
+                0x00000d16       0x48 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_pubtypes
+                0x00000d5e       0x53 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_pubtypes
+                0x00000db1       0x29 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+
+.debug_ranges   0x00000000       0x48
+ .debug_ranges  0x00000000       0x10 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vsprintf.o)
+ .debug_ranges  0x00000010       0x28 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .debug_ranges  0x00000038       0x10 d:/program files/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
