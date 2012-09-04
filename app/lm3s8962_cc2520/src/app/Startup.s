@@ -1,9 +1,9 @@
 ; <<< Use Configuration Wizard in Context Menu >>>
 ;******************************************************************************
 ;
-; Startup.s - Startup code for Stellaris.
+; startup_rvmdk.S - Startup code for use with Keil's uVision.
 ;
-; Copyright (c) 2011 Texas Instruments Incorporated.  All rights reserved.
+; Copyright (c) 2007-2012 Texas Instruments Incorporated.  All rights reserved.
 ; Software License Agreement
 ; 
 ; Texas Instruments (TI) is supplying this software for use solely and
@@ -19,7 +19,7 @@
 ; CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 ; DAMAGES, FOR ANY REASON WHATSOEVER.
 ; 
-; This is part of revision 7860 of the Stellaris Peripheral Driver Library.
+; This is part of revision 8555 of the EK-LM3S8962 Firmware Package.
 ;
 ;******************************************************************************
 
@@ -28,7 +28,7 @@
 ; <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ;
 ;******************************************************************************
-Stack   EQU     0x00000100
+Stack   EQU     0x00000400
 
 ;******************************************************************************
 ;
@@ -75,10 +75,14 @@ __heap_limit
 
 ;******************************************************************************
 ;
-; External declarations for the interrupt handlers used by the application.
+; External declaration for the interrupt handler used by the application.
 ;
 ;******************************************************************************
-
+        EXTERN  tickISRHandler
+		EXTERN  OS_CPU_PendSVHandler
+		EXTERN  OS_CPU_SysTickHandler
+		EXTERN  tickISRHandler
+		EXTERN  tickISRHandler
 
 ;******************************************************************************
 ;
@@ -91,9 +95,9 @@ __Vectors
         DCD     Reset_Handler               ; Reset Handler
         DCD     NmiSR                       ; NMI Handler
         DCD     FaultISR                    ; Hard Fault Handler
-        DCD     IntDefaultHandler           ; MPU Fault Handler
-        DCD     IntDefaultHandler           ; Bus Fault Handler
-        DCD     IntDefaultHandler           ; Usage Fault Handler
+        DCD     IntDefaultHandler           ; The MPU fault handler
+        DCD     IntDefaultHandler           ; The bus fault handler
+        DCD     IntDefaultHandler           ; The usage fault handler
         DCD     0                           ; Reserved
         DCD     0                           ; Reserved
         DCD     0                           ; Reserved
@@ -101,8 +105,8 @@ __Vectors
         DCD     IntDefaultHandler           ; SVCall handler
         DCD     IntDefaultHandler           ; Debug monitor handler
         DCD     0                           ; Reserved
-        DCD     IntDefaultHandler           ; PendSV Handler
-        DCD     IntDefaultHandler           ; SysTick Handler
+        DCD     OS_CPU_PendSVHandler        ; The PendSV handler
+        DCD     OS_CPU_SysTickHandler       ; uC/OS-II Tick ISR Handler.
         DCD     IntDefaultHandler           ; GPIO Port A
         DCD     IntDefaultHandler           ; GPIO Port B
         DCD     IntDefaultHandler           ; GPIO Port C
@@ -147,101 +151,6 @@ __Vectors
         DCD     IntDefaultHandler           ; CAN2
         DCD     IntDefaultHandler           ; Ethernet
         DCD     IntDefaultHandler           ; Hibernate
-        DCD     IntDefaultHandler           ; USB0
-        DCD     IntDefaultHandler           ; PWM Generator 3
-        DCD     IntDefaultHandler           ; uDMA Software Transfer
-        DCD     IntDefaultHandler           ; uDMA Error
-        DCD     IntDefaultHandler           ; ADC1 Sequence 0
-        DCD     IntDefaultHandler           ; ADC1 Sequence 1
-        DCD     IntDefaultHandler           ; ADC1 Sequence 2
-        DCD     IntDefaultHandler           ; ADC1 Sequence 3
-        DCD     IntDefaultHandler           ; I2S0
-        DCD     IntDefaultHandler           ; External Bus Interface 0
-        DCD     IntDefaultHandler           ; GPIO Port J
-        DCD     IntDefaultHandler           ; GPIO Port K
-        DCD     IntDefaultHandler           ; GPIO Port L
-        DCD     IntDefaultHandler           ; SSI2 Rx and Tx
-        DCD     IntDefaultHandler           ; SSI3 Rx and Tx
-        DCD     IntDefaultHandler           ; UART3 Rx and Tx
-        DCD     IntDefaultHandler           ; UART4 Rx and Tx
-        DCD     IntDefaultHandler           ; UART5 Rx and Tx
-        DCD     IntDefaultHandler           ; UART6 Rx and Tx
-        DCD     IntDefaultHandler           ; UART7 Rx and Tx
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     IntDefaultHandler           ; I2C2 Master and Slave
-        DCD     IntDefaultHandler           ; I2C3 Master and Slave
-        DCD     IntDefaultHandler           ; Timer 4 subtimer A
-        DCD     IntDefaultHandler           ; Timer 4 subtimer B
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     0                           ; Reserved
-        DCD     IntDefaultHandler           ; Timer 5 subtimer A
-        DCD     IntDefaultHandler           ; Timer 5 subtimer B
-        DCD     IntDefaultHandler           ; Wide Timer 0 subtimer A
-        DCD     IntDefaultHandler           ; Wide Timer 0 subtimer B
-        DCD     IntDefaultHandler           ; Wide Timer 1 subtimer A
-        DCD     IntDefaultHandler           ; Wide Timer 1 subtimer B
-        DCD     IntDefaultHandler           ; Wide Timer 2 subtimer A
-        DCD     IntDefaultHandler           ; Wide Timer 2 subtimer B
-        DCD     IntDefaultHandler           ; Wide Timer 3 subtimer A
-        DCD     IntDefaultHandler           ; Wide Timer 3 subtimer B
-        DCD     IntDefaultHandler           ; Wide Timer 4 subtimer A
-        DCD     IntDefaultHandler           ; Wide Timer 4 subtimer B
-        DCD     IntDefaultHandler           ; Wide Timer 5 subtimer A
-        DCD     IntDefaultHandler           ; Wide Timer 5 subtimer B
-        DCD     IntDefaultHandler           ; FPU
-        DCD     IntDefaultHandler           ; PECI 0
-        DCD     IntDefaultHandler           ; LPC 0
-        DCD     IntDefaultHandler           ; I2C4 Master and Slave
-        DCD     IntDefaultHandler           ; I2C5 Master and Slave
-        DCD     IntDefaultHandler           ; GPIO Port M
-        DCD     IntDefaultHandler           ; GPIO Port N
-        DCD     IntDefaultHandler           ; Quadrature Encoder 2
-        DCD     IntDefaultHandler           ; Fan 0
-        DCD     0                           ; Reserved
-        DCD     IntDefaultHandler           ; GPIO Port P (Summary or P0)
-        DCD     IntDefaultHandler           ; GPIO Port P1
-        DCD     IntDefaultHandler           ; GPIO Port P2
-        DCD     IntDefaultHandler           ; GPIO Port P3
-        DCD     IntDefaultHandler           ; GPIO Port P4
-        DCD     IntDefaultHandler           ; GPIO Port P5
-        DCD     IntDefaultHandler           ; GPIO Port P6
-        DCD     IntDefaultHandler           ; GPIO Port P7
-        DCD     IntDefaultHandler           ; GPIO Port Q (Summary or Q0)
-        DCD     IntDefaultHandler           ; GPIO Port Q1
-        DCD     IntDefaultHandler           ; GPIO Port Q2
-        DCD     IntDefaultHandler           ; GPIO Port Q3
-        DCD     IntDefaultHandler           ; GPIO Port Q4
-        DCD     IntDefaultHandler           ; GPIO Port Q5
-        DCD     IntDefaultHandler           ; GPIO Port Q6
-        DCD     IntDefaultHandler           ; GPIO Port Q7
-        DCD     IntDefaultHandler           ; GPIO Port R
-        DCD     IntDefaultHandler           ; GPIO Port S
-        DCD     IntDefaultHandler           ; PWM 1 Generator 0
-        DCD     IntDefaultHandler           ; PWM 1 Generator 1
-        DCD     IntDefaultHandler           ; PWM 1 Generator 2
-        DCD     IntDefaultHandler           ; PWM 1 Generator 3
-        DCD     IntDefaultHandler           ; PWM 1 Fault
 
 ;******************************************************************************
 ;
@@ -257,14 +166,6 @@ Reset_Handler
         ; .bss section.
         ;
         IMPORT  __main
-
-        IF      {CPU} = "Cortex-M4.fp"
-        LDR     R0, =0xE000ED88           ; Enable CP10,CP11
-        LDR     R1,[R0]
-        ORR     R1,R1,#(0xF << 20)
-        STR     R1,[R0]
-        ENDIF
-
         B       __main
 
 ;******************************************************************************
@@ -322,7 +223,7 @@ IntDefaultHandler
     IF :DEF: __MICROLIB
         EXPORT  __initial_sp
         EXPORT  __heap_base
-        EXPORT __heap_limit
+        EXPORT  __heap_limit
     ELSE
         IMPORT  __use_two_region_memory
         EXPORT  __user_initial_stackheap
