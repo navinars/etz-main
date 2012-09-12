@@ -479,7 +479,7 @@
  * on a 32-bit boundary, so setting this to 2 can speed up 32-bit-platforms.
  */
 #ifndef ETH_PAD_SIZE
-#define ETH_PAD_SIZE                    0
+#define ETH_PAD_SIZE                    2
 #endif
 
 /** ETHARP_SUPPORT_STATIC_ENTRIES==1: enable code to support static ARP table
@@ -674,7 +674,7 @@
  * LWIP_AUTOIP==1: Enable AUTOIP module.
  */
 #ifndef LWIP_AUTOIP
-#define LWIP_AUTOIP                     1
+#define LWIP_AUTOIP                     0
 #endif
 
 /**
@@ -1219,7 +1219,7 @@
  * sys_mbox_new() when tcpip_init is called.
  */
 #ifndef TCPIP_MBOX_SIZE
-#define TCPIP_MBOX_SIZE                 0
+#define TCPIP_MBOX_SIZE                 4
 #endif
 
 /**
@@ -2039,5 +2039,6 @@
 #ifndef DNS_DEBUG
 #define DNS_DEBUG                       LWIP_DBG_OFF
 #endif
+
 
 #endif /* __LWIP_OPT_H__ */

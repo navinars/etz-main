@@ -59,10 +59,14 @@
 */
 
 #define  APP_CFG_TASK_START_PRIO                           	2
-
 #define  APP_CFG_TASK_LED_PRIO								3
 
-//#define  OS_TASK_TMR_PRIO                        (OS_LOWEST_PRIO - 2)
+#define  LWIP_TASK_START_PRIO                             10
+#define  LWIP_TASK_END_PRIO                               12
+
+#define  OS_PROBE_TASK_PRIO              (OS_LOWEST_PRIO - 3)
+#define  OS_TASK_TMR_PRIO                (OS_LOWEST_PRIO - 2)
+
 
 
 /*

@@ -96,9 +96,9 @@ static OS_MEM *pQueueMem;
 
 const void * const pvNullPointer = (mem_ptr_t*)0xffffffff;
 
-static char pcQueueMemoryPool[MAX_QUEUES * sizeof(TQ_DESCR) + MEM_ALIGNMENT - 1];
+static char pcQueueMemoryPool[MAX_QUEUES * sizeof(mbox_t) + MEM_ALIGNMENT - 1];
 
-//SYS_ARCH_EXT OS_STK LWIP_TASK_STK[LWIP_TASK_MAX][LWIP_STK_SIZE];
+OS_STK LWIP_TASK_STK[LWIP_TASK_MAX][LWIP_STK_SIZE];
 
 /* Message queue constants. */
 #define archMESG_QUEUE_LENGTH	( 6 )
@@ -118,36 +118,13 @@ sys_init(void)
 	
 	pQueueMem = OSMemCreate((void *)((u32_t)((u32_t)pcQueueMemoryPool+MEM_ALIGNMENT-1) & 
 				~(MEM_ALIGNMENT-1)),
-				MAX_QUEUES, sizeof(TQ_DESCR), &ucErr);
+				MAX_QUEUES, sizeof(mbox_t), &ucErr);
 	LWIP_ASSERT( "OSMemCreate ", ucErr == OS_NO_ERR );
 
 	for(i = 0;i < LWIP_TASK_MAX;i ++)
 	{
-		lwip_timerouts[i].next = NULL;
+		lwip_timeouts[i].next = NULL;
 	}
-}
-
-/**
- * Gets the timeouts structures for the current thread.
- *
- * @return A poitner to the sys_timeouts structure for this thread.
- */
-struct sys_timeouts *
-sys_arch_timeouts(void)
-{
-  u32_t i;
-
-  /* Find the thread that corresponds to the current task.  The match is done
-     by finding the stack where are automatic variable is stored. */
-  for(i = 0; i < SYS_THREAD_MAX; i++) {
-    if((threads[i].stackstart <= (void *)&i) &&
-       (threads[i].stackend > (void *)&i)) {
-      return &(threads[i].timeouts);
-    }
-  }
-
-  /* This thread could not be found. */
-  return NULL;
 }
 
 /**
@@ -156,56 +133,15 @@ sys_arch_timeouts(void)
  * @param count is non-zero if the semaphore should be acquired initially.
  * @return the handle of the created semaphore.
  */
-sys_sem_t
-sys_sem_new(u8_t count)
+err_t
+sys_sem_new(sys_sem_t *sem, u8_t count)
 {
-  xQueueHandle sem;
-  void *temp;
-  u32_t i;
+	*sem = OSSemCreate((u16_t)count);
 
-  /* Find a semaphore that is not in use. */
-  for(i = 0; i < SYS_SEM_MAX; i++) {
-    if(sems[i].queue == 0) {
-      break;
-    }
-  }
-  if(i == SYS_SEM_MAX) {
-#if SYS_STATS
-    STATS_INC(sys.sem.err);
-#endif /* SYS_STATS */
-    return 0;
-  }
+	if(*sem == ((OS_EVENT *) 0))
+		return ERR_MEM;
 
-  /* Create a single-entry queue to act as a semaphore. */
-  if(xQueueCreate(sems[i].buffer, sizeof(sems[0].buffer), 1, sizeof(void *),
-                  &sem) != pdPASS) {
-#if SYS_STATS
-    STATS_INC(sys.sem.err);
-#endif /* SYS_STATS */
-    return 0;
-  }
-
-  /* Acquired the semaphore if necessary. */
-  if(count == 0) {
-    temp = 0;
-    xQueueSend(sem, &temp, 0);
-  }
-
-  /* Update the semaphore statistics. */
-#if SYS_STATS
-  STATS_INC(sys.sem.used);
-#if LWIP_STATS
-  if(lwip_stats.sys.sem.max < lwip_stats.sys.sem.used) {
-    lwip_stats.sys.sem.max = lwip_stats.sys.sem.used;
-  }
-#endif
-#endif /* SYS_STATS */
-
-  /* Save the queue handle. */
-  sems[i].queue = sem;
-
-  /* Return this semaphore. */
-  return &(sems[i]);
+	return ERR_OK;
 }
 
 /**
@@ -214,12 +150,136 @@ sys_sem_new(u8_t count)
  * @param sem is the semaphore to signal.
  */
 void
-sys_sem_signal(sys_sem_t sem)
+sys_sem_signal(sys_sem_t *sem)
 {
-  void *msg;
+	OSSemPost(*sem);
+}
 
-  /* Receive a message from the semaphore's queue. */
-  xQueueReceive(sem->queue, &msg, 0);
+/**
+ * Destroys a semaphore.
+ *
+ * @param sem is the semaphore to be destroyed.
+ */
+void
+sys_sem_free(sys_sem_t *sem)
+{
+	u8_t err;
+	
+	OSSemDel(*sem, OS_DEL_ALWAYS, &err);
+}
+
+void sys_sem_set_invalid(sys_sem_t *sem)
+{
+	*sem = SYS_SEM_NULL ;	 
+}
+
+int sys_sem_valid(sys_sem_t *sem)
+{	 
+      return (int)(*sem); 
+}
+
+/**
+ * Creates a new mailbox.
+ *
+ * @param size is the number of entries in the mailbox.
+ * @return the handle of the created mailbox.
+ */
+err_t sys_mbox_new(sys_mbox_t *mbox, int size)
+{
+	u8_t 		err;
+	
+	*mbox = (sys_mbox_t)OSMemGet(pQueueMem, &err);
+
+	if(err == OS_NO_ERR)
+	{
+		if(size > MAX_QUEUE_ENTRIES)
+			size = MAX_QUEUE_ENTRIES;
+
+		(*mbox)->pQ = OSQCreate(&((*mbox)->pvQEntries[0]), size);
+
+		if((*mbox)->pQ != NULL)
+			return ERR_OK;
+		else
+		{
+			err = OSMemPut(pQueueMem, mbox);
+			*mbox = SYS_MBOX_NULL;
+			return ERR_MEM;
+		}
+	}
+	else
+		return ERR_MEM;
+}
+
+int sys_mbox_valid(sys_mbox_t *mbox)
+{
+	return (int)(*mbox);
+}
+
+void sys_mbox_set_invalid(sys_mbox_t *mbox)
+{
+
+    *mbox = SYS_MBOX_NULL;		 
+}
+
+/**
+ * Sends a message to a mailbox.
+ *
+ * @param mbox is the mailbox
+ * @param msg is the message to send
+ */
+void
+sys_mbox_post(sys_mbox_t *mbox, void *msg)
+{
+	u8_t		i = 0;
+
+	if(msg == NULL)
+		msg = (void *)&pvNullPointer;
+
+	while((i < 10) && (OSQPost((*mbox)->pQ, msg) != OS_NO_ERR))
+	{
+		i ++;
+		OSTimeDly(5);
+	}
+}
+
+/**
+ * Tries to send a message to a mailbox.
+ *
+ * @param mbox is the mailbox
+ * @param msg is the message to send
+ * @return ERR_OK if the message was sent and ERR_MEM if there was no space for
+ *         the message
+ */
+err_t
+sys_mbox_trypost(sys_mbox_t *mbox, void *msg)
+{
+	if(msg ==NULL)
+		msg = (void *)&pvNullPointer;
+
+	if(OSQPost((*mbox)->pQ, msg) != OS_NO_ERR)
+		return ERR_MEM;
+
+	return ERR_OK;
+}
+
+/**
+ * Destroys a mailbox.
+ *
+ * @param mbox is the mailbox to be destroyed.
+ */
+void
+sys_mbox_free(sys_mbox_t *mbox)
+{
+	u8_t err;
+	
+	//clear OSQ EVENT
+	OSQFlush((*mbox)->pQ);
+
+	//del OSQ EVENT
+	OSQDel((*mbox)->pQ, OS_DEL_NO_PEND, &err);
+
+	//put mem back to mem queue.
+	OSMemPut(pQueueMem, *mbox);
 }
 
 /**
@@ -232,150 +292,45 @@ sys_sem_signal(sys_sem_t sem)
  *         acquired, or SYS_ARCH_TIMEOUT if the timeout occurred
  */
 u32_t
-sys_arch_sem_wait(sys_sem_t sem, u32_t timeout)
+sys_arch_sem_wait(sys_sem_t *sem, u32_t timeout)
 {
-  portTickType starttime;
-  void *msg = 0;
-
-  /* Get the starting time. */
-  starttime = xTaskGetTickCount();
-
-  /* See if there is a timeout. */
-  if(timeout != 0) {
-    /* Send a message to the queue. */
-    if(xQueueSend(sem->queue, &msg, timeout / portTICK_RATE_MS) == pdPASS) {
-      /* Return the amount of time it took for the semaphore to be
-         signalled. */
-      return (xTaskGetTickCount() - starttime) * portTICK_RATE_MS;
-    } else {
-      /* The semaphore failed to signal in the allotted time. */
-      return SYS_ARCH_TIMEOUT;
+    u8_t ucErr;
+    u32_t ucos_timeout, timeout_new;
+    
+    // timeout 单位以ms计 转换为ucos_timeout 单位以TICK计
+    if(	timeout != 0)
+    {
+        ucos_timeout = (timeout * OS_TICKS_PER_SEC) / 1000; // convert to timetick
+        if(ucos_timeout < 1)
+            ucos_timeout = 1;
+        else if(ucos_timeout > 65536) // uC/OS only support u16_t pend
+            ucos_timeout = 65535; // 最多等待TICK数 这是uC/OS所能 处理的最大延时
     }
-  } else {
-    /* Try to send a message to the queue until it succeeds. */
-    while(xQueueSend(sem->queue, &msg, portMAX_DELAY) != pdPASS);
-
-    /* Return the amount of time it took for the semaphore to be signalled. */
-    return (xTaskGetTickCount() - starttime) * portTICK_RATE_MS;
-  }
-}
-
-/**
- * Destroys a semaphore.
- *
- * @param sem is the semaphore to be destroyed.
- */
-void
-sys_sem_free(sys_sem_t sem)
-{
-  /* Clear the queue handle. */
-  sem->queue = 0;
-
-  /* Update the semaphore statistics. */
-#if SYS_STATS
-  STATS_DEC(sys.sem.used);
-#endif /* SYS_STATS */
-}
-
-/**
- * Creates a new mailbox.
- *
- * @param size is the number of entries in the mailbox.
- * @return the handle of the created mailbox.
- */
-sys_mbox_t
-sys_mbox_new(int size)
-{
-  unsigned long datasize;
-  xQueueHandle mbox;
-  u32_t i;
-
-  /* Fail if the mailbox size is too large. */
-  if(size > MBOX_MAX) {
-#if SYS_STATS
-    STATS_INC(sys.mbox.err);
-#endif /* SYS_STATS */
-    return 0;
-  }
-
-  /* Find a mailbox that is not in use. */
-  for(i = 0; i < SYS_MBOX_MAX; i++) {
-    if(mboxes[i].queue == 0) {
-      break;
+    else
+		ucos_timeout = 0;
+    
+    timeout = OSTimeGet(); // 记录起始时间
+    
+    OSSemPend (*sem, (u16_t)ucos_timeout, (u8_t *)&ucErr);
+    
+    if(ucErr == OS_TIMEOUT)
+        timeout = SYS_ARCH_TIMEOUT;	// only when timeout!
+    else
+    {    
+    	//LWIP_ASSERT( "OSSemPend ", ucErr == OS_NO_ERR );
+        //for pbuf_free, may be called from an ISR
+        
+        timeout_new = OSTimeGet(); // 记录终止时间
+        if (timeout_new >= timeout)
+			timeout_new = timeout_new - timeout;
+        else
+			timeout_new = 0xffffffff - timeout + timeout_new;
+        
+        timeout = (timeout_new * 1000 / OS_TICKS_PER_SEC + 1); //convert to milisecond 为什么加1？
     }
-  }
-  if(i == SYS_MBOX_MAX) {
-#if SYS_STATS
-    STATS_INC(sys.mbox.err);
-#endif /* SYS_STATS */
-    return 0;
-  }
+    
+    return timeout;
 
-  /* Compute the size of the queue memory required by this mailbox. */
-  datasize = (sizeof(void *) * size) + portQUEUE_OVERHEAD_BYTES;
-
-  /* Create a queue for this mailbox. */
-  if(xQueueCreate(mboxes[i].buffer, datasize, size, sizeof(void *),
-                  &mbox) != pdPASS) {
-#if SYS_STATS
-    STATS_INC(sys.mbox.err);
-#endif /* SYS_STATS */
-    return 0;
-  }
-
-  /* Update the mailbox statistics. */
-#if SYS_STATS
-  STATS_INC(sys.mbox.used);
-#if LWIP_STATS
-  if(lwip_stats.sys.mbox.max < lwip_stats.sys.mbox.used) {
-    lwip_stats.sys.mbox.max = lwip_stats.sys.mbox.used;
-  }
-#endif
-#endif /* SYS_STATS */
-
-  /* Save the queue handle. */
-  mboxes[i].queue = mbox;
-
-  /* Return this mailbox. */
-  return &(mboxes[i]);
-}
-
-/**
- * Sends a message to a mailbox.
- *
- * @param mbox is the mailbox
- * @param msg is the message to send
- */
-void
-sys_mbox_post(sys_mbox_t mbox, void *msg)
-{
-  /* Send this message to the queue. */
-  while(xQueueSend(mbox->queue, &msg, portMAX_DELAY) != pdPASS);
-}
-
-/**
- * Tries to send a message to a mailbox.
- *
- * @param mbox is the mailbox
- * @param msg is the message to send
- * @return ERR_OK if the message was sent and ERR_MEM if there was no space for
- *         the message
- */
-err_t
-sys_mbox_trypost(sys_mbox_t mbox, void *msg)
-{
-  /* Send this message to the queue. */
-  if(xQueueSend(mbox->queue, &msg, 0) == pdPASS) {
-    return ERR_OK;
-  }
-
-  /* Update the mailbox statistics. */
-#if SYS_STATS
-  STATS_INC(sys.mbox.err);
-#endif /* SYS_STATS */
-
-  /* The message could not be sent. */
-  return ERR_MEM;
 }
 
 /**
@@ -388,38 +343,51 @@ sys_mbox_trypost(sys_mbox_t mbox, void *msg)
  *         received, or SYS_ARCH_TIMEOUT if the tmieout occurred
  */
 u32_t
-sys_arch_mbox_fetch(sys_mbox_t mbox, void **msg, u32_t timeout)
+sys_arch_mbox_fetch(sys_mbox_t *mbox, void **msg, u32_t timeout)
 {
-  portTickType starttime;
-  void *dummyptr;
+	u8_t		err;
+	u32_t		ucos_timeout, timeout_new;
+	void 		*dummyptr;
 
-  /* If the actual message contents are not required, provide a local variable
-     to recieve the message. */
-  if(msg == NULL) {
-    msg = &dummyptr;
-  }
+	if(timeout != 0)
+	{
+		ucos_timeout = (timeout * OS_TICKS_PER_SEC)/1000;
 
-  /* Get the starting time. */
-  starttime = xTaskGetTickCount();
+		if(ucos_timeout < 1)
+			ucos_timeout = 1;
+		else if(ucos_timeout > 65535)
+			ucos_timeout = 65535;
+	}
+	else
+		ucos_timeout = 0;
 
-  /* See if there is a timeout. */
-  if(timeout != 0) {
-    /* Receive a message from the queue. */
-    if(xQueueReceive(mbox->queue, msg, timeout / portTICK_RATE_MS) == pdPASS) {
-      /* Return the amount of time it took for the message to be received. */
-      return (xTaskGetTickCount() - starttime) * portTICK_RATE_MS;
-    } else {
-      /* No message arrived in the allotted time. */
-      *msg = NULL;
-      return SYS_ARCH_TIMEOUT;
-    }
-  } else {
-    /* Try to receive a message until one arrives. */
-    while(xQueueReceive(mbox->queue, msg, portMAX_DELAY) != pdPASS);
+	timeout = OSTimeGet();
 
-    /* Return the amount of time it took for the message to be received. */
-    return (xTaskGetTickCount() - starttime) * portTICK_RATE_MS;
-  }
+	dummyptr = OSQPend((*mbox)->pQ, (u16_t)ucos_timeout, &err);
+
+	/* If the actual message contents are not required, provide a local variable
+	to recieve the message. */
+	if(msg != NULL)
+	{
+		if(dummyptr == (void*)&pvNullPointer)
+			*msg = NULL;
+		else
+			*msg = dummyptr;
+	}
+
+	if(err == OS_TIMEOUT)
+		timeout = SYS_ARCH_TIMEOUT;
+	else
+	{
+		 timeout_new = OSTimeGet();
+		 if (timeout_new>timeout)
+		 	timeout_new = timeout_new - timeout;
+		 else
+		 	timeout_new = 0xffffffff - timeout + timeout_new;
+
+		 timeout = timeout_new * 1000 / OS_TICKS_PER_SEC + 1; //convert to milisecond
+	}
+	return timeout;
 }
 
 /**
@@ -432,79 +400,29 @@ sys_arch_mbox_fetch(sys_mbox_t mbox, void **msg, u32_t timeout)
  *         available
  */
 u32_t
-sys_arch_mbox_tryfetch(sys_mbox_t mbox, void **msg)
+sys_arch_mbox_tryfetch(sys_mbox_t *mbox, void **msg)
 {
-  void *dummyptr;
+	u8_t err;
 
-  /* If the actual message contents are not required, provide a local variable
-     to recieve the message. */
-  if(msg == NULL) {
-    msg = &dummyptr;
-  }
+	/* If the actual message contents are not required, provide a local variable
+	to recieve the message. */
+	if(msg == NULL)
+	{
+		msg = (void*)&pvNullPointer;
+	}
 
-  /* Recieve a message from the queue. */
-  if(xQueueReceive(mbox->queue, msg, 0) == pdPASS) {
-    /* A message was available. */
-    return ERR_OK;
-  } else {
-    /* A message was not available. */
-    return SYS_MBOX_EMPTY;
-  }
-}
-
-/**
- * Destroys a mailbox.
- *
- * @param mbox is the mailbox to be destroyed.
- */
-void
-sys_mbox_free(sys_mbox_t mbox)
-{
-  unsigned portBASE_TYPE count;
-
-  /* There should not be any messages waiting (if there are it is a bug).  If
-     any are waiting, increment the mailbox error count. */
-  if((xQueueMessagesWaiting(mbox->queue, &count) != pdPASS) || (count != 0)) {
-#if SYS_STATS
-    STATS_INC(sys.mbox.err);
-#endif /* SYS_STATS */
-  }
-
-  /* Clear the queue handle. */
-  mbox->queue = 0;
-
-  /* Update the mailbox statistics. */
-#if SYS_STATS
-   STATS_DEC(sys.mbox.used);
-#endif /* SYS_STATS */
-}
-
-/**
- * The routine for a thread.  This handles some housekeeping around the
- * applications's thread routine.
- *
- * @param arg is the index into the thread structure for this thread
- */
-static void
-sys_arch_thread(void *arg)
-{
-  u32_t i;
-
-  /* Get this threads index. */
-  i = (u32_t)arg;
-
-  /* Call the application's thread routine. */
-  threads[i].thread(threads[i].arg);
-
-  /* Free the memory used by this thread's stack. */
-  mem_free(threads[i].stackstart);
-
-  /* Clear the stack from the thread structure. */
-  threads[i].stackstart = NULL;
-  threads[i].stackend = NULL;
-
-  /* Delete this task. */
-  xTaskDelete(NULL);
+	/* Recieve a message from the queue. */
+	*msg = (sys_mbox_t)OSQAccept((*mbox)->pQ, &err);
+	if(err == OS_ERR_NONE)
+	{
+		/* A message was available. */
+		return ERR_OK;
+	}
+	else
+	{
+		/* A message was not available. */
+		return SYS_MBOX_EMPTY;
+	}
 }
 
 /**
@@ -518,46 +436,24 @@ sys_arch_thread(void *arg)
  * @return the handle fo the created thread
  */
 sys_thread_t
-sys_thread_new(char *name, void (*thread)(void *arg), void *arg, int stacksize,
+sys_thread_new(const char *name, void (*thread)(void *arg), void *arg, int stacksize,
                int prio)
 {
-  sys_thread_t created_thread;
-  void *data;
-  u32_t i;
+	u8_t ubPrio = 0;
 
-  /* Find a thread that is not in use. */
-  for(i = 0; i < SYS_THREAD_MAX; i++) {
-    if(threads[i].stackstart == NULL) {
-      break;
-    }
-  }
-  if(i == SYS_THREAD_MAX) {
-      return NULL;
-  }
+	arg = arg;
 
-  /* Allocate memory for the thread's stack. */
-  data = mem_malloc(stacksize);
-  if(!data) {
-    return NULL;
-  }
+	if((prio > 0) && (prio <= LWIP_TASK_MAX))
+	{
+		ubPrio = (u8_t)(LWIP_START_PRIO + prio - 1);
 
-  /* Save the details of this thread. */
-  threads[i].stackstart = data;
-  threads[i].stackend = (void *)((char *)data + stacksize);
-  threads[i].thread = thread;
-  threads[i].arg = arg;
-  threads[i].timeouts.next = NULL;
+		if(stacksize > LWIP_STK_SIZE)   // 任务堆栈大小不超过LWIP_STK_SIZE
+        	stacksize = LWIP_STK_SIZE;
 
-  /* Create a new thread. */
-  if(xTaskCreate(sys_arch_thread, (signed portCHAR *)name, data, stacksize,
-                 (void *)i, prio, &created_thread) != pdPASS) {
-    threads[i].stackstart = NULL;
-    threads[i].stackend = NULL;
-    return NULL;
-  }
+		OSTaskCreate(thread, (void *)arg, &LWIP_TASK_STK[prio-1][stacksize-1], ubPrio);
+	}
 
-  /* Return this thread. */
-  return created_thread;
+	return (sys_thread_t)ubPrio;
 }
 
 /**
@@ -568,8 +464,9 @@ sys_thread_new(char *name, void (*thread)(void *arg), void *arg, int stacksize,
 sys_prot_t
 sys_arch_protect(void)
 {
-  vPortEnterCritical();
-  return 1;
+	OS_CPU_SR   cpu_sr = 0u;
+	OS_ENTER_CRITICAL();
+	return cpu_sr;
 }
 
 /**
@@ -580,7 +477,8 @@ sys_arch_protect(void)
 void
 sys_arch_unprotect(sys_prot_t val)
 {
-  vPortExitCritical();
+	OS_CPU_SR   cpu_sr = val;
+	OS_EXIT_CRITICAL();
 }
 
 #endif /* NO_SYS */

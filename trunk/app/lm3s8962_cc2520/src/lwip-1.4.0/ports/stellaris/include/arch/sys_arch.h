@@ -36,36 +36,35 @@
 #include "cc.h"
 #include "sys_arch.h"
 
-/* Find the size of the largest required mbox. */
-#define MAX1 ((TCPIP_MBOX_SIZE > DEFAULT_RAW_RECVMBOX_SIZE) ? \
-              TCPIP_MBOX_SIZE : DEFAULT_RAW_RECVMBOX_SIZE)
-#define MAX2 ((MAX1 > DEFAULT_UDP_RECVMBOX_SIZE) ? MAX1 : \
-              DEFAULT_UDP_RECVMBOX_SIZE)
-#define MAX3 ((MAX2 > DEFAULT_TCP_RECVMBOX_SIZE) ? MAX2 : \
-              DEFAULT_TCP_RECVMBOX_SIZE)
-#define MBOX_MAX ((MAX3 > DEFAULT_ACCEPTMBOX_SIZE) ? MAX3 : \
-                  DEFAULT_ACCEPTMBOX_SIZE)
+#define LWIP_COMPAT_MUTEX   1
+
+#define LWIP_STK_SIZE	300
 
 #define LWIP_TASK_MAX	  3//(LWIP_TASK_END_PRIO - LWIP_TASK_START_PRIO + 1)
 
 #define MAX_QUEUES        10	// the number of mailboxes
 #define MAX_QUEUE_ENTRIES 20	// the max size of each mailbox
 
-
-/** struct of LwIP mailbox */
-typedef struct {
-    OS_EVENT*   pQ;
-    void*       pvQEntries[MAX_QUEUE_ENTRIES];
-} TQ_DESCR, *PQ_DESCR;
-
-/* Typedefs for the various port-specific types. */
-typedef OS_EVENT 	*sys_mbox_t;
-typedef u8_t 		sys_prot_t;
-typedef OS_EVENT 	*sys_sem_t;
-typedef void 		*sys_thread_t;
+#define LWIP_START_PRIO	  LWIP_TASK_START_PRIO
 
 /* The value for an unallocated mbox. */
-#define SYS_MBOX_NULL       0
+#define SYS_MBOX_NULL (void *)0
+#define SYS_SEM_NULL  (void *)0
+
+
+typedef struct{
+	OS_EVENT*	pQ;
+	void*		pvQEntries[MAX_QUEUE_ENTRIES];
+} mbox_t;
+
+/* Typedefs for the various port-specific types. */
+typedef mbox_t*		sys_mbox_t;
+typedef u32_t 		sys_prot_t;
+typedef OS_EVENT*	sys_sem_t;
+typedef void*		sys_thread_t;
+
+
+extern OS_STK LWIP_TASK_STK[LWIP_TASK_MAX][LWIP_STK_SIZE];
 
 #endif /* __ARCH_SYS_ARCH_H__ */
 

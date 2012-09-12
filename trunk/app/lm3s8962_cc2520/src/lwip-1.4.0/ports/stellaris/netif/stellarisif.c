@@ -51,8 +51,13 @@
 #include "lwip/sys.h"
 #include <lwip/stats.h>
 #include <lwip/snmp.h>
+#include "lwip/tcpip.h"
 #include "netif/etharp.h"
+
+#if PPPOE_SUPPORT
 #include "netif/ppp_oe.h"
+#endif /* PPPOE_SUPPORT */
+
 #include "netif/stellarisif.h"
 
 /**
