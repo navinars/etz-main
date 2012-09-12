@@ -160,7 +160,7 @@
             <UseTargetDll>1</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
-            <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
+            <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
@@ -422,6 +422,11 @@
               <FileName>bsp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\bsp\bsp.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\bsp\bsp_led.c</FilePath>
             </File>
           </Files>
         </Group>

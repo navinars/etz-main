@@ -49,10 +49,10 @@
 // #include "lwip/debug.h"
 
 #define LWIP_PLATFORM_DIAG(x)   
-#define LWIP_PLATFORM_ASSERT(x)   
+#define LWIP_PLATFORM_ASSERT(x)   // Should using function: printf(x);
 
 /* Define default values for unconfigured parameters. */
-#define LWIP_NOASSERT 1 // To suppress some errors for now (no debug output)
+#define LWIP_NOASSERT 0 // To suppress some errors for now (no debug output)
 
 /* These two control is reclaimer functions should be compiled
    in. Should always be turned on (1). */

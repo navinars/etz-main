@@ -42,7 +42,7 @@ extern "C" {
 
 /* For a totally minimal and standalone system, we provide null
    definitions of the sys_ functions. */
-typedef u8_t sys_sem_t;
+/*typedef u8_t sys_sem_t;
 typedef u8_t sys_mutex_t;
 typedef u8_t sys_mbox_t;
 
@@ -65,7 +65,7 @@ typedef u8_t sys_mbox_t;
 #define sys_thread_new(n,t,a,s,p)
 
 #define sys_msleep(t)
-
+*/
 #else /* NO_SYS */
 
 /** Return code for timeouts from sys_arch_mbox_fetch and sys_arch_sem_wait */
@@ -82,6 +82,12 @@ typedef u8_t sys_mbox_t;
 /** Function prototype for thread functions */
 typedef void (*lwip_thread_fn)(void *arg);
 
+
+struct sys_timeouts {
+  struct sys_timeo *next;
+};
+
+
 /* Function prototypes for functions to be implemented by platform ports
    (in sys_arch.c) */
 
@@ -89,7 +95,7 @@ typedef void (*lwip_thread_fn)(void *arg);
 
 /** Define LWIP_COMPAT_MUTEX if the port has no mutexes and binary semaphores
     should be used instead */
-#if 1//LWIP_COMPAT_MUTEX
+#if LWIP_COMPAT_MUTEX
 /* for old ports that don't have mutexes: define them to binary semaphores */
 #define sys_mutex_t                   sys_sem_t
 #define sys_mutex_new(mutex)          sys_sem_new(mutex, 1)

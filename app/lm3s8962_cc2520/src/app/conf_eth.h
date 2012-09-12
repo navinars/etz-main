@@ -61,13 +61,13 @@
 #define netifINTERFACE_TASK_STACK_SIZE    256
 
 /*! define WEB server priority */
-#define ethWEBSERVER_PRIORITY             ( tskIDLE_PRIORITY + 2 )
+#define ethWEBSERVER_PRIORITY             ( OS_LOWEST_PRIO - 2 )
 
 /*! define TFTP server priority */
-#define ethTFTPSERVER_PRIORITY            ( tskIDLE_PRIORITY + 3 )
+#define ethTFTPSERVER_PRIORITY            ( OS_LOWEST_PRIO - 3 )
 
 /*! define SMTP Client priority */
-#define ethSMTPCLIENT_PRIORITY            ( tskIDLE_PRIORITY + 5 )
+#define ethSMTPCLIENT_PRIORITY            ( OS_LOWEST_PRIO - 5 )
 
 /*! define lwIP task priority */
 #define lwipINTERFACE_TASK_PRIORITY       7//( configMAX_PRIORITIES - 1 )
