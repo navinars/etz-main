@@ -62,12 +62,12 @@
 **************************************************************************************************************
 */
 
-#define  BSP_CFG_LED_PORT_SEL             BSP_PORT_D
+#define  BSP_CFG_LED_PORT_SEL             BSP_PORT_B
 
 #define  BSP_CFG_PB_PORT_SEL              BSP_PORT_C
 
-#define  BSP_CFG_UART_PORT_SEL            BSP_PORT_C
-#define  BSP_CFG_UART_NBR_SEL             BSP_UART_0
+#define  BSP_CFG_UART_PORT_SEL            BSP_PORT_D
+#define  BSP_CFG_UART_NBR_SEL             BSP_UART_1
 
 /*
 *********************************************************************************************************

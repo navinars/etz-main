@@ -83,6 +83,7 @@ __heap_limit
 		EXTERN  OS_CPU_SysTickHandler
 		EXTERN  tickISRHandler
 		EXTERN  tickISRHandler
+		EXTERN  lwIPEthernetIntHandler
 
 ;******************************************************************************
 ;
@@ -149,7 +150,7 @@ __Vectors
         DCD     IntDefaultHandler           ; CAN0
         DCD     IntDefaultHandler           ; CAN1
         DCD     IntDefaultHandler           ; CAN2
-        DCD     IntDefaultHandler           ; Ethernet
+        DCD     lwIPEthernetIntHandler      ; Ethernet for lwIP
         DCD     IntDefaultHandler           ; Hibernate
 
 ;******************************************************************************

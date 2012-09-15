@@ -342,13 +342,13 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>0</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>rvmdk PART_LM3S8962</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\src\app;..\..\src\drv;..\..\src\os\uCOS-II;..\..\src\os\uCOS-II\Ports;..\..\src\bsp;..\..\src\os\uC-LIB;..\..\src\lwip-1.4.0;..\..\src\lwip-1.4.0\src\include;..\..\src\lwip-1.4.0\src\include\ipv4;..\..\src\lwip-1.4.0\ports\stellaris\include;..\..\src\lwip-1.4.0\ports\stellaris\netif</IncludePath>
+              <IncludePath>..\..\src\app;..\..\src\drv;..\..\src\bsp;..\..\src\net;..\..\src\os\uCOS-II;..\..\src\os\uCOS-II\Ports;..\..\src\os\uC-LIB;..\..\src\lwip-1.4.0;..\..\src\lwip-1.4.0\src\include;..\..\src\lwip-1.4.0\src\include\ipv4;..\..\src\lwip-1.4.0\ports\stellaris\include;..\..\src\lwip-1.4.0\ports\stellaris\netif</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -378,7 +378,7 @@
             <ScatterFile></ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc></Misc>
+            <Misc>--entry Reset_Handler</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -571,6 +571,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>NET</GroupName>
+          <Files>
+            <File>
+              <FileName>network.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\net\network.c</FilePath>
+            </File>
+            <File>
+              <FileName>lwiplib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\drv\utils\lwiplib.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>lwIP</GroupName>
           <Files>
             <File>
@@ -582,6 +597,21 @@
               <FileName>sys_arch.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\lwip-1.4.0\ports\stellaris\sys_arch.c</FilePath>
+            </File>
+            <File>
+              <FileName>stellarisif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\lwip-1.4.0\ports\stellaris\netif\stellarisif.c</FilePath>
+            </File>
+            <File>
+              <FileName>etharp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\lwip-1.4.0\src\netif\etharp.c</FilePath>
+            </File>
+            <File>
+              <FileName>slipif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\lwip-1.4.0\src\netif\slipif.c</FilePath>
             </File>
           </Files>
         </Group>

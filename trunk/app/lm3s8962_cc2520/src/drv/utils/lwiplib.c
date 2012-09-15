@@ -34,96 +34,43 @@
 // Include lwIP high-level API code.
 //
 //*****************************************************************************
-#include "third_party/lwip-1.3.2/src/api/api_lib.c"
-#include "third_party/lwip-1.3.2/src/api/api_msg.c"
-#include "third_party/lwip-1.3.2/src/api/err.c"
-#include "third_party/lwip-1.3.2/src/api/netbuf.c"
-#include "third_party/lwip-1.3.2/src/api/netdb.c"
-#include "third_party/lwip-1.3.2/src/api/netifapi.c"
-#include "third_party/lwip-1.3.2/src/api/sockets.c"
-#include "third_party/lwip-1.3.2/src/api/tcpip.c"
+#include "lwip/sys.h"
+#include "lwip/api.h"
+#include "lwip/memp.h"
+#include "lwip/tcp.h"
+#include "lwip/udp.h"
+#include "lwip/tcpip.h"
+#include "lwip/dhcp.h"
 
 //*****************************************************************************
 //
 // Include the core lwIP TCP/IP stack code.
 //
 //*****************************************************************************
-#include "third_party/lwip-1.3.2/src/core/dhcp.c"
-#include "third_party/lwip-1.3.2/src/core/dns.c"
-#include "third_party/lwip-1.3.2/src/core/init.c"
-#include "third_party/lwip-1.3.2/src/core/mem.c"
-#include "third_party/lwip-1.3.2/src/core/memp.c"
-#include "third_party/lwip-1.3.2/src/core/netif.c"
-#include "third_party/lwip-1.3.2/src/core/pbuf.c"
-#include "third_party/lwip-1.3.2/src/core/raw.c"
-#include "third_party/lwip-1.3.2/src/core/stats.c"
-#include "third_party/lwip-1.3.2/src/core/sys.c"
-#include "third_party/lwip-1.3.2/src/core/tcp.c"
-#include "third_party/lwip-1.3.2/src/core/tcp_in.c"
-#include "third_party/lwip-1.3.2/src/core/tcp_out.c"
-#include "third_party/lwip-1.3.2/src/core/udp.c"
 
 //*****************************************************************************
 //
 // Include the IPV4 code.
 //
 //*****************************************************************************
-#include "third_party/lwip-1.3.2/src/core/ipv4/autoip.c"
-#include "third_party/lwip-1.3.2/src/core/ipv4/icmp.c"
-#include "third_party/lwip-1.3.2/src/core/ipv4/igmp.c"
-#include "third_party/lwip-1.3.2/src/core/ipv4/inet.c"
-#include "third_party/lwip-1.3.2/src/core/ipv4/inet_chksum.c"
-#include "third_party/lwip-1.3.2/src/core/ipv4/ip.c"
-#include "third_party/lwip-1.3.2/src/core/ipv4/ip_addr.c"
-#include "third_party/lwip-1.3.2/src/core/ipv4/ip_frag.c"
-
-//*****************************************************************************
-//
-// Include the lwIP SNMP code.
-//
-//*****************************************************************************
-#include "third_party/lwip-1.3.2/src/core/snmp/asn1_dec.c"
-#include "third_party/lwip-1.3.2/src/core/snmp/asn1_enc.c"
-#include "third_party/lwip-1.3.2/src/core/snmp/mib2.c"
-#include "third_party/lwip-1.3.2/src/core/snmp/mib_structs.c"
-#include "third_party/lwip-1.3.2/src/core/snmp/msg_in.c"
-#include "third_party/lwip-1.3.2/src/core/snmp/msg_out.c"
 
 //*****************************************************************************
 //
 // Include the Network Interface code.
 //
 //*****************************************************************************
-#include "third_party/lwip-1.3.2/src/netif/etharp.c"
-#include "third_party/lwip-1.3.2/src/netif/loopif.c"
 
-//*****************************************************************************
-//
-// Include the Network Interface PPP code.
-//
-//*****************************************************************************
-#include "third_party/lwip-1.3.2/src/netif/ppp/auth.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/chap.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/chpms.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/fsm.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/ipcp.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/lcp.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/magic.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/md5.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/pap.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/ppp.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/ppp_oe.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/randm.c"
-#include "third_party/lwip-1.3.2/src/netif/ppp/vj.c"
+
 
 //*****************************************************************************
 //
 // Include Stellaris-specific lwIP interface/porting layer code.
 //
 //*****************************************************************************
-#include "third_party/lwip-1.3.2/ports/stellaris/perf.c"
-#include "third_party/lwip-1.3.2/ports/stellaris/sys_arch.c"
-#include "third_party/lwip-1.3.2/ports/stellaris/netif/stellarisif.c"
+#include "arch/perf.h"
+#include "arch/sys_arch.h"
+#include "netif/stellarisif.h"
+#include "ucos_ii.h"
 
 //*****************************************************************************
 //
@@ -171,7 +118,7 @@ extern void lwIPHostTimerHandler(void);
 #include "driverlib/gpio.h"
 #include "driverlib/sysctl.h"
 #if !NO_SYS
-#include "SafeRTOS/SafeRTOS_API.h"
+#include "ucos_ii.h"
 #endif
 
 //*****************************************************************************
@@ -316,7 +263,7 @@ static unsigned long g_ulGWAddr;
 //
 //*****************************************************************************
 #if !NO_SYS
-static unsigned long g_pulStack[128];
+static OS_STK g_pulStack[128];
 #endif
 
 //*****************************************************************************
@@ -326,7 +273,7 @@ static unsigned long g_pulStack[128];
 //
 //*****************************************************************************
 #if !NO_SYS
-static signed char g_pcQueueMem[sizeof(void *) + portQUEUE_OVERHEAD_BYTES];
+//static signed char g_pcQueueMem[sizeof(void *) + portQUEUE_OVERHEAD_BYTES];
 #endif
 
 //*****************************************************************************
@@ -336,7 +283,7 @@ static signed char g_pcQueueMem[sizeof(void *) + portQUEUE_OVERHEAD_BYTES];
 //
 //*****************************************************************************
 #if !NO_SYS
-static xQueueHandle g_pInterrupt;
+static OS_EVENT *g_pInterrupt;
 #endif
 
 //*****************************************************************************
@@ -349,6 +296,7 @@ static xQueueHandle g_pInterrupt;
 static void
 lwIPInterruptTask(void *pvArg)
 {
+	u8_t err;
     //
     // Loop forever.
     //
@@ -357,9 +305,7 @@ lwIPInterruptTask(void *pvArg)
         //
         // Wait until the semaphore has been signalled.
         //
-        while(xQueueReceive(g_pInterrupt, &pvArg, portMAX_DELAY) != pdPASS)
-        {
-        }
+        pvArg = OSQPend(g_pInterrupt, 0, &err);
 
         //
         // Processes any packets waiting to be sent or received.
@@ -618,16 +564,15 @@ lwIPPrivateInit(void *pvArg)
     // the Ethernet interrupt task from the Ethernet interrupt handler.
     //
 #if !NO_SYS
-    xQueueCreate(g_pcQueueMem, sizeof(g_pcQueueMem), 1, sizeof(void *),
-                 &g_pInterrupt);
+//	g_pcQueueMem = OSMemCreate(sizeof(g_pcQueueMem), 1, sizeof(void *), &g_pInterrupt);
 #endif
 
     //
     // If using a RTOS, create the Ethernet interrupt task.
     //
 #if !NO_SYS
-    xTaskCreate(lwIPInterruptTask, (signed portCHAR *)"eth_int",
-                (signed portCHAR *)g_pulStack, sizeof(g_pulStack), 0, 1, 0);
+    OSTaskCreate(lwIPInterruptTask, (void *)arg,
+                &g_pulStack, sizeof(g_pulStack), 0);
 #endif
 
     //

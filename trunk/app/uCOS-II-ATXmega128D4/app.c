@@ -162,7 +162,7 @@ int  main (void)
 
 static void  App_TaskStart (void *p_arg)
 {
-    CPU_INT08U  i;
+//    CPU_INT08U  i;
 
 
     (void)p_arg;                                                /* Prevent compiler warnings                                */
@@ -183,20 +183,14 @@ static void  App_TaskStart (void *p_arg)
 
     BSP_Ser_Init(115200);                                       
     
+	BSP_LED_Off(4);
+	
     while (1) {                                                 /* Task body, always written as an infinite loop.           */
-        for (i = 1; i < 8; i++) {
-            BSP_LED_On(i);
+
+            BSP_LED_On(3);
             OSTimeDlyHMSM(0, 0, 0, 100);
-            BSP_LED_Off(i);
+            BSP_LED_Off(3);
             OSTimeDlyHMSM(0, 0, 0, 100);
-         
-        }
-        for (i = 1; i < 8; i++) {
-            BSP_LED_On(9 - i);
-            OSTimeDlyHMSM(0, 0, 0, 100);
-            BSP_LED_Off(9 - i);
-            OSTimeDlyHMSM(0, 0, 0, 100);
-        }
     }
 }
 
