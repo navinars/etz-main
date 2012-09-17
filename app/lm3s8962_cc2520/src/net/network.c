@@ -12,72 +12,130 @@
 * Programmer(s) : FT
 *********************************************************************************************************
 */
-#include "includes.h"
+#include <stdint.h>
+#include "network.h"
+#include "utils/lwiplib.h"
+#include "inc/hw_ints.h"
+#include "inc/hw_ethernet.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_nvic.h"
+#include "inc/hw_sysctl.h"
+#include "inc/hw_types.h"
+#include "driverlib/debug.h"
+#include "driverlib/ethernet.h"
+#include "driverlib/gpio.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/pin_map.h"
 
 
-static struct netif netif;
-static uint32_t IPaddress = 0;
+unsigned char MACAddress[] = My_Mac_ID;
+unsigned char IPAddress[] = MY_IP_ID;
+unsigned char NetMaskAddr[] = IP_MARK_ID;
+unsigned char GwWayAddr[] = MY_GATEWAY_ID;
+
+uint8_t  g_bNetStatus;
 
 
-static void TcpipInitDone(void *arg);
-
+/* ------------------------------------------------------------------------------------------------------
+ *									lwIP_init()
+ *
+ * Description : main function.
+ *
+ * Argument(s) : none.
+ *
+ */
 err_t lwIP_init(void)
 {
-	err_t err;
-	struct ip_addr ipaddr, netmask, gw;
-	uint8_t macaddress[6] = {0,0,0,0,0,1};
+	err_t err = ERR_OK;
+//	struct ip_addr stIpAddr, stNetMsk, stGatWay;
 
-	sys_sem_t sem;
-
-	sys_init();
-
-	/* Initializes the dynamic memory heap defined by MEM_SIZE.*/
-	mem_init();
-
-	/* Initializes the memory pools defined by MEMP_NUM_x.*/
-	memp_init();
-
-	pbuf_init();
-	netif_init();
-
-	err = sys_sem_new(&sem, 0);
+	/*load local net parameter*/
+	lwIPLocalMACGet(MACAddress);
 	
-	if(err != ERR_OK)
-		return err;
-	
-	tcpip_init(TcpipInitDone, &sem);
-    sys_sem_wait(&sem);
-    sys_sem_free(&sem);
+	/*use dhcp mode*/
+	lwIPInit(MACAddress, 0, 0, 0, IPADDR_USE_DHCP);
 
-#if LWIP_DHCP
-    /* 启用DHCP服务器 */
-    ipaddr.addr = 0;
-    netmask.addr = 0;
-    gw.addr = 0;
-#else
-    /* 启用静态IP */
-    IP4_ADDR(&ipaddr, 10, 21, 11, 245);
-    IP4_ADDR(&netmask, 255, 255, 255, 0);
-    IP4_ADDR(&gw, 10, 21, 11, 254);
-#endif
-
-//	Set_MAC_Address(macaddress);
-    
-    netif_add(&netif, &ipaddr, &netmask, &gw, NULL, &stellarisif_init, &tcpip_input);
-    netif_set_default(&netif);
-    
-#if LWIP_DHCP
-//    dhcp_start(&netif);
-#endif
-    netif_set_up(&netif);
-	
-	return ERR_OK;
+	g_bNetStatus = NETS_INIT;
+	return err;
 }
 
-static void TcpipInitDone(void *arg)
+/* ------------------------------------------------------------------------------------------------------
+ *									TcpClientTask()
+ *
+ * Description : main function.
+ *
+ * Argument(s) : none.
+ *
+ */
+static void TcpClientMainProc(void)
 {
-    sys_sem_t *sem;
-    sem = arg;
-    sys_sem_signal(sem);
+	switch(g_bNetStatus)
+	{
+	case NETS_INIT:
+//		TcpClientInit();
+		break;
+
+	case NETS_LOCIP:
+//		TcpGetLocalIp();
+		break;
+
+	case NETS_SRVIP:
+//		TcpGetServerIp();
+		break;
+
+	case NETS_LOGIN:
+//		TcpClientRelogin();
+		break;
+
+	case NETS_NORMAL:
+//		TcpNormalProc();
+		break;
+
+	default:
+		break;
+	}
 }
+
+/* ------------------------------------------------------------------------------------------------------
+ *									TcpClientTask()
+ *
+ * Description : main function.
+ *
+ * Argument(s) : none.
+ *
+ */
+static void TcpClientTask(void *pArg)
+{
+	for(;;)
+	{
+        TcpClientMainProc();
+		OSTimeDly(2);
+	}
+}
+
+/* ------------------------------------------------------------------------------------------------------
+ *									NetServerInit()
+ *
+ * Description : main function.
+ *
+ * Argument(s) : none.
+ *
+ */
+int NetServerInit(void)
+{
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_ETH);
+	SysCtlPeripheralReset(SYSCTL_PERIPH_ETH);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+	
+    GPIODirModeSet(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3, GPIO_DIR_MODE_HW);
+    GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3,
+                     GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD);
+	GPIOPinTypeEthernetLED(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3);
+	
+	lwIP_init();
+	sys_thread_new("TcpClt", TcpClientTask, NULL, TASK_UDP_SERVER_STACK_SIZE, TASK_UDP_SERVER_PRIORITY);
+	
+	return 1;
+}
+
 

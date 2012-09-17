@@ -64,6 +64,9 @@ static  void  App_TaskStart (void *p_arg)
 
 	BSP_LedInit();
 	
+	/*Initialise LwIP & Ethernet.*/
+	NetServerInit();
+	
     /*init os tick*/
 	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);
 	
@@ -95,7 +98,7 @@ static  void  App_TaskLED (void *p_arg)
 	/*task process*/
 	while(1)
 	{
-
+		BSP_LedToggle(1);
 		OSTimeDly(OS_TICKS_PER_SEC / 2);
 	}
 }
