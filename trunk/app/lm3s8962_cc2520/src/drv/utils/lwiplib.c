@@ -119,6 +119,7 @@ extern void lwIPHostTimerHandler(void);
 #include "driverlib/sysctl.h"
 #if !NO_SYS
 #include "ucos_ii.h"
+#include "app_cfg.h"
 #endif
 
 //*****************************************************************************
@@ -264,6 +265,7 @@ static unsigned long g_ulGWAddr;
 //*****************************************************************************
 #if !NO_SYS
 static OS_STK g_pulStack[128];
+OS_EVENT *LwIP_NetISR_Sem;
 #endif
 
 //*****************************************************************************
@@ -283,7 +285,7 @@ static OS_STK g_pulStack[128];
 //
 //*****************************************************************************
 #if !NO_SYS
-static OS_EVENT *g_pInterrupt;
+//static OS_EVENT *g_pInterrupt;
 #endif
 
 //*****************************************************************************
@@ -297,6 +299,7 @@ static void
 lwIPInterruptTask(void *pvArg)
 {
 	u8_t err;
+	pvArg = pvArg;
     //
     // Loop forever.
     //
@@ -305,7 +308,7 @@ lwIPInterruptTask(void *pvArg)
         //
         // Wait until the semaphore has been signalled.
         //
-        pvArg = OSQPend(g_pInterrupt, 0, &err);
+        pvArg = OSQPend(LwIP_NetISR_Sem, 0, &err);
 
         //
         // Processes any packets waiting to be sent or received.
@@ -565,14 +568,17 @@ lwIPPrivateInit(void *pvArg)
     //
 #if !NO_SYS
 //	g_pcQueueMem = OSMemCreate(sizeof(g_pcQueueMem), 1, sizeof(void *), &g_pInterrupt);
+	LwIP_NetISR_Sem = OSSemCreate(0);
 #endif
 
     //
     // If using a RTOS, create the Ethernet interrupt task.
     //
 #if !NO_SYS
-    OSTaskCreate(lwIPInterruptTask, (void *)arg,
-                &g_pulStack, sizeof(g_pulStack), 0);
+    OSTaskCreate(lwIPInterruptTask,
+				 (void *)0,
+                 &g_pulStack[128 - 1],
+				 LWIP_TASK_ISR_PRIO);
 #endif
 
     //
@@ -780,7 +786,7 @@ lwIPEthernetIntHandler(void)
 {
     unsigned long ulStatus;
 #if !NO_SYS
-    portBASE_TYPE xWake;
+//    portBASE_TYPE xWake;
 #endif
 
     //
@@ -810,7 +816,7 @@ lwIPEthernetIntHandler(void)
     //
     // A RTOS is being used.  Signal the Ethernet interrupt task.
     //
-    xQueueSendFromISR(g_pInterrupt, (void *)&ulStatus, &xWake);
+    OSSemPost(LwIP_NetISR_Sem);
 
     //
     // Disable the Ethernet interrupts.  Since the interrupts have not been
@@ -822,7 +828,7 @@ lwIPEthernetIntHandler(void)
     //
     // Potentially task switch as a result of the above queue write.
     //
-    taskYIELD_FROM_ISR(xWake);
+//    taskYIELD_FROM_ISR(xWake);
 #endif
 }
 
