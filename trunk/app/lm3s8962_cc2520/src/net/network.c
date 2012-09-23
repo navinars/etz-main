@@ -14,6 +14,7 @@
 */
 #include <stdint.h>
 #include "network.h"
+#include "app_cfg.h"
 #include "utils/lwiplib.h"
 #include "inc/hw_ints.h"
 #include "inc/hw_ethernet.h"
@@ -27,13 +28,21 @@
 #include "driverlib/sysctl.h"
 #include "driverlib/pin_map.h"
 
+#include "ping.h"
+
+
+/* ------------------------------------------------------------------------------------------------------
+ *											Local Variable
+ * ------------------------------------------------------------------------------------------------------
+ */
+OS_STK  Task_Eth_Stk[TASK_NET_CLIENT_STACK_SIZE];
 
 unsigned char MACAddress[] = My_Mac_ID;
 unsigned char IPAddress[] = MY_IP_ID;
 unsigned char NetMaskAddr[] = IP_MARK_ID;
 unsigned char GwWayAddr[] = MY_GATEWAY_ID;
 
-uint8_t  g_bNetStatus;
+unsigned char g_bNetStatus;
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -50,7 +59,7 @@ err_t lwIP_init(void)
 //	struct ip_addr stIpAddr, stNetMsk, stGatWay;
 
 	/*load local net parameter*/
-	lwIPLocalMACGet(MACAddress);
+//	lwIPLocalMACGet(MACAddress);
 	
 	/*use dhcp mode*/
 	lwIPInit(MACAddress, 0, 0, 0, IPADDR_USE_DHCP);
@@ -69,10 +78,18 @@ err_t lwIP_init(void)
  */
 static void TcpClientMainProc(void)
 {
+	struct in_addr  g_sClientIP;
+	
 	switch(g_bNetStatus)
 	{
 	case NETS_INIT:
-//		TcpClientInit();
+		do
+		{
+			g_sClientIP.s_addr = lwIPLocalIPAddrGet();
+			OSTimeDly(10);
+		}while(0 == g_sClientIP.s_addr);
+
+		g_bNetStatus = NETS_LOCIP;
 		break;
 
 	case NETS_LOCIP:
@@ -121,21 +138,32 @@ static void TcpClientTask(void *pArg)
  * Argument(s) : none.
  *
  */
-int NetServerInit(void)
+void NetServerInit(void)
 {
+	//
+	// Enable and Reset the Ethernet Controller.
+	//
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_ETH);
 	SysCtlPeripheralReset(SYSCTL_PERIPH_ETH);
+
+	//
+	// Enable Port F for Ethernet LEDs.
+	//  LED0        Bit 3   Output
+	//  LED1        Bit 2   Output
+	//
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-	
-    GPIODirModeSet(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3, GPIO_DIR_MODE_HW);
-    GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3,
-                     GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD);
 	GPIOPinTypeEthernetLED(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3);
-	
+
 	lwIP_init();
-	sys_thread_new("TcpClt", TcpClientTask, NULL, TASK_UDP_SERVER_STACK_SIZE, TASK_UDP_SERVER_PRIORITY);
 	
-	return 1;
+	ping_init();
+
+	/*穿创建TCP/IP应用任务*/
+	OSTaskCreate(TcpClientTask,
+				 (void *)0,
+				 &Task_Eth_Stk[TASK_NET_CLIENT_STACK_SIZE-1],
+				 TASK_NET_CLIENT_PRIORITY);
+//	sys_thread_new("TcpClt", TcpClientTask, NULL, TASK_UDP_SERVER_STACK_SIZE, TASK_UDP_SERVER_PRIORITY);
 }
 
 

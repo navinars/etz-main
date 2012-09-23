@@ -47,7 +47,7 @@
 */
 
 
-#define  APP_CFG_PROBE_COM_EN                    EF_ENABLED     /* DEF_ENABLED = Present, DEF_DISABLED = Not Present    */
+#define  APP_CFG_PROBE_COM_EN                    DEF_ENABLED     /* DEF_ENABLED = Present, DEF_DISABLED = Not Present    */
 #define  APP_CFG_PROBE_OS_PLUGIN_EN              DEF_ENABLED
 #define  APP_CFG_PROBE_DEMO_INTRO_EN             DEF_ENABLED
 
@@ -62,13 +62,14 @@
 #define  APP_CFG_TASK_LED_PRIO								3
 
 /*lwIP TCP/IP stack task.*/
-#define  LWIP_TASK_ISR_PRIO                             	10
-#define  TASK_UDP_SERVER_PRIORITY							11
+#define  LWIP_TASK_ISR_PRIO                             	13
+#define  TASK_NET_CLIENT_PRIORITY							11
 
-#define  LWIP_TASK_START_PRIO                             	10
-#define  LWIP_TASK_END_PRIO                               	12
 
-/*uC/OS core task.*/
+#define  LWIP_TASK_START_PRIO                             	12
+#define  LWIP_TASK_END_PRIO                               	13
+
+/*uC/OS port task.*/
 #define  OS_PROBE_TASK_PRIO              	(OS_LOWEST_PRIO - 3)
 #define  OS_TASK_TMR_PRIO                	(OS_LOWEST_PRIO - 2)
 
@@ -81,9 +82,9 @@
 *********************************************************************************************************
 */
 
-#define  TASK_START_STK_SIZE                     	128
+#define  TASK_START_STK_SIZE                     	 50
 #define  TASK_LED_STK_SIZE                       	128
-#define  TASK_UDP_SERVER_STACK_SIZE					128
+#define  TASK_NET_CLIENT_STACK_SIZE					512
 /*
 *********************************************************************************************************
 *                               uC/Probe plug-in for uC/OS-II CONFIGURATION

@@ -70,7 +70,7 @@
 #define ethSMTPCLIENT_PRIORITY            ( OS_LOWEST_PRIO - 5 )
 
 /*! define lwIP task priority */
-#define lwipINTERFACE_TASK_PRIORITY       7//( configMAX_PRIORITIES - 1 )
+//#define lwipINTERFACE_TASK_PRIORITY       ( 1 - configMAX_PRIORITIES )
 
 /*! define netif task priority */
 #define netifINTERFACE_TASK_PRIORITY      ( configMAX_PRIORITIES - 1 )

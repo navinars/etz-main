@@ -439,15 +439,16 @@ sys_thread_t
 sys_thread_new(const char *name, void (*thread)(void *arg), void *arg, int stacksize,
                int prio)
 {
-	u8_t ubPrio = 0;
-
+	int ubPrio;
+	
 	arg = arg;
 
 	if((prio > 0) && (prio <= LWIP_TASK_MAX))
 	{
 		ubPrio = (u8_t)(LWIP_START_PRIO + prio - 1);
 
-		if(stacksize > LWIP_STK_SIZE)   // 任务堆栈大小不超过LWIP_STK_SIZE
+		// 任务堆栈大小不超过LWIP_STK_SIZE=512.
+		if(stacksize > LWIP_STK_SIZE)
         	stacksize = LWIP_STK_SIZE;
 
 		OSTaskCreate(thread, (void *)arg, &LWIP_TASK_STK[prio-1][stacksize-1], ubPrio);

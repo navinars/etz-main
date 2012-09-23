@@ -77,7 +77,7 @@ static  void  App_TaskStart (void *p_arg)
 	
 				  
 	/*task process*/
-    while (1) 
+    while(1)
 	{
 		OSTaskSuspend(OS_PRIO_SELF);		//挂起这个任务。
     }

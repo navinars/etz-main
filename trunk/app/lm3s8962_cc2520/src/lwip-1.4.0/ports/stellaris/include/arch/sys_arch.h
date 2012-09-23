@@ -38,9 +38,9 @@
 
 #define LWIP_COMPAT_MUTEX   1
 
-#define LWIP_STK_SIZE	300
+#define LWIP_STK_SIZE	512
 
-#define LWIP_TASK_MAX	  3//(LWIP_TASK_END_PRIO - LWIP_TASK_START_PRIO + 1)
+#define LWIP_TASK_MAX	  (LWIP_TASK_END_PRIO - LWIP_TASK_START_PRIO + 1)
 
 #define MAX_QUEUES        10	// the number of mailboxes
 #define MAX_QUEUE_ENTRIES 20	// the max size of each mailbox
