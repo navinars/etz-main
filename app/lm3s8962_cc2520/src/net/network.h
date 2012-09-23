@@ -38,6 +38,6 @@
  *											Global Function
  * ------------------------------------------------------------------------------------------------------
  */
-extern int NetServerInit(void);
+extern void NetServerInit(void);
  
 #endif

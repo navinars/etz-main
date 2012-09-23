@@ -45,7 +45,7 @@
 #define __LWIPOPTS_H__
 
 /* Include user defined options first */
-#include "conf_eth.h"
+//#include "conf_eth.h"
 // #include "lwip/debug.h"
 
 #define LWIP_PLATFORM_DIAG(x)   
@@ -60,7 +60,6 @@
 #define MEMP_RECLAIM            1
 
 #define LWIP_PROVIDE_ERRNO     1
-
 /* Platform specific locking */
 
 /*
@@ -151,6 +150,7 @@ a lot of data that needs to be copied, this should be set high. */
 /* PBUF_LINK_HLEN: the number of bytes that should be allocated for a
    link level header. */
 #define PBUF_LINK_HLEN          16
+#define ETH_PAD_SIZE				2
 
 /* ---------- TCP options ---------- */
 #define LWIP_TCP                1
@@ -180,8 +180,9 @@ a lot of data that needs to be copied, this should be set high. */
 #define TCP_SYNMAXRTX           4
 
 /* ---------- ARP options ---------- */
+#define LWIP_ARP                    1
 #define ARP_TABLE_SIZE 10
-#define ARP_QUEUEING 0
+#define ARP_QUEUEING 1
 
 /* ---------- IP options ---------- */
 /* Define IP_FORWARD to 1 if you wish to have the ability to forward
@@ -207,12 +208,16 @@ a lot of data that needs to be copied, this should be set high. */
    (recommended). */
 #define DHCP_DOES_ARP_CHECK     1
 
-#define TCPIP_THREAD_PRIO               lwipINTERFACE_TASK_PRIORITY
+
+/* ---------- LWIP TASK options ---------- */
+#define TCPIP_THREAD_PRIO       1
+#define PING_THREAD_PRIO       2
+
 
 /* ---------- Statistics options ---------- */
-#define LWIP_STATS 1
+#define LWIP_STATS 0
 
-#define LWIP_STATS_DISPLAY 1
+#define LWIP_STATS_DISPLAY 0
 
 #if LWIP_STATS
 #define LINK_STATS 1
