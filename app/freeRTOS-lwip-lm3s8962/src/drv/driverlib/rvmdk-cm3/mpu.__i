@@ -1,0 +1,1 @@
+-c --cpu Cortex-M3 -D__MICROLIB -g -O2 -Otime --apcs=interwork --split_sections -I.. -I "D:\Program Files\Keil\\ARM\CMSIS\Include" -I "D:\Program Files\Keil\\ARM\INC\Luminary" -Drvmdk -o ".\rvmdk-cm3\mpu.o" --omf_browse ".\rvmdk-cm3\mpu.crf" --depend ".\rvmdk-cm3\mpu.d" "mpu.c"
