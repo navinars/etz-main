@@ -1,4 +1,0 @@
-Dependencies for Project 'lm3s8962_cc2520', Target 'Target 1': (DO NOT MODIFY !)
-F (.\Startup.s)(0x00000000)(--cpu Cortex-M3 -g --apcs=interwork -I "C:\Program Files (x86)\keil\ARM\RV31\Inc" -I "C:\Program Files (x86)\keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\keil\ARM\Inc\Luminary" --list ".\lst\Startup.lst" --xref -o ".\obj\Startup.o" --depend ".\obj\Startup.d")
-F (..\..\src\app\main.c)(0x503B71BC)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I "C:\Program Files (x86)\keil\ARM\RV31\Inc" -I "C:\Program Files (x86)\keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\keil\ARM\Inc\Luminary" -o ".\obj\main.o" --omf_browse ".\obj\main.crf" --depend ".\obj\main.d")
-I (C:\Program Files (x86)\keil\ARM\RV31\Inc\string.h)(0x4F58357C)
