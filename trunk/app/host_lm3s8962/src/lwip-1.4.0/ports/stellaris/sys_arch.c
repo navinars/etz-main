@@ -454,7 +454,7 @@ sys_thread_new(const char *name, void (*thread)(void *arg), void *arg, int stack
 		OSTaskCreate(thread, (void *)arg, &LWIP_TASK_STK[prio-1][stacksize-1], ubPrio);
 	}
 
-	return (sys_thread_t)ubPrio;
+	return (sys_thread_t)&ubPrio;
 }
 
 /**
