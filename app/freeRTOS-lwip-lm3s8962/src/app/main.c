@@ -1,8 +1,8 @@
 /*
 *********************************************************************************************************
 *
-*                                          lm3s8963-GainSpan/Main
-*                                            INTRODUCTION DEMO
+*                                          lm3s8963-lwIP/Main
+*                                           INTRODUCTION DEMO
 *
 *
 * Filename      : main.c
@@ -40,6 +40,7 @@ static void prvStartTask(void *pvParameters);
 void task_LCD_Init(void);
 static void taskLCD(void *parg);
 
+
 /********************************************************************************************************
 *                                             main()
 *
@@ -64,10 +65,7 @@ int main(void)
 	/* Start the tasks running. */
 	vTaskStartScheduler();
 	
-	while(1)
-	{
-		;
-	}
+	return (0);
 }
 
 /********************************************************************************************************
@@ -124,8 +122,9 @@ static void prvStartTask(void *pvParameters)
 {
 	(void) pvParameters;
 	
-	
 	task_LCD_Init();
+	
+	NetServerInit();
 	
 	for (;;)
 	{
@@ -167,18 +166,19 @@ void task_LCD_Init(void)
 */
 static void taskLCD(void *parg)
 {
-	RIT128x96x4StringDraw("GainSpan example", 15, 0, 15);
+	RIT128x96x4StringDraw("lm3s8962 example", 15, 0, 15);
 	RIT128x96x4StringDraw("----------------", 15, 8, 15);
-	RIT128x96x4StringDraw("Link :", 0, 16, 8);
-	RIT128x96x4StringDraw("Mode :", 0, 24, 8);
-	RIT128x96x4StringDraw("SSID :", 0, 32, 8);
-	RIT128x96x4StringDraw("DHCP :", 0, 40, 8);
-	RIT128x96x4StringDraw("IP   :", 0, 48, 8);
-	RIT128x96x4StringDraw("TCP  :", 0, 56, 8);
-	RIT128x96x4StringDraw("UID  :", 0, 64, 8);
+	RIT128x96x4StringDraw("IPv4 :", 0, 16, 8);
+	RIT128x96x4StringDraw("Mask :", 0, 24, 8);
+	RIT128x96x4StringDraw("Gate :", 0, 32, 8);
+	RIT128x96x4StringDraw("DNS  :", 0, 40, 8);
+	RIT128x96x4StringDraw("MAC  :", 0, 48, 8);
+	RIT128x96x4StringDraw("Sver :", 0, 56, 8);
+//	RIT128x96x4StringDraw("UID  :", 0, 64, 8);
 	
 	for(;;)
 	{
 		vTaskDelay(2);
 	}
 }
+

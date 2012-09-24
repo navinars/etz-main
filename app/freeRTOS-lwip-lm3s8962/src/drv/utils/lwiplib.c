@@ -172,8 +172,13 @@ extern void lwIPHostTimerHandler(void);
 #include "driverlib/gpio.h"
 #include "driverlib/sysctl.h"
 #if !NO_SYS
-#include "freertos.h"
+//#include "SafeRTOS/SafeRTOS_API.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
 #endif
+#include "app_cfg.h"
 
 //*****************************************************************************
 //
@@ -337,7 +342,8 @@ static unsigned long g_ulGWAddr;
 //
 //*****************************************************************************
 #if !NO_SYS
-static xQueueHandle g_pInterrupt;
+//static xQueueHandle g_pInterrupt;
+xSemaphoreHandle g_pInterrupt = NULL;
 #endif
 
 //*****************************************************************************
@@ -358,7 +364,8 @@ lwIPInterruptTask(void *pvArg)
         //
         // Wait until the semaphore has been signalled.
         //
-        while(xQueueReceive(g_pInterrupt, &pvArg, portMAX_DELAY) != pdPASS)
+        //while(xQueueReceive(g_pInterrupt, &pvArg, portMAX_DELAY) != pdPASS)
+        while(xSemaphoreTake(g_pInterrupt, portMAX_DELAY) != pdPASS)
         {
         }
 
@@ -844,7 +851,7 @@ lwIPEthernetIntHandler(void)
 {
     unsigned long ulStatus;
 #if !NO_SYS
-    portBASE_TYPE xWake;
+    portBASE_TYPE xWake = pdFALSE;
 #endif
 
     //
@@ -874,7 +881,9 @@ lwIPEthernetIntHandler(void)
     //
     // A RTOS is being used.  Signal the Ethernet interrupt task.
     //
-    xQueueSendFromISR(g_pInterrupt, (void *)&ulStatus, &xWake);
+    //xQueueSendFromISR(g_pInterrupt, (void *)&ulStatus, &xWake);
+    xSemaphoreGiveFromISR(g_pInterrupt, &xWake);
+	//xWake = pdTRUE;
 
     //
     // Disable the Ethernet interrupts.  Since the interrupts have not been
@@ -886,7 +895,8 @@ lwIPEthernetIntHandler(void)
     //
     // Potentially task switch as a result of the above queue write.
     //
-//    taskYIELD_FROM_ISR(xWake);
+    //taskYIELD_FROM_ISR(xWake);
+    portEND_SWITCHING_ISR( xWake );
 #endif
 }
 
@@ -1107,7 +1117,7 @@ lwIPPrivateNetworkConfigChange(void *pvArg)
     //
     // Bring the interface up.
     //
-    netif_set_up(&g_sNetIF);
+//    netif_set_up(&g_sNetIF);
 
     //
     // Save the new mode.

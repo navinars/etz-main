@@ -78,10 +78,10 @@ __heap_limit
 ; External declarations for the interrupt handlers used by the application.
 ;
 ;******************************************************************************
-		EXTERN  UART0_Int_Handler
         EXTERN  vPortSVCHandler
 		EXTERN  xPortPendSVHandler
 		EXTERN  xPortSysTickHandler
+		EXTERN  lwIPEthernetIntHandler
 ;******************************************************************************
 ;
 ; The vector table.
@@ -147,7 +147,7 @@ __Vectors
         DCD     IntDefaultHandler           ; CAN0
         DCD     IntDefaultHandler           ; CAN1
         DCD     IntDefaultHandler           ; CAN2
-        DCD     IntDefaultHandler           ; Ethernet
+        DCD     lwIPEthernetIntHandler      ; Ethernet
         DCD     IntDefaultHandler           ; Hibernate
         DCD     IntDefaultHandler           ; USB0
         DCD     IntDefaultHandler           ; PWM Generator 3
@@ -324,7 +324,7 @@ IntDefaultHandler
     IF :DEF: __MICROLIB
         EXPORT  __initial_sp
         EXPORT  __heap_base
-        EXPORT __heap_limit
+        EXPORT  __heap_limit
     ELSE
         IMPORT  __use_two_region_memory
         EXPORT  __user_initial_stackheap
