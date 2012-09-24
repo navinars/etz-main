@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>lm3s8962-cc2530</TargetName>
+      <TargetName>lwIP-1.40 uC/OS-2.89</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
