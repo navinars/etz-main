@@ -100,10 +100,6 @@ static char pcQueueMemoryPool[MAX_QUEUES * sizeof(mbox_t) + MEM_ALIGNMENT - 1];
 
 OS_STK LWIP_TASK_STK[LWIP_TASK_MAX][LWIP_STK_SIZE];
 
-/* Message queue constants. */
-#define archMESG_QUEUE_LENGTH	( 6 )
-#define archPOST_BLOCK_TIME_MS	( ( unsigned portLONG ) 10000 )
-
 struct sys_timeouts lwip_timeouts[LWIP_TASK_MAX];
 struct sys_timeouts null_timeouts;
 
@@ -179,110 +175,6 @@ int sys_sem_valid(sys_sem_t *sem)
 }
 
 /**
- * Creates a new mailbox.
- *
- * @param size is the number of entries in the mailbox.
- * @return the handle of the created mailbox.
- */
-err_t sys_mbox_new(sys_mbox_t *mbox, int size)
-{
-	u8_t 		err;
-	
-	*mbox = (sys_mbox_t)OSMemGet(pQueueMem, &err);
-
-	if(err == OS_NO_ERR)
-	{
-		if(size > MAX_QUEUE_ENTRIES)
-			size = MAX_QUEUE_ENTRIES;
-
-		(*mbox)->pQ = OSQCreate(&((*mbox)->pvQEntries[0]), size);
-
-		if((*mbox)->pQ != NULL)
-			return ERR_OK;
-		else
-		{
-			err = OSMemPut(pQueueMem, mbox);
-			*mbox = SYS_MBOX_NULL;
-			return ERR_MEM;
-		}
-	}
-	else
-		return ERR_MEM;
-}
-
-int sys_mbox_valid(sys_mbox_t *mbox)
-{
-	return (int)(*mbox);
-}
-
-void sys_mbox_set_invalid(sys_mbox_t *mbox)
-{
-
-    *mbox = SYS_MBOX_NULL;		 
-}
-
-/**
- * Sends a message to a mailbox.
- *
- * @param mbox is the mailbox
- * @param msg is the message to send
- */
-void
-sys_mbox_post(sys_mbox_t *mbox, void *msg)
-{
-	u8_t		i = 0;
-
-	if(msg == NULL)
-		msg = (void *)&pvNullPointer;
-
-	while((i < 10) && (OSQPost((*mbox)->pQ, msg) != OS_NO_ERR))
-	{
-		i ++;
-		OSTimeDly(5);
-	}
-}
-
-/**
- * Tries to send a message to a mailbox.
- *
- * @param mbox is the mailbox
- * @param msg is the message to send
- * @return ERR_OK if the message was sent and ERR_MEM if there was no space for
- *         the message
- */
-err_t
-sys_mbox_trypost(sys_mbox_t *mbox, void *msg)
-{
-	if(msg ==NULL)
-		msg = (void *)&pvNullPointer;
-
-	if(OSQPost((*mbox)->pQ, msg) != OS_NO_ERR)
-		return ERR_MEM;
-
-	return ERR_OK;
-}
-
-/**
- * Destroys a mailbox.
- *
- * @param mbox is the mailbox to be destroyed.
- */
-void
-sys_mbox_free(sys_mbox_t *mbox)
-{
-	u8_t err;
-	
-	//clear OSQ EVENT
-	OSQFlush((*mbox)->pQ);
-
-	//del OSQ EVENT
-	OSQDel((*mbox)->pQ, OS_DEL_NO_PEND, &err);
-
-	//put mem back to mem queue.
-	OSMemPut(pQueueMem, *mbox);
-}
-
-/**
  * Wait for a semaphore to be signalled.
  *
  * @param sem is the semaphore
@@ -334,6 +226,105 @@ sys_arch_sem_wait(sys_sem_t *sem, u32_t timeout)
 }
 
 /**
+ * Creates a new mailbox.
+ *
+ * @param size is the number of entries in the mailbox.
+ * @return the handle of the created mailbox.
+ */
+err_t sys_mbox_new(sys_mbox_t *mbox, int size)
+{
+	u8_t 		err;
+	
+	*mbox = (sys_mbox_t)OSMemGet(pQueueMem, &err);
+
+	if(err == OS_NO_ERR)
+	{
+		if(size > MAX_QUEUE_ENTRIES)
+			size = MAX_QUEUE_ENTRIES;
+
+		//创建消息队列
+		(*mbox)->pQ = OSQCreate(&((*mbox)->pvQEntries[0]), size);
+
+		if((*mbox)->pQ != NULL)
+			return ERR_OK;
+		else
+		{
+			err = OSMemPut(pQueueMem, *mbox);//释放内存块
+			*mbox = SYS_MBOX_NULL;
+			return ERR_MEM;
+		}
+	}
+	else
+		return ERR_MEM;
+}
+
+int sys_mbox_valid(sys_mbox_t *mbox)
+{
+	return (int)(*mbox);
+}
+
+void sys_mbox_set_invalid(sys_mbox_t *mbox)
+{
+
+    *mbox = SYS_MBOX_NULL;		 
+}
+
+/**
+ * Sends a message to a mailbox.
+ *
+ * @param mbox is the mailbox
+ * @param msg is the message to send
+ */
+void
+sys_mbox_post(sys_mbox_t *mbox, void *msg)
+{
+	if(msg == NULL)
+		msg = (void *)&pvNullPointer;
+
+	OSQPost((*mbox)->pQ, msg);
+}
+
+/**
+ * Tries to send a message to a mailbox.
+ *
+ * @param mbox is the mailbox
+ * @param msg is the message to send
+ * @return ERR_OK if the message was sent and ERR_MEM if there was no space for
+ *         the message
+ */
+err_t
+sys_mbox_trypost(sys_mbox_t *mbox, void *msg)
+{
+	if(msg == NULL)
+		msg = (void *)&pvNullPointer;
+
+	if(OSQPost((*mbox)->pQ, msg) != OS_NO_ERR)
+		return ERR_MEM;
+
+	return ERR_OK;
+}
+
+/**
+ * Destroys a mailbox.
+ *
+ * @param mbox is the mailbox to be destroyed.
+ */
+void
+sys_mbox_free(sys_mbox_t *mbox)
+{
+	u8_t err;
+	
+	//clear OSQ EVENT
+	OSQFlush((*mbox)->pQ);
+
+	//del OSQ EVENT
+	OSQDel((*mbox)->pQ, OS_DEL_NO_PEND, &err);
+
+	//put mem back to mem queue.
+	OSMemPut(pQueueMem, *mbox);
+}
+
+/**
  * Retrieve a message from a mailbox.
  *
  * @param mbox is the mailbox
@@ -375,17 +366,18 @@ sys_arch_mbox_fetch(sys_mbox_t *mbox, void **msg, u32_t timeout)
 			*msg = dummyptr;
 	}
 
-	if(err == OS_TIMEOUT)
+	if(err != OS_ERR_NONE)
 		timeout = SYS_ARCH_TIMEOUT;
 	else
 	{
-		 timeout_new = OSTimeGet();
-		 if (timeout_new>timeout)
-		 	timeout_new = timeout_new - timeout;
-		 else
-		 	timeout_new = 0xffffffff - timeout + timeout_new;
+		timeout_new = OSTimeGet();
+		if (timeout_new > timeout)
+			timeout_new = timeout_new - timeout;
+		else
+			timeout_new = 0xffffffff - timeout + timeout_new;
 
-		 timeout = timeout_new * 1000 / OS_TICKS_PER_SEC + 1; //convert to milisecond
+		//convert to milisecond
+		timeout = timeout_new * 1000 / OS_TICKS_PER_SEC + 1;
 	}
 	return timeout;
 }
@@ -408,7 +400,7 @@ sys_arch_mbox_tryfetch(sys_mbox_t *mbox, void **msg)
 	to recieve the message. */
 	if(msg == NULL)
 	{
-		msg = (void*)&pvNullPointer;
+		*msg = (void*)&pvNullPointer;
 	}
 
 	/* Recieve a message from the queue. */
@@ -445,6 +437,7 @@ sys_thread_new(const char *name, void (*thread)(void *arg), void *arg, int stack
 
 	if((prio > 0) && (prio <= LWIP_TASK_MAX))
 	{
+		// 计算uC/OS实际的任务优先级
 		ubPrio = (u8_t)(LWIP_START_PRIO + prio - 1);
 
 		// 任务堆栈大小不超过LWIP_STK_SIZE=512.
@@ -454,7 +447,8 @@ sys_thread_new(const char *name, void (*thread)(void *arg), void *arg, int stack
 		OSTaskCreate(thread, (void *)arg, &LWIP_TASK_STK[prio-1][stacksize-1], ubPrio);
 	}
 
-	return (sys_thread_t)&ubPrio;
+	// 返回空指针
+	return (sys_thread_t)pvNullPointer;
 }
 
 /**
@@ -465,7 +459,9 @@ sys_thread_new(const char *name, void (*thread)(void *arg), void *arg, int stack
 sys_prot_t
 sys_arch_protect(void)
 {
+#if OS_CRITICAL_METHOD == 3u
 	OS_CPU_SR   cpu_sr = 0u;
+#endif
 	OS_ENTER_CRITICAL();
 	return cpu_sr;
 }
@@ -478,7 +474,9 @@ sys_arch_protect(void)
 void
 sys_arch_unprotect(sys_prot_t val)
 {
+#if OS_CRITICAL_METHOD == 3u
 	OS_CPU_SR   cpu_sr = val;
+#endif
 	OS_EXIT_CRITICAL();
 }
 
