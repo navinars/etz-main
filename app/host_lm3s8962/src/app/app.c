@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------------------------------------------
-* File: main.c
+* File: app.c
 * Data: 2012/9/4
 * Author: MC
 * Ver: V0.1.1a
@@ -74,7 +74,6 @@ static  void  App_TaskStart (void *p_arg)
 	OSTaskCreate (App_TaskLED, (void *)0,   		
 				  &Task_LEDStk[TASK_LED_STK_SIZE-1], 
 				  APP_CFG_TASK_LED_PRIO);
-	
 				  
 	/*task process*/
     while(1)

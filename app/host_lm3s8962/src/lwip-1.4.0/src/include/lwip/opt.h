@@ -1244,7 +1244,7 @@
  * sys_thread_new() when the thread is created.
  */
 #ifndef SLIPIF_THREAD_PRIO
-#define SLIPIF_THREAD_PRIO              1
+#define SLIPIF_THREAD_PRIO              4
 #endif
 
 /**
@@ -1269,7 +1269,7 @@
  * sys_thread_new() when the thread is created.
  */
 #ifndef PPP_THREAD_PRIO
-#define PPP_THREAD_PRIO                 1
+#define PPP_THREAD_PRIO                 3
 #endif
 
 /**
@@ -1294,7 +1294,7 @@
  * sys_thread_new() when the thread is created.
  */
 #ifndef DEFAULT_THREAD_PRIO
-#define DEFAULT_THREAD_PRIO             1
+#define DEFAULT_THREAD_PRIO             2
 #endif
 
 /**
