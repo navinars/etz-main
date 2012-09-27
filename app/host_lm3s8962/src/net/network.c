@@ -15,7 +15,6 @@
 #include <stdint.h>
 #include "network.h"
 #include "app_cfg.h"
-#include "utils/lwiplib.h"
 #include "inc/hw_ints.h"
 #include "inc/hw_ethernet.h"
 #include "inc/hw_memmap.h"
@@ -27,8 +26,11 @@
 #include "driverlib/gpio.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/pin_map.h"
+#include "utils/lwiplib.h"
+#include "utils/ustdlib.h"
 
 #include "ping.h"
+#include "rit128x96x4.h"
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -44,7 +46,14 @@ unsigned char GwWayAddr[] = MY_GATEWAY_ID;
 
 unsigned char g_bNetStatus;
 
-
+/* ------------------------------------------------------------------------------------------------------
+ *											Local Function
+ * ------------------------------------------------------------------------------------------------------
+ */
+void DisplayIPAddress(unsigned long ipaddr, unsigned long ulCol,
+                 unsigned long ulRow);
+				 
+				 
 /* ------------------------------------------------------------------------------------------------------
  *									lwIP_init()
  *
@@ -89,6 +98,15 @@ static void TcpClientMainProc(void)
 			OSTimeDly(10);
 		}while(0 == g_sClientIP.s_addr);
 
+		// Enable LCD
+		RIT128x96x4Enable(1000000);
+		DisplayIPAddress(g_sClientIP.s_addr, 36, 16);
+		g_sClientIP.s_addr = lwIPLocalNetMaskGet();//获取子网掩码
+        DisplayIPAddress(g_sClientIP.s_addr, 36, 24);
+        g_sClientIP.s_addr = lwIPLocalGWAddrGet();//获取网关
+        DisplayIPAddress(g_sClientIP.s_addr, 36, 32);
+		//Disable LCD
+        RIT128x96x4Disable();
 		g_bNetStatus = NETS_LOCIP;
 		break;
 
@@ -166,4 +184,28 @@ void NetServerInit(void)
 //	sys_thread_new("TcpClt", TcpClientTask, NULL, TASK_UDP_SERVER_STACK_SIZE, TASK_UDP_SERVER_PRIORITY);
 }
 
+
+
+//*****************************************************************************
+//
+// Display an lwIP type IP Address.
+//
+//*****************************************************************************
+void DisplayIPAddress(unsigned long ipaddr, unsigned long ulCol,
+                 unsigned long ulRow)
+{
+    char pucBuf[16];
+    unsigned char *pucTemp = (unsigned char *)&ipaddr;
+
+    //
+    // Convert the IP Address into a string.
+    //
+    usprintf(pucBuf, "%d.%d.%d.%d", pucTemp[0], pucTemp[1], pucTemp[2],
+             pucTemp[3]);
+
+    //
+    // Display the string.
+    //
+    RIT128x96x4StringDraw(pucBuf, ulCol, ulRow, 15);
+}
 

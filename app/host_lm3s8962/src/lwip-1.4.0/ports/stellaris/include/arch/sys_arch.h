@@ -51,18 +51,19 @@
 #define SYS_MBOX_NULL (void *)0
 #define SYS_SEM_NULL  (void *)0
 
-
-typedef struct{
-	OS_EVENT*	pQ;
-	void*		pvQEntries[MAX_QUEUE_ENTRIES];
-} mbox_t;
+/** struct of LwIP mailbox */
+typedef struct {
+    OS_EVENT*   pQ;
+    void*       pvQEntries[MAX_QUEUE_ENTRIES];
+} TQ_DESCR, *PQ_DESCR;
 
 /* Typedefs for the various port-specific types. */
-typedef mbox_t*		sys_mbox_t;
-typedef u32_t 		sys_prot_t;
-typedef OS_EVENT*	sys_sem_t;
-typedef void*		sys_thread_t;
+typedef PQ_DESCR	sys_mbox_t;  // type of mailboxes
+typedef OS_EVENT *  sys_mutex_t; // type of mutex
+typedef OS_EVENT*	sys_sem_t;   // type of semiphores
+typedef u32_t		sys_thread_t;// type of id of the new thread
 
+typedef u32_t 		sys_prot_t;
 
 extern OS_STK LWIP_TASK_STK[LWIP_TASK_MAX][LWIP_STK_SIZE];
 
