@@ -91,12 +91,11 @@
 
 /* ping variables */
 static u16_t ping_seq_num;
-//static u32_t ping_time;
+static u32_t ping_time;
 
 #if NO_SYS
 /* port-defined functions used for timer execution */
 void sys_msleep(u32_t ms);
-//u32_t sys_now();
 #endif /* NO_SYS */
 
 /** Prepare a echo ICMP request */
@@ -160,7 +159,7 @@ ping_recv(int s)
     if (len >= (sizeof(struct ip_hdr)+sizeof(struct icmp_echo_hdr))) {
       LWIP_DEBUGF( PING_DEBUG, ("ping: recv "));
       ip_addr_debug_print(PING_DEBUG, (struct ip_addr *)&(from.sin_addr));
-//      LWIP_DEBUGF( PING_DEBUG, (" %lu ms\n", (sys_now()-ping_time)));
+      LWIP_DEBUGF( PING_DEBUG, (" %lu ms\n", (sys_now()-ping_time)));
 
       iphdr = (struct ip_hdr *)buf;
       iecho = (struct icmp_echo_hdr *)(buf+(IPH_HL(iphdr) * 4));
@@ -175,7 +174,7 @@ ping_recv(int s)
   }
 
   if (len == 0) {
-//    LWIP_DEBUGF( PING_DEBUG, ("ping: recv - %lu ms - timeout\n", (sys_now()-ping_time)));
+    LWIP_DEBUGF( PING_DEBUG, ("ping: recv - %lu ms - timeout\n", (sys_now()-ping_time)));
   }
 
   /* do some ping result processing */
@@ -205,7 +204,7 @@ ping_thread(void *arg)
       ip_addr_debug_print(PING_DEBUG, &ping_target);
       LWIP_DEBUGF( PING_DEBUG, ("\n"));
 
-//      ping_time = sys_now();
+      ping_time = sys_now();
       ping_recv(s);
     } else {
       LWIP_DEBUGF( PING_DEBUG, ("ping: send "));
@@ -230,7 +229,7 @@ ping_recv(void *arg, struct raw_pcb *pcb, struct pbuf *p, struct ip_addr *addr)
     if ((iecho->id == PING_ID) && (iecho->seqno == htons(ping_seq_num))) {
       LWIP_DEBUGF( PING_DEBUG, ("ping: recv "));
       ip_addr_debug_print(PING_DEBUG, addr);
-//      LWIP_DEBUGF( PING_DEBUG, (" %lu ms\n", (sys_now()-ping_time)));
+      LWIP_DEBUGF( PING_DEBUG, (" %lu ms\n", (sys_now()-ping_time)));
 
       /* do some ping result processing */
       PING_RESULT(1);
@@ -256,7 +255,7 @@ ping_send(struct raw_pcb *raw, struct ip_addr *addr)
     ping_prepare_echo(iecho, ping_size);
 
     raw_sendto(raw, p, addr);
-//    ping_time = sys_now();
+    ping_time = sys_now();
   }
   pbuf_free(p);
 }
