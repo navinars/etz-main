@@ -344,6 +344,7 @@
             <Rwpi>0</Rwpi>
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
+            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>rvmdk PART_LM3S8962</Define>
@@ -359,6 +360,7 @@
             <SplitLS>0</SplitLS>
             <SwStkChk>0</SwStkChk>
             <NoWarn>0</NoWarn>
+            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -582,6 +584,11 @@
               <FileName>lwiplib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\utils\lwiplib.c</FilePath>
+            </File>
+            <File>
+              <FileName>ping.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\net\ping.c</FilePath>
             </File>
           </Files>
         </Group>

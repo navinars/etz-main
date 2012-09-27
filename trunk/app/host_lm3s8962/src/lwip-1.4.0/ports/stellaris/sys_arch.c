@@ -44,6 +44,7 @@
 #include "lwip/def.h"
 #include "lwip/mem.h"
 
+#include "arch/cc.h"
 #include "arch/sys_arch.h"
 
 #if NO_SYS
@@ -96,7 +97,7 @@ static OS_MEM *pQueueMem;
 
 const void * const pvNullPointer = (mem_ptr_t*)0xffffffff;
 
-static char pcQueueMemoryPool[MAX_QUEUES * sizeof(mbox_t) + MEM_ALIGNMENT - 1];
+static char pcQueueMemoryPool[MAX_QUEUES * sizeof(TQ_DESCR) + MEM_ALIGNMENT - 1];
 
 OS_STK LWIP_TASK_STK[LWIP_TASK_MAX][LWIP_STK_SIZE];
 
@@ -114,7 +115,7 @@ sys_init(void)
 	
 	pQueueMem = OSMemCreate((void *)((u32_t)((u32_t)pcQueueMemoryPool+MEM_ALIGNMENT-1) & 
 				~(MEM_ALIGNMENT-1)),
-				MAX_QUEUES, sizeof(mbox_t), &ucErr);
+				MAX_QUEUES, sizeof(TQ_DESCR), &ucErr);
 	LWIP_ASSERT( "OSMemCreate ", ucErr == OS_NO_ERR );
 
 	for(i = 0;i < LWIP_TASK_MAX;i ++)
@@ -448,7 +449,12 @@ sys_thread_new(const char *name, void (*thread)(void *arg), void *arg, int stack
 	}
 
 	// ·µ»Ø¿ÕÖ¸Õë
-	return (sys_thread_t)pvNullPointer;
+	return (sys_thread_t)ubPrio;
+}
+
+u32_t sys_now(void)
+{
+	return OSTimeGet();
 }
 
 /**

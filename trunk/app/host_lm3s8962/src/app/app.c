@@ -14,6 +14,7 @@
  */
 static OS_STK  Task_StartStk[TASK_START_STK_SIZE];
 static OS_STK  Task_LEDStk[TASK_LED_STK_SIZE];
+static OS_STK  Task_LCDStk[TASK_LCD_STK_SIZE];
 
 
 
@@ -23,6 +24,8 @@ static OS_STK  Task_LEDStk[TASK_LED_STK_SIZE];
  */
 static  void  App_TaskStart (void *p_arg);
 static  void  App_TaskLED (void *p_arg);
+void task_LCD_Init(void);
+static  void  App_TaskLCD(void *parg);
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -74,7 +77,8 @@ static  void  App_TaskStart (void *p_arg)
 	OSTaskCreate (App_TaskLED, (void *)0,   		
 				  &Task_LEDStk[TASK_LED_STK_SIZE-1], 
 				  APP_CFG_TASK_LED_PRIO);
-				  
+	
+	task_LCD_Init();
 	/*task process*/
     while(1)
 	{
@@ -101,3 +105,61 @@ static  void  App_TaskLED (void *p_arg)
 		OSTimeDly(OS_TICKS_PER_SEC / 2);
 	}
 }
+
+/********************************************************************************************************
+*                                             prvStartTask()
+*
+* Description : main function.
+*
+* Argument(s) : none.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : none.
+*
+* Note(s)     : none.
+*/
+void task_LCD_Init(void)
+{
+	OSTaskCreate (App_TaskLCD, (void *)0,   		
+				  &Task_LCDStk[TASK_LCD_STK_SIZE-1], 
+				  APP_CFG_TASK_LCD_PRIO);
+}
+
+/********************************************************************************************************
+*                                             prvStartTask()
+*
+* Description : main function.
+*
+* Argument(s) : none.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : none.
+*
+* Note(s)     : none.
+*/
+static void App_TaskLCD(void *parg)
+{
+	RIT128x96x4Init(1000000);
+	// Enable LCD
+	RIT128x96x4Enable(1000000);
+	RIT128x96x4StringDraw("lm3s8962 example", 15, 0, 15);
+	RIT128x96x4StringDraw("----------------", 15, 8, 15);
+	RIT128x96x4StringDraw("IPv4 :", 0, 16, 8);
+	RIT128x96x4StringDraw("Mask :", 0, 24, 8);
+	RIT128x96x4StringDraw("Gate :", 0, 32, 8);
+	RIT128x96x4StringDraw("DNS  :", 0, 40, 8);
+	RIT128x96x4StringDraw("MAC  :", 0, 48, 8);
+	RIT128x96x4StringDraw("Sver :", 0, 56, 8);
+//	RIT128x96x4StringDraw("UID  :", 0, 64, 8);
+	
+	//Disable LCD
+	RIT128x96x4Disable();
+	
+	for(;;)
+	{
+		OSTimeDly(2);
+	}
+}
+

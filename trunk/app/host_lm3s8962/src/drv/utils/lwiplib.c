@@ -264,7 +264,7 @@ static unsigned long g_ulGWAddr;
 //
 //*****************************************************************************
 #if !NO_SYS
-static OS_STK g_pulStack[128];
+static OS_STK g_pulStack[TASK_LWIP_STK_SIZE];
 OS_EVENT *LwIP_NetISR_Sem;
 #endif
 
@@ -577,8 +577,8 @@ lwIPPrivateInit(void *pvArg)
 #if !NO_SYS
     OSTaskCreate(lwIPInterruptTask,
 				 (void *)0,
-                 &g_pulStack[128 - 1],
-				 LWIP_TASK_ISR_PRIO);
+                 &g_pulStack[TASK_LWIP_STK_SIZE - 1],
+				 TASK_LWIP_TASK_ISR_PRIO);
 #endif
 
     //

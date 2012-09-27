@@ -51,6 +51,9 @@
 #define LWIP_PLATFORM_DIAG(x)   
 #define LWIP_PLATFORM_ASSERT(x)   // Should using function: printf(x);
 
+/* Define default macro leIP debug*/
+//#define LWIP_DEBUG
+
 /* Define default values for unconfigured parameters. */
 #define LWIP_NOASSERT 1 // TODO: To suppress some errors for now (no debug output)
 
