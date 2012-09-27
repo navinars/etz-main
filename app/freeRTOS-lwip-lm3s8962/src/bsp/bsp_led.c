@@ -1,83 +1,51 @@
-/*******************************************************************************
- Name        : Commdrv.c
- Author      : Writed by songzi&jingjing in 2011.09.07
- Version     : 1.0
- Description : led low-level driver
-*******************************************************************************/
-#include "includes.h"
+#include <bsp.h>
 
-
-/*
-*********************************************************************************************************
-*                                           LOCAL DEFINES
-*********************************************************************************************************
-*/
-
-
-
-/*
-*********************************************************************************************************
-*                                          LOCAL DATA TYPES
-*********************************************************************************************************
-*/
-
-
-
-/********************************************************************************************************
-*                                          BSP_Led_Init()
-*
-* Description : none.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : none.
-*
-* Note(s)     : none.
-*/
-void BSP_Led_Init(void)
+void BSP_LedInit(void)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+	
 	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);
-	GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_0,
-                     GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD);
+    GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_STRENGTH_4MA,
+                     GPIO_PIN_TYPE_STD_WPU);
+	
+	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_PIN_0);
 }
 
-
-/********************************************************************************************************
-*                                          BSP_Led_On()
-*
-* Description : none.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : none.
-*
-* Note(s)     : none.
-*/
-void BSP_Led_On(void)
+void BSP_LedSet(unsigned char id)
 {
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 1);
+	switch (id)
+	{
+	case 1:
+		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_PIN_0);
+		break;
+	default:
+		break;
+	}
 }
 
-/********************************************************************************************************
-*                                          BSP_Led_Off()
-*
-* Description : none.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : none.
-*
-* Note(s)     : none.
-*/
-void BSP_Led_Off(void)
+void BSP_LedClear(unsigned char id)
 {
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0);
+	switch (id)
+	{
+	case 1:
+		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0);
+		break;
+	default:
+		break;
+	}
 }
 
+void BSP_LedToggle(unsigned char id)
+{
+	unsigned char status;
+	switch (id)
+	{
+	case 1:
+		status = GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_0);
+		status = status ^ 1;
+		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, status);
+		break;
+	default:
+		break;
+	}
+}

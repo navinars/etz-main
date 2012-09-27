@@ -416,11 +416,6 @@
           <GroupName>Bsp</GroupName>
           <Files>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\bsp\bsp.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\bsp\bsp_led.c</FilePath>

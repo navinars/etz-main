@@ -92,7 +92,7 @@
 */
 #include "app_cfg.h"
 
-#include "bsp_led.h"
+#include "bsp.h"
 #include "rit128x96x4.h"
 
 

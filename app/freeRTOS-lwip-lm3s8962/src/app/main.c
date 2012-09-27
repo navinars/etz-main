@@ -36,9 +36,9 @@ __error__(char *pcFilename, unsigned long ulLine)
 *********************************************************************************************************
 */
 void BSP_Init(void);
-static void prvStartTask(void *pvParameters);
 void task_LCD_Init(void);
 static void taskLCD(void *parg);
+static void prvStartTask(void *pvParameters);
 
 
 /********************************************************************************************************
@@ -58,6 +58,7 @@ int main(void)
 {
 	BSP_Init();
 	
+	BSP_LedInit();
 	
 	xTaskCreate( prvStartTask, ( signed char * ) "prvStartTask",
 				configMINIMAL_STACK_SIZE, NULL, TASK_START_TASK_PRIORITY, NULL );
@@ -66,43 +67,6 @@ int main(void)
 	vTaskStartScheduler();
 	
 	return (0);
-}
-
-/********************************************************************************************************
-*                                             BSP_Init()
-*
-* Description : main function.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : none.
-*
-* Note(s)     : none.
-*/
-void BSP_Init(void)
-{
-	if( DEVICE_IS_REVA2 )
-	{
-		SysCtlLDOSet( SYSCTL_LDO_2_75V );
-	}
-	
-	/* 使能CPU频率为25MHz*/
-    SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ);
-	
-	/*Disable all the interrupts*/
-	IntMasterDisable();
-	
-	RIT128x96x4Init(1000000);
-	
-    /* 使能总中断*/
-	IntMasterEnable();
-	
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-    GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_1);
-    GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
-	
 }
 
 /********************************************************************************************************
@@ -166,6 +130,9 @@ void task_LCD_Init(void)
 */
 static void taskLCD(void *parg)
 {
+	RIT128x96x4Init(1000000);
+	// Enable LCD
+	RIT128x96x4Enable(1000000);
 	RIT128x96x4StringDraw("lm3s8962 example", 15, 0, 15);
 	RIT128x96x4StringDraw("----------------", 15, 8, 15);
 	RIT128x96x4StringDraw("IPv4 :", 0, 16, 8);
@@ -175,10 +142,13 @@ static void taskLCD(void *parg)
 	RIT128x96x4StringDraw("MAC  :", 0, 48, 8);
 	RIT128x96x4StringDraw("Sver :", 0, 56, 8);
 //	RIT128x96x4StringDraw("UID  :", 0, 64, 8);
+	//Disable LCD
+	RIT128x96x4Disable();
 	
 	for(;;)
 	{
-		vTaskDelay(2);
+		BSP_LedToggle(1);
+		vTaskDelay(500);
 	}
 }
 
