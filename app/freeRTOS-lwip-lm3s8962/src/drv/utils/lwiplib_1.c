@@ -29,31 +29,102 @@
 //*****************************************************************************
 #include "utils/lwiplib.h"
 #include "app_cfg.h"
-#include "FreeRTOS.h"
 
 //*****************************************************************************
 //
 // Include lwIP high-level API code.
 //
 //*****************************************************************************
-#include "lwip/sys.h"
-#include "lwip/api.h"
-#include "lwip/memp.h"
-#include "lwip/tcp.h"
-#include "lwip/udp.h"
-#include "lwip/tcpip.h"
-#include "lwip/dhcp.h"
+#include "third_party/lwip-1.3.2/src/api/api_lib.c"
+#include "third_party/lwip-1.3.2/src/api/api_msg.c"
+#include "third_party/lwip-1.3.2/src/api/err.c"
+#include "third_party/lwip-1.3.2/src/api/netbuf.c"
+#include "third_party/lwip-1.3.2/src/api/netdb.c"
+#include "third_party/lwip-1.3.2/src/api/netifapi.c"
+#include "third_party/lwip-1.3.2/src/api/sockets.c"
+#include "third_party/lwip-1.3.2/src/api/tcpip.c"
 
+//*****************************************************************************
+//
+// Include the core lwIP TCP/IP stack code.
+//
+//*****************************************************************************
+#include "third_party/lwip-1.3.2/src/core/dhcp.c"
+#include "third_party/lwip-1.3.2/src/core/dns.c"
+#include "third_party/lwip-1.3.2/src/core/init.c"
+#include "third_party/lwip-1.3.2/src/core/mem.c"
+#include "third_party/lwip-1.3.2/src/core/memp.c"
+#include "third_party/lwip-1.3.2/src/core/netif.c"
+#include "third_party/lwip-1.3.2/src/core/pbuf.c"
+#include "third_party/lwip-1.3.2/src/core/raw.c"
+#include "third_party/lwip-1.3.2/src/core/stats.c"
+#include "third_party/lwip-1.3.2/src/core/sys.c"
+#include "third_party/lwip-1.3.2/src/core/tcp.c"
+#include "third_party/lwip-1.3.2/src/core/tcp_in.c"
+#include "third_party/lwip-1.3.2/src/core/tcp_out.c"
+#include "third_party/lwip-1.3.2/src/core/udp.c"
+
+//*****************************************************************************
+//
+// Include the IPV4 code.
+//
+//*****************************************************************************
+#include "third_party/lwip-1.3.2/src/core/ipv4/autoip.c"
+#include "third_party/lwip-1.3.2/src/core/ipv4/icmp.c"
+#include "third_party/lwip-1.3.2/src/core/ipv4/igmp.c"
+#include "third_party/lwip-1.3.2/src/core/ipv4/inet.c"
+#include "third_party/lwip-1.3.2/src/core/ipv4/inet_chksum.c"
+#include "third_party/lwip-1.3.2/src/core/ipv4/ip.c"
+#include "third_party/lwip-1.3.2/src/core/ipv4/ip_addr.c"
+#include "third_party/lwip-1.3.2/src/core/ipv4/ip_frag.c"
+
+//*****************************************************************************
+//
+// Include the lwIP SNMP code.
+//
+//*****************************************************************************
+#include "third_party/lwip-1.3.2/src/core/snmp/asn1_dec.c"
+#include "third_party/lwip-1.3.2/src/core/snmp/asn1_enc.c"
+#include "third_party/lwip-1.3.2/src/core/snmp/mib2.c"
+#include "third_party/lwip-1.3.2/src/core/snmp/mib_structs.c"
+#include "third_party/lwip-1.3.2/src/core/snmp/msg_in.c"
+#include "third_party/lwip-1.3.2/src/core/snmp/msg_out.c"
+
+//*****************************************************************************
+//
+// Include the Network Interface code.
+//
+//*****************************************************************************
+#include "third_party/lwip-1.3.2/src/netif/etharp.c"
+#include "third_party/lwip-1.3.2/src/netif/loopif.c"
+
+//*****************************************************************************
+//
+// Include the Network Interface PPP code.
+//
+//*****************************************************************************
+#include "third_party/lwip-1.3.2/src/netif/ppp/auth.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/chap.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/chpms.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/fsm.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/ipcp.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/lcp.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/magic.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/md5.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/pap.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/ppp.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/ppp_oe.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/randm.c"
+#include "third_party/lwip-1.3.2/src/netif/ppp/vj.c"
 
 //*****************************************************************************
 //
 // Include Stellaris-specific lwIP interface/porting layer code.
 //
 //*****************************************************************************
-#include "arch/perf.h"
-#include "arch/sys_arch.h"
-#include "netif/stellarisif.h"
-
+#include "third_party/lwip-1.3.2/ports/stellaris/perf.c"
+#include "third_party/lwip-1.3.2/ports/stellaris/sys_arch.c"
+#include "third_party/lwip-1.3.2/ports/stellaris/netif/stellarisif.c"
 
 //*****************************************************************************
 //
@@ -289,27 +360,23 @@ lwIPInterruptTask(void *pvArg)
     //
     while(1)
     {
-		//
-		// Wait until the semaphore has been signalled.
-		//
-//		while(xQueueReceive(g_pInterrupt, &pvArg, portMAX_DELAY) != pdPASS)
-		{
-		}
-		
-		while(xSemaphoreTake(g_pInterrupt, portMAX_DELAY) != pdPASS)
-		{
-		}
-		
+        //
+        // Wait until the semaphore has been signalled.
+        //
+        //while(xQueueReceive(g_pInterrupt, &pvArg, portMAX_DELAY) != pdPASS)
+        while(xSemaphoreTake(g_pInterrupt, portMAX_DELAY) != pdPASS)
+        {
+        }
 
-		//
-		// Processes any packets waiting to be sent or received.
-		//
-		stellarisif_interrupt(&g_sNetIF);
+        //
+        // Processes any packets waiting to be sent or received.
+        //
+        stellarisif_interrupt(&g_sNetIF);
 
-		//
-		// Re-enable the Ethernet interrupts.
-		//
-		EthernetIntEnable(ETH_BASE, ETH_INT_PHY | ETH_INT_RX | ETH_INT_TX);
+        //
+        // Re-enable the Ethernet interrupts.
+        //
+        EthernetIntEnable(ETH_BASE, ETH_INT_RX | ETH_INT_TX);
     }
 }
 #endif
@@ -816,7 +883,7 @@ lwIPEthernetIntHandler(void)
     // handled, they are not asserted.  Once they are handled by the Ethernet
     // interrupt task, it will re-enable the interrupts.
     //
-    EthernetIntDisable(ETH_BASE, ETH_INT_PHY | ETH_INT_RX | ETH_INT_TX);
+    EthernetIntDisable(ETH_BASE, ETH_INT_RX | ETH_INT_TX);
 
     //
     // Potentially task switch as a result of the above queue write.

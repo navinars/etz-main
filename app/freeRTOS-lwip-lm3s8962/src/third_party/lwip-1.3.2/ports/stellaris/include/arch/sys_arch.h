@@ -32,6 +32,7 @@
 #ifndef __SYS_RTXC_H__
 #define __SYS_RTXC_H__
 
+#include "app_cfg.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"

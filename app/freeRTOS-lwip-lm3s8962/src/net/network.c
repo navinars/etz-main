@@ -163,16 +163,17 @@ void NetServerInit(void)
 
 	lwIP_init();
 	
-	ping_init();
+//	ping_init();
 
 	/*穿创建TCP/IP应用任务
 	OSTaskCreate(TcpClientTask,
 				 (void *)0,
 				 &Task_Eth_Stk[TASK_NET_CLIENT_STACK_SIZE-1],
 				 TASK_NET_CLIENT_PRIORITY);*/
+	
 	xTaskCreate(TcpClientTask, ( signed portCHAR * )"TcpClient", TASK_NET_SERVER_STACK_SIZE, 
-    	NULL, TASK_NET_SERVER_PRIORITY, &xHandle);	
-		
+				NULL, TASK_NET_SERVER_PRIORITY, &xHandle);	
+	
 /*	sys_thread_new("TcpClt", TcpClt, NULL, 
 					TASK_NET_SERVER_STACK_SIZE, 
 					TASK_NET_SERVER_PRIORITY);*/

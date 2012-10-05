@@ -58,8 +58,6 @@ int main(void)
 {
 	BSP_Init();
 	
-	BSP_LedInit();
-	
 	xTaskCreate( prvStartTask, ( signed char * ) "prvStartTask",
 				configMINIMAL_STACK_SIZE, NULL, TASK_START_TASK_PRIORITY, NULL );
 
@@ -152,3 +150,27 @@ static void taskLCD(void *parg)
 	}
 }
 
+/********************************************************************************************************
+*                                        vApplicationStackOverflowHook()
+*
+* Description : freeRTOS hook function.
+*
+* Argument(s) : none.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : none.
+*
+* Note(s)     : 堆栈检查钩子函数.
+*/
+void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTaskName )
+{
+	( void ) pxTask;
+	( void ) pcTaskName;
+
+    
+    UARTprintf("Stack Overflow : ");
+    UARTprintf((const char*)pcTaskName);
+    
+	for( ;; );
+}
