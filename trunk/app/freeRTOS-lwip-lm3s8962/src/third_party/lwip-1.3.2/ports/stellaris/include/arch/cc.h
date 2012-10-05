@@ -32,6 +32,11 @@
 #ifndef __CC_H__
 #define __CC_H__
 
+//#define LWIP_PROVIDE_ERRNO 1
+//#include "lwip_errno.h"
+#include "sys_arch.h"//FSL
+
+#undef LWIP_NOASSERT//FSL
 typedef unsigned    char    u8_t;
 typedef signed      char    s8_t;
 typedef unsigned    short   u16_t;
@@ -90,7 +95,7 @@ typedef int 				sys_prot_t;
 // what display routines are available.
 //
 #ifndef LWIP_PLATFORM_DIAG
-#define LWIP_PLATFORM_DIAG(msg)
+#define LWIP_PLATFORM_DIAG(msg) 		sys_debug(msg)
 #endif
 
 //
@@ -107,7 +112,7 @@ extern void __error__(char *pcFilename, unsigned long ulLine);
     __error__(__FILE__, __LINE__);      \
 }
 #else
-#define LWIP_PLATFORM_ASSERT(msg)
+#define LWIP_PLATFORM_ASSERT(msg)		sys_assert(msg)
 #endif
 #endif
 

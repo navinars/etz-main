@@ -37,6 +37,8 @@
 #include "lwip/mem.h"
 
 #include <stdio.h>
+#include "arch/cc.h"
+#include "arch/sys_arch.h"
 
 /* Message queue constants. */
 #define archMESG_QUEUE_LENGTH	( 6 )
@@ -450,8 +452,8 @@ sys_assert( const char *msg )
 
 //FSL:only needed for debugging
 #ifdef LWIP_DEBUG
-	  printf(msg);
-  	printf("\n\r");
+	UARTprintf(msg);
+	UARTprintf("\n\r");
 #endif
 	
     vPortEnterCritical(  );
@@ -462,9 +464,9 @@ sys_assert( const char *msg )
 void
 sys_debug( const char *const fmt, ... )
 {
-	  /*FSL: same implementation as printf*/
+	
 #ifdef LWIP_DEBUG
     /*FSL: removed due to lack of space*/
-    printf(fmt);
+    UARTprintf(fmt);
 #endif
 }

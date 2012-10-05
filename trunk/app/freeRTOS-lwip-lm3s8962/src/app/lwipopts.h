@@ -1,24 +1,16 @@
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
 
-#define LWIP_PROVIDE_ERRNO     1
-
-/* Ethernet padding size */
-#define RT_LWIP_ETH_PAD_SIZE 2
-
-#define RT_LWIP_TCPTHREAD_PRIORITY		7
-#define RT_LWIP_TCPTHREAD_MBOX_SIZE		4
-#define RT_LWIP_TCPTHREAD_STACKSIZE		400
+#define LWIP_PROVIDE_ERRNO     		1
 
 
 #define NO_SYS                      0
 #define LWIP_SOCKET                 1
 #define LWIP_NETCONN                1
 
-//#define LWIP_IGMP                   0
+#define LWIP_IGMP                   0
 #define LWIP_ICMP                   1
-//#define LWIP_SNMP                   0
-//#define LWIP_DNS					0
+#define LWIP_SNMP                   0
 
 
 #define LWIP_HAVE_LOOPIF            1
@@ -42,7 +34,7 @@
 #define PBUF_DEBUG                  LWIP_DBG_OFF
 #define API_LIB_DEBUG               LWIP_DBG_OFF
 #define API_MSG_DEBUG               LWIP_DBG_OFF
-#define TCPIP_DEBUG                 LWIP_DBG_OFF
+#define TCPIP_DEBUG                 LWIP_DBG_ON
 #define NETIF_DEBUG                 LWIP_DBG_OFF
 #define SOCKETS_DEBUG               LWIP_DBG_OFF
 #define DNS_DEBUG                   LWIP_DBG_OFF
@@ -72,7 +64,7 @@
 
 /* MEM_SIZE: the size of the heap memory. If the application will send
 a lot of data that needs to be copied, this should be set high. */
-#define MEM_SIZE				(1024 * 4)//2048
+#define MEM_SIZE					(1024 * 4)//2048
 
 /* MEMP_NUM_PBUF: the number of memp struct pbufs. If the application
    sends a lot of data out of ROM (or other static memory), this
@@ -112,7 +104,7 @@ a lot of data that needs to be copied, this should be set high. */
 
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */
-#define PBUF_POOL_SIZE          5//10 * 2//8
+#define PBUF_POOL_SIZE          	5//10 * 2//8
 
 /* PBUF_POOL_BUFSIZE: the size of each pbuf in the pbuf pool. */
 #define PBUF_POOL_BUFSIZE           584    //1500
@@ -165,9 +157,9 @@ a lot of data that needs to be copied, this should be set high. */
 #define LWIP_TCP_KEEPALIVE          1
 
 /* tcpip thread options */
-#define TCPIP_MBOX_SIZE             4
-#define TCPIP_THREAD_PRIO           7
-#define TCPIP_THREAD_STACKSIZE      400
+#define TCPIP_MBOX_SIZE             10
+#define TCPIP_THREAD_PRIO           TASK_LWIP_TCPIP_PRIORITY
+#define TCPIP_THREAD_STACKSIZE      TASK_LWIP_TCPIP_STACKSIZE
 #define TCPIP_THREAD_NAME           "tcpip"
 
 #define DEFAULT_TCP_RECVMBOX_SIZE   10
@@ -225,7 +217,7 @@ a lot of data that needs to be copied, this should be set high. */
 
 /* ---------- Statistics options ---------- */
 #define LWIP_STATS                  0
-//#define LWIP_STATS_DISPLAY          1
+#define LWIP_STATS_DISPLAY        	0
 
 #if LWIP_STATS
 #define LINK_STATS                  1
