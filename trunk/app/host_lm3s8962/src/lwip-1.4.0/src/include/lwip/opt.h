@@ -1385,7 +1385,7 @@
  * (only used if you use sockets.c)
  */
 #ifndef LWIP_COMPAT_SOCKETS
-#define LWIP_COMPAT_SOCKETS             0
+#define LWIP_COMPAT_SOCKETS             1
 #endif
 
 /**

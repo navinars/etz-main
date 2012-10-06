@@ -567,7 +567,6 @@ lwIPPrivateInit(void *pvArg)
     // the Ethernet interrupt task from the Ethernet interrupt handler.
     //
 #if !NO_SYS
-//	g_pcQueueMem = OSMemCreate(sizeof(g_pcQueueMem), 1, sizeof(void *), &g_pInterrupt);
 	LwIP_NetISR_Sem = OSSemCreate(0);
 #endif
 

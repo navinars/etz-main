@@ -78,11 +78,8 @@ __heap_limit
 ; External declaration for the interrupt handler used by the application.
 ;
 ;******************************************************************************
-        EXTERN  tickISRHandler
 		EXTERN  OS_CPU_PendSVHandler
 		EXTERN  OS_CPU_SysTickHandler
-		EXTERN  tickISRHandler
-		EXTERN  tickISRHandler
 		EXTERN  lwIPEthernetIntHandler
 
 ;******************************************************************************

@@ -174,9 +174,9 @@ void NetServerInit(void)
 
 	lwIP_init();
 	
-	ping_init();
-
-	/*穿创建TCP/IP应用任务*/
+//	ping_init();
+	
+	//创建TCP/IP应用任务
 	OSTaskCreate(TcpClientTask,
 				 (void *)0,
 				 &Task_Eth_Stk[TASK_NET_CLIENT_STACK_SIZE-1],

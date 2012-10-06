@@ -292,13 +292,9 @@ lwIPInterruptTask(void *pvArg)
 		//
 		// Wait until the semaphore has been signalled.
 		//
-//		while(xQueueReceive(g_pInterrupt, &pvArg, portMAX_DELAY) != pdPASS)
-		{
-		}
+		while(xQueueReceive(g_pInterrupt, &pvArg, portMAX_DELAY) != pdPASS);
 		
-		while(xSemaphoreTake(g_pInterrupt, portMAX_DELAY) != pdPASS)
-		{
-		}
+//		while(xSemaphoreTake(g_pInterrupt, portMAX_DELAY) != pdPASS);
 		
 
 		//
@@ -560,8 +556,9 @@ lwIPPrivateInit(void *pvArg)
 #if !NO_SYS
     //xQueueCreate(g_pcQueueMem, sizeof(g_pcQueueMem), 1, sizeof(void *),
     //             &g_pInterrupt);
-	vSemaphoreCreateBinary( g_pInterrupt );
-	xSemaphoreTake( g_pInterrupt,  0);
+//	vSemaphoreCreateBinary( g_pInterrupt );
+//	xSemaphoreTake( g_pInterrupt,  0);
+	g_pInterrupt = xQueueCreate(1,sizeof(void *));
 #endif
 
     //
@@ -808,7 +805,8 @@ lwIPEthernetIntHandler(void)
     // A RTOS is being used.  Signal the Ethernet interrupt task.
     //
     //xQueueSendFromISR(g_pInterrupt, (void *)&ulStatus, &xWake);
-    xSemaphoreGiveFromISR(g_pInterrupt, &xWake);
+//    xSemaphoreGiveFromISR(g_pInterrupt, &xWake);
+	xQueueSendFromISR(g_pInterrupt, (void *)&ulStatus, &xWake);
 	//xWake = pdTRUE;
 
     //
