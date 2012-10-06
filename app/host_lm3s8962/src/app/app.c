@@ -144,7 +144,7 @@ static void App_TaskLCD(void *parg)
 	RIT128x96x4Init(1000000);
 	// Enable LCD
 	RIT128x96x4Enable(1000000);
-	RIT128x96x4StringDraw("lm3s8962 example", 15, 0, 15);
+	RIT128x96x4StringDraw("lwIP1.4 uC/OS-2.89", 15, 0, 15);
 	RIT128x96x4StringDraw("----------------", 15, 8, 15);
 	RIT128x96x4StringDraw("IPv4 :", 0, 16, 8);
 	RIT128x96x4StringDraw("Mask :", 0, 24, 8);
