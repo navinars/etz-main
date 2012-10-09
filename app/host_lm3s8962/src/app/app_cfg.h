@@ -67,8 +67,8 @@
 #define  TASK_NET_CLIENT_PRIORITY							11
 
 
-#define  LWIP_TASK_START_PRIO                             	12
-#define  LWIP_TASK_END_PRIO                               	13
+#define  LWIP_TASK_START_PRIO                             	5
+#define  LWIP_TASK_END_PRIO                               	7
 
 /*uC/OS port task.*/
 #define  OS_PROBE_TASK_PRIO              	(OS_LOWEST_PRIO - 3)

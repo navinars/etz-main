@@ -645,6 +645,11 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>socket_examples.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\net\socket_examples.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
