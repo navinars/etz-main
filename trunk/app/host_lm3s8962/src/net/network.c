@@ -13,8 +13,11 @@
 *********************************************************************************************************
 */
 #include <stdint.h>
+
 #include "network.h"
 #include "app_cfg.h"
+#include "socket_examples.h"
+
 #include "inc/hw_ints.h"
 #include "inc/hw_ethernet.h"
 #include "inc/hw_memmap.h"
@@ -174,6 +177,8 @@ void NetServerInit(void)
 
 	lwIP_init();
 	
+	// socket test..
+	socket_examples_init();
 //	ping_init();
 	
 	//创建TCP/IP应用任务
