@@ -17,6 +17,8 @@
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 
+#include "utils/uartstdio.h"
+
 
 /* ------------------------------------------------------------------------------------------------------
  *											Local Define
@@ -34,7 +36,7 @@
 /* ------------------------------------------------------------------------------------------------------
  *									   sockex_nonblocking_connect()
  *
- * Description : tests blocking and nonblocking connect.
+ * Description : tests socket blocking and nonblocking connect.
  *
  * Argument(s) : none.
  *
@@ -47,31 +49,43 @@ static void sockex_nonblocking_connect(void *arg)
 	
 	LWIP_UNUSED_ARG(arg);
 	
+	/* set up address to connect to */
+	memset(&addr, 0, sizeof(addr));
+	addr.sin_len = sizeof(addr);
+	addr.sin_family = AF_INET;
+	addr.sin_port = PP_HTONS(SOCK_TARGET_PORT);
+	addr.sin_addr.s_addr = inet_addr(SOCK_TARGET_HOST);
 
+	
+	s = lwip_socket(AF_INET, SOCK_STREAM, 0);
+	if ( s < 0 )
+	{
+		UARTprintf("socket call failed");
+	}
 	
 	for(;;)
 	{
 		if(g_bNetStatus == NETS_LOCIP)
 		{
-			/* set up address to connect to */
-			memset(&addr, 0, sizeof(addr));
-			addr.sin_len = sizeof(addr);
-			addr.sin_family = AF_INET;
-			addr.sin_port = PP_HTONS(SOCK_TARGET_PORT);
-			addr.sin_addr.s_addr = inet_addr(SOCK_TARGET_HOST);
 
 			/* connect */
 			ret = lwip_connect(s, (struct sockaddr*)&addr, sizeof(addr));
+			if(ret < 0)
+			{
+				UARTprintf("socket connect failed\n");
+			}
+			else
+				
 			/* should succeed */
 			LWIP_ASSERT("ret == 0", ret == 0);
 
 			/* write something */
-			ret = lwip_write(s, "test", 4);
+			ret = lwip_write(s, "test\n", 4);
 			LWIP_ASSERT("ret == 4", ret == 4);
 
 			/* close */
-			ret = lwip_close(s);
-			LWIP_ASSERT("ret == 0", ret == 0);
+//			ret = lwip_close(s);
+//			LWIP_ASSERT("ret == 0", ret == 0);
 		}
 		OSTimeDly(2000);
 	}

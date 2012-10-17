@@ -24,8 +24,7 @@ static OS_STK  Task_LCDStk[TASK_LCD_STK_SIZE];
  */
 static  void  App_TaskStart (void *p_arg);
 static  void  App_TaskLED (void *p_arg);
-void task_LCD_Init(void);
-static  void  App_TaskLCD(void *parg);
+static  void  App_TaskLCD (void *parg);
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -64,21 +63,23 @@ int main(void)
 static  void  App_TaskStart (void *p_arg)
 {
 	(void)p_arg;
-
-	BSP_LedInit();
 	
-	/*Initialise LwIP & Ethernet.*/
+	/* Creat lwIP task and init.*/
 	NetServerInit();
-	
-    /*init os tick*/
-	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);
 	
 	/* Creat LED task.*/
 	OSTaskCreate (App_TaskLED, (void *)0,   		
 				  &Task_LEDStk[TASK_LED_STK_SIZE-1], 
 				  APP_CFG_TASK_LED_PRIO);
 	
-	task_LCD_Init();
+	/* Creat LCD task.*/
+	OSTaskCreate (App_TaskLCD, (void *)0,   		
+				  &Task_LCDStk[TASK_LCD_STK_SIZE-1], 
+				  APP_CFG_TASK_LCD_PRIO);
+	
+    /*init os tick*/
+	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);
+	
 	/*task process*/
     while(1)
 	{
@@ -98,6 +99,8 @@ static  void  App_TaskLED (void *p_arg)
 {
 	(void)p_arg;
 	
+	cc2520_init();
+	
 	/*task process*/
 	while(1)
 	{
@@ -106,25 +109,6 @@ static  void  App_TaskLED (void *p_arg)
 	}
 }
 
-/********************************************************************************************************
-*                                             prvStartTask()
-*
-* Description : main function.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : none.
-*
-* Note(s)     : none.
-*/
-void task_LCD_Init(void)
-{
-	OSTaskCreate (App_TaskLCD, (void *)0,   		
-				  &Task_LCDStk[TASK_LCD_STK_SIZE-1], 
-				  APP_CFG_TASK_LCD_PRIO);
-}
 
 /********************************************************************************************************
 *                                             prvStartTask()
