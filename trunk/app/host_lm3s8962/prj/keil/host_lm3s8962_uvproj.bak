@@ -136,6 +136,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
+            <RestoreTracepoints>0</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>1</TargetSelection>
@@ -581,9 +582,19 @@
           <GroupName>Utils</GroupName>
           <Files>
             <File>
+              <FileName>lwiplib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\drv\utils\lwiplib.c</FilePath>
+            </File>
+            <File>
               <FileName>ustdlib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\utils\ustdlib.c</FilePath>
+            </File>
+            <File>
+              <FileName>uartstdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\drv\utils\uartstdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -594,11 +605,6 @@
               <FileName>network.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\net\network.c</FilePath>
-            </File>
-            <File>
-              <FileName>lwiplib.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\utils\lwiplib.c</FilePath>
             </File>
             <File>
               <FileName>ping.c</FileName>
@@ -644,6 +650,11 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>socket_examples.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\net\socket_examples.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -136,6 +136,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
+            <RestoreTracepoints>0</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>1</TargetSelection>
@@ -431,6 +432,21 @@
               <FilePath>..\..\src\bsp\bsp_led.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_ssi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\bsp\bsp_ssi.c</FilePath>
+            </File>
+            <File>
+              <FileName>cc2520.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\bsp\cc2520.c</FilePath>
+            </File>
+            <File>
+              <FileName>cc2520-arch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\bsp\cc2520-arch.c</FilePath>
+            </File>
+            <File>
               <FileName>rit128x96x4.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\bsp\rit128x96x4.c</FilePath>
@@ -441,54 +457,14 @@
           <GroupName>LIB</GroupName>
           <Files>
             <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\can.c</FilePath>
-            </File>
-            <File>
-              <FileName>comp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\comp.c</FilePath>
-            </File>
-            <File>
               <FileName>cpu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\driverlib\cpu.c</FilePath>
             </File>
             <File>
-              <FileName>eeprom.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\eeprom.c</FilePath>
-            </File>
-            <File>
-              <FileName>epi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\epi.c</FilePath>
-            </File>
-            <File>
               <FileName>ethernet.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\driverlib\ethernet.c</FilePath>
-            </File>
-            <File>
-              <FileName>fan.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\fan.c</FilePath>
-            </File>
-            <File>
-              <FileName>flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\flash.c</FilePath>
-            </File>
-            <File>
-              <FileName>fpu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\fpu.c</FilePath>
             </File>
             <File>
               <FileName>gpio.c</FileName>
@@ -501,44 +477,9 @@
               <FilePath>..\..\src\drv\driverlib\hibernate.c</FilePath>
             </File>
             <File>
-              <FileName>i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>i2s.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\i2s.c</FilePath>
-            </File>
-            <File>
               <FileName>interrupt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\driverlib\interrupt.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\lpc.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\mpu.c</FilePath>
-            </File>
-            <File>
-              <FileName>peci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\peci.c</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>qei.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\qei.c</FilePath>
             </File>
             <File>
               <FileName>ssi.c</FileName>
@@ -551,29 +492,9 @@
               <FilePath>..\..\src\drv\driverlib\sysctl.c</FilePath>
             </File>
             <File>
-              <FileName>sysexc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\sysexc.c</FilePath>
-            </File>
-            <File>
-              <FileName>systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\timer.c</FilePath>
-            </File>
-            <File>
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\driverlib\uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>watchdog.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\watchdog.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -581,9 +502,19 @@
           <GroupName>Utils</GroupName>
           <Files>
             <File>
+              <FileName>lwiplib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\drv\utils\lwiplib.c</FilePath>
+            </File>
+            <File>
               <FileName>ustdlib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\utils\ustdlib.c</FilePath>
+            </File>
+            <File>
+              <FileName>uartstdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\drv\utils\uartstdio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -594,11 +525,6 @@
               <FileName>network.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\net\network.c</FilePath>
-            </File>
-            <File>
-              <FileName>lwiplib.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\utils\lwiplib.c</FilePath>
             </File>
             <File>
               <FileName>ping.c</FileName>

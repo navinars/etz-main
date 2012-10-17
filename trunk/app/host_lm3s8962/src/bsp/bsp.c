@@ -2,7 +2,17 @@
  *											Local Includes
  * ------------------------------------------------------------------------------------------------------
  */
-#include <bsp.h>
+#include "bsp.h"
+
+#include "inc/hw_ints.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_types.h"
+#include "inc/hw_sysctl.h"
+#include "driverlib/gpio.h"
+#include "driverlib/interrupt.h"
+#include "driverlib/sysctl.h"
+#include "utils/uartstdio.h"
+
 
 /* ------------------------------------------------------------------------------------------------------
  *									BSP_Init()
@@ -28,5 +38,27 @@ void BSP_Init(void)
     SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_8MHZ);
 	
+	//
+    // Enable the LED.
+    //
+	BSP_LedInit();
+	
+    //
+    // Enable the peripherals used by this example.
+    //
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	
+    //
+    // Set GPIO A0 and A1 as UART.
+    //
+    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+	
+    //
+    // Initialize the UART as a console for text I/O.
+    //
+    UARTStdioInit(0);
+	
+	UARTprintf("BSP initialise\n");
 }
 
