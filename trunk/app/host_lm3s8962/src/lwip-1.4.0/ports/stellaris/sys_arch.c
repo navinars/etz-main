@@ -432,7 +432,7 @@ sys_thread_t
 sys_thread_new(const char *name, void (*thread)(void *arg), void *arg, int stacksize,
                int prio)
 {
-	int ubPrio;
+	int ubPrio = 0;
 	
 	arg = arg;
 

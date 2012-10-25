@@ -13,9 +13,6 @@
  * ------------------------------------------------------------------------------------------------------
  */
 static OS_STK  Task_StartStk[TASK_START_STK_SIZE];
-static OS_STK  Task_LEDStk[TASK_LED_STK_SIZE];
-static OS_STK  Task_LCDStk[TASK_LCD_STK_SIZE];
-
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -23,8 +20,6 @@ static OS_STK  Task_LCDStk[TASK_LCD_STK_SIZE];
  * ------------------------------------------------------------------------------------------------------
  */
 static  void  App_TaskStart (void *p_arg);
-static  void  App_TaskLED (void *p_arg);
-static  void  App_TaskLCD (void *parg);
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -39,11 +34,9 @@ int main(void)
 {
 	BSP_Init();
 	
-	/* Start uC/OS-II init function.*/
-	OSInit();
+	OSInit(); 													/* Start uC/OS-II init function.*/
 	
-	/* Creat start task.*/
-	OSTaskCreate ( App_TaskStart, 
+	OSTaskCreate ( App_TaskStart, 								/* Creat start task.*/
 		           (void *)0, 
 				   &Task_StartStk[TASK_START_STK_SIZE-1], 
 				   APP_CFG_TASK_START_PRIO );
@@ -64,86 +57,25 @@ static  void  App_TaskStart (void *p_arg)
 {
 	(void)p_arg;
 	
-	/* Creat lwIP task and init.*/
-	NetServerInit();
+	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);	/* Initialize the SysTick.*/
 	
-	/* Creat LED task.*/
-	OSTaskCreate (App_TaskLED, (void *)0,   		
-				  &Task_LEDStk[TASK_LED_STK_SIZE-1], 
-				  APP_CFG_TASK_LED_PRIO);
+	lwIP_init();												/* Initialise lwIP stack. */
 	
-	/* Creat LCD task.*/
-	OSTaskCreate (App_TaskLCD, (void *)0,   		
-				  &Task_LCDStk[TASK_LCD_STK_SIZE-1], 
-				  APP_CFG_TASK_LCD_PRIO);
+	TaskTcpip_Create();											/* Create lwIP task and init.*/
 	
-    /*init os tick*/
-	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);
+	TaskSocket_Create();										/* Create Socket task and init.*/
+
+#ifdef LCD
+//	TaskLCD_Create();											/* Create LCD task.*/
+#endif
 	
-	/*task process*/
+#ifdef CC2520
+	TaskCC2520_Create();										/* Create CC2520 task.*/
+#endif
+	
     while(1)
 	{
-		OSTaskSuspend(OS_PRIO_SELF);		//挂起这个任务。
+		OSTaskSuspend(OS_PRIO_SELF);
     }
-}
-
-/* ------------------------------------------------------------------------------------------------------
- *									App_TaskLED()
- *
- * Description : Task LED function.
- *
- * Argument(s) : none.
- *
- */
-static  void  App_TaskLED (void *p_arg)
-{
-	(void)p_arg;
-	
-	cc2520_init();
-	
-	/*task process*/
-	while(1)
-	{
-		BSP_LedToggle(1);
-		OSTimeDly(OS_TICKS_PER_SEC / 2);
-	}
-}
-
-
-/********************************************************************************************************
-*                                             prvStartTask()
-*
-* Description : main function.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : none.
-*
-* Note(s)     : none.
-*/
-static void App_TaskLCD(void *parg)
-{
-	RIT128x96x4Init(1000000);
-	// Enable LCD
-	RIT128x96x4Enable(1000000);
-	RIT128x96x4StringDraw("lwIP1.4 uC/OS-2.89", 15, 0, 15);
-	RIT128x96x4StringDraw("----------------", 15, 8, 15);
-	RIT128x96x4StringDraw("IPv4 :", 0, 16, 8);
-	RIT128x96x4StringDraw("Mask :", 0, 24, 8);
-	RIT128x96x4StringDraw("Gate :", 0, 32, 8);
-	RIT128x96x4StringDraw("DNS  :", 0, 40, 8);
-	RIT128x96x4StringDraw("MAC  :", 0, 48, 8);
-	RIT128x96x4StringDraw("Sver :", 0, 56, 8);
-//	RIT128x96x4StringDraw("UID  :", 0, 64, 8);
-	
-	//Disable LCD
-	RIT128x96x4Disable();
-	
-	for(;;)
-	{
-		OSTimeDly(2);
-	}
 }
 

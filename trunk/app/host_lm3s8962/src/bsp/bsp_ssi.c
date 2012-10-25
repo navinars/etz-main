@@ -119,7 +119,7 @@ unsigned char cc2520_status(void)
  * Argument(s) : none.
  *
  */
-unsigned char getreg(unsigned short adr)
+unsigned char cc2520_getreg(unsigned short adr)
 {
 	unsigned long reg;
 	
@@ -140,7 +140,7 @@ unsigned char getreg(unsigned short adr)
  * Argument(s) : none.
  *
  */
-void setreg(unsigned short adr, unsigned char value)
+void cc2520_setreg(unsigned short adr, unsigned char value)
 {
 	cc2520_SELECT();
 	SSIDataPut(SSI0_BASE, CC2520_INS_MEMWR | ((adr>>8)&0xFF));

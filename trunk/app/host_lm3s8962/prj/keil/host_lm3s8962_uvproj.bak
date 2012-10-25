@@ -47,7 +47,7 @@
           <OutputName>lm3s8962_cc2520</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\lst\</ListingPath>
@@ -348,7 +348,7 @@
             <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>rvmdk PART_LM3S8962</Define>
+              <Define>rvmdk PART_LM3S8962 CC2520 LCD</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\src\app;..\..\src\drv;..\..\src\bsp;..\..\src\net;..\..\src\os\uCOS-II;..\..\src\os\uCOS-II\Ports;..\..\src\os\uC-LIB;..\..\src\lwip-1.4.0;..\..\src\lwip-1.4.0\src\include;..\..\src\lwip-1.4.0\src\include\ipv4;..\..\src\lwip-1.4.0\ports\stellaris\include;..\..\src\lwip-1.4.0\ports\stellaris\netif</IncludePath>
             </VariousControls>
@@ -395,6 +395,56 @@
               <FileName>app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\app\app.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>2</IncludeInBuild>
+                  <AlwaysBuild>1</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>app_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\app\app_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_cc2520.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\app\app_cc2520.c</FilePath>
             </File>
             <File>
               <FileName>app_cfg.h</FileName>
@@ -432,6 +482,21 @@
               <FilePath>..\..\src\bsp\bsp_led.c</FilePath>
             </File>
             <File>
+              <FileName>bsp_ssi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\bsp\bsp_ssi.c</FilePath>
+            </File>
+            <File>
+              <FileName>cc2520.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\bsp\cc2520.c</FilePath>
+            </File>
+            <File>
+              <FileName>cc2520-arch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\bsp\cc2520-arch.c</FilePath>
+            </File>
+            <File>
               <FileName>rit128x96x4.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\bsp\rit128x96x4.c</FilePath>
@@ -442,54 +507,14 @@
           <GroupName>LIB</GroupName>
           <Files>
             <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\can.c</FilePath>
-            </File>
-            <File>
-              <FileName>comp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\comp.c</FilePath>
-            </File>
-            <File>
               <FileName>cpu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\driverlib\cpu.c</FilePath>
             </File>
             <File>
-              <FileName>eeprom.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\eeprom.c</FilePath>
-            </File>
-            <File>
-              <FileName>epi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\epi.c</FilePath>
-            </File>
-            <File>
               <FileName>ethernet.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\driverlib\ethernet.c</FilePath>
-            </File>
-            <File>
-              <FileName>fan.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\fan.c</FilePath>
-            </File>
-            <File>
-              <FileName>flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\flash.c</FilePath>
-            </File>
-            <File>
-              <FileName>fpu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\fpu.c</FilePath>
             </File>
             <File>
               <FileName>gpio.c</FileName>
@@ -502,44 +527,9 @@
               <FilePath>..\..\src\drv\driverlib\hibernate.c</FilePath>
             </File>
             <File>
-              <FileName>i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>i2s.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\i2s.c</FilePath>
-            </File>
-            <File>
               <FileName>interrupt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\driverlib\interrupt.c</FilePath>
-            </File>
-            <File>
-              <FileName>lpc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\lpc.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\mpu.c</FilePath>
-            </File>
-            <File>
-              <FileName>peci.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\peci.c</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>qei.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\qei.c</FilePath>
             </File>
             <File>
               <FileName>ssi.c</FileName>
@@ -552,29 +542,9 @@
               <FilePath>..\..\src\drv\driverlib\sysctl.c</FilePath>
             </File>
             <File>
-              <FileName>sysexc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\sysexc.c</FilePath>
-            </File>
-            <File>
-              <FileName>systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\timer.c</FilePath>
-            </File>
-            <File>
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\drv\driverlib\uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>watchdog.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\drv\driverlib\watchdog.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -602,59 +572,14 @@
           <GroupName>NET</GroupName>
           <Files>
             <File>
-              <FileName>network.c</FileName>
+              <FileName>net_tcpip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\net\network.c</FilePath>
+              <FilePath>..\..\src\net\net_tcpip.c</FilePath>
             </File>
             <File>
-              <FileName>ping.c</FileName>
+              <FileName>net_socket.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\net\ping.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>socket_examples.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\net\socket_examples.c</FilePath>
+              <FilePath>..\..\src\net\net_socket.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -680,11 +605,6 @@
               <FileName>etharp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\lwip-1.4.0\src\netif\etharp.c</FilePath>
-            </File>
-            <File>
-              <FileName>slipif.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\lwip-1.4.0\src\netif\slipif.c</FilePath>
             </File>
           </Files>
         </Group>
