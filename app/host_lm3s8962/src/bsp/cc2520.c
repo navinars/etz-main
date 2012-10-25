@@ -50,7 +50,7 @@ static int channel;
  */
 void cc2520_init(void)
 {
-	unsigned char a;
+	unsigned long a;
 	
 	cc2520_arch_init();
 	
@@ -66,9 +66,15 @@ void cc2520_init(void)
 	
 	/* Turn on the crystal oscillator. */
 	cc2520_strobe(CC2520_INS_SXOSCON);
-	OSTimeDly(125);
-	
+	OSTimeDly(500);
+	a = cc2520_getreg(CC2520_TXCTRL);
 	a = cc2520_status();
+	a = cc2520_status();
+	a = cc2520_status();
+	UARTprintf("\n%4x", a);
+	cc2520_setreg(CC2520_TXCTRL,      0x94);
+	cc2520_setreg(CC2520_TXPOWER,     0x13);    // Output power 1 dBm
+	
 	UARTprintf("\n%4x", a);
 }
 
@@ -102,4 +108,3 @@ void off(void)
 	
 	cc2520_strobe(CC2520_INS_SRFOFF);
 }
-

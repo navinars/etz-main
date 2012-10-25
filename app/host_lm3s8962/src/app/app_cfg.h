@@ -59,7 +59,7 @@
 */
 
 #define  APP_CFG_TASK_START_PRIO                           	2
-#define  APP_CFG_TASK_LED_PRIO								3
+#define  APP_CFG_TASK_CC2520_PRIO							3
 #define  APP_CFG_TASK_LCD_PRIO								4
 
 /*lwIP TCP/IP stack task.*/
@@ -84,9 +84,9 @@
 */
 
 #define  TASK_START_STK_SIZE                     	 50
-#define  TASK_LED_STK_SIZE                       	128
+#define  TASK_CC2520_STK_SIZE                       128
 #define  TASK_NET_CLIENT_STACK_SIZE					512
-#define  TASK_LCD_STK_SIZE							 50
+#define  TASK_LCD_STK_SIZE							128
 #define  TASK_LWIP_STK_SIZE							512
 /*
 *********************************************************************************************************

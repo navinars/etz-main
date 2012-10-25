@@ -39,6 +39,7 @@ extern unsigned char g_bNetStatus;
  *											Global Function
  * ------------------------------------------------------------------------------------------------------
  */
-extern void NetServerInit(void);
+extern void TaskTcpip_Create(void);
+extern void lwIP_init(void);
  
 #endif

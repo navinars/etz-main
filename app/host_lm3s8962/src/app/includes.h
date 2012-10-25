@@ -24,6 +24,7 @@
 #include "driverlib/interrupt.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/timer.h"
+#include "utils/ustdlib.h"
 
 //-----------------------BSP driver---------------------------------
 #include "bsp.h"
@@ -33,13 +34,16 @@
 //-----------------------OS files-----------------------------------
 #include  <ucos_ii.h>
 
+//------------------------APP file----------------------------------
+#include "app_lcd.h"
+#include "app_cc2520.h"
 
 //------------------------config file-------------------------------
 #include "app_cfg.h"
 
-
 //------------------------lwIP file---------------------------------
-#include "network.h"
+#include "net_tcpip.h"
+#include "net_socket.h"
 #include "utils/lwiplib.h"
 #include "netif/stellarisif.h"
 

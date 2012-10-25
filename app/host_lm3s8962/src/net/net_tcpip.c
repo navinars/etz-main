@@ -1,23 +1,18 @@
-/*
-*********************************************************************************************************
-*
-*                                       APPLICATION CONFIGURATION
-*
-*                                          Atmel AT91SAM3U4
-*                                                on the
-*                                 Atmel AT91SAM3U-EK Development Board.
-*
-* Filename      : app_cfg.h
-* Version       : V1.00
-* Programmer(s) : FT
-*********************************************************************************************************
-*/
+/* ------------------------------------------------------------------------------------------------------
+ * File: includes.h
+ * Data: 2012/9/4
+ * Author: MC
+ * Ver: V0.1.1a
+ * -------------------------------------------------------------------------------------------------------
+ */
 #include <stdint.h>
 
-#include "network.h"
 #include "app_cfg.h"
-#include "socket_examples.h"
+#include "net_tcpip.h"
+#include "net_socket.h"
 
+//user file
+#include "app_lcd.h"
 #include "inc/hw_ints.h"
 #include "inc/hw_ethernet.h"
 #include "inc/hw_memmap.h"
@@ -32,8 +27,8 @@
 #include "utils/lwiplib.h"
 #include "utils/ustdlib.h"
 
-#include "ping.h"
 #include "rit128x96x4.h"
+
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -54,9 +49,9 @@ unsigned char g_bNetStatus;
  * ------------------------------------------------------------------------------------------------------
  */
 void DisplayIPAddress(unsigned long ipaddr, unsigned long ulCol,
-                 unsigned long ulRow);
-				 
-				 
+					  unsigned long ulRow);
+
+
 /* ------------------------------------------------------------------------------------------------------
  *									lwIP_init()
  *
@@ -65,19 +60,17 @@ void DisplayIPAddress(unsigned long ipaddr, unsigned long ulCol,
  * Argument(s) : none.
  *
  */
-err_t lwIP_init(void)
+void lwIP_init(void)
 {
-	err_t err = ERR_OK;
 //	struct ip_addr stIpAddr, stNetMsk, stGatWay;
-
+	
 	/*load local net parameter*/
 //	lwIPLocalMACGet(MACAddress);
 	
 	/*use dhcp mode*/
 	lwIPInit(MACAddress, 0, 0, 0, IPADDR_USE_DHCP);
-
+	
 	g_bNetStatus = NETS_INIT;
-	return err;
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -101,16 +94,9 @@ static void TcpClientMainProc(void)
 			OSTimeDly(10);
 		}while(0 == g_sClientIP.s_addr);
 
-		// Enable LCD
-		RIT128x96x4Enable(1000000);
-		DisplayIPAddress(g_sClientIP.s_addr, 36, 16);
-		g_sClientIP.s_addr = lwIPLocalNetMaskGet();//获取子网掩码
-        DisplayIPAddress(g_sClientIP.s_addr, 36, 24);
-        g_sClientIP.s_addr = lwIPLocalGWAddrGet();//获取网关
-        DisplayIPAddress(g_sClientIP.s_addr, 36, 32);
-		//Disable LCD
-        RIT128x96x4Disable();
-		g_bNetStatus = NETS_LOCIP;
+//		OSMboxPost(App_LcdMbox, (void *)&g_sClientIP.s_addr);		/* Send lcd txt.*/
+		
+		g_bNetStatus = NETS_LOCIP;									/* Net mode charge LOCIP.*/
 		break;
 
 	case NETS_LOCIP:
@@ -144,6 +130,10 @@ static void TcpClientMainProc(void)
  */
 static void TcpClientTask(void *pArg)
 {
+	INT8U mac[20];
+	
+	lwIPLocalMACGet(mac);
+
 	for(;;)
 	{
         TcpClientMainProc();
@@ -159,58 +149,13 @@ static void TcpClientTask(void *pArg)
  * Argument(s) : none.
  *
  */
-void NetServerInit(void)
+void TaskTcpip_Create(void)
 {
-	//
-	// Enable and Reset the Ethernet Controller.
-	//
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_ETH);
-	SysCtlPeripheralReset(SYSCTL_PERIPH_ETH);
-
-	//
-	// Enable Port F for Ethernet LEDs.
-	//  LED0        Bit 3   Output
-	//  LED1        Bit 2   Output
-	//
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-	GPIOPinTypeEthernetLED(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3);
-
-	lwIP_init();
-	
-	// socket test..
-	socket_examples_init();
-//	ping_init();
-	
 	//创建TCP/IP应用任务
 	OSTaskCreate(TcpClientTask,
 				 (void *)0,
 				 &Task_Eth_Stk[TASK_NET_CLIENT_STACK_SIZE-1],
 				 TASK_NET_CLIENT_PRIORITY);
 //	sys_thread_new("TcpClt", TcpClientTask, NULL, TASK_UDP_SERVER_STACK_SIZE, TASK_UDP_SERVER_PRIORITY);
-}
-
-
-
-//*****************************************************************************
-//
-// Display an lwIP type IP Address.
-//
-//*****************************************************************************
-void DisplayIPAddress(unsigned long ipaddr, unsigned long ulCol,
-                 unsigned long ulRow)
-{
-    char pucBuf[16];
-    unsigned char *pucTemp = (unsigned char *)&ipaddr;
-
-    //
-    // Convert the IP Address into a string.
-    //
-    usprintf(pucBuf, "%d.%d.%d.%d", pucTemp[0], pucTemp[1], pucTemp[2],
-             pucTemp[3]);
-
-    //
-    // Display the string.
-    //
-    RIT128x96x4StringDraw(pucBuf, ulCol, ulRow, 15);
 }
 
