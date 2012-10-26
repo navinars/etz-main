@@ -5,7 +5,6 @@
  * Ver: V0.1.1b
  * -------------------------------------------------------------------------------------------------------
  */
-#ifdef LCD
 #include "includes.h"
 
 
@@ -20,7 +19,6 @@
  * ------------------------------------------------------------------------------------------------------
  */
 static OS_STK  	Task_LCDStk[TASK_LCD_STK_SIZE];
-OS_EVENT		*App_LcdMbox;
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -41,10 +39,8 @@ static void App_TaskLCD(void *parg);
 void TaskLCD_Create(void)
 {
 	
-	// TODO: lcd drive code shuode be in bsp.c
+	// TODO: lcd drive code should be in bsp.c
 	RIT128x96x4Init(1000000);
-	
-	App_LcdMbox = OSMboxCreate((void *)0);								/* Create Mbox. */
 	
 	OSTaskCreate (App_TaskLCD, (void *)0,   							/* Create LCD task.*/
 				  &Task_LCDStk[TASK_LCD_STK_SIZE-1], 
@@ -133,4 +129,3 @@ static void App_TaskLCD(void *parg)
 }
 
 
-#endif

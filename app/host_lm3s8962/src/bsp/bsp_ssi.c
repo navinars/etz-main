@@ -49,8 +49,10 @@ static void cc2520_DESELECT(void)
  * Argument(s) : none.
  *
  */
-void bsp_ssi0_init(void)
+void BSP_SSI0_Init(void)
 {
+	cc2520_arch_init();
+	
     SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	
@@ -105,7 +107,7 @@ unsigned char cc2520_status(void)
 	
 	cc2520_SELECT();
 	SSIDataPut(SSI0_BASE, CC2520_INS_SNOP);
-	SSIDataGetNonBlocking(SSI0_BASE, &data);
+	SSIDataGet(SSI0_BASE, &data);
 	cc2520_DESELECT();
 	
 	return (unsigned char) data;
@@ -126,7 +128,8 @@ unsigned char cc2520_getreg(unsigned short adr)
 	cc2520_SELECT();
 	SSIDataPut(SSI0_BASE, (CC2520_INS_MEMRD | ((adr>>8)&0xFF)));
 	SSIDataPut(SSI0_BASE, (adr & 0xFF));
-	SSIDataGetNonBlocking(SSI0_BASE, &reg);
+	SSIDataPut(SSI0_BASE, 0x00);
+	SSIDataGet(SSI0_BASE, &reg);
 	cc2520_DESELECT();
 	
 	return (unsigned char)reg;
@@ -169,6 +172,4 @@ void cc2520_arch_init(void)
 	GPIOPadConfigSet(GPIO_PORTC_BASE, GPIO_PIN_6|GPIO_PIN_7,
 					 GPIO_STRENGTH_4MA,
                      GPIO_PIN_TYPE_STD_WPU);
-	
-	bsp_ssi0_init();
 }

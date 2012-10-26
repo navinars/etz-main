@@ -14,7 +14,7 @@
  */
 
 
-#ifdef CC2520
+
 /* ------------------------------------------------------------------------------------------------------
  *											Local Variables
  * ------------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ static OS_STK  Task_CC2520Stk[TASK_CC2520_STK_SIZE];
 static  void  App_TaskCC2520 (void *p_arg);
 
 
-#endif
+
 /* ------------------------------------------------------------------------------------------------------
  *									   		App_TaskLCD()
  *
@@ -41,11 +41,9 @@ static  void  App_TaskCC2520 (void *p_arg);
  */
 void TaskCC2520_Create(void)
 {
-#ifdef CC2520
 	OSTaskCreate (App_TaskCC2520, (void *)0,
 				  &Task_CC2520Stk[TASK_CC2520_STK_SIZE-1], 
 				  APP_CFG_TASK_CC2520_PRIO);
-#endif
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -56,7 +54,7 @@ void TaskCC2520_Create(void)
  * Argument(s) : none.
  *
  */
-#ifdef CC2520
+
 static  void  App_TaskCC2520 (void *p_arg)
 {
 	(void)p_arg;
@@ -71,4 +69,3 @@ static  void  App_TaskCC2520 (void *p_arg)
 	}
 }
 
-#endif

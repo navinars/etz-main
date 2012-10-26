@@ -31,7 +31,7 @@
 #endif
 
 #ifndef SOCK_TARGET_PORT
-#define SOCK_TARGET_PORT  8093
+#define SOCK_TARGET_PORT  8091
 #endif
 
 #define SOCKET_NEW			1
@@ -46,7 +46,7 @@
  *											Local Define
  * ------------------------------------------------------------------------------------------------------
  */
-int s;																/* Create socket.*/
+int s;													/* Create socket.*/
 static unsigned char socket_state;
 
 
@@ -67,7 +67,7 @@ void socket_loop(void)
 // Display an lwIP type IP Address.
 //
 //*****************************************************************************
-/*void NetDisplayIPAddress(unsigned long ipaddr)
+void NetDisplayIPAddress(unsigned long ipaddr)
 {
 	int ret;
     char pucBuf[16];
@@ -76,15 +76,15 @@ void socket_loop(void)
     //
     // Convert the IP Address into a string.
     //
-    usprintf(pucBuf, "%d.%d.%d.%d", pucTemp[0], pucTemp[1], pucTemp[2],
+    usprintf(pucBuf, "%d.%d.%d.%d\n", pucTemp[0], pucTemp[1], pucTemp[2],
              pucTemp[3]);
 
     //
     // Display the string.
     //
     ret = lwip_write(s, pucBuf, sizeof(pucBuf));
+	LWIP_ASSERT("ret == -1", ret == -1);
 }
-*/
 
 /* ------------------------------------------------------------------------------------------------------
  *									   sockex_nonblocking_connect()
@@ -123,27 +123,26 @@ static void sockex_nonblocking_connect(void *arg)
 				{
 					s = lwip_socket(AF_INET, SOCK_STREAM, 0);
 					
-					if(s < 0)
-						break;
-					
 					socket_state = SOCKET_CON;
+					break;
 				}
 
 				case SOCKET_CON:
 				{
-					unsigned int addr;
-					ret = lwip_connect(s, (struct sockaddr*)&addr, sizeof(addr));/* connect */
+					unsigned int ip;
+					ret = lwip_connect(s, (struct sockaddr*)&addr, sizeof(addr));
 					
-					LWIP_ASSERT("ret == 0", ret == 0);						/* should succeed */
+					LWIP_ASSERT("ret == 0", ret == 0);
 					if(ret < 0)
 					{
 						lwip_close(s);
-						socket_state = SOCKET_NEW;					/* 重复断开连接，可能出问题*/
+						socket_state = SOCKET_NEW;
+						OSTimeDly(2);
+						RS232printf("socket connect failed.\n");
 						break;
-		//				RS232printf("socket connect failed\n");
 					}
-//					addr = lwIPLocalIPAddrGet();
-//					NetDisplayIPAddress(addr);
+					ip = lwIPLocalIPAddrGet();
+					NetDisplayIPAddress(ip);
 					socket_state = SOCKET_CHECK;
 				}
 				
@@ -156,6 +155,7 @@ static void sockex_nonblocking_connect(void *arg)
 					FD_SET(s, &writeset);
 					FD_ZERO(&errset);
 					FD_SET(s, &errset);
+				
 					tv.tv_sec = 3;
 					tv.tv_usec = 0;									/* Set time out 0, 函数立即返回*/
 					ret = lwip_select(s+1, &readset, &writeset, &errset, &tv);
@@ -174,7 +174,7 @@ static void sockex_nonblocking_connect(void *arg)
 						socket_state = SOCKET_CON;					/* Reconnect socket.*/
 					}
 					
-					ret = lwip_write(s, "test\n", 6);
+					ret = lwip_write(s, "test", 6);
 					if(ret < 0)
 					{
 						lwip_close(s);
