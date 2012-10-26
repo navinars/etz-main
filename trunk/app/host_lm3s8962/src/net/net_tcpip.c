@@ -37,6 +37,8 @@
  */
 OS_STK  Task_Eth_Stk[TASK_NET_CLIENT_STACK_SIZE];
 
+extern OS_EVENT		*App_LcdMbox;
+
 unsigned char MACAddress[] = My_Mac_ID;
 unsigned char IPAddress[] = MY_IP_ID;
 unsigned char NetMaskAddr[] = IP_MARK_ID;
@@ -94,7 +96,7 @@ static void TcpClientMainProc(void)
 			OSTimeDly(10);
 		}while(0 == g_sClientIP.s_addr);
 
-//		OSMboxPost(App_LcdMbox, (void *)&g_sClientIP.s_addr);		/* Send lcd txt.*/
+		OSMboxPost(App_LcdMbox, (void *)&g_sClientIP.s_addr);		/* Send lcd txt.*/
 		
 		g_bNetStatus = NETS_LOCIP;									/* Net mode charge LOCIP.*/
 		break;

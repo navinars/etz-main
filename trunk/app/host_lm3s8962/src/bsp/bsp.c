@@ -49,6 +49,11 @@ void BSP_Init(void)
 	BSP_UartInit();
 	
 	//
+    // Enable the SSI0.
+    //
+	BSP_SSI0_Init();
+	
+	//
     // Enable the Ethernet.
     //
 	BSP_EthernetInit();

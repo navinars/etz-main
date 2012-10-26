@@ -13,6 +13,7 @@
  * ------------------------------------------------------------------------------------------------------
  */
 static OS_STK  Task_StartStk[TASK_START_STK_SIZE];
+OS_EVENT		*App_LcdMbox;
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -20,6 +21,7 @@ static OS_STK  Task_StartStk[TASK_START_STK_SIZE];
  * ------------------------------------------------------------------------------------------------------
  */
 static  void  App_TaskStart (void *p_arg);
+static  void  App_EventCreate (void);
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -53,14 +55,21 @@ int main(void)
  * Argument(s) : none.
  *
  */
-static  void  App_TaskStart (void *p_arg)
+static  void  App_EventCreate (void)
 {
-	(void)p_arg;
-	
-	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);	/* Initialize the SysTick.*/
-	
-	lwIP_init();												/* Initialise lwIP stack. */
-	
+	App_LcdMbox = OSMboxCreate((void *)0);								/* Create Mbox. */
+}
+
+/* ------------------------------------------------------------------------------------------------------
+ *									App_TaskStart()
+ *
+ * Description : Task start function.
+ *
+ * Argument(s) : none.
+ *
+ */
+static  void  App_TaskCreate (void)
+{
 	TaskTcpip_Create();											/* Create lwIP task and init.*/
 	
 	TaskSocket_Create();										/* Create Socket task and init.*/
@@ -72,6 +81,27 @@ static  void  App_TaskStart (void *p_arg)
 #ifdef CC2520
 	TaskCC2520_Create();										/* Create CC2520 task.*/
 #endif
+}
+
+/* ------------------------------------------------------------------------------------------------------
+ *									App_TaskStart()
+ *
+ * Description : Task start function.
+ *
+ * Argument(s) : none.
+ *
+ */
+static  void  App_TaskStart (void *p_arg)
+{
+	(void)p_arg;
+	
+	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);	/* Initialize the SysTick.*/
+	
+	lwIP_init();												/* Initialise lwIP stack. */
+	
+	App_EventCreate();
+	
+	App_TaskCreate();
 	
     while(1)
 	{

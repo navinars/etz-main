@@ -14,7 +14,7 @@ extern void BSP_LedToggle(unsigned char id);
 
 
 //-----------------------------------bsp_ssi.c---------------------------------
-extern void bsp_ssi0_init(void);
+extern void BSP_SSI0_Init(void);
 extern void cc2520_strobe(unsigned long data);
 extern unsigned char cc2520_status(void);
 extern unsigned char cc2520_getreg(unsigned short adr);
