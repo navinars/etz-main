@@ -56,26 +56,27 @@ void BSP_SSI0_Init(void)
     SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	
-	/*Configure the SPI port*/
-	GPIOPinTypeSSI(GPIO_PORTA_BASE, 
-				   GPIO_PIN_2|GPIO_PIN_5|GPIO_PIN_4);
+	SSIDisable(SSI0_BASE);											/* Disable SSI0.*/
+	
+	GPIOPinTypeSSI(GPIO_PORTA_BASE, 								/* Configure the SPI port*/
+				   GPIO_PIN_2|GPIO_PIN_4|GPIO_PIN_5);
 	GPIOPadConfigSet(GPIO_PORTA_BASE,
-					 GPIO_PIN_2|GPIO_PIN_5|GPIO_PIN_4,
+					 GPIO_PIN_2|GPIO_PIN_4|GPIO_PIN_5,
 					 GPIO_STRENGTH_4MA,
                      GPIO_PIN_TYPE_STD_WPU);
 	
-	/*Configure the CS port*/
-	GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_6);
+	
+	GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_6);				/* Configure the CS port*/
     GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PIN_6, GPIO_STRENGTH_4MA,
                      GPIO_PIN_TYPE_STD_WPU);
 	
-	/* Deassert the SSI0 chip select */
-    cc2520_DESELECT();
+    cc2520_DESELECT();												/* Deassert the SSI0 chip select */
 	
-	/* Configure the SSI0 port */
-	SSIConfigSetExpClk(SSI0_BASE, SysCtlClockGet(), SSI_FRF_MOTO_MODE_0,
-					   SSI_MODE_MASTER, 400000, 8);
-	SSIEnable(SSI0_BASE);
+	SSIConfigSetExpClk(SSI0_BASE,									/* Configure the SSI0 port */
+						SysCtlClockGet(),
+						SSI_FRF_MOTO_MODE_0,
+						SSI_MODE_MASTER, 400000, 8);
+	SSIEnable(SSI0_BASE);											/* Enable SSI0.*/
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -88,8 +89,11 @@ void BSP_SSI0_Init(void)
  */
 void cc2520_strobe(unsigned long data)
 {
+	unsigned long uNull;
+	
 	cc2520_SELECT();
 	SSIDataPut(SSI0_BASE, data);
+	SSIDataGet(SSI0_BASE, &uNull);
 	cc2520_DESELECT();
 }
 
@@ -121,10 +125,12 @@ unsigned char cc2520_status(void)
  * Argument(s) : none.
  *
  */
-unsigned char cc2520_getreg(unsigned short adr)
+unsigned char cc2520_getRAM(unsigned short adr)
 {
 	unsigned long reg;
 	
+	cc2520_SELECT();
+	cc2520_SELECT();
 	cc2520_SELECT();
 	SSIDataPut(SSI0_BASE, (CC2520_INS_MEMRD | ((adr>>8)&0xFF)));
 	SSIDataPut(SSI0_BASE, (adr & 0xFF));
@@ -134,21 +140,58 @@ unsigned char cc2520_getreg(unsigned short adr)
 	
 	return (unsigned char)reg;
 }
+void cc2520_setRAM(unsigned short adr, unsigned char value)
+{
+	cc2520_SELECT();
+	cc2520_SELECT();
+	cc2520_SELECT();
+	SSIDataPut(SSI0_BASE, CC2520_INS_MEMWR | ((adr>>8)&0xFF));
+	SSIDataPut(SSI0_BASE, (adr & 0xFF));
+	SSIDataPut(SSI0_BASE, (unsigned long)value);
+	cc2520_DESELECT();
+}
+
 
 /* ------------------------------------------------------------------------------------------------------
- *									setreg()
+ *									cc2520_getReg()
  *
  * Description : SPI sysctl init function.
  *
  * Argument(s) : none.
  *
  */
-void cc2520_setreg(unsigned short adr, unsigned char value)
+unsigned char cc2520_getReg(unsigned short adr)
 {
+	unsigned long reg;
+	
 	cc2520_SELECT();
-	SSIDataPut(SSI0_BASE, CC2520_INS_MEMWR | ((adr>>8)&0xFF));
-	SSIDataPut(SSI0_BASE, (adr & 0xFF));
+	SSIDataPut(SSI0_BASE, CC2520_INS_REGRD | adr);
+	SSIDataGet(SSI0_BASE, &reg);
+	SSIDataPut(SSI0_BASE, 0xFF);
+	SSIDataGet(SSI0_BASE, &reg);
+	cc2520_DESELECT();
+	
+	return (unsigned char)reg;
+}
+
+
+/* ------------------------------------------------------------------------------------------------------
+ *									cc2520_setReg()
+ *
+ * Description : SPI sysctl init function.
+ *
+ * Argument(s) : none.
+ *
+ */
+void cc2520_setReg(unsigned short adr, unsigned char value)
+{
+	unsigned long uNull;
+	
+	cc2520_SELECT();
+	SSIDataPut(SSI0_BASE, CC2520_INS_REGWR | adr);
+	SSIDataGet(SSI0_BASE, &uNull);
 	SSIDataPut(SSI0_BASE, (unsigned long)value);
+	SSIDataGet(SSI0_BASE, &uNull);
 	cc2520_DESELECT();
 }
 
