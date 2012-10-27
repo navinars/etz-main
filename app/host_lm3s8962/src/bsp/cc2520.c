@@ -52,17 +52,14 @@ void cc2520_init(void)
 {
 	unsigned long a = 0xFF;
 	
-//	cc2520_arch_init();
-	
-	SET_VREG_INACTIVE();
-	OSTimeDly(1000);
-	/* Turn on voltage regulator and reset. */
+	SET_VREG_INACTIVE();											/* Turn on voltage regulator and reset. */
+	OSTimeDly(200);
 	SET_VREG_ACTIVE();
-	OSTimeDly(1000);
+	OSTimeDly(200);
 	SET_RESET_ACTIVE();
-	OSTimeDly(500);
+	OSTimeDly(200);
 	SET_RESET_INACTIVE();
-	OSTimeDly(500);
+	OSTimeDly(200);
 	
 	/* Turn on the crystal oscillator. */
 	cc2520_strobe(CC2520_INS_SXOSCON);
@@ -72,12 +69,12 @@ void cc2520_init(void)
 	UARTprintf("\n%4x", a);
 	
 	a = 0xff;
-	cc2520_setreg(CC2520_TXCTRL,      0x94);
-	a = cc2520_getreg(CC2520_TXPOWER);
+	cc2520_setReg(CC2520_TXCTRL,      0x94);
+	a = cc2520_getReg(CC2520_TXCTRL);
 	
 	a = 0xff;
-	cc2520_setreg(CC2520_TXPOWER,     0x00);    // Output power 1 dBm
-	a = cc2520_getreg(CC2520_TXPOWER);
+	cc2520_setReg(CC2520_TXPOWER,     0x93);    // Output power 1 dBm
+	a = cc2520_getReg(CC2520_TXPOWER);
 	UARTprintf("\n%4x", a);
 }
 
