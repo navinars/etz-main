@@ -28,7 +28,7 @@
 
 //-----------------------BSP driver---------------------------------
 #include "bsp.h"
-#include "cc2520.h"
+#include "hal_cc2520.h"
 #include "rit128x96x4.h"
 
 //-----------------------OS files-----------------------------------
@@ -46,6 +46,9 @@
 #include "net_socket.h"
 #include "utils/lwiplib.h"
 #include "netif/stellarisif.h"
+
+//------------------------MAC file---------------------------------
+#include "mac.h"
 
 
 #endif

@@ -59,10 +59,11 @@ static  void  App_TaskCC2520 (void *p_arg)
 {
 	(void)p_arg;
 	
-	cc2520_init();
+	cc2520_arch_init();												/* Initialise CC2520 GPIO1~4.*/
 	
-	/*task process*/
-	while(1)
+	mac_init();
+	
+	while(1)														/* task process.*/
 	{
 		BSP_LedToggle(1);
 		OSTimeDly(OS_TICKS_PER_SEC / 2);
