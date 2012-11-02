@@ -11,9 +11,8 @@
 #include "mac.h"
 #include "mac_hw.h"
 
-
 static 	mac_pib_t 	pib;
-//static  mac_pcb_t	pcb;
+static  mac_pcb_t	pcb;
 
 
 
@@ -31,7 +30,7 @@ void mac_init(void)
 	halRfInit();
 	
 	pib.coord_addr.mode			= SHORT_ADDR;
-//	pib.coord_addr.short_addr	= 0x0000;		// Net coord short address is 0x0000;
+	pib.coord_addr.short_addr	= 0x0000;		// Net coord short address is 0x0000;
 	pib.coord					= true;
 	pib.short_addr				= 0x0000;		// Default node short address is 0xFFFF.
 	pib.pan_id					= 0xFFFF;		// Default PAN ID is 0xFFFF.
@@ -58,12 +57,60 @@ void mac_init(void)
 	
 	halRfRxInterruptConfig(RfRxFrmDoneIsr);
 	
-//	mac_buf_init();
+	mac_buf_init();
 	
-	halRfReceiveOff();
-}
-
-void RfRxFrmDoneIsr(void)
-{
 	halRfReceiveOn();
 }
+
+
+/********************************************************************************************************
+*                                           *mac_pib_get()
+*
+* Description : get pib struct pionter.
+*
+* Argument(s) : none.
+*
+*/
+mac_pib_t *mac_pib_get(void)
+{
+	return &pib;
+}
+
+/********************************************************************************************************
+*                                           *mac_pcb_get()
+*
+* Description : get pib struct pionter.
+*
+* Argument(s) : none.
+*
+*/
+mac_pcb_t *mac_pcb_get(void)
+{
+	return &pcb;
+}
+
+/* ------------------------------------------------------------------------------------------------------
+ *										mac_host_bcn
+ *
+ * Describtion : beacon frame send.
+ *
+ */
+#define TICK_VAL	500000
+void mac_host_bcn(U16 offset)
+{
+	U8 data[20], len, option;
+	address_t destAddr;
+
+	memcpy(data, "dooya", 6);
+	
+	*(U32 *)(&data[6]) = TICK_VAL - offset;
+	
+	len = 6 + 4;
+	
+	destAddr.mode = SHORT_ADDR;
+	destAddr.short_addr = 0xFFFF;
+	
+	option = MAC_BEACON;
+	mac_tx_handle(&destAddr, data, len, option);
+}
+

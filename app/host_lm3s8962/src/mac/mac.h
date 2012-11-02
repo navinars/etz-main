@@ -176,15 +176,17 @@ typedef struct
 	U8				buf[aMaxPHYPacketSize +1];
 } mac_buf_t;
 
-typedef struct c
+#pragma anon_unions
+typedef struct
 {
 	U8				mode;
 	union
 	{
 		U16			short_addr;
 		U8			long_addr[8];
-	}a;
+	};
 } address_t;
+#pragma no_anon_unions
 
 typedef struct
 {
@@ -281,6 +283,7 @@ typedef struct
 	U16				short_addr;
 } cmd_coord_realign_t;
 
+#pragma anon_unions
 typedef struct
 {
 	U8 cmd_id;
@@ -289,8 +292,9 @@ typedef struct
 		cmd_assoc_req_t			assoc_req;
 		cmd_assoc_resp_t		assoc_resp;
 		cmd_coord_realign_t		coord_realign;
-	}b;
+	};
 } mac_cmd_t;
+#pragma no_anon_unions
 
 typedef struct
 {

@@ -575,7 +575,7 @@ void halRfDisableRxInterrupt(void)
 {
     // Clear the exception and the IRQ
     CLEAR_EXC_RX_FRM_DONE();
-    GPIOPinIntClear(INT_GPIOD, GPIO_PIN_1);
+//    GPIOPinIntClear(INT_GPIOD, GPIO_PIN_1);
 	IntDisable(INT_GPIOD);
 }
 
@@ -608,7 +608,8 @@ void halRfRxInterruptConfig(ISR_FUNC_PTR pfISR)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
 	GPIOPinTypeGPIOInput(GPIO_PORTD_BASE, GPIO_PIN_1);				/* Default pin is Push-pull.*/
-	GPIOIntTypeSet(GPIO_PORTD_BASE, GPIO_PIN_1, GPIO_LOW_LEVEL);	/* Low is active.*/
+	GPIOPadConfigSet(GPIO_PORTD_BASE, GPIO_PIN_1, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
+	GPIOIntTypeSet(GPIO_PORTD_BASE, GPIO_PIN_1, GPIO_RISING_EDGE);	/* Rising edge is active.*/
 	GPIOPinIntEnable(GPIO_PORTD_BASE, GPIO_PIN_1);
 	GPIOPortIntRegister(GPIO_PORTD_BASE, pfISR);
 }
