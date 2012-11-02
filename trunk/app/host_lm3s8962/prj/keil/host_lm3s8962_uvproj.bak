@@ -47,7 +47,7 @@
           <OutputName>lm3s8962_cc2520</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>1</CreateHexFile>
+          <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\lst\</ListingPath>
@@ -350,7 +350,7 @@
               <MiscControls></MiscControls>
               <Define>rvmdk PART_LM3S8962 CC2520 LCD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\src\app;..\..\src\drv;..\..\src\bsp;..\..\src\net;..\..\src\os\uCOS-II;..\..\src\os\uCOS-II\Ports;..\..\src\os\uC-LIB;..\..\src\lwip-1.4.0;..\..\src\lwip-1.4.0\src\include;..\..\src\lwip-1.4.0\src\include\ipv4;..\..\src\lwip-1.4.0\ports\stellaris\include;..\..\src\lwip-1.4.0\ports\stellaris\netif</IncludePath>
+              <IncludePath>..\..\src\app;..\..\src\drv;..\..\src\bsp;..\..\src\net;..\..\src\os\uCOS-II;..\..\src\os\uCOS-II\Ports;..\..\src\os\uC-LIB;..\..\src\lwip-1.4.0;..\..\src\lwip-1.4.0\src\include;..\..\src\lwip-1.4.0\src\include\ipv4;..\..\src\lwip-1.4.0\ports\stellaris\include;..\..\src\lwip-1.4.0\ports\stellaris\netif;..\..\src\mac</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -452,14 +452,19 @@
               <FilePath>..\..\src\bsp\rit128x96x4.c</FilePath>
             </File>
             <File>
+              <FileName>hal_rf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\bsp\hal_rf.c</FilePath>
+            </File>
+            <File>
               <FileName>hal_cc2520.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\bsp\hal_cc2520.c</FilePath>
             </File>
             <File>
-              <FileName>hal_rf.c</FileName>
+              <FileName>cc2520-arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\bsp\hal_rf.c</FilePath>
+              <FilePath>..\..\src\bsp\cc2520-arch.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -515,6 +520,16 @@
               <FileName>mac.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\mac\mac.c</FilePath>
+            </File>
+            <File>
+              <FileName>mac_hw.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\mac\mac_hw.c</FilePath>
+            </File>
+            <File>
+              <FileName>mac_buf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\mac\mac_buf.c</FilePath>
             </File>
           </Files>
         </Group>
