@@ -152,4 +152,15 @@
 #define  APP_TRACE_INFO(x)                        ((APP_CFG_TRACE_LEVEL >= TRACE_LEVEL_INFO)  ? (void)(APP_CFG_TRACE x) : (void)0)
 #define  APP_TRACE_DBG(x)                         ((APP_CFG_TRACE_LEVEL >= TRACE_LEVEL_DBG)   ? (void)(APP_CFG_TRACE x) : (void)0)
 
+
+/*
+*********************************************************************************************************
+*                                     MODULE CONFIGURATION
+*********************************************************************************************************
+*/
+//#define LCD
+#define CC2520
+
+
+
 #endif

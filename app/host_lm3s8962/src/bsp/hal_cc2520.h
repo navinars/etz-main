@@ -96,14 +96,14 @@
 #define CC2520_RSSI_OFFSET                76  // dBm (from data sheet)
 
 // CC2520 pin assignments
-#define CC2520_RX_FRM_DONE_PIN              CC2520_GPIO0_IPIN
-#define CC2520_SAMPLED_CCA_PIN              CC2520_GPIO1_IPIN
+#define CC2520_RX_FRM_DONE_PIN              CC2520_GPIO1_IPIN
+#define CC2520_SAMPLED_CCA_PIN              CC2520_GPIO2_IPIN
 // GPIO2 are reused for RSSI Valid or TX_FRM_DONE
-#define CC2520_RSSI_VALID_PIN               CC2520_GPIO2_IPIN
-#define CC2520_TX_FRM_DONE_PIN              CC2520_GPIO2_IPIN
-#define CC2520_SFD_PIN                      CC2520_GPIO3_IPIN
-#define CC2520_GPIO_SNIFFER_DATA_PIN        CC2520_GPIO4_IPIN
-#define CC2520_GPIO_SNIFFER_CLK_PIN         CC2520_GPIO5_IPIN
+#define CC2520_RSSI_VALID_PIN               CC2520_GPIO3_IPIN
+#define CC2520_TX_FRM_DONE_PIN              CC2520_GPIO3_IPIN
+#define CC2520_SFD_PIN                      CC2520_GPIO4_IPIN
+#define CC2520_GPIO_SNIFFER_DATA_PIN        //CC2520_GPIO4_IPIN
+#define CC2520_GPIO_SNIFFER_CLK_PIN         //CC2520_GPIO5_IPIN
 
 
 #define CC2520_MEMORY_SIZE                  0x400

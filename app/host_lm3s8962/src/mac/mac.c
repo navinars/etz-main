@@ -26,8 +26,7 @@ static  mac_pcb_t	pcb;
 void mac_init(void)
 {
 	
-	/* Initialise RF radio.*/
-	halRfInit();
+	halRfInit();													/* Initialise RF radio.*/
 	
 	pib.coord_addr.mode			= SHORT_ADDR;
 	pib.coord_addr.short_addr	= 0x0000;		// Net coord short address is 0x0000;

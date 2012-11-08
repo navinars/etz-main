@@ -14,6 +14,22 @@
 #define HAL_INT_OFF()
 #define HAL_INT_ON()
 
+#define HAL_MAC_SPI_ENABLE() SSIEnable(SSI0_BASE)
+#define HAL_MAC_SPI_DISABLE() SSIDisable(SSI0_BASE)
+
+#define HAL_MAC_SPI_PERIPHERAL_DISABLE() SysCtlPeripheralDisable(SYSCTL_PERIPH_SSI0)
+/* SO Pin Configuration */
+#define HAL_MAC_SPI_SO_GPIO_BIT                   GPIO_PIN_4
+#define HAL_MAC_SPI_SO_GPIO_PORT                  GPIO_PORTF_BASE
+#define HAL_MAC_SPI_CONFIG_SO_PIN_AS_INPUT()      GPIOPinTypeGPIOInput(HAL_MAC_SPI_SO_GPIO_PORT, HAL_MAC_SPI_SO_GPIO_BIT)
+#define HAL_MAC_SPI_READ_SO_PIN()                 GPIOPinRead(HAL_MAC_SPI_SO_GPIO_PORT, HAL_MAC_SPI_SO_GPIO_BIT)
+
+#define HAL_MAC_SPI_LUMINARY_SO_AS_GPIO()           \
+{                                                   \
+  HAL_MAC_SPI_DISABLE();                            \
+  HAL_MAC_SPI_PERIPHERAL_DISABLE();                 \
+  HAL_MAC_SPI_CONFIG_SO_PIN_AS_INPUT();             \
+}
 
 extern void cc2520_arch_init(void);
 extern void CC2520_SPI_BEGIN(void);
