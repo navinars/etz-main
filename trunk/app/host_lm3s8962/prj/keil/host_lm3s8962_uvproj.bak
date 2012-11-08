@@ -334,7 +334,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -530,6 +530,11 @@
               <FileName>mac_buf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\mac\mac_buf.c</FilePath>
+            </File>
+            <File>
+              <FileName>mac_gen.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\mac\mac_gen.c</FilePath>
             </File>
           </Files>
         </Group>

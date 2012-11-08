@@ -137,9 +137,9 @@ void clearException(uint32 dwMap)
 static void CC2520_INS_RD_ARRAY(uint16 count, uint8  *pData)
 {
     while (count--) {
-        CC2520_SPI_TX(0x00);
-        CC2520_SPI_WAIT_RXRDY();
-        *pData = CC2520_SPI_RX();
+//        CC2520_SPI_TX(0x00);
+//        CC2520_SPI_WAIT_RXRDY();
+        *pData = CC2520_SPI_TXRX(0x00);
         pData++;
     }
 }
@@ -191,7 +191,8 @@ static uint8 CC2520_INS_MEMCP_COMMON(uint8 instr, uint8 pri, uint16 count, \
 void CC2520_INS_WR_ARRAY(uint16 count, uint8  *pData)
 {
     while (count--) {
-        CC2520_SPI_TX(*pData);
+//        CC2520_SPI_TX(*pData);
+		CC2520_SPI_TXRX(*pData);
         pData++;
         CC2520_SPI_WAIT_RXRDY();
     }

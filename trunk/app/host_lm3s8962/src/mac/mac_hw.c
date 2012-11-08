@@ -102,25 +102,23 @@ void RfRxFrmDoneIsr(void)
 	unsigned char len;
 	mac_buf_t *rxbuf = read_rx_buf();
 	
+	ulStatus = GPIOPinIntStatus(GPIO_PORTD_BASE, true);
+	GPIOPinIntClear(GPIO_PORTD_BASE, ulStatus);
+	
 	halRfDisableRxInterrupt();										/* Disable RX radio interrupter.*/
 	
+	rxbuf->alloc = true;
 	memset(rxbuf, 0, sizeof(mac_buf_t));
 	rxbuf->dptr = rxbuf->buf;
-	rxbuf->alloc = true;
 	
-	ulStatus = GPIOPinIntStatus(GPIO_PORTD_BASE, true);
-	if(ulStatus & GPIO_PIN_1)
+	if(ulStatus & GPIO_PIN_0)
 	{
 		halRfReadRxBuf(&len, 1);
 		rxbuf->len = len;
+		
 		halRfReadRxBuf(rxbuf->dptr, len);
 
-		rxbuf->alloc = true;
-		
-		GPIOPinIntClear(GPIO_PORTD_BASE, ulStatus);
 	}
-	
-	GPIOPinIntClear(GPIO_PORTD_BASE, ulStatus);
 	
 	halRfEnableRxInterrupt();										/* Enable RX frame done interrupt again.*/
 }

@@ -28,7 +28,7 @@
 ; <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ;
 ;******************************************************************************
-Stack   EQU     0x00000400
+Stack   EQU     0x00000800
 
 ;******************************************************************************
 ;
@@ -78,9 +78,10 @@ __heap_limit
 ; External declaration for the interrupt handler used by the application.
 ;
 ;******************************************************************************
-		EXTERN  OS_CPU_PendSVHandler
-		EXTERN  OS_CPU_SysTickHandler
-		EXTERN  lwIPEthernetIntHandler
+        EXTERN  OS_CPU_PendSVHandler
+        EXTERN  OS_CPU_SysTickHandler
+        EXTERN  lwIPEthernetIntHandler
+;       EXTERN  RfRxFrmDoneIsr
 
 ;******************************************************************************
 ;
@@ -108,7 +109,7 @@ __Vectors
         DCD     IntDefaultHandler           ; GPIO Port A
         DCD     IntDefaultHandler           ; GPIO Port B
         DCD     IntDefaultHandler           ; GPIO Port C
-        DCD     IntDefaultHandler           ; GPIO Port D
+        DCD     IntDefaultHandler             ; GPIO Port D
         DCD     IntDefaultHandler           ; GPIO Port E
         DCD     IntDefaultHandler           ; UART0 Rx and Tx
         DCD     IntDefaultHandler           ; UART1 Rx and Tx

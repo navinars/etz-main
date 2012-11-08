@@ -22,6 +22,10 @@ void cc2520_arch_init(void)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);					/* Initalize ports and SPI. */
 	GPIOPinTypeGPIOInput(GPIO_PORTD_BASE, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
+	GPIOPadConfigSet(GPIO_PORTD_BASE,
+					 GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3,
+					 GPIO_STRENGTH_2MA,
+					 GPIO_PIN_TYPE_STD_WPD);
 
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
 	GPIOPinTypeGPIOOutput(GPIO_PORTC_BASE, GPIO_PIN_6|GPIO_PIN_7);

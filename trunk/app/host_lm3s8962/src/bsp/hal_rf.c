@@ -20,9 +20,11 @@
 #include "inc/hw_memmap.h"
 #include "inc/hw_types.h"
 #include "inc/hw_sysctl.h"
+#include "inc/hw_ssi.h"
 #include "driverlib/gpio.h"
 #include "driverlib/interrupt.h"
 #include "driverlib/sysctl.h"
+#include "driverlib/ssi.h"
 
 /***********************************************************************************
 * CONSTANTS AND DEFINES
@@ -117,11 +119,27 @@ typedef struct {
 // Recommended register settings which differ from the data sheet
 static regVal_t regval[]= {
     // Tuning settings
+	/*
+
+	valeurs de TXPOWER
+	  0x03 -> -18 dBm
+	  0x2C -> -7 dBm
+	  0x88 -> -4 dBm
+	  0x81 -> -2 dBm
+	  0x32 -> 0 dBm
+	  0x13 -> 1 dBm
+	  0x32 -> 0 dBm
+	  0x13 -> 1 dBm
+	  0xAB -> 2 dBm
+	  0xF2 -> 3 dBm
+	  0xF7 -> 5 dBm
+  */
 #ifdef INCLUDE_PA
     CC2520_TXPOWER,     0xF9,       // Max TX output power
     CC2520_TXCTRL,      0xC1,
 #else
     CC2520_TXPOWER,     0xF7,       // Max TX output power
+	CC2520_TXCTRL,      0x94,
 #endif
     CC2520_CCACTRL0,    0xF8,       // CCA treshold -80dBm
 
@@ -141,20 +159,22 @@ static regVal_t regval[]= {
     CC2520_ADCTEST2,    0x03,
 
     // Configuration for applications using halRfInit()
-    CC2520_FRMCTRL0,    0x60,               // Auto-ack
-    CC2520_EXTCLOCK,    0x00,
-    CC2520_GPIOCTRL0,   1 + CC2520_EXC_RX_FRM_DONE,
-    CC2520_GPIOCTRL1,   CC2520_GPIO_SAMPLED_CCA,
-    CC2520_GPIOCTRL2,   CC2520_GPIO_RSSI_VALID,
+	CC2520_FRMCTRL0,    0x60,               // Auto-ack
+	CC2520_EXTCLOCK,    0x00,
+
+	CC2520_GPIOCTRL0,	0x00,
+	CC2520_GPIOCTRL1,   1 + CC2520_EXC_RX_FRM_DONE,//CC2520_GPIO_FIFOP,	//1 + CC2520_EXC_RX_FRM_DONE,
+	CC2520_GPIOCTRL2,   CC2520_GPIO_SAMPLED_CCA,
+	CC2520_GPIOCTRL3,   CC2520_GPIO_RSSI_VALID,
 #ifdef INCLUDE_PA
-    CC2520_GPIOCTRL3,   CC2520_GPIO_HIGH,   // CC2590 HGM
-    CC2520_GPIOCTRL4,   0x46,               // EN set to lna_pd[1] inverted
-    CC2520_GPIOCTRL5,   0x47,               // PAEN set to pa_pd inverted
-    CC2520_GPIOPOLARITY,0x0F,               // Invert GPIO4 and GPIO5
+	CC2520_GPIOCTRL3,   CC2520_GPIO_HIGH,   // CC2590 HGM
+	CC2520_GPIOCTRL4,   0x46,               // EN set to lna_pd[1] inverted
+	CC2520_GPIOCTRL5,   0x47,               // PAEN set to pa_pd inverted
+	CC2520_GPIOPOLARITY,0x0F,               // Invert GPIO4 and GPIO5
 #else
-    CC2520_GPIOCTRL3,   CC2520_GPIO_SFD,
-    CC2520_GPIOCTRL4,   CC2520_GPIO_SNIFFER_DATA,
-    CC2520_GPIOCTRL5,   CC2520_GPIO_SNIFFER_CLK,
+	CC2520_GPIOCTRL4,   CC2520_GPIO_SFD,
+//	CC2520_GPIOCTRL4,   CC2520_GPIO_SNIFFER_DATA,
+//	CC2520_GPIOCTRL5,   CC2520_GPIO_SNIFFER_CLK,
 #endif
 
     // Terminate array
@@ -438,7 +458,7 @@ void halRfWriteTxBuf(uint8* data, uint8 length)
 */
 void halRfReadRxBuf(uint8* pData, uint8 length)
 {
-    CC2520_RXBUF(length, pData);
+		CC2520_RXBUF(length, pData);
 }
 
 
@@ -576,7 +596,7 @@ void halRfDisableRxInterrupt(void)
     // Clear the exception and the IRQ
     CLEAR_EXC_RX_FRM_DONE();
 //    GPIOPinIntClear(INT_GPIOD, GPIO_PIN_1);
-	IntDisable(INT_GPIOD);
+	GPIOPinIntDisable(GPIO_PORTD_BASE, GPIO_PIN_0);
 }
 
 
@@ -591,7 +611,7 @@ void halRfDisableRxInterrupt(void)
 */
 void halRfEnableRxInterrupt(void)
 {
-	IntEnable(INT_GPIOD);
+	GPIOPinIntEnable(GPIO_PORTD_BASE, GPIO_PIN_0);
 }
 
 
@@ -606,12 +626,14 @@ void halRfEnableRxInterrupt(void)
 */
 void halRfRxInterruptConfig(ISR_FUNC_PTR pfISR)
 {
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
-	GPIOPinTypeGPIOInput(GPIO_PORTD_BASE, GPIO_PIN_1);				/* Default pin is Push-pull.*/
-	GPIOPadConfigSet(GPIO_PORTD_BASE, GPIO_PIN_1, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
-	GPIOIntTypeSet(GPIO_PORTD_BASE, GPIO_PIN_1, GPIO_RISING_EDGE);	/* Rising edge is active.*/
-	GPIOPinIntEnable(GPIO_PORTD_BASE, GPIO_PIN_1);
+//	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+//	GPIOPinTypeGPIOInput(GPIO_PORTD_BASE, GPIO_PIN_1);				/* Default pin is Push-pull.*/
+	GPIOPadConfigSet(GPIO_PORTD_BASE, GPIO_PIN_0, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
+	GPIOIntTypeSet(GPIO_PORTD_BASE, GPIO_PIN_0, GPIO_RISING_EDGE);	/* Rising edge is active.*/
 	GPIOPortIntRegister(GPIO_PORTD_BASE, pfISR);
+	GPIOPinIntEnable(GPIO_PORTD_BASE, GPIO_PIN_0);
+	
+    CLEAR_EXC_RX_FRM_DONE();										/* And clear the exception.*/
 }
 
 /***********************************************************************************
@@ -659,13 +681,14 @@ static uint8 halRfWaitRadioReady(void)
 
     // Wait for XOSC stable to be announced on the MISO pin
     i= 100;
+	HAL_MAC_SPI_LUMINARY_SO_AS_GPIO();
     CC2520_CSN_OPIN(0);
     while (i>0 && !CC2520_MISO_IPIN) {
         halMcuWaitUs(10);
         --i;
     }
     CC2520_CSN_OPIN(1);
-
+	BSP_SSI0_Init();
     return i>0 ? SUCCESS : FAILED;
 }
 

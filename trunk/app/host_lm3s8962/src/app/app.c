@@ -44,7 +44,6 @@ int main(void)
 				   APP_CFG_TASK_START_PRIO );
 
 	OSStart();
-    return(0);
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -57,7 +56,7 @@ int main(void)
  */
 static  void  App_EventCreate (void)
 {
-	App_LcdMbox = OSMboxCreate((void *)0);								/* Create Mbox. */
+	App_LcdMbox = OSMboxCreate((void *)0);								/* Create LCD dispaly event Mbox. */
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -75,7 +74,7 @@ static  void  App_TaskCreate (void)
 	TaskSocket_Create();										/* Create Socket task and init.*/
 
 #ifdef LCD
-//	TaskLCD_Create();											/* Create LCD task.*/
+	TaskLCD_Create();											/* Create LCD task.*/
 #endif
 	
 #ifdef CC2520
