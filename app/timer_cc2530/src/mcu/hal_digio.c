@@ -406,9 +406,11 @@ HAL_ISR_FUNCTION(port0_ISR,P0INT_VECTOR)
         for (i = 0; i < 8; i++)
         {
             register const uint8 pinmask = 1 << i;
-            if (P0IFG & pinmask) {
-                if (port0_isr_tbl[i] != 0) {
-                (*port0_isr_tbl[i])();
+            if (P0IFG & pinmask)
+			{
+                if (port0_isr_tbl[i] != 0)
+				{
+                	(*port0_isr_tbl[i])();							/* Execute ISR each functions.*/
                 }
                 P0IFG &= ~pinmask;
             }
