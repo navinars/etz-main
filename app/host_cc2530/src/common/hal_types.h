@@ -18,7 +18,7 @@ extern "C" {
  * TYPEDEFS
  */
 #ifndef bool
-//typedef unsigned char   bool;
+typedef unsigned char   bool;
 #endif
 
 typedef          char   S8;
@@ -38,7 +38,7 @@ typedef unsigned long   U32;
 #define false 0
 #endif
 
-typedef unsigned char   bool;
+//typedef unsigned char   bool;
 
 typedef signed   char   int8;
 typedef unsigned char   uint8;
