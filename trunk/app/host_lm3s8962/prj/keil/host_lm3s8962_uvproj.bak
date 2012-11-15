@@ -334,10 +334,10 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
-            <OneElfS>1</OneElfS>
+            <OneElfS>0</OneElfS>
             <Strict>0</Strict>
             <EnumInt>0</EnumInt>
             <PlainCh>0</PlainCh>
@@ -348,7 +348,7 @@
             <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>rvmdk PART_LM3S8962 CC2520 LCD</Define>
+              <Define>rvmdk PART_LM3S8962</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\src\app;..\..\src\drv;..\..\src\bsp;..\..\src\net;..\..\src\os\uCOS-II;..\..\src\os\uCOS-II\Ports;..\..\src\os\uC-LIB;..\..\src\lwip-1.4.0;..\..\src\lwip-1.4.0\src\include;..\..\src\lwip-1.4.0\src\include\ipv4;..\..\src\lwip-1.4.0\ports\stellaris\include;..\..\src\lwip-1.4.0\ports\stellaris\netif;..\..\src\mac</IncludePath>
             </VariousControls>
@@ -535,6 +535,11 @@
               <FileName>mac_gen.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\mac\mac_gen.c</FilePath>
+            </File>
+            <File>
+              <FileName>mac_parse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\mac\mac_parse.c</FilePath>
             </File>
           </Files>
         </Group>

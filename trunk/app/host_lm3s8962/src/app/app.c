@@ -1,10 +1,15 @@
 /* ------------------------------------------------------------------------------------------------------
-* File: app.c
-* Data: 2012/9/4
-* Author: MC
-* Ver: V0.1.1a
-* -------------------------------------------------------------------------------------------------------
-*/
+ *
+ *                                             lwIP1.40/Main
+ *                                            INTRODUCTION DEMO
+ *
+ *
+ * Filename      : app.c
+ * Data			 : 2012/9/4
+ * Version       : V1.01a
+ * Programmer(s) : MC
+ * ------------------------------------------------------------------------------------------------------
+ */
 #include "includes.h"
 
 
@@ -14,6 +19,8 @@
  */
 static OS_STK  Task_StartStk[TASK_START_STK_SIZE];
 OS_EVENT		*App_LcdMbox;
+OS_EVENT		*CC2520_RxMbox;
+OS_EVENT		*NET_RfMbox;
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -36,13 +43,13 @@ int main(void)
 {
 	BSP_Init();
 	
-	OSInit(); 													/* Start uC/OS-II init function.*/
+	OSInit(); 														/* Start uC/OS-II init function.*/
 	
-	OSTaskCreate ( App_TaskStart, 								/* Creat start task.*/
+	OSTaskCreate ( App_TaskStart, 									/* Creat start task.*/
 		           (void *)0, 
 				   &Task_StartStk[TASK_START_STK_SIZE-1], 
 				   APP_CFG_TASK_START_PRIO );
-
+	
 	OSStart();
 }
 
@@ -56,7 +63,9 @@ int main(void)
  */
 static  void  App_EventCreate (void)
 {
-	App_LcdMbox = OSMboxCreate((void *)0);								/* Create LCD dispaly event Mbox. */
+	App_LcdMbox = OSMboxCreate((void *)0);							/* Create LCD dispaly event Mbox. */
+	CC2520_RxMbox = OSMboxCreate((void *)0);
+	NET_RfMbox = OSMboxCreate((void *)0);
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -69,16 +78,14 @@ static  void  App_EventCreate (void)
  */
 static  void  App_TaskCreate (void)
 {
-	TaskTcpip_Create();											/* Create lwIP task and init.*/
-	
-	TaskSocket_Create();										/* Create Socket task and init.*/
+	TaskTcpip_Create();												/* Create lwIP task and init.*/
 
 #ifdef LCD
-	TaskLCD_Create();											/* Create LCD task.*/
+	TaskLCD_Create();												/* Create LCD task.*/
 #endif
 	
 #ifdef CC2520
-	TaskCC2520_Create();										/* Create CC2520 task.*/
+	TaskCC2520_Create();											/* Create CC2520 task.*/
 #endif
 }
 
@@ -94,9 +101,9 @@ static  void  App_TaskStart (void *p_arg)
 {
 	(void)p_arg;
 	
-	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);	/* Initialize the SysTick.*/
+	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);		/* Initialize the SysTick.*/
 	
-	lwIP_init();												/* Initialise lwIP stack. */
+	lwIP_init();													/* Initialise lwIP stack. */
 	
 	App_EventCreate();
 	
@@ -104,7 +111,8 @@ static  void  App_TaskStart (void *p_arg)
 	
     while(1)
 	{
-		OSTaskSuspend(OS_PRIO_SELF);
+		OSTaskSuspend(OS_PRIO_SELF);								/* Suspend Start Task.*/
+//		OSTimeDlyHMSM(0, 0, 0, 2);									/* Task delay 2ms.*/
     }
 }
 

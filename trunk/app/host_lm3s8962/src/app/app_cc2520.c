@@ -65,9 +65,10 @@ static  void  App_TaskCC2520 (void *p_arg)
 	
 	while(1)														/* task process.*/
 	{
-		mac_host_bcn(50);
-		BSP_LedToggle(1);
-		OSTimeDly(OS_TICKS_PER_SEC / 2);
+		mac_event_handle();											/* Radio Rx event handle.*/
+//		mac_host_bcn(50);
+//		BSP_LedToggle(1);
+		OSTimeDlyHMSM(0, 0, 0, 2);									/* OS delay 2ms.*/
 	}
 }
 
