@@ -458,7 +458,7 @@ void halRfWriteTxBuf(uint8* data, uint8 length)
 */
 void halRfReadRxBuf(uint8* pData, uint8 length)
 {
-		CC2520_RXBUF(length, pData);
+	CC2520_RXBUF(length, pData);
 }
 
 
@@ -595,7 +595,7 @@ void halRfDisableRxInterrupt(void)
 {
     // Clear the exception and the IRQ
     CLEAR_EXC_RX_FRM_DONE();
-//    GPIOPinIntClear(INT_GPIOD, GPIO_PIN_1);
+//	GPIOPinIntClear(INT_GPIOD, GPIO_PIN_1);
 	GPIOPinIntDisable(GPIO_PORTD_BASE, GPIO_PIN_0);
 }
 

@@ -37,7 +37,7 @@
  */
 OS_STK  Task_Eth_Stk[TASK_NET_CLIENT_STACK_SIZE];
 
-extern OS_EVENT		*App_LcdMbox;
+extern OS_EVENT		*App_LcdMbox;									/* extern mbox.*/
 
 unsigned char MACAddress[] = My_Mac_ID;
 unsigned char IPAddress[] = MY_IP_ID;
@@ -99,6 +99,9 @@ static void TcpClientMainProc(void)
 		OSMboxPost(App_LcdMbox, (void *)&g_sClientIP.s_addr);		/* Send lcd txt.*/
 		
 		g_bNetStatus = NETS_LOCIP;									/* Net mode charge LOCIP.*/
+	
+		TaskSocket_Create();										/* Create Socket task and init.*/
+		
 		break;
 
 	case NETS_LOCIP:

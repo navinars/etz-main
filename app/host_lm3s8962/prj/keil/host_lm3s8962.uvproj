@@ -536,6 +536,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\src\mac\mac_gen.c</FilePath>
             </File>
+            <File>
+              <FileName>mac_parse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\mac\mac_parse.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

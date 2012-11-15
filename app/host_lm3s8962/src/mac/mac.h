@@ -375,6 +375,8 @@ extern void mac_parse_hdr(mac_buf_t *buf, mac_hdr_t *hdr);
 
 extern void mac_parse_bcn(mac_buf_t *buf, mac_hdr_t *hdr);
 
+extern void mac_parse_dat(mac_buf_t *buf, mac_hdr_t *hdr);
+
 
 #endif
 

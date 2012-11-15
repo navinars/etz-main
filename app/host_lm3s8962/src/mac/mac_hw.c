@@ -18,6 +18,16 @@
 #include "driverlib/interrupt.h"
 #include "driverlib/sysctl.h"
 
+#include "ucos_ii.h"
+
+
+/* ------------------------------------------------------------------------------------------------------
+ *											Local Variable
+ * ------------------------------------------------------------------------------------------------------
+ */
+extern	OS_EVENT	*CC2520_RxMbox;
+
+
 /* ------------------------------------------------------------------------------------------------------
  *										  		send
  *
@@ -101,14 +111,16 @@ void RfRxFrmDoneIsr(void)
 	unsigned long ulStatus;
 	unsigned char len;
 	mac_buf_t *rxbuf = read_rx_buf();
+//	IntMasterDisable();												/* Disable master interrupter.*/
 	
 	ulStatus = GPIOPinIntStatus(GPIO_PORTD_BASE, true);
 	GPIOPinIntClear(GPIO_PORTD_BASE, ulStatus);
 	
 	halRfDisableRxInterrupt();										/* Disable RX radio interrupter.*/
 	
-	rxbuf->alloc = true;
 	memset(rxbuf, 0, sizeof(mac_buf_t));
+	
+	rxbuf->alloc = true;
 	rxbuf->dptr = rxbuf->buf;
 	
 	if(ulStatus & GPIO_PIN_0)
@@ -117,8 +129,9 @@ void RfRxFrmDoneIsr(void)
 		rxbuf->len = len;
 		
 		halRfReadRxBuf(rxbuf->dptr, len);
-
+		OSMboxPost(CC2520_RxMbox, (void *)rxbuf);					/* Send mbox of rx frame.*/
 	}
 	
 	halRfEnableRxInterrupt();										/* Enable RX frame done interrupt again.*/
+//	IntMasterEnable();												/* Enable Master interrupt.*/
 }

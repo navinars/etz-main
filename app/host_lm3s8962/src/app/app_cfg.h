@@ -84,7 +84,7 @@
 */
 
 #define  TASK_START_STK_SIZE                     	 50
-#define  TASK_CC2520_STK_SIZE                       128
+#define  TASK_CC2520_STK_SIZE                       512
 #define  TASK_NET_CLIENT_STACK_SIZE					512
 #define  TASK_LCD_STK_SIZE							128
 #define  TASK_LWIP_STK_SIZE							512
@@ -158,8 +158,8 @@
 *                                     MODULE CONFIGURATION
 *********************************************************************************************************
 */
-//#define LCD
-#define CC2520
+#define LCD
+//#define CC2520
 
 
 
