@@ -2,13 +2,14 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>358694857</fileChecksum>
+  <fileChecksum>449918996</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
       <file>$PROJ_DIR$\..\src\app\chipcon_cstartup.s51</file>
       <file>$PROJ_DIR$\..\src\app\includes.h</file>
       <file>$PROJ_DIR$\..\src\app\main.c</file>
+      <file>$PROJ_DIR$\..\src\bsp\energy.c</file>
       <file>$PROJ_DIR$\..\src\common\hal_cc8051.h</file>
       <file>$PROJ_DIR$\..\src\common\hal_defs.h</file>
       <file>$PROJ_DIR$\..\src\common\hal_types.h</file>
@@ -37,69 +38,83 @@
       <file>$PROJ_DIR$\..\src\mcu\hal_mcu.c</file>
       <file>$PROJ_DIR$\..\src\mcu\hal_mcu.h</file>
       <file>$PROJ_DIR$\..\src\mcu\hal_rf.c</file>
-      <file>$PROJ_DIR$\..\src\mcu\hal_rf.h</file>
-      <file>$PROJ_DIR$\..\src\mcu\hal_timer.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_flash.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\util.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_int.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_clock.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_adc.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_led.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\timer_cc2530.pbd</file>
-      <file>$TOOLKIT_DIR$\lib\clib\cl-pli-nlxd-1e16x01.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\util_buffer.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\util_timer.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_adc.pbi</file>
-      <file>$PROJ_DIR$\..\..\home2\source\drv\utils\util.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_digio.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_flash.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac_gen.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac_gen.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_assert.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\chipcon_cstartup.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\util.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac_buf.r51</file>
+      <file>$PROJ_DIR$\..\utils\util.h</file>
+      <file>$PROJ_DIR$\..\mac\mac_buf.c</file>
+      <file>$PROJ_DIR$\..\mcu\hal_assert.h</file>
+      <file>$PROJ_DIR$\..\mac\mac.c</file>
+      <file>$PROJ_DIR$\..\mcu\hal_mcu.h</file>
+      <file>$PROJ_DIR$\..\mcu\hal_mcu.c</file>
+      <file>$PROJ_DIR$\..\utils\util.c</file>
+      <file>$PROJ_DIR$\..\mcu\hal_uart.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_rf.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_mcu.r51</file>
+      <file>$PROJ_DIR$\Debug\Exe\timer_cc2530.d51</file>
+      <file>$PROJ_DIR$\..\mcu\hal_led.c</file>
+      <file>$PROJ_DIR$\..\mcu\hal_timer.c</file>
+      <file>$PROJ_DIR$\..\mcu\hal_rf.c</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdlib.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac_parse.pbi</file>
       <file>$PROJ_DIR$\..\common\hal_defs.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac_hw.pbi</file>
-      <file>$PROJ_DIR$\..\common\hal_types.h</file>
+      <file>$PROJ_DIR$\..\..\home2\source\drv\utils\util_buffer.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_int.r51</file>
+      <file>$PROJ_DIR$\..\mcu\hal_assert.c</file>
       <file>$PROJ_DIR$\..\common\hal_cc8051.h</file>
-      <file>$PROJ_DIR$\..\utils\util_buffer.c</file>
+      <file>$PROJ_DIR$\..\common\hal_types.h</file>
       <file>$PROJ_DIR$\..\app\main.c</file>
-      <file>$PROJ_DIR$\..\..\home2\source\drv\utils\util.c</file>
+      <file>$PROJ_DIR$\..\utils\util_buffer.c</file>
       <file>$TOOLKIT_DIR$\config\devices\Texas Instruments\lnk51ew_CC2530F128.xcl</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_digio.pbi</file>
+      <file>$PROJ_DIR$\..\..\home2\source\drv\utils\util.c</file>
       <file>$PROJ_DIR$\Debug\Obj\hal_timer.r51</file>
       <file>$PROJ_DIR$\..\mac\mac_hw.c</file>
-      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_mcu.pbi</file>
-      <file>$PROJ_DIR$\..\mac\mac_parse.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_timer.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_uart.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac_hw.pbi</file>
       <file>$PROJ_DIR$\..\mcu\hal_adc.c</file>
-      <file>$PROJ_DIR$\..\app\chipcon_cstartup.s51</file>
-      <file>$PROJ_DIR$\..\mac\mac_gen.c</file>
-      <file>$PROJ_DIR$\Debug\Exe\timer_cc2530.hex</file>
-      <file>$PROJ_DIR$\..\mcu\hal_board.c</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
       <file>$PROJ_DIR$\..\mcu\hal_board.h</file>
+      <file>$PROJ_DIR$\..\mac\mac_parse.c</file>
+      <file>$PROJ_DIR$\..\mcu\hal_board.c</file>
+      <file>$PROJ_DIR$\..\mac\mac_gen.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_digio.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_board.pbi</file>
+      <file>$PROJ_DIR$\..\utils\util_buffer.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\energy.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_flash.pbi</file>
+      <file>$PROJ_DIR$\Debug\List\timer_cc2530.map</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_int.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac_buf.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\util_buffer.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_led.r51</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC2530.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl-pli-nlxd-1e16x01.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\util.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\util_timer.r51</file>
+      <file>$PROJ_DIR$\..\util\util_timer.c</file>
+      <file>$PROJ_DIR$\..\..\home2\source\drv\utils\util.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_clock.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_flash.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_assert.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_led.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer_cc2530.pbd</file>
+      <file>$PROJ_DIR$\..\util\util_buffer.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\util_buffer.pbi</file>
+      <file>$PROJ_DIR$\..\util\util.c</file>
+      <file>$PROJ_DIR$\..\..\home2\source\drv\utils\util_buffer.h</file>
+      <file>$PROJ_DIR$\..\app\chipcon_cstartup.s51</file>
       <file>$PROJ_DIR$\..\mcu\hal_clock.c</file>
       <file>$PROJ_DIR$\..\mcu\hal_digio.c</file>
-      <file>$PROJ_DIR$\..\mcu\hal_flash.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_mcu.pbi</file>
       <file>$PROJ_DIR$\..\mcu\hal_int.c</file>
-      <file>$PROJ_DIR$\..\mcu\hal_int.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_uart.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac_parse.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_clock.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_board.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_rf.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac_hw.r51</file>
-      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac_buf.r51</file>
-      <file>$PROJ_DIR$\..\util\util_timer.c</file>
-      <file>$PROJ_DIR$\..\util\util_buffer.c</file>
-      <file>$PROJ_DIR$\..\util\util.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_assert.r51</file>
-      <file>$PROJ_DIR$\..\..\home2\source\drv\utils\util_buffer.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_timer.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_uart.pbi</file>
+      <file>$PROJ_DIR$\..\mcu\hal_flash.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_rf.h</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_timer.c</file>
       <file>$PROJ_DIR$\..\src\mcu\hal_timer.h</file>
       <file>$PROJ_DIR$\..\src\mcu\hal_uart.c</file>
       <file>$PROJ_DIR$\..\src\mcu\hal_uart.h</file>
@@ -110,49 +125,34 @@
       <file>$PROJ_DIR$\..\src\util\util_buffer.h</file>
       <file>$PROJ_DIR$\..\src\util\util_timer.c</file>
       <file>$PROJ_DIR$\..\src\util\util_timer.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_rf.pbi</file>
-      <file>$PROJ_DIR$\..\mac\mac_buf.c</file>
-      <file>$PROJ_DIR$\Debug\Exe\timer_cc2530.d51</file>
-      <file>$PROJ_DIR$\..\mac\mac.c</file>
-      <file>$PROJ_DIR$\..\utils\util.h</file>
-      <file>$PROJ_DIR$\..\mcu\hal_mcu.c</file>
-      <file>$PROJ_DIR$\..\mcu\hal_assert.h</file>
-      <file>$PROJ_DIR$\..\mcu\hal_uart.c</file>
-      <file>$PROJ_DIR$\..\mcu\hal_mcu.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac_parse.pbi</file>
-      <file>$PROJ_DIR$\..\utils\util.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\mac_buf.pbi</file>
-      <file>$PROJ_DIR$\..\mcu\hal_timer.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_mcu.r51</file>
-      <file>$PROJ_DIR$\..\mcu\hal_rf.c</file>
-      <file>$PROJ_DIR$\..\mcu\hal_led.c</file>
-      <file>$PROJ_DIR$\Debug\List\timer_cc2530.map</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.r51</file>
-      <file>$PROJ_DIR$\..\utils\util_buffer.h</file>
-      <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\util_buffer.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_led.r51</file>
-      <file>$TOOLKIT_DIR$\inc\ioCC2530.h</file>
-      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
-      <file>$PROJ_DIR$\..\mcu\hal_assert.c</file>
-      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
-      <file>$TOOLKIT_DIR$\inc\clib\stdlib.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_int.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\util_timer.pbi</file>
-      <file>$PROJ_DIR$\..\..\home2\source\drv\utils\util_buffer.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_board.pbi</file>
+      <file>$PROJ_DIR$\..\mcu\hal_int.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\timer_cc2530.hex</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_clock.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac_parse.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_uart.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_board.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\chipcon_cstartup.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac_gen.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac_hw.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_rf.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_adc.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\util.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac_gen.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_assert.pbi</file>
       <file>$PROJ_DIR$\..\src\bsp\energy.h</file>
-      <file>$PROJ_DIR$\..\src\bsp\energy.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\mac.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\energy.r51</file>
-      <file>$PROJ_DIR$\Debug\Obj\energy.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_adc.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\util_timer.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_digio.r51</file>
     </outputs>
     <file>
       <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 106 120 73</file>
+          <file> 43 75 120</file>
         </tool>
       </outputs>
     </file>
@@ -161,7 +161,7 @@
       <outputs>
         <tool>
           <name>A8051</name>
-          <file> 52</file>
+          <file> 125</file>
         </tool>
       </outputs>
     </file>
@@ -170,21 +170,44 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 124</file>
+          <file> 80</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 121</file>
+          <file> 77</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\bsp\energy.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 72</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 136</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
       </inputs>
     </file>
@@ -193,21 +216,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 36</file>
+          <file> 135</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 38</file>
+          <file> 73</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
       </inputs>
     </file>
@@ -216,21 +239,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 115</file>
+          <file> 78</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 88</file>
+          <file> 32</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
       </inputs>
     </file>
@@ -239,21 +262,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 49</file>
+          <file> 132</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 50</file>
+          <file> 126</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
       </inputs>
     </file>
@@ -262,21 +285,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 55</file>
+          <file> 62</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 86</file>
+          <file> 127</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
       </inputs>
     </file>
@@ -285,21 +308,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 113</file>
+          <file> 49</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 82</file>
+          <file> 122</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
       </inputs>
     </file>
@@ -308,21 +331,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 45</file>
+          <file> 129</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 39</file>
+          <file> 137</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 13 5 4 17 127 3 29</file>
+          <file> 14 6 5 18 83 4 30</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 13 5 4 17 127 3 29</file>
+          <file> 14 6 5 18 83 4 30</file>
         </tool>
       </inputs>
     </file>
@@ -331,7 +354,7 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 51</file>
+          <file> 133</file>
         </tool>
         <tool>
           <name>ICC8051</name>
@@ -341,11 +364,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 15 4 27 5 29</file>
+          <file> 16 5 28 6 30</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 15 4 27 5 29</file>
+          <file> 16 5 28 6 30</file>
         </tool>
       </inputs>
     </file>
@@ -354,21 +377,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 135</file>
+          <file> 70</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 84</file>
+          <file> 124</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5 4 21 25 29 19 127 17 3 27 94 31 97 103</file>
+          <file> 6 5 22 26 30 20 83 18 4 28 109 107 112 118</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 5 4 21 25 29 19 127 17 3 27 94 31 97 103</file>
+          <file> 6 5 22 26 30 20 83 18 4 28 109 107 112 118</file>
         </tool>
       </inputs>
     </file>
@@ -377,21 +400,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 37</file>
+          <file> 90</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 83</file>
+          <file> 121</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 19 5 4 127 29</file>
+          <file> 20 6 5 83 30</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 19 5 4 127 29</file>
+          <file> 20 6 5 83 30</file>
         </tool>
       </inputs>
     </file>
@@ -400,21 +423,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 62</file>
+          <file> 69</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 47</file>
+          <file> 139</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5 4 17 127 3 29 25 21</file>
+          <file> 6 5 18 83 4 30 26 22</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 5 4 17 127 3 29 25 21</file>
+          <file> 6 5 18 83 4 30 26 22</file>
         </tool>
       </inputs>
     </file>
@@ -423,21 +446,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 33</file>
+          <file> 74</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 48</file>
+          <file> 91</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 4 29 5 23 17 127 3</file>
+          <file> 5 30 6 24 18 83 4</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 4 29 5 23 17 127 3</file>
+          <file> 5 30 6 24 18 83 4</file>
         </tool>
       </inputs>
     </file>
@@ -446,21 +469,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 35</file>
+          <file> 76</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 132</file>
+          <file> 52</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5 4 25 17 127 3 29</file>
+          <file> 6 5 26 18 83 4 30</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 5 4 25 17 127 3 29</file>
+          <file> 6 5 26 18 83 4 30</file>
         </tool>
       </inputs>
     </file>
@@ -469,21 +492,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 40</file>
+          <file> 93</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 126</file>
+          <file> 82</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5 27 17 127 3 4 29</file>
+          <file> 6 28 18 83 4 5 30</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 5 27 17 127 3 4 29</file>
+          <file> 6 28 18 83 4 5 30</file>
         </tool>
       </inputs>
     </file>
@@ -492,21 +515,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 66</file>
+          <file> 102</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 117</file>
+          <file> 42</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5 29 19 4 127 27</file>
+          <file> 6 30 20 5 83 28 16</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 5 29 19 4 127 27</file>
+          <file> 6 30 20 5 83 28 16</file>
         </tool>
       </inputs>
     </file>
@@ -515,345 +538,21 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 104</file>
+          <file> 41</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 85</file>
+          <file> 128</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 17 127 3 5 4 29 25 31 27 99 128 87 97</file>
+          <file> 18 83 4 6 5 30 26 107 28 114 84 130 112</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 17 127 3 5 4 29 25 31 27 99 128 87 97</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\mcu\hal_timer.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 68</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 63</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 29 5 4 94 17 127 3 97</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 29 5 4 94 17 127 3 97</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Obj\timer_cc2530.pbd</name>
-      <inputs>
-        <tool>
-          <name>BILINK</name>
-          <file> 139 45 51 135 37 33 35 40 66 104 68 69 36 115 49 55 113 124 53 43 133</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\utils\util_buffer.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 43</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 122 56 75 127 57 54 112 80 110</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\app\main.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 124</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 121</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\home2\source\drv\utils\util.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 53</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 34</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 46</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mac\mac_hw.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 55</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 86</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mac\mac_parse.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 113</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 82</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mcu\hal_adc.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 45</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 39</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\app\chipcon_cstartup.s51</name>
-      <outputs>
-        <tool>
-          <name>A8051</name>
-          <file> 52</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mac\mac_gen.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 49</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 50</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mcu\hal_board.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 135</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 84</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mcu\hal_clock.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 37</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 83</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mcu\hal_digio.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 62</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 47</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mcu\hal_flash.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 33</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 48</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mcu\hal_int.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 35</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 132</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\util\util_timer.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 133</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\util\util_buffer.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 43</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\util\util.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 53</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\mcu\hal_uart.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 69</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 81</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 5 96 101 17 127 3 4 29 25</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 5 96 101 17 127 3 4 29 25</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\util\util.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 53</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 34</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 99 5 4 31</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 99 5 4 31</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\util\util_buffer.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 43</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 125</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 101 5 17 127 3 4 29 25 15</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 101 5 17 127 3 4 29 25 15</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\util\util_timer.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 133</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 44</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 7</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 18 83 4 6 5 30 26 107 28 114 84 130 112</file>
         </tool>
       </inputs>
     </file>
@@ -862,39 +561,24 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 115</file>
+          <file> 78</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 88</file>
+          <file> 32</file>
         </tool>
       </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\timer_cc2530.d51</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 120 73</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 61 52 138 39 92 84 83 48 132 126 117 85 63 81 38 88 50 86 82 121 34 125 44 42</file>
-        </tool>
-      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\mac\mac.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 36</file>
+          <file> 135</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 38</file>
+          <file> 73</file>
         </tool>
       </outputs>
     </file>
@@ -903,24 +587,11 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 66</file>
+          <file> 102</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 117</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\mcu\hal_uart.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 69</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 81</file>
+          <file> 42</file>
         </tool>
       </outputs>
     </file>
@@ -929,26 +600,67 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 53</file>
+          <file> 86</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 108</file>
+          <file> 33</file>
         </tool>
       </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_uart.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 105</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 123</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\timer_cc2530.d51</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 75 120</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 58 125 136 137 92 124 121 91 52 82 42 128 60 123 73 32 126 127 122 77 131 81 87 85</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_led.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 93</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 82</file>
+        </tool>
+      </outputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\mcu\hal_timer.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 68</file>
+          <file> 104</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 63</file>
+          <file> 60</file>
         </tool>
       </outputs>
     </file>
@@ -957,20 +669,157 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 104</file>
+          <file> 41</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 85</file>
+          <file> 128</file>
         </tool>
       </outputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\mcu\hal_led.c</name>
+      <name>$PROJ_DIR$\..\..\home2\source\drv\utils\util_buffer.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 40</file>
+          <file> 96</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 81</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 98</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_assert.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 133</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 50 37 55</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 50</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 80</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 77</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\utils\util_buffer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 96</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 71 55 65 83 54 50 37 119 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\home2\source\drv\utils\util.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 86</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 131</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 89</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mac\mac_hw.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 62</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 127</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_adc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 129</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 137</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mac\mac_parse.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 122</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_board.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 70</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 124</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mac\mac_gen.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 132</file>
         </tool>
         <tool>
           <name>ICC8051</name>
@@ -979,63 +828,214 @@
       </outputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\mcu\hal_assert.c</name>
+      <name>$PROJ_DIR$\..\util\util_timer.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 51</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 110 54 112 56</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 110 54</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\home2\source\drv\utils\util_buffer.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 43</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 125</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 93</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\bsp\energy.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 139</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
           <file> 138</file>
         </tool>
       </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Obj\timer_cc2530.pbd</name>
       <inputs>
         <tool>
+          <name>BILINK</name>
+          <file> 72 129 133 70 90 74 76 93 102 41 104 105 135 78 132 62 49 80 86 96 138</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\util\util_buffer.c</name>
+      <outputs>
+        <tool>
           <name>BICOMP</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 96</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\util\util.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 86</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\chipcon_cstartup.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 125</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_clock.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 90</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 1 130 65 87 131 123 128 5 25 31 94 17 127 3 4 29 96 101 23 27 99 103 136 7</file>
+          <file> 121</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_digio.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 69</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 139</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_int.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 76</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 52</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\mcu\hal_flash.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 91</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_timer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 104</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 60</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 30 6 5 109 18 83 4 112</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 30 6 5 109 18 83 4 112</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_uart.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 105</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 123</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 6 111 116 18 83 4 5 30 26</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 6 111 116 18 83 4 5 30 26</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\util\util.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 86</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 131</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 114 6 5 107</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 114 6 5 107</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\util\util_buffer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 96</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 81</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 116 6 18 83 4 5 30 26 16</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 116 6 18 83 4 5 30 26 16</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\util\util_timer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 138</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 87</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 1 48 64 130 47 79 84 6 26 107 109 18 83 4 5 30 111 116 24 28 114 118 134 8</file>
         </tool>
       </inputs>
     </file>
@@ -1046,7 +1046,381 @@
   </configuration>
   <configuration>
     <name>Release</name>
-    <outputs/>
+    <outputs>
+      <file>$PROJ_DIR$\..\src\app\chipcon_cstartup.s51</file>
+      <file>$PROJ_DIR$\..\src\app\main.c</file>
+      <file>$PROJ_DIR$\..\src\bsp\energy.c</file>
+      <file>$PROJ_DIR$\..\src\mac\mac.c</file>
+      <file>$PROJ_DIR$\..\src\mac\mac_buf.c</file>
+      <file>$PROJ_DIR$\..\src\mac\mac_gen.c</file>
+      <file>$PROJ_DIR$\..\src\mac\mac_hw.c</file>
+      <file>$PROJ_DIR$\..\src\mac\mac_parse.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_adc.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_assert.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_board.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_clock.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_digio.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_flash.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_int.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_led.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_mcu.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_rf.c</file>
+      <file>$PROJ_DIR$\Release\Obj\util.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_uart.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_timer.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_rf.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_mcu.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_flash.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\mac_parse.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_int.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_led.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_board.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_adc.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\energy.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\mac_parse.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\mac_hw.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\mac_gen.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\mac_buf.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\mac.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_assert.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_int.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\util_buffer.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_flash.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\chipcon_cstartup.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\util_timer.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\util.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_uart.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_rf.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_mcu.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_led.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_digio.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_timer.pbi</file>
+      <file>$PROJ_DIR$\Release\Exe\timer_cc2530.a51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_adc.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_board.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_clock.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\main.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\mac.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_assert.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\mac_buf.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\mac_gen.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\mac_hw.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\util_buffer.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_digio.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\util_timer.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\energy.r51</file>
+      <file>$PROJ_DIR$\Release\Obj\hal_clock.pbi</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_timer.c</file>
+      <file>$PROJ_DIR$\..\src\mcu\hal_uart.c</file>
+      <file>$PROJ_DIR$\..\src\util\util.c</file>
+      <file>$PROJ_DIR$\..\src\util\util_buffer.c</file>
+      <file>$PROJ_DIR$\..\src\util\util_timer.c</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 48</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\app\chipcon_cstartup.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 39</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\app\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 60</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 52</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\bsp\energy.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 62</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mac\mac.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mac\mac_buf.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 33</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 55</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mac\mac_gen.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 56</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mac\mac_hw.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 57</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mac\mac_parse.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 30</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 24</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_adc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 28</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 49</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_assert.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 54</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_board.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 27</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 50</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_clock.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 63</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 51</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_digio.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 46</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 59</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_flash.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 23</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_int.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 36</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_led.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 26</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_mcu.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_rf.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 21</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_timer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 20</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\mcu\hal_uart.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 19</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\util\util.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 18</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\util\util_buffer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 58</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\util\util_timer.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 40</file>
+        </tool>
+        <tool>
+          <name>ICC8051</name>
+          <file> 61</file>
+        </tool>
+      </outputs>
+    </file>
     <forcedrebuild>
       <name>[MULTI_TOOL]</name>
       <tool>XLINK</tool>

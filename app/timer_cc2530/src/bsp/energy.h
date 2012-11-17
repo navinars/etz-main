@@ -9,12 +9,16 @@
 #ifndef ENERGY_H
 #define ENERGY_H
 
+
+#define DEVICE_ON()		MCU_IO_OUTPUT(0, 5, 1)
+#define DEVICE_OFF() 	MCU_IO_OUTPUT(0, 5, 0)
+
 /* ------------------------------------------------------------------------------------------------------
  *                                            Global Variable
  * ------------------------------------------------------------------------------------------------------
  */
-extern volatile unsigned long iCnt;
-
+extern volatile unsigned long 	iCnt;
+extern volatile float 			iCnt_last;
 
 
 /* ------------------------------------------------------------------------------------------------------
