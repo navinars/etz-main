@@ -50,9 +50,10 @@
  *											Local Define
  * ------------------------------------------------------------------------------------------------------
  */
-int s;													/* Create socket.*/
+int s;																/* Create socket.*/
 static unsigned char socket_state;
-extern 	OS_EVENT	*NET_RfMbox;
+static int listenfd, connfd;
+extern 	OS_EVENT	*NET_RfMbox;									/* Declare mbox.*/
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -225,11 +226,10 @@ static void sockex_nonblocking_connect(void *arg)
  */
 static void sockex_testrecv(void *arg)
 {
-	int listenfd, connfd;
 	int ret;
 	struct sockaddr_in servaddr, cliaddr;
 	struct timeval tv;
-	unsigned int cliaddr_len;
+	unsigned long cliaddr_len;
 	
 	LWIP_UNUSED_ARG(arg);
 
@@ -267,6 +267,49 @@ static void sockex_testrecv(void *arg)
 	}
 }
 
+
+/* ------------------------------------------------------------------------------------------------------
+ *									   			sockex_app()
+ *
+ * Description : Handing socket receive data.
+ *
+ * Argument(s) : none.
+ *
+ */
+static void sockex_app(void *arg)
+{
+	int opt, ret;
+	unsigned char rxbuf[50];
+	unsigned char len;
+	
+	LWIP_UNUSED_ARG(arg);
+	
+	for(;;)
+	{
+		if(connfd > 0)
+		{
+			/* set recv timeout (100 ms) */
+			opt = 100;
+			ret = lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+			
+			ret = lwip_read(connfd, rxbuf, 2);
+			if(ret == -1)
+			{
+				OSTimeDly(2);
+				continue;
+			}
+			if((rxbuf[0] == 0xAA) && (rxbuf[1] == 0x55))
+			{
+				lwip_read(connfd, &len, 1);
+				lwip_read(connfd, rxbuf, len);
+			}
+			ret = lwip_write(connfd, rxbuf, len);
+		}
+		OSTimeDly(2);
+	}
+}
+
+
 /* ------------------------------------------------------------------------------------------------------
  *									      socket_examples_init()
  *
@@ -279,6 +322,7 @@ void TaskSocket_Create(void)
 {
 //	sys_thread_new("sockex_nonblocking_connect", sockex_nonblocking_connect, NULL, 128, 2);
 	sys_thread_new("sockex_testrecv", sockex_testrecv, NULL, 128, 3);
+	sys_thread_new("sockex_app", sockex_app, NULL, 128, 4);
 	/*sys_thread_new("sockex_testtwoselects", sockex_testtwoselects, NULL, 0, 0);*/
 }
 

@@ -2086,6 +2086,9 @@
     <file>
       <name>$PROJ_DIR$\..\src\bsp\energy.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\bsp\energy.h</name>
+    </file>
   </group>
   <group>
     <name>COMMON</name>

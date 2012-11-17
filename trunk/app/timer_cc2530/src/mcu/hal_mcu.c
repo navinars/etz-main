@@ -11,6 +11,7 @@
 #include "hal_clock.h"
 #include "hal_defs.h"
 #include "hal_led.h"
+#include "hal_assert.h"
 
 /***********************************************************************************
 * @fn          halMcuInit
@@ -29,9 +30,9 @@ void halMcuInit(void)
 		clockSetMainSrc(CLOCK_SRC_HFRC);
 		if(clockSelect32k(CLOCK_32K_XTAL) != SUCCESS)
 		{
-			halLedSet(1);
-			halLedSet(2);
-//			HAL_ASSERT(FALSE);
+//			halLedSet(1);
+//			halLedSet(2);
+			HAL_ASSERT(FALSE);
 		}
 	}
 	clockSetMainSrc(CLOCK_SRC_XOSC);

@@ -40,8 +40,9 @@ void timer1_init(void)
 				   HAL_TIMER_CH_MODE_OUTPUT_COMPARE,
 				   TRUE,
 				   util_Timer1CallBack);
-//	HalTimerStart(HAL_TIMER_1, 3906*1);		// 3s run timer1 ISR on channel 0.
+	HalTimerStart(HAL_TIMER_1, 3906*3);		// 3s run timer1 ISR on channel 0.
 	
+	/* Set timer1 channel 1.*/
 	/*
 	HalTimerConfig(HAL_TIMER_1,
 				   HAL_TIMER_MODE_CTC,
@@ -49,8 +50,9 @@ void timer1_init(void)
 				   HAL_TIMER_CH_MODE_OUTPUT_COMPARE,
 				   TRUE,
 				   util_Timer1CallBack);
-	HalTimerStart(HAL_TIMER_1, 3906*3);		// 1s run timer1 ISR on channel 1.
 	*/
+//	HalTimerStart(HAL_TIMER_1, 3906*3);		// 1s run timer1 ISR on channel 1.
+	
 
 	/* Initialise timer 3, not using ISR.*/
 	HalTimerConfig(HAL_TIMER_3,
@@ -59,7 +61,7 @@ void timer1_init(void)
 				   HAL_TIMER_CH_MODE_OVERFLOW,
 				   false,
 				   util_Timer3CallBack);
-//	HalTimerStart(HAL_TIMER_3, 250);		// 1s run timer1 ISR on channel 1.
+//	HalTimerStart(HAL_TIMER_3, 250);		// 1s run timer3 ISR on channel 1.
 	
 }
 
@@ -79,8 +81,19 @@ static void util_Timer1CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 	switch(channel)
 	{
 	case HAL_TIMER_CHANNEL_SINGLE:
+		
 		break;
 	case HAL_TIMER_CHANNEL_0:			// Every 3s HOST send beacon frame.
+		iCnt_last = (iCnt/3)*3.57;
+		iCnt = 0;
+		break;
+	case HAL_TIMER_CHANNEL_1:
+		break;
+	case HAL_TIMER_CHANNEL_2:
+		break;
+	case HAL_TIMER_CHANNEL_3:
+		break;
+	case HAL_TIMER_CHANNEL_4:
 		halRfReceiveOff();				// Turn off FSM modul.
 		HalTimerStop(HAL_TIMER_1);
 		HalTimerStop(HAL_TIMER_3);
@@ -91,14 +104,6 @@ static void util_Timer1CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 			break;
 		}
 		sysflag |= SYS_FLAG_SLEEP_START;
-		break;
-	case HAL_TIMER_CHANNEL_1:
-		break;
-	case HAL_TIMER_CHANNEL_2:
-		break;
-	case HAL_TIMER_CHANNEL_3:
-		break;
-	case HAL_TIMER_CHANNEL_4:
 		break;
 	default:
 		break;

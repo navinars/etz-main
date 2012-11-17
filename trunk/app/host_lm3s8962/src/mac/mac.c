@@ -18,6 +18,7 @@
 #include "bsp.h"
 
 
+unsigned char cc2520_mac[8] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
 /* ------------------------------------------------------------------------------------------------------
  *											Local Variable
  * ------------------------------------------------------------------------------------------------------
@@ -40,21 +41,23 @@ void mac_init(void)
 	halRfInit();													/* Initialise RF radio.*/
 	
 	pib.coord_addr.mode			= SHORT_ADDR;
-	pib.coord_addr.short_addr	= 0x0000;		// Net coord short address is 0x0000;
+	pib.coord_addr.short_addr	= 0x0000;							/* Net coord short address is 0x0000;*/
 	pib.coord					= true;
-	pib.short_addr				= 0x0000;		// Default node short address is 0xFFFF.
-	pib.pan_id					= 0xFFFF;		// Default PAN ID is 0xFFFF.
+	pib.short_addr				= 0x0000;							/* Default node short address is 0xFFFF.*/
+	pib.pan_id					= 0xFFFF;							/* Default PAN ID is 0xFFFF.*/
 	
+	memcpy(&pib.ext_addr, cc2520_mac, 8);
 	// Read MAC address in FALSH.
 //	HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_IEEE_OSET, pib.ext_addr, Z_EXTADDR_LEN);
-	pib.assoc_permit			= false;		// Node's association is permit.
+	pib.assoc_permit			= false;							/* Node's association is permit.*/
+	
 //	pcb.mac_state				= MLME_SCAN;
 
 	pib.curr_channel			= 20;
 	pib.rx_on_when_idle			= true;
 	pib.max_csma_backoffs		= 3;
 	pib.min_be					= 3;
-	pib.dsn						= (U8)halRfGetChipId(); // Random value as frame number.
+	pib.dsn						= (U8)halRfGetChipId(); 			/* Random value as frame number.*/
 	pib.tmp_pan_id				= 0xFFFF;
 	
 	// Set channel
