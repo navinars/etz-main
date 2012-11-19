@@ -69,6 +69,16 @@ int main(void)
 		if(iCnt_last != 0)											/* Every 3s once.*/
 		{
 			// DOTO: Send energy data to HOST.
+			unsigned char data[5];
+			address_t host;
+			
+			data[0] = 0xB1;
+			*(float *)&data[1] = iCnt_last;							/* Copy energy data.*/
+			iCnt_last = 0;
+			host.mode = SHORT_ADDR;
+			host.short_addr = 0x0000;
+			
+			mac_tx_handle(&host, data, 5, MAC_DATA);
 		}
 	}
 }

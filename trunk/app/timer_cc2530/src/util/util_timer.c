@@ -83,7 +83,7 @@ static void util_Timer1CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 	case HAL_TIMER_CHANNEL_SINGLE:
 		
 		break;
-	case HAL_TIMER_CHANNEL_0:			// Every 3s HOST send beacon frame.
+	case HAL_TIMER_CHANNEL_0:										/* Every 3s HOST send beacon frame.*/
 		iCnt_last = (iCnt/3)*3.57;
 		iCnt = 0;
 		break;
@@ -94,7 +94,7 @@ static void util_Timer1CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 	case HAL_TIMER_CHANNEL_3:
 		break;
 	case HAL_TIMER_CHANNEL_4:
-		halRfReceiveOff();				// Turn off FSM modul.
+		halRfReceiveOff();											/* Turn off FSM modul.*/
 		HalTimerStop(HAL_TIMER_1);
 		HalTimerStop(HAL_TIMER_3);
 		halLedClear(2);
