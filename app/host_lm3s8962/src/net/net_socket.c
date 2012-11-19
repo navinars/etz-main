@@ -231,12 +231,12 @@ static void sockex_testrecv(void *arg)
 
 	RS232printf("Accepting connections ...\n");
 	
+	cliaddr_len = sizeof(cliaddr);
+										
 	for(;;)
 	{
-		cliaddr_len = sizeof(cliaddr);
-																	/* Waiting mbox message.*/
 		connfd = lwip_accept(listenfd, (struct sockaddr *)&cliaddr, &cliaddr_len);
-		if(connfd == -1)
+		if(connfd <= 0)
 		{
 			OSTimeDly(2);
 			continue;
@@ -271,11 +271,12 @@ static void sockex_app(void *arg)
 	
 	for(;;)
 	{
-		if(connfd >= 0)
+		if(connfd > 0)
 		{
 			
 			opt = 100;												/* set recv timeout (100 ms) */
-			ret = lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+			lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+
 			
 			ret = lwip_read(connfd, sock_rxbuf, 9);
 			if(ret == -1)
@@ -283,23 +284,30 @@ static void sockex_app(void *arg)
 				OSTimeDly(2);
 				continue;
 			}
-			if((sock_rxbuf[0] == 'D')&&(sock_rxbuf[1] == 'a'))		/* Compare start frame.*/
+			if((sock_rxbuf[0] == 'C')&&(sock_rxbuf[1] == 'o'))		/* Compare start frame.*/
 			{
+				address_t addr;
+				
 				len = sock_rxbuf[8];								/* Set frame length.*/
-				if(len == 12)
+				if(len != 0x0F)
 				{
-					address_t addr;
-					addr.mode = LONG_ADDR;							/* Using device long address.*/
-					lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
-					lwip_read(connfd, sock_rxbuf, len);				/* Read other frame data.*/
-					memcpy(addr.long_addr, sock_rxbuf, 8);
-					
-					// DOTO: MAC layer send frame. Using deveice MAC address.
-					mac_tx_handle(&addr, &sock_rxbuf[8], 2, MAC_DATA);
+					OSTimeDly(2);
+					continue;
+				}
+				addr.mode = LONG_ADDR;								/* Using device long address.*/
+				lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+				ret = lwip_read(connfd, sock_rxbuf, len);			/* Read other frame data.*/
+				if(ret == -1)
+				{
+					OSTimeDly(2);
+					continue;
 				}
 				
+				memcpy(addr.long_addr, sock_rxbuf, 8);				/* Ã·»°MACµÿ÷∑*/
+				
+				// DOTO: MAC layer send frame. Using deveice MAC address.
+				mac_tx_handle(&addr, &sock_rxbuf[8], 2, MAC_DATA);	/* Send command frame.*/
 			}
-//			ret = lwip_write(connfd, rxbuf, len);
 		}
 		OSTimeDly(2);
 	}
