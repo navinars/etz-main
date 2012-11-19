@@ -171,7 +171,7 @@ void mac_event_handle(void)
 			break;
 			
 		case MAC_DATA:
-			if(connfd >= 0)
+			if(connfd > 0)
 			{
 				INT8U mac_data_buf[24];
 				memcpy(mac_data_buf, "DataRsp", 7);
