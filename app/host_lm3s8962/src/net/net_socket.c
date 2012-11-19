@@ -1,28 +1,12 @@
 /* ------------------------------------------------------------------------------------------------------
-* File: includes.h
-* Data: 2012/9/4
-* Author: Stephen
-* Ver: V0.1.1a
-* -------------------------------------------------------------------------------------------------------
-*/
-#include <string.h>
-#include <stdio.h>
+ * File: net_socket.h
+ * Data: 2012/11/4
+ * Author: Stephen
+ * Ver: V0.1.2a
+ * -------------------------------------------------------------------------------------------------------
+ */
+#include <includes.h>
 
-
-#include "app_cfg.h"
-#include "net_tcpip.h"
-#include "net_socket.h"
-
-#include "lwip/opt.h"
-#include "lwip/sockets.h"
-#include "lwip/sys.h"
-
-#include "utils/lwiplib.h"
-#include "utils/ustdlib.h"
-#include "utils/uartstdio.h"
-
-#include "ucos_ii.h"
-#include "mac.h"
 
 /* ------------------------------------------------------------------------------------------------------
  *											Local Define
@@ -33,7 +17,7 @@
 #endif
 
 #ifndef SOCK_TARGET_PORT
-#define SOCK_TARGET_PORT  8091
+#define SOCK_TARGET_PORT  	8091
 #define SOCK_HOSR_PORT		8090
 #endif
 
@@ -52,7 +36,7 @@
  */
 int s;																/* Create socket.*/
 static unsigned char socket_state;
-static int listenfd, connfd;
+int listenfd, connfd = -1;
 extern 	OS_EVENT	*NET_RfMbox;									/* Declare mbox.*/
 
 
@@ -100,7 +84,7 @@ void NetDisplayIPAddress(unsigned long ipaddr)
  * Argument(s) : none.
  *
  */
-static void sockex_nonblocking_connect(void *arg)
+void sockex_nonblocking_connect(void *arg)
 {
 	int ret;
 	struct sockaddr_in addr;
@@ -226,9 +210,9 @@ static void sockex_nonblocking_connect(void *arg)
  */
 static void sockex_testrecv(void *arg)
 {
-	int ret;
+//	int ret;
 	struct sockaddr_in servaddr, cliaddr;
-	struct timeval tv;
+//	struct timeval tv;
 	unsigned long cliaddr_len;
 	
 	LWIP_UNUSED_ARG(arg);
@@ -243,7 +227,7 @@ static void sockex_testrecv(void *arg)
 
 	lwip_bind(listenfd, (struct sockaddr *)&servaddr, sizeof(struct sockaddr));
 
-	lwip_listen(listenfd, 8090);
+	lwip_listen(listenfd, SOCK_HOSR_PORT);
 
 	RS232printf("Accepting connections ...\n");
 	
@@ -259,6 +243,7 @@ static void sockex_testrecv(void *arg)
 		}
 		else
 		{
+			connfd = connfd;
 			RS232printf("cli is ok!");
 		}
 //		lwip_select();
@@ -279,35 +264,47 @@ static void sockex_testrecv(void *arg)
 static void sockex_app(void *arg)
 {
 	int opt, ret;
-	unsigned char rxbuf[50];
+	unsigned char sock_rxbuf[50];
 	unsigned char len;
 	
 	LWIP_UNUSED_ARG(arg);
 	
 	for(;;)
 	{
-		if(connfd > 0)
+		if(connfd >= 0)
 		{
-			/* set recv timeout (100 ms) */
-			opt = 100;
+			
+			opt = 100;												/* set recv timeout (100 ms) */
 			ret = lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 			
-			ret = lwip_read(connfd, rxbuf, 2);
+			ret = lwip_read(connfd, sock_rxbuf, 9);
 			if(ret == -1)
 			{
 				OSTimeDly(2);
 				continue;
 			}
-			if((rxbuf[0] == 0xAA) && (rxbuf[1] == 0x55))
+			if((sock_rxbuf[0] == 'D')&&(sock_rxbuf[1] == 'a'))		/* Compare start frame.*/
 			{
-				lwip_read(connfd, &len, 1);
-				lwip_read(connfd, rxbuf, len);
+				len = sock_rxbuf[8];								/* Set frame length.*/
+				if(len == 12)
+				{
+					address_t addr;
+					addr.mode = LONG_ADDR;							/* Using device long address.*/
+					lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+					lwip_read(connfd, sock_rxbuf, len);				/* Read other frame data.*/
+					memcpy(addr.long_addr, sock_rxbuf, 8);
+					
+					// DOTO: MAC layer send frame. Using deveice MAC address.
+					mac_tx_handle(&addr, &sock_rxbuf[8], 2, MAC_DATA);
+				}
+				
 			}
-			ret = lwip_write(connfd, rxbuf, len);
+//			ret = lwip_write(connfd, rxbuf, len);
 		}
 		OSTimeDly(2);
 	}
 }
+
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -323,6 +320,6 @@ void TaskSocket_Create(void)
 //	sys_thread_new("sockex_nonblocking_connect", sockex_nonblocking_connect, NULL, 128, 2);
 	sys_thread_new("sockex_testrecv", sockex_testrecv, NULL, 128, 3);
 	sys_thread_new("sockex_app", sockex_app, NULL, 128, 4);
-	/*sys_thread_new("sockex_testtwoselects", sockex_testtwoselects, NULL, 0, 0);*/
+//	sys_thread_new("sockex_testtwoselects", sockex_testtwoselects, NULL, 128, 4);
 }
 

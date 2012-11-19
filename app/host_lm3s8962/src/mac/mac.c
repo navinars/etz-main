@@ -16,6 +16,10 @@
 #include "ucos_ii.h"
 
 #include "bsp.h"
+#include "net_tcpip.h"
+#include "lwip/opt.h"
+#include "lwip/sockets.h"
+#include "lwip/sys.h"
 
 
 unsigned char cc2520_mac[8] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
@@ -167,6 +171,16 @@ void mac_event_handle(void)
 			break;
 			
 		case MAC_DATA:
+			if(connfd >= 0)
+			{
+				INT8U mac_data_buf[24];
+				memcpy(mac_data_buf, "DataRsp", 7);
+				mac_data_buf[7] = 0;
+				mac_data_buf[8] = 15;
+				memcpy(&mac_data_buf[9], hdr.src_addr.long_addr, 8);/* Write dev MAC address.*/
+				memcpy(&mac_data_buf[17], rxbuf->dptr, 5);
+				lwip_write(connfd, mac_data_buf, 24);				/* Socket send energy data.*/
+			}
 //			mac_parse_dat();
 			break;
 			
