@@ -264,8 +264,8 @@ static void sockex_testrecv(void *arg)
 static void sockex_app(void *arg)
 {
 	int opt, ret;
-	unsigned char sock_rxbuf[50];
-	unsigned char len;
+	INT8U sock_rxbuf[50];
+//	INT8U len;
 	
 	LWIP_UNUSED_ARG(arg);
 	
@@ -278,7 +278,7 @@ static void sockex_app(void *arg)
 			lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 
 			
-			ret = lwip_read(connfd, sock_rxbuf, 9);
+			ret = lwip_read(connfd, sock_rxbuf, 8);
 			if(ret == -1)
 			{
 				OSTimeDly(2);
@@ -287,32 +287,48 @@ static void sockex_app(void *arg)
 			if((sock_rxbuf[0] == 'C')&&(sock_rxbuf[1] == 'o'))		/* Compare start frame.*/
 			{
 				address_t addr;
+				INT8U mac[8] = {0x00, 0x12, 0x4B, 0x00, 0x01, 0xC0, 0xB7, 0xE0};
 				
-				len = sock_rxbuf[8];								/* Set frame length.*/
-				if(len != 0x0F)
+//				len = sock_rxbuf[8];								/* Set frame length.*/
+/*				if(len != 0x0F)
 				{
 					OSTimeDly(2);
 					continue;
 				}
+				*/
 				addr.mode = LONG_ADDR;								/* Using device long address.*/
-				lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
-				ret = lwip_read(connfd, sock_rxbuf, len);			/* Read other frame data.*/
-				if(ret == -1)
+//				lwip_setsockopt(connfd, SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+//				ret = lwip_read(connfd, sock_rxbuf, len);			/* Read other frame data.*/
+/*				if(ret == -1)
 				{
 					OSTimeDly(2);
 					continue;
 				}
-				
-				memcpy(addr.long_addr, sock_rxbuf, 8);				/* 提取MAC地址*/
+				*/
+				utilReverseBuf(mac, 8);
+				memcpy(addr.long_addr, mac, 8);				/* 提取MAC地址*/
 				
 				// DOTO: MAC layer send frame. Using deveice MAC address.
-				mac_tx_handle(&addr, &sock_rxbuf[8], 2, MAC_DATA);	/* Send command frame.*/
+				mac_tx_handle(&addr, &sock_rxbuf[7], 1, MAC_DATA);	/* Send command frame.*/
 			}
 		}
 		OSTimeDly(2);
 	}
 }
 
+/* ------------------------------------------------------------------------------------------------------
+ *									      sockex_selects()
+ *
+ * Description : socket selects test.
+ *
+ * Argument(s) : none.
+ *
+ */
+void sockex_selects(void *arg)
+{
+	LWIP_UNUSED_ARG(arg);
+	
+}
 
 
 /* ------------------------------------------------------------------------------------------------------
@@ -328,6 +344,6 @@ void TaskSocket_Create(void)
 //	sys_thread_new("sockex_nonblocking_connect", sockex_nonblocking_connect, NULL, 128, 2);
 	sys_thread_new("sockex_testrecv", sockex_testrecv, NULL, 128, 3);
 	sys_thread_new("sockex_app", sockex_app, NULL, 128, 4);
-//	sys_thread_new("sockex_testtwoselects", sockex_testtwoselects, NULL, 128, 4);
+	sys_thread_new("sockex_selects", sockex_selects, NULL, 128, 5);
 }
 
