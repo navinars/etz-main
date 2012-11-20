@@ -135,3 +135,26 @@ void RfRxFrmDoneIsr(void)
 	halRfEnableRxInterrupt();										/* Enable RX frame done interrupt again.*/
 //	IntMasterEnable();												/* Enable Master interrupt.*/
 }
+
+
+/***********************************************************************************
+* @fn          utilReverseBuf
+*
+* @brief       reverse buffer
+*
+* @param       uint8 pBuf - pointer to buffer
+*              uint8 length - length of buffer
+*
+* @return      void
+*/
+void utilReverseBuf(uint8* pBuf, uint8 length)
+{
+   uint8 temp;
+   uint8* pBufLast = (pBuf + length - 1);
+
+   while(pBufLast > pBuf){
+     temp = *pBuf;
+     *pBuf++ = *pBufLast;
+     *pBufLast-- = temp;	
+  }
+}

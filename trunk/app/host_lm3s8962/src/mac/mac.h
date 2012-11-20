@@ -17,6 +17,8 @@
 #include "hal_types.h"
 
 #define aMaxPHYPacketSize	127
+
+
 /*
 *********************************************************************************************************
 *                                            GLOBALE DEFINES
@@ -339,6 +341,7 @@ extern void mac_event_handle(void);
 
 extern void mac_host_bcn(U16 offset);
 
+extern void utilReverseBuf(uint8* pBuf, uint8 length);
 
 //---------------------------------------mac_buf.c-------------------------------------------------------
 extern void mac_buf_init(void);
