@@ -28,6 +28,7 @@
 
 //-----------------------BSP driver---------------------------------
 #include "bsp.h"
+#include "hal_rf.h"
 #include "hal_cc2520.h"
 #include "rit128x96x4.h"
 

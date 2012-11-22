@@ -655,7 +655,7 @@
  * LWIP_DHCP==1: Enable DHCP module.
  */
 #ifndef LWIP_DHCP
-#define LWIP_DHCP                       1
+#define LWIP_DHCP                       0
 #endif
 
 /**

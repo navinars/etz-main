@@ -12,23 +12,8 @@
  *											Local Define
  * ------------------------------------------------------------------------------------------------------
  */
-#ifndef SOCK_TARGET_HOST
-#define SOCK_TARGET_HOST  "192.168.2.99"
-#endif
-
-#ifndef SOCK_TARGET_PORT
-#define SOCK_TARGET_PORT  	8091
-#define SOCK_HOSR_PORT		8090
-#endif
-
-#define SOCKET_NEW			1
-#define SOCKET_CON			2
-#define SOCKET_REC			3
-#define SOCKET_CLS			4
-#define SOCKET_CHECK		5
-#define SOCKET_IDIE			6
-
 #define RS232printf(x)			//UARTprintf(x)
+
 
 /* ------------------------------------------------------------------------------------------------------
  *											Local Define
@@ -39,19 +24,11 @@ static unsigned char socket_state;
 int listenfd, connfd = -1;
 extern 	OS_EVENT	*NET_RfMbox;									/* Declare mbox.*/
 
+int fd_A[BACKLOG];				/* Accepted connection fd.*/
+int conn_amount;				/* current connection amount.*/
 
-/* ------------------------------------------------------------------------------------------------------
- *									   sockex_nonblocking_connect()
- *
- * Description : tests socket blocking and nonblocking connect.
- *
- * Argument(s) : none.
- *
- */
-void socket_loop(void)
-{
-	
-}
+
+
 //*****************************************************************************
 //
 // Display an lwIP type IP Address.
@@ -208,7 +185,7 @@ void sockex_nonblocking_connect(void *arg)
  * Argument(s) : none.
  *
  */
-static void sockex_testrecv(void *arg)
+void sockex_testrecv(void *arg)
 {
 //	int ret;
 	struct sockaddr_in servaddr, cliaddr;
@@ -232,7 +209,7 @@ static void sockex_testrecv(void *arg)
 	RS232printf("Accepting connections ...\n");
 	
 	cliaddr_len = sizeof(cliaddr);
-										
+	
 	for(;;)
 	{
 		connfd = lwip_accept(listenfd, (struct sockaddr *)&cliaddr, &cliaddr_len);
@@ -261,7 +238,7 @@ static void sockex_testrecv(void *arg)
  * Argument(s) : none.
  *
  */
-static void sockex_app(void *arg)
+void sockex_app(void *arg)
 {
 	int opt, ret;
 	INT8U sock_rxbuf[50];
@@ -326,8 +303,135 @@ static void sockex_app(void *arg)
  */
 void sockex_selects(void *arg)
 {
+	int sock_fd, new_fd;
+	struct sockaddr_in server_addr;
+	struct sockaddr_in client_addr;
+	socklen_t sin_size;
+	int yes;
+	INT8U buf[BUF_SIZE];
+	int ret;
+	int i;
+	
+	fd_set fdsr;													/* Create file descriptor.*/
+	int maxsock;
+	struct timeval tv;
+	
+	conn_amount = 0;
 	LWIP_UNUSED_ARG(arg);
 	
+	sock_fd = lwip_socket(AF_INET, SOCK_STREAM, 0);
+	
+	yes = 1;
+	ret = lwip_setsockopt(sock_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
+	if(ret == -1)
+	{
+		return;
+	}
+	
+	memset(&server_addr, 0, sizeof(server_addr));
+	server_addr.sin_family = AF_INET;
+	server_addr.sin_len = sizeof(server_addr);
+	server_addr.sin_port = PP_HTONS(SOCK_HOSR_PORT);
+	server_addr.sin_addr.s_addr = lwIPLocalIPAddrGet();				/* IP_ADDR_ANY is '0.0.0.0'.*/
+	
+	lwip_bind(sock_fd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr));
+	lwip_listen(sock_fd, BACKLOG + 1);								/* MAX TCP client is BACKLOG.*/
+	
+	sin_size = sizeof(client_addr);
+	maxsock = sock_fd;
+	
+
+	
+	while(1)
+	{
+		FD_ZERO(&fdsr);												/* Initialize file descriptor set.*/
+		FD_SET(sock_fd, &fdsr);
+
+		tv.tv_sec = 10;												/* Timeout setting.*/
+		tv.tv_usec = 0;
+		
+		for (i = 0; i < BACKLOG; i++)								/* Add active connection to fd set.*/
+		{								
+			if (fd_A[i] != 0) {
+				FD_SET(fd_A[i], &fdsr);
+			}
+		}
+		
+		ret = lwip_select(maxsock + 1, &fdsr, NULL, NULL, NULL);
+		if(ret < 0)
+		{
+			break;
+		}
+		else if(ret == 0)
+		{
+			continue;
+		}
+		
+		for (i = 0; i < conn_amount; i++)							/* Check every fd in the set.*/
+		{
+			if (FD_ISSET(fd_A[i], &fdsr))
+			{
+				int opt = 100;										/* set recv timeout (100 ms) */
+				lwip_setsockopt(fd_A[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+
+				ret = lwip_read(fd_A[i], buf, 8);
+				if (ret <= 0)
+				{
+// 					lwip_close(fd_A[i]);
+// 					FD_CLR(fd_A[i], &fdsr);
+// 					fd_A[i] = 0;
+				}
+				else        										/* receive data.*/
+				{
+					if((buf[0] == 'C')&&(buf[1] == 'o'))
+					{
+						address_t addr;
+						INT8U mac[8] = {0x00, 0x12, 0x4B, 0x00, 0x01, 0xC0, 0xB7, 0xE0};
+						addr.mode = LONG_ADDR;
+						utilReverseBuf(mac, 8);
+						memcpy(addr.long_addr, mac, 8);
+						mac_tx_handle(&addr, &buf[7], 1, MAC_DATA);
+					}
+					if (ret < BUF_SIZE)
+						memset(&buf[ret], '\0', 1);
+				}
+			}
+		}
+
+		if(FD_ISSET(sock_fd, &fdsr))								/* Check whether a new connection comes.*/
+		{
+			new_fd = lwip_accept(sock_fd, (struct sockaddr *)&client_addr, &sin_size);
+			if(new_fd <= 0)
+			{
+				continue;
+			}
+//			lwip_send(new_fd, "con", 4, 0);
+			if(conn_amount < BACKLOG)								/* Add to fd queue.*/
+			{
+				fd_A[conn_amount++] = new_fd;
+				
+				if(new_fd > maxsock)
+					maxsock = new_fd;
+			}
+			else
+			{
+//				conn_amount = 0;
+				lwip_close(fd_A[conn_amount-1]);
+				fd_A[conn_amount-1] = new_fd;
+				if(new_fd > maxsock)
+					maxsock = new_fd;
+//				lwip_send(new_fd, "bye", 4, 0);
+//				lwip_close(new_fd);									/* Close larger than 5 socket.*/
+			}
+		}
+		
+// 		for (i = 0; i < BACKLOG; i++)								/* Close other connections.*/
+// 		{
+// 			if (fd_A[i] != 0) {
+// 				lwip_close(fd_A[i]);
+// 			}
+// 		}
+	}
 }
 
 
@@ -342,8 +446,8 @@ void sockex_selects(void *arg)
 void TaskSocket_Create(void)
 {
 //	sys_thread_new("sockex_nonblocking_connect", sockex_nonblocking_connect, NULL, 128, 2);
-	sys_thread_new("sockex_testrecv", sockex_testrecv, NULL, 128, 3);
-	sys_thread_new("sockex_app", sockex_app, NULL, 128, 4);
-	sys_thread_new("sockex_selects", sockex_selects, NULL, 128, 5);
+//	sys_thread_new("sockex_testrecv", sockex_testrecv, NULL, 128, 3);
+//	sys_thread_new("sockex_app", sockex_app, NULL, 128, 4);
+	sys_thread_new("sockex_selects", sockex_selects, NULL, 256, 2);
 }
 

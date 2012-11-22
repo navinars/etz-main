@@ -144,16 +144,16 @@ a lot of data that needs to be copied, this should be set high. */
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */
 
-#define PBUF_POOL_SIZE          6
+#define PBUF_POOL_SIZE          16
 
 /* PBUF_POOL_BUFSIZE: the size of each pbuf in the pbuf pool. */
 
-#define PBUF_POOL_BUFSIZE       500
+#define PBUF_POOL_BUFSIZE       256
 
 /* PBUF_LINK_HLEN: the number of bytes that should be allocated for a
    link level header. */
 #define PBUF_LINK_HLEN          16
-#define ETH_PAD_SIZE				2
+#define ETH_PAD_SIZE			2
 
 /* ---------- TCP options ---------- */
 #define LWIP_TCP                1
@@ -174,6 +174,8 @@ a lot of data that needs to be copied, this should be set high. */
    TCP_SND_BUF/TCP_MSS for things to work. */
 #define TCP_SND_QUEUELEN        6 * TCP_SND_BUF/TCP_MSS
 
+/* ---------- SOCKET options ------- */
+#define SO_REUSE				1
 
 
 /* Maximum number of retransmissions of data segments. */
@@ -209,18 +211,36 @@ a lot of data that needs to be copied, this should be set high. */
 
 /* 1 if you want to do an ARP check on the offered address
    (recommended). */
-#define DHCP_DOES_ARP_CHECK     1
+#define DHCP_DOES_ARP_CHECK     		1
+
+#define LWIP_TCP_KEEPALIVE				1
+#define LWIP_SO_RCVTIMEO                1
+
+#define TCP_LISTEN_BACKLOG				1
+
+#define LWIP_HAVE_LOOPIF				1
+
+#define DEFAULT_UDP_RECVMBOX_SIZE		1
+#define DEFAULT_TCP_RECVMBOX_SIZE		10
+#define DEFAULT_ACCEPTMBOX_SIZE         10
+
+
+/* ---------- RAW options ---------- */
+#define DEFAULT_RAW_RECVMBOX_SIZE   	1
+#define DEFAULT_ACCEPTMBOX_SIZE     	10
+
+
 
 
 /* ---------- LWIP TASK options ---------- */
-#define TCPIP_THREAD_PRIO       1
-#define PING_THREAD_PRIO       2
+#define TCPIP_THREAD_PRIO       		1
+//#define PING_THREAD_PRIO       			2
 
 
 /* ---------- Statistics options ---------- */
-#define LWIP_STATS 0
+#define LWIP_STATS 						0
 
-#define LWIP_STATS_DISPLAY 0
+#define LWIP_STATS_DISPLAY 				0
 
 #if LWIP_STATS
 #define LINK_STATS 1
