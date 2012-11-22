@@ -112,6 +112,12 @@ void mac_event_handle(void)
 			break;
 			
 		case MAC_DATA:
+			{
+				if(*(rxbuf->dptr) == 0x01)
+					DEVICE_OFF();
+				else
+					DEVICE_ON();
+			}
 			break;
 			
 		case MAC_ACK:
