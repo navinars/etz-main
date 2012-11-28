@@ -1,0 +1,3 @@
+Dependencies for Project 'MKL25_IO', Target 'MKL25Z': (DO NOT MODIFY !)
+F (..\..\src\app\main.c)(0x50A603AB)(-c --cpu Cortex-M0+ -g -O0 --apcs=interwork -I..\..\src\app -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -o ".\obj\main.o" --omf_browse ".\obj\main.crf" --depend ".\obj\main.d")
+F (..\..\src\app\startup_MKL25Z4.s)(0x4FED8144)(--cpu Cortex-M0+ -g --apcs=interwork -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" --list ".\lst\startup_MKL25Z4.lst" --xref -o ".\obj\startup_MKL25Z4.o" --depend ".\obj\startup_MKL25Z4.d")

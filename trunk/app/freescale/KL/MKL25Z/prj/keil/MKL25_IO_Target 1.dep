@@ -1,0 +1,2 @@
+Dependencies for Project 'MKL25_IO', Target 'Target 1': (DO NOT MODIFY !)
+F (.\startup_MKL25Z4.s)(0x4FED8144)(--cpu Cortex-M0+ -g --apcs=interwork -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" --list "startup_MKL25Z4.lst" --xref -o "startup_MKL25Z4.o" --depend "startup_MKL25Z4.d")

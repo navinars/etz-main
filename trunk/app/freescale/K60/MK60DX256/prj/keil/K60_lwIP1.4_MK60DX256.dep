@@ -1,0 +1,32 @@
+Dependencies for Project 'K60', Target 'lwIP1.4_MK60DX256': (DO NOT MODIFY !)
+F (..\..\src\app\startup_MK60D10.s)(0x4F5835C0)(--cpu Cortex-M4 -g --apcs=interwork -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" --list ".\startup_MK60D10.lst" --xref -o ".\startup_MK60D10.o" --depend ".\startup_MK60D10.d")
+F (..\..\src\app\system_MK60DZ10.c)(0x50B0343C)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\cpu -I..\..\src\drv\platforms -I..\..\src\drv\drivers\mcg -I..\..\src\drv\drivers\uart -I..\..\src\drv\cpu\headers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "system_mk60dz10.o" --omf_browse "system_mk60dz10.crf" --depend "system_mk60dz10.d")
+I (D:\Program Files\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB0D284)
+I (D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis\MK60DZ10.h)(0x4F58370A)
+I (D:\Program Files\Keil\ARM\CMSIS\Include\core_cm4.h)(0x50062982)
+I (D:\Program Files\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x50595C8C)
+I (D:\Program Files\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x4FDA945C)
+I (D:\Program Files\Keil\ARM\CMSIS\Include\core_cm4_simd.h)(0x4F583CE6)
+I (D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis\system_MK60DZ10.h)(0x4F58370A)
+F (..\..\src\app\app.c)(0x50B0890C)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\platforms -I..\..\src\drv\cpu\headers -I..\..\src\drv\drivers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "app.o" --omf_browse "app.crf" --depend "app.d")
+I (D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis\MK60DZ10.h)(0x4F58370A)
+I (D:\Program Files\Keil\ARM\CMSIS\Include\core_cm4.h)(0x50062982)
+I (D:\Program Files\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB0D284)
+I (D:\Program Files\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x50595C8C)
+I (D:\Program Files\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x4FDA945C)
+I (D:\Program Files\Keil\ARM\CMSIS\Include\core_cm4_simd.h)(0x4F583CE6)
+I (D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis\system_MK60DZ10.h)(0x4F58370A)
+F (..\..\src\drv\drivers\adc16.c)(0x4CB7764C)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\platforms -I..\..\src\drv\cpu\headers -I..\..\src\drv\drivers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "adc16.o" --omf_browse "adc16.crf" --depend "adc16.d")
+I (..\..\src\drv\common\common.h)(0x50B030C1)
+F (..\..\src\drv\drivers\mcg.c)(0x4D9DFEC2)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\platforms -I..\..\src\drv\cpu\headers -I..\..\src\drv\drivers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "mcg.o" --omf_browse "mcg.crf" --depend "mcg.d")
+I (..\..\src\drv\common\common.h)(0x50B030C1)
+F (..\..\src\drv\drivers\pmc.c)(0x4CE1DDF6)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\platforms -I..\..\src\drv\cpu\headers -I..\..\src\drv\drivers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "pmc.o" --omf_browse "pmc.crf" --depend "pmc.d")
+I (..\..\src\drv\common\common.h)(0x50B030C1)
+F (..\..\src\drv\drivers\rtc.c)(0x4D7A78A2)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\platforms -I..\..\src\drv\cpu\headers -I..\..\src\drv\drivers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "rtc.o" --omf_browse "rtc.crf" --depend "rtc.d")
+I (..\..\src\drv\common\common.h)(0x50B030C1)
+F (..\..\src\drv\drivers\uart.c)(0x4D7FABA4)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\platforms -I..\..\src\drv\cpu\headers -I..\..\src\drv\drivers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "uart.o" --omf_browse "uart.crf" --depend "uart.d")
+I (..\..\src\drv\common\common.h)(0x50B030C1)
+F (..\..\src\drv\drivers\wdog.c)(0x4CA61450)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\platforms -I..\..\src\drv\cpu\headers -I..\..\src\drv\drivers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "wdog.o" --omf_browse "wdog.crf" --depend "wdog.d")
+I (..\..\src\drv\common\common.h)(0x50B030C1)
+F (..\..\src\drv\drivers\io.c)(0x4CA61450)(-c --cpu Cortex-M4 -g -O1 --apcs=interwork --split_sections -I..\..\src\app -I..\..\src\drv\common -I..\..\src\drv\platforms -I..\..\src\drv\cpu\headers -I..\..\src\drv\drivers -I "D:\Program Files\Keil\ARM\RV31\INC" -I "D:\Program Files\Keil\ARM\CMSIS\Include" -I "D:\Program Files\Keil\ARM\Inc\Freescale\Kinetis" -DKEIL -DFREEDOM -DCMSIS -o "io.o" --omf_browse "io.crf" --depend "io.d")
+I (..\..\src\drv\common\common.h)(0x50B030C1)
