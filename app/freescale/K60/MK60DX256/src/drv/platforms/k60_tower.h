@@ -21,14 +21,14 @@
 
 
 /* Define for the CPU on the K60 board */
-#define CPU_MK60D256VLL100
+#define CPU_MK60D256ZVLL100
 
 /*
  * System Bus Clock Info
  */
 #define K60_CLK             1
-#define REF_CLK             XTAL8   /* value isn't used, but we still need something defined */
-#define CORE_CLK_MHZ        PLL96      /* 96MHz is only freq tested for a clock input*/
+#define REF_CLK             XTAL50   /* value isn't used, but we still need something defined */
+#define CORE_CLK_MHZ        PLL100      /* 96MHz is only freq tested for a clock input*/
 
 /*
  * Serial Port Info
