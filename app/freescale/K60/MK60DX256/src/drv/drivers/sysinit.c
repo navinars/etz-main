@@ -14,9 +14,9 @@
 /********************************************************************/
 
 /* Actual system clock frequency */
-int core_clk_khz;
-int core_clk_mhz;
-int periph_clk_khz;
+int core_clk_khz   = 32768u;
+int core_clk_mhz   = 100000000u;
+int periph_clk_khz = 50000000u;
 
 /********************************************************************/
 void sysinit (void)

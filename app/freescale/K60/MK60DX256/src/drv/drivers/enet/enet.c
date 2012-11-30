@@ -140,7 +140,7 @@ enet_reset (int ch)
 
     /* Wait at least 8 clock cycles */
     for (i=0; i<10; ++i)
-        asm( "NOP" );
+        __asm( "NOP" );
 }
 /********************************************************************/
 /*
