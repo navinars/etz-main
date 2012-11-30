@@ -62,8 +62,14 @@ typedef const struct
 /*
  * Prototype and macro for size of the command table
  */
+#ifdef KEIL
+UIF_CMD UIF_CMDTAB[];
+const int UIF_NUM_CMD;
+#else
 extern UIF_CMD UIF_CMDTAB[];
 extern const int UIF_NUM_CMD;
+#endif 
+
 #define UIF_CMDTAB_SIZE             (sizeof(UIF_CMDTAB)/sizeof(UIF_CMD))
 
 #define UIF_CMD_FLAG_REPEAT         0x1
@@ -109,8 +115,14 @@ typedef const struct
 /*
  * Prototype and macro for size of the table
  */
+#ifdef KEIL
+UIF_SETCMD UIF_SETCMDTAB[];
+const int UIF_NUM_SETCMD;
+#else
 extern UIF_SETCMD UIF_SETCMDTAB[];
 extern const int UIF_NUM_SETCMD;
+#endif
+
 #define UIF_SETCMDTAB_SIZE      (sizeof(UIF_SETCMDTAB)/sizeof(UIF_SETCMD))
 
 /*

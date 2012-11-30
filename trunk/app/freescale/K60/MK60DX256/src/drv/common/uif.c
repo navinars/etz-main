@@ -159,8 +159,10 @@ run_cmd (void)
     char *argv[UIF_MAX_ARGS + 1];   /* one extra for null terminator */
 
     get_line(cmdline1);
-
-    if (!(argc = make_argv(cmdline1,argv)))
+	
+//    if (!(argc = make_argv(cmdline1,argv)))
+	argc = make_argv(cmdline1,argv);
+	if(argc == 0)
     {
         /* no command entered, just a blank line */
         strcpy(cmdline1,cmdline2);

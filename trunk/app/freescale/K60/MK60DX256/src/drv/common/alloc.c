@@ -2,15 +2,15 @@
  * File:        alloc.c
  * Purpose:     generic malloc() and free() engine
  *
- * Notes:       99% of this code stolen/borrowed from the K&R C
- *              examples.
  *
  */
 
 #include "common.h"
 #include "stdlib.h"
 
+#ifndef KEIL
 #pragma section = "HEAP"
+#endif
 
 /********************************************************************/
 
@@ -77,12 +77,17 @@ void *
 malloc (unsigned nbytes)
 {
     /* Get addresses for the HEAP start and end */
-    #if defined(CW10)  
+    #if defined(CW)  
       extern char __HEAP_START[];
       extern char __HEAP_END[];
     #elif defined(IAR)
       char* __HEAP_START = __section_begin("HEAP");
       char* __HEAP_END = __section_end("HEAP");
+    #elif defined(KEIL)
+	  extern uint32_t HEAP$$Base;
+	  extern uint32_t HEAP$$Limit;
+	  uint32_t __HEAP_START = (uint32_t)&HEAP$$Base;
+	  uint32_t __HEAP_END = (uint32_t)&HEAP$$Limit;
     #endif
    
     ALLOC_HDR *p, *prevp;

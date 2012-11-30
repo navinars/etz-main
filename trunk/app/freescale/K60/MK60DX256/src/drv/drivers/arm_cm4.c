@@ -25,7 +25,7 @@ void stop (void)
 	SCB_SCR |= SCB_SCR_SLEEPDEEP_MASK;	
 
 	/* WFI instruction will start entry into STOP mode */
-	asm("WFI");
+	__asm("WFI");
 }
 /***********************************************************************/
 /*
@@ -47,7 +47,7 @@ void wait (void)
 	SCB_SCR &= ~SCB_SCR_SLEEPDEEP_MASK;	
 
 	/* WFI instruction will start entry into WAIT mode */
-	asm("WFI");
+	__asm("WFI");
 }
 /***********************************************************************/
 /*

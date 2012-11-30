@@ -38,10 +38,11 @@
 #if (defined(CPU_MK40N512VMD100))
   #include "MK40N512VMD100.h"
 #elif (defined(CPU_MK60N512VMD100))
-  #include "MK60D10.h"
+  #include "MK40N512VMD100.h"
 #else
 //  #error "No valid CPU defined"
   #include "MK60DZ10.h"
+#include "MemMapPtr_MK60DZ10.h"
 #endif
 
 
@@ -52,6 +53,18 @@
 #include "io.h"
 //#include "startup.h"
 #include "stdlib.h"
+
+
+/* 
+ * Include bsp utilities
+ */
+#include "sysinit.h"
+
+
+/* 
+ * Include OS
+ */
+#include <ucos_ii.h>
 
 
 /********************************************************************/
