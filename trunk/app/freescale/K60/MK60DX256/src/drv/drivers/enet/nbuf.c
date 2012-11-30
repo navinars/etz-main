@@ -160,6 +160,7 @@ enet_get_received_packet(int ch, NBUF * rx_packet)
 	uint16_t status;
 	int index_rxbd;
 
+	status = 0;
 	last_buffer = 0;
 	rx_packet->length = 0;
 	
