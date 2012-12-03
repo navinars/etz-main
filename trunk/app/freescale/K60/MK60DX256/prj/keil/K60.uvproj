@@ -321,8 +321,8 @@
               </OCR_RVCT8>
               <OCR_RVCT9>
                 <Type>0</Type>
-                <StartAddress>0x1fff8000</StartAddress>
-                <Size>0x8000</Size>
+                <StartAddress>0x1fff0000</StartAddress>
+                <Size>0x10000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -350,7 +350,7 @@
               <MiscControls></MiscControls>
               <Define>KEIL FREEDOM CMSIS K60DX256</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\src\app;..\..\src\drv\common;..\..\src\drv\platforms;..\..\src\drv\drivers;..\..\src\drv\drivers\enet;..\..\src\os\uCOS-II;..\..\src\os\uC-LIB;..\..\src\os\uC-CPU;..\..\src\os\uCOS-II\Ports;..\..\src\os\uC-CPU\ARM-Cortex-M4\IAR;..\..\src\lwip-1.4.0\ports\kinetis;..\..\src\lwip-1.4.0\src\include;..\..\src\lwip-1.4.0\src\include\ipv4;..\..\src\lwip-1.4.0\ports</IncludePath>
+              <IncludePath>..\..\src\app;..\..\src\drv\common;..\..\src\drv\platforms;..\..\src\drv\drivers;..\..\src\drv\drivers\enet;..\..\src\os\uCOS-II;..\..\src\os\uC-LIB;..\..\src\os\uC-CPU;..\..\src\os\uCOS-II\Ports;..\..\src\os\uC-CPU\ARM-Cortex-M4\IAR;..\..\src\lwip-1.4.0\ports\kinetis;..\..\src\lwip-1.4.0\src\include;..\..\src\lwip-1.4.0\src\include\ipv4;..\..\src\lwip-1.4.0\ports;..\..\src\net</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -425,6 +425,16 @@
               <FileName>os_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\src\app\os_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>net_socket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\net\net_socket.c</FilePath>
+            </File>
+            <File>
+              <FileName>net_tcpip.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\net\net_tcpip.c</FilePath>
             </File>
           </Files>
         </Group>

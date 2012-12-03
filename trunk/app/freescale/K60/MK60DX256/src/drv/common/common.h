@@ -66,7 +66,21 @@
  */
 #include <ucos_ii.h>
 
+/* 
+ * Include LwIP 1.4.0
+ */
+#include "lwip/sys.h"
+#include "lwip/api.h"
+#include "lwip/memp.h"
+#include "lwip/tcp.h"
+#include "lwip/udp.h"
+#include "lwip/tcpip.h"
+#include "lwip/dhcp.h"
+#include "lwip/sockets.h"
 
+#include "net_tcpip.h"
+#include "net_socket.h"
+ 
 /********************************************************************/
 
 #endif /* _COMMON_H_ */

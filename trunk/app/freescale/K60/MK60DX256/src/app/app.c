@@ -4,7 +4,13 @@
 #include "common.h"
 
 
+OS_EVENT		*App_LcdMbox;
+OS_EVENT		*NET_RfMbox;
+OS_EVENT		*CC2520_RxMbox;
+
 static	OS_STK	Task_StartStk[TASK_START_STK_SIZE];
+
+
 
 static	void  	App_TaskStart (void *p_arg);
 
@@ -26,6 +32,43 @@ int main (void)
 	{
 	}
 }
+
+/* ------------------------------------------------------------------------------------------------------
+ *									App_TaskStart()
+ *
+ * Description : Task start function.
+ *
+ * Argument(s) : none.
+ *
+ */
+static  void  App_EventCreate (void)
+{
+	App_LcdMbox = OSMboxCreate((void *)0);							/* Create LCD dispaly event Mbox. */
+	CC2520_RxMbox = OSMboxCreate((void *)0);
+	NET_RfMbox = OSMboxCreate((void *)0);
+}
+
+/* ------------------------------------------------------------------------------------------------------
+ *									App_TaskStart()
+ *
+ * Description : Task start function.
+ *
+ * Argument(s) : none.
+ *
+ */
+static  void  App_TaskCreate (void)
+{
+//	TaskTcpip_Create();												/* Create lwIP task and init.*/
+
+#ifdef LCD
+	TaskLCD_Create();												/* Create LCD task.*/
+#endif
+	
+#ifdef CC2520
+	TaskCC2520_Create();											/* Create CC2520 task.*/
+#endif
+}
+
 /* ------------------------------------------------------------------------------------------------------
  *									App_TaskStart()
  *
@@ -40,11 +83,11 @@ static  void  App_TaskStart (void *p_arg)
 	
 	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);		/* Initialize the SysTick.*/
 	
-//	lwIP_init();													/* Initialise lwIP stack. */
+	lwIP_init();													/* Initialise lwIP stack. */
 	
-//	App_EventCreate();
-	
-//	App_TaskCreate();
+// 	App_EventCreate();
+// 	
+// 	App_TaskCreate();
 	
 	/* Turn on all port clocks */
 	SIM_SCGC5 = SIM_SCGC5_PORTA_MASK | SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK | SIM_SCGC5_PORTD_MASK | SIM_SCGC5_PORTE_MASK;
