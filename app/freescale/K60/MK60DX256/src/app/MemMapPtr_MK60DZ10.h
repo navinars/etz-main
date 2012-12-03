@@ -4269,6 +4269,155 @@ typedef struct MCM_MemMap {
 
 
 /* ----------------------------------------------------------------------------
+   -- MPU
+   ---------------------------------------------------------------------------- */
+
+/**
+ * @addtogroup MPU_Peripheral MPU
+ * @{
+ */
+
+/** MPU - Peripheral register structure */
+typedef struct MPU_MemMap {
+  uint32_t CESR;                                   /**< Control/Error Status Register, offset: 0x0 */
+  uint8_t RESERVED_0[12];
+  struct {                                         /* offset: 0x10, array step: 0x8 */
+    uint32_t EAR;                                    /**< Error Address Register, Slave Port n, array offset: 0x10, array step: 0x8 */
+    uint32_t EDR;                                    /**< Error Detail Register, Slave Port n, array offset: 0x14, array step: 0x8 */
+  } SP[5];
+  uint8_t RESERVED_1[968];
+  uint32_t WORD[12][4];                            /**< Region Descriptor n, Word 0..Region Descriptor n, Word 3, array offset: 0x400, array step: index*0x10, index2*0x4 */
+  uint8_t RESERVED_2[832];
+  uint32_t RGDAAC[12];                             /**< Region Descriptor Alternate Access Control n, array offset: 0x800, array step: 0x4 */
+} volatile *MPU_MemMapPtr;
+
+/* ----------------------------------------------------------------------------
+   -- MPU - Register accessor macros
+   ---------------------------------------------------------------------------- */
+
+/**
+ * @addtogroup MPU_Register_Accessor_Macros MPU - Register accessor macros
+ * @{
+ */
+
+
+/* MPU - Register accessors */
+#define MPU_CESR_REG(base)                       ((base)->CESR)
+#define MPU_EAR_REG(base,index)                  ((base)->SP[index].EAR)
+#define MPU_EDR_REG(base,index)                  ((base)->SP[index].EDR)
+#define MPU_WORD_REG(base,index,index2)          ((base)->WORD[index][index2])
+#define MPU_RGDAAC_REG(base,index)               ((base)->RGDAAC[index])
+
+/**
+ * @}
+ */ /* end of group MPU_Register_Accessor_Macros */
+
+
+/* MPU - Peripheral instance base addresses */
+/** Peripheral MPU base pointer */
+#define MPU_BASE_PTR                             ((MPU_MemMapPtr)0x4000D000u)
+
+/* ----------------------------------------------------------------------------
+   -- MPU - Register accessor macros
+   ---------------------------------------------------------------------------- */
+
+/**
+ * @addtogroup MPU_Register_Accessor_Macros MPU - Register accessor macros
+ * @{
+ */
+
+
+/* MPU - Register instance definitions */
+/* MPU */
+#define MPU_CESR                                 MPU_CESR_REG(MPU_BASE_PTR)
+#define MPU_EAR0                                 MPU_EAR_REG(MPU_BASE_PTR,0)
+#define MPU_EDR0                                 MPU_EDR_REG(MPU_BASE_PTR,0)
+#define MPU_EAR1                                 MPU_EAR_REG(MPU_BASE_PTR,1)
+#define MPU_EDR1                                 MPU_EDR_REG(MPU_BASE_PTR,1)
+#define MPU_EAR2                                 MPU_EAR_REG(MPU_BASE_PTR,2)
+#define MPU_EDR2                                 MPU_EDR_REG(MPU_BASE_PTR,2)
+#define MPU_EAR3                                 MPU_EAR_REG(MPU_BASE_PTR,3)
+#define MPU_EDR3                                 MPU_EDR_REG(MPU_BASE_PTR,3)
+#define MPU_EAR4                                 MPU_EAR_REG(MPU_BASE_PTR,4)
+#define MPU_EDR4                                 MPU_EDR_REG(MPU_BASE_PTR,4)
+#define MPU_RGD0_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,0,0)
+#define MPU_RGD0_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,0,1)
+#define MPU_RGD0_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,0,2)
+#define MPU_RGD0_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,0,3)
+#define MPU_RGD1_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,1,0)
+#define MPU_RGD1_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,1,1)
+#define MPU_RGD1_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,1,2)
+#define MPU_RGD1_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,1,3)
+#define MPU_RGD2_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,2,0)
+#define MPU_RGD2_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,2,1)
+#define MPU_RGD2_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,2,2)
+#define MPU_RGD2_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,2,3)
+#define MPU_RGD3_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,3,0)
+#define MPU_RGD3_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,3,1)
+#define MPU_RGD3_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,3,2)
+#define MPU_RGD3_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,3,3)
+#define MPU_RGD4_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,4,0)
+#define MPU_RGD4_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,4,1)
+#define MPU_RGD4_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,4,2)
+#define MPU_RGD4_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,4,3)
+#define MPU_RGD5_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,5,0)
+#define MPU_RGD5_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,5,1)
+#define MPU_RGD5_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,5,2)
+#define MPU_RGD5_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,5,3)
+#define MPU_RGD6_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,6,0)
+#define MPU_RGD6_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,6,1)
+#define MPU_RGD6_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,6,2)
+#define MPU_RGD6_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,6,3)
+#define MPU_RGD7_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,7,0)
+#define MPU_RGD7_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,7,1)
+#define MPU_RGD7_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,7,2)
+#define MPU_RGD7_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,7,3)
+#define MPU_RGD8_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,8,0)
+#define MPU_RGD8_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,8,1)
+#define MPU_RGD8_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,8,2)
+#define MPU_RGD8_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,8,3)
+#define MPU_RGD9_WORD0                           MPU_WORD_REG(MPU_BASE_PTR,9,0)
+#define MPU_RGD9_WORD1                           MPU_WORD_REG(MPU_BASE_PTR,9,1)
+#define MPU_RGD9_WORD2                           MPU_WORD_REG(MPU_BASE_PTR,9,2)
+#define MPU_RGD9_WORD3                           MPU_WORD_REG(MPU_BASE_PTR,9,3)
+#define MPU_RGD10_WORD0                          MPU_WORD_REG(MPU_BASE_PTR,10,0)
+#define MPU_RGD10_WORD1                          MPU_WORD_REG(MPU_BASE_PTR,10,1)
+#define MPU_RGD10_WORD2                          MPU_WORD_REG(MPU_BASE_PTR,10,2)
+#define MPU_RGD10_WORD3                          MPU_WORD_REG(MPU_BASE_PTR,10,3)
+#define MPU_RGD11_WORD0                          MPU_WORD_REG(MPU_BASE_PTR,11,0)
+#define MPU_RGD11_WORD1                          MPU_WORD_REG(MPU_BASE_PTR,11,1)
+#define MPU_RGD11_WORD2                          MPU_WORD_REG(MPU_BASE_PTR,11,2)
+#define MPU_RGD11_WORD3                          MPU_WORD_REG(MPU_BASE_PTR,11,3)
+#define MPU_RGDAAC0                              MPU_RGDAAC_REG(MPU_BASE_PTR,0)
+#define MPU_RGDAAC1                              MPU_RGDAAC_REG(MPU_BASE_PTR,1)
+#define MPU_RGDAAC2                              MPU_RGDAAC_REG(MPU_BASE_PTR,2)
+#define MPU_RGDAAC3                              MPU_RGDAAC_REG(MPU_BASE_PTR,3)
+#define MPU_RGDAAC4                              MPU_RGDAAC_REG(MPU_BASE_PTR,4)
+#define MPU_RGDAAC5                              MPU_RGDAAC_REG(MPU_BASE_PTR,5)
+#define MPU_RGDAAC6                              MPU_RGDAAC_REG(MPU_BASE_PTR,6)
+#define MPU_RGDAAC7                              MPU_RGDAAC_REG(MPU_BASE_PTR,7)
+#define MPU_RGDAAC8                              MPU_RGDAAC_REG(MPU_BASE_PTR,8)
+#define MPU_RGDAAC9                              MPU_RGDAAC_REG(MPU_BASE_PTR,9)
+#define MPU_RGDAAC10                             MPU_RGDAAC_REG(MPU_BASE_PTR,10)
+#define MPU_RGDAAC11                             MPU_RGDAAC_REG(MPU_BASE_PTR,11)
+
+/* MPU - Register array accessors */
+#define MPU_EAR(index)                           MPU_EAR_REG(MPU_BASE_PTR,index)
+#define MPU_EDR(index)                           MPU_EDR_REG(MPU_BASE_PTR,index)
+#define MPU_WORD(index,index2)                   MPU_WORD_REG(MPU_BASE_PTR,index,index2)
+#define MPU_RGDAAC(index)                        MPU_RGDAAC_REG(MPU_BASE_PTR,index)
+
+/**
+ * @}
+ */ /* end of group MPU_Register_Accessor_Macros */
+
+
+/**
+ * @}
+ */ /* end of group MPU_Peripheral */
+
+
+/* ----------------------------------------------------------------------------
    -- MTB
    ---------------------------------------------------------------------------- */
 

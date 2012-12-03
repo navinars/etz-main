@@ -107,15 +107,17 @@ static NBUF *xENETTxDescriptors;
 static NBUF *xENETRxDescriptors;
 
 /* The DMA buffers.  These are char arrays to allow them to be alligned correctly. */
-static unsigned portBASE_TYPE uxNextRxBuffer = 0, uxNextTxBuffer = 0;
+static sys_prot_t uxNextRxBuffer = 0, uxNextTxBuffer = 0;
 
 /* Semaphores used by the ENET interrupt handler to wake the handler task. */
-static xSemaphoreHandle xRxENETSemaphore;
-static xSemaphoreHandle xTxENETSemaphore;
+static OS_EVENT *xRxENETSemaphore;
+static OS_EVENT *xTxENETSemaphore;
 
 extern int periph_clk_khz;
 
-xTaskHandle xEthIntTask;
+OS_STK	ETHERNET_INPUT_TASK_STACK[configETHERNET_INPUT_TASK_STACK_SIZE];
+
+//OS_EVENT xEthIntTask;
 
 /**
  * Helper struct to hold private data used to operate your ethernet interface.
@@ -148,7 +150,7 @@ static void
 low_level_init(struct netif *netif)
 {
 /*unsigned portLONG*/ int usData;
-const unsigned portCHAR ucMACAddress[6] = 
+const unsigned char ucMACAddress[6] = 
 {
   configMAC_ADDR0, configMAC_ADDR1,configMAC_ADDR2,configMAC_ADDR3,configMAC_ADDR4,configMAC_ADDR5
 };
@@ -179,13 +181,13 @@ const unsigned portCHAR ucMACAddress[6] =
   SIM_SCGC2 |= SIM_SCGC2_ENET_MASK;
 
   /*FSL: allow concurrent access to MPU controller. Example: ENET uDMA to SRAM, otherwise bus error*/
-  MPU_CESR = 0;         
+  MPU_CESR = 0;
         
   prvInitialiseENETBuffers();
   
   /*FSL: create semaphores*/
-  vSemaphoreCreateBinary( xRxENETSemaphore );
-  vSemaphoreCreateBinary( xTxENETSemaphore );
+  xRxENETSemaphore = OSSemCreate(0);
+  xTxENETSemaphore = OSSemCreate(0);
   
   /* Set the Reset bit and clear the Enable bit */
   ENET_ECR = ENET_ECR_RESET_MASK;
@@ -245,7 +247,7 @@ const unsigned portCHAR ucMACAddress[6] =
   /* Can we talk to the PHY? */
   do
   {
-    vTaskDelay( netifLINK_DELAY );
+    OSTimeDly( netifLINK_DELAY );
     usData = 0xffff;
     mii_read( 0, configPHY_ADDRESS, PHY_PHYIDR1, &usData );
         
@@ -257,7 +259,7 @@ const unsigned portCHAR ucMACAddress[6] =
   /* Wait for auto negotiate to complete. */
   do
   {
-    vTaskDelay( netifLINK_DELAY );
+    OSTimeDly( netifLINK_DELAY );
     mii_read( 0, configPHY_ADDRESS, PHY_BMSR, &usData );
 
   } while( !( usData & PHY_BMSR_AN_COMPLETE ) );
@@ -289,14 +291,14 @@ const unsigned portCHAR ucMACAddress[6] =
   if( usData & PHY_DUPLEX_STATUS )
   {
     /*Full duplex*/
-    ENET_RCR &= (unsigned portLONG)~ENET_RCR_DRT_MASK;
+    ENET_RCR &= (uint32_t)~ENET_RCR_DRT_MASK;
     ENET_TCR |= ENET_TCR_FDEN_MASK;
   }
   else
   {
     /*half duplex*/
     ENET_RCR |= ENET_RCR_DRT_MASK;
-    ENET_TCR &= (unsigned portLONG)~ENET_TCR_FDEN_MASK;
+    ENET_TCR &= (uint32_t)~ENET_TCR_FDEN_MASK;
   }
   /* Setup speed */
   if( usData & PHY_SPEED_STATUS )
@@ -351,16 +353,16 @@ const unsigned portCHAR ucMACAddress[6] =
 #endif
   
   /* Set Rx Buffer Size */
-  ENET_MRBR = (unsigned portSHORT) configENET_RX_BUFFER_SIZE;
+  ENET_MRBR = (uint16_t) configENET_RX_BUFFER_SIZE;
 
   /* Point to the start of the circular Rx buffer descriptor queue */
-  ENET_RDSR = ( unsigned portLONG ) &( xENETRxDescriptors[ 0 ] );
+  ENET_RDSR = ( uint32_t ) &( xENETRxDescriptors[ 0 ] );
 
   /* Point to the start of the circular Tx buffer descriptor queue */
-  ENET_TDSR = ( unsigned portLONG ) xENETTxDescriptors;
+  ENET_TDSR = ( uint32_t ) xENETTxDescriptors;
 
   /* Clear all ENET interrupt events */
-  ENET_EIR = ( unsigned portLONG ) -1;
+  ENET_EIR = ( uint32_t ) -1;
 
   /* Enable interrupts. */
   ENET_EIMR = 0 
@@ -373,7 +375,10 @@ const unsigned portCHAR ucMACAddress[6] =
             ;
 
   /* Create the task that handles the MAC ENET. */
-  xTaskCreate( ethernetif_input, ( signed char * ) "ETH_INT", configETHERNET_INPUT_TASK_STACK_SIZE, (void *)netif, configETHERNET_INPUT_TASK_PRIORITY, &xEthIntTask );  
+  OSTaskCreate( ethernetif_input, 
+				(void *) "ETH_INT", 
+				&ETHERNET_INPUT_TASK_STACK[configETHERNET_INPUT_TASK_STACK_SIZE - 1], 
+				configETHERNET_INPUT_TASK_PRIORITY);  
   
   /* Enable the MAC itself. */
   ENET_ECR |= ENET_ECR_ETHEREN_MASK;
@@ -400,11 +405,12 @@ const unsigned portCHAR ucMACAddress[6] =
 static err_t
 low_level_output(struct netif *netif, struct pbuf *p)
 {
+	INT8U err;
 //FSL:  struct ethernetif *ethernetif = netif->state;
   u16_t l = 0;
   struct pbuf *q;
   unsigned char *pcTxData = NULL;
-  portBASE_TYPE i;
+  u32_t i;
   //initiate transfer();
 #if (ENET_HARDWARE_SHIFT==0)
 #if ETH_PAD_SIZE
@@ -418,7 +424,7 @@ low_level_output(struct netif *netif, struct pbuf *p)
     if( xENETTxDescriptors[ uxNextTxBuffer ].status & TX_BD_R )
     {
       /* Wait for the buffer to become available. */
-      vTaskDelay( netifBUFFER_WAIT_DELAY );
+      OSTimeDly( netifBUFFER_WAIT_DELAY );
     }
     else
     {
@@ -434,7 +440,8 @@ low_level_output(struct netif *netif, struct pbuf *p)
   if( pcTxData == NULL ) 
   {
     /* For break point only. */
-    portNOP();
+//    portNOP();
+	  __asm("NOP");
 
     return ERR_BUF;
   }
@@ -478,8 +485,11 @@ low_level_output(struct netif *netif, struct pbuf *p)
   /* semaphore released inside isr */
   /*start expiring semaphore: no more than 3 ticks*/
   /*no blocking code*/
-  xSemaphoreTake( xTxENETSemaphore, 3/*1/portTICK_RATE_MS*//*portMAX_DELAY*/); 
-    
+  OSSemPend( xTxENETSemaphore, 3/*1/portTICK_RATE_MS*//*portMAX_DELAY*/, &err); 
+    if(err != OS_ERR_NONE)
+	{
+		return ERR_INPROGRESS;
+	}
   /* Request xmit process to MAC-NET */
   ENET_TDAR = ENET_TDAR_TDAR_MASK;
     
@@ -590,7 +600,7 @@ static struct pbuf *
 low_level_input(struct netif *netif)
 {
     u16_t l, temp_l;
-    struct pbuf *first_pbuf,*next_pbuf,*q;
+    struct pbuf *first_pbuf = NULL,*next_pbuf,*q;
     u16_t len;
     #ifdef NBUF_LITTLE_ENDIAN
     u8_t *data_temp;
@@ -768,6 +778,8 @@ ethernetif_input(void *pParams)
   struct netif *netif;
   struct eth_hdr *ethhdr;
   struct pbuf *p;
+	
+	INT8U err;
 
 //FSL:  ethernetif = netif->state;
   netif = (struct netif*) pParams;
@@ -783,7 +795,7 @@ ethernetif_input(void *pParams)
       {
 	/* No packet could be read.  Wait a for an interrupt to tell us
 	   there is more data available. */
-	xSemaphoreTake( xRxENETSemaphore, /*netifBLOCK_TIME_WAITING_FOR_INPUT*/portMAX_DELAY );        
+	OSSemPend( xRxENETSemaphore, /*netifBLOCK_TIME_WAITING_FOR_INPUT*/0 , &err);
       }
     }while( p == NULL );  
     /* points to packet payload, which starts with an Ethernet header */
@@ -874,7 +886,7 @@ ethernetif_init(struct netif *netif)
 
 static void prvInitialiseENETBuffers( void )
 {
-unsigned portBASE_TYPE ux;
+unsigned long ux;
 unsigned char *pcBufPointer;
 
   pcBufPointer = &( xENETTxDescriptors_unaligned[ 0 ] );
@@ -954,7 +966,7 @@ unsigned char *pcBufPointer;
 void vENETISRHandler( void )
 {
 unsigned long ulEvent;
-portBASE_TYPE xHighPriorityTaskWoken = pdFALSE;
+//unsigned long xHighPriorityTaskWoken = FALSE;
    
   /* Determine the cause of the interrupt. */
   ulEvent = ENET_EIR & ENET_EIMR;
@@ -964,13 +976,13 @@ portBASE_TYPE xHighPriorityTaskWoken = pdFALSE;
   if( /*( ulEvent & ENET_EIR_TXB_MASK ) ||*/ ( ulEvent & ENET_EIR_TXF_MASK ) )
   {    
     /* xmit task completed, go for next one! */
-    xSemaphoreGiveFromISR( xTxENETSemaphore, &xHighPriorityTaskWoken );
+    OSSemPost( xTxENETSemaphore);//, &xHighPriorityTaskWoken );
   }
   /*Rx process*/
   if( /*( ulEvent & ENET_EIR_RXB_MASK ) ||*/ ( ulEvent & ENET_EIR_RXF_MASK ) )
   {    
     /* A packet has been received.  Wake the handler task. */
-    xSemaphoreGiveFromISR( xRxENETSemaphore, &xHighPriorityTaskWoken );
+    OSSemPost( xRxENETSemaphore);//, &xHighPriorityTaskWoken );
   }
   /*Error handling*/
   if (ulEvent & ( ENET_EIR_UN_MASK | ENET_EIR_RL_MASK | ENET_EIR_LC_MASK | ENET_EIR_EBERR_MASK | ENET_EIR_BABT_MASK | ENET_EIR_BABR_MASK | ENET_EIR_EBERR_MASK ) )
@@ -981,7 +993,7 @@ portBASE_TYPE xHighPriorityTaskWoken = pdFALSE;
     ENET_RDAR = ENET_RDAR_RDAR_MASK;
   }
 
-  portEND_SWITCHING_ISR( xHighPriorityTaskWoken );
+//  portEND_SWITCHING_ISR( xHighPriorityTaskWoken );
 }
 
 #endif /* 0 */
