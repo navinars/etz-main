@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>timer_cc2530/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>224</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      <PreferedWindows><Position>1</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows></Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>747</ColumnWidth1><ColumnWidth2>211</ColumnWidth2><ColumnWidth3>49</ColumnWidth3></Build>
+      <Find-in-Files>
+        
+        
+        
+      <ColumnWidth0>361</ColumnWidth0><ColumnWidth1>51</ColumnWidth1><ColumnWidth2>619</ColumnWidth2></Find-in-Files>
+      <TerminalIO/>
+    <Debug-Log><ColumnWidth0>21</ColumnWidth0><ColumnWidth1>1014</ColumnWidth1></Debug-Log><Disassembly><MixedMode>1</MixedMode><CodeCovShow>1</CodeCovShow><InstrProfShow>1</InstrProfShow></Disassembly></Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-19842-32025</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-5478-8124</Identity>
+            <TabName>Find in Files</TabName>
+            <Factory>Find-in-Files</Factory>
+            <Session/>
+          </Tab>
+        <Tab><Identity>TabID-6819-7960</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab><Tab><Identity>TabID-8555-18077</Identity><TabName>Breakpoints</TabName><Factory>Breakpoints</Factory></Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1><Tabs><Tab><Identity>TabID-20945-25358</Identity><TabName>Workspace</TabName><Factory>Workspace</Factory><Session><NodeDict><ExpandedNode>timer_cc2530</ExpandedNode><ExpandedNode>timer_cc2530/APP</ExpandedNode><ExpandedNode>timer_cc2530/COMMON</ExpandedNode></NodeDict></Session></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.c</Filename><XPos>0</XPos><YPos>6</YPos><SelStart>361</SelStart><SelEnd>361</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\bsp\energy.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>198</SelStart><SelEnd>198</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\bsp\energy.h</Filename><XPos>0</XPos><YPos>9</YPos><SelStart>381</SelStart><SelEnd>390</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_hw.c</Filename><XPos>0</XPos><YPos>27</YPos><SelStart>2079</SelStart><SelEnd>2079</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_rf.c</Filename><XPos>0</XPos><YPos>483</YPos><SelStart>11242</SelStart><SelEnd>11242</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.c</Filename><XPos>0</XPos><YPos>9</YPos><SelStart>776</SelStart><SelEnd>776</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.h</Filename><XPos>0</XPos><YPos>236</YPos><SelStart>12174</SelStart><SelEnd>12174</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_gen.c</Filename><XPos>0</XPos><YPos>111</YPos><SelStart>2177</SelStart><SelEnd>2177</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\app\main.c</Filename><XPos>0</XPos><YPos>6</YPos><SelStart>542</SelStart><SelEnd>542</SelEnd></Tab><ActiveTab>8</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\util\util.c</Filename><XPos>0</XPos><YPos>132</YPos><SelStart>3240</SelStart><SelEnd>3254</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\util\util.h</Filename><XPos>0</XPos><YPos>30</YPos><SelStart>1029</SelStart><SelEnd>1044</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-00e9e8f8><key>iaridepm.enu1</key></Toolbar-00e9e8f8></Sizes></Row0></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>433</Bottom><Right>298</Right><x>-2</x><y>-2</y><xscreen>180</xscreen><yscreen>194</yscreen><sizeHorzCX>161146</sizeHorzCX><sizeHorzCY>275177</sizeHorzCY><sizeVertCX>268577</sizeVertCX><sizeVertCY>617021</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>227</Bottom><Right>1119</Right><x>-2</x><y>-2</y><xscreen>1121</xscreen><yscreen>229</yscreen><sizeHorzCX>1003581</sizeHorzCX><sizeHorzCY>324823</sizeHorzCY><sizeVertCX>260519</sizeVertCX><sizeVertCY>184397</sizeVertCY></Rect></Wnd0></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+
