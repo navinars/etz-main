@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Project>
+  <Desktop>
+    <Static>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1058</ColumnWidth1></Debug-Log>
+      <Build>
+        <ColumnWidth0>20</ColumnWidth0>
+        <ColumnWidth1>793</ColumnWidth1>
+        <ColumnWidth2>211</ColumnWidth2>
+        <ColumnWidth3>52</ColumnWidth3>
+      </Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>124</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Disassembly>
+        
+        
+        
+      <MixedMode>1</MixedMode><CodeCovShow>1</CodeCovShow><InstrProfShow>1</InstrProfShow></Disassembly>
+    </Static>
+    <Windows>
+      
+      
+      
+    <Wnd3>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-12909-14358</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-12386-14368</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd3><Wnd4>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-23657-14361</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>cc2530_meter_reading</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd4><Wnd5>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-1637-14365</Identity>
+            <TabName>Disassembly</TabName>
+            <Factory>Disassembly</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd5></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\app\main.c</Filename><XPos>0</XPos><YPos>26</YPos><SelStart>1530</SelStart><SelEnd>1530</SelEnd></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\bsp\mtreading.c</Filename><XPos>0</XPos><YPos>50</YPos><SelStart>1441</SelStart><SelEnd>1441</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\bsp\mtreading.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>112</SelStart><SelEnd>112</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_mcu.c</Filename><XPos>0</XPos><YPos>81</YPos><SelStart>2274</SelStart><SelEnd>2286</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\util\util_timer.c</Filename><XPos>0</XPos><YPos>86</YPos><SelStart>2825</SelStart><SelEnd>2825</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.c</Filename><XPos>0</XPos><YPos>38</YPos><SelStart>1424</SelStart><SelEnd>1424</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.c</Filename><XPos>0</XPos><YPos>66</YPos><SelStart>1838</SelStart><SelEnd>1838</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_led.c</Filename><XPos>0</XPos><YPos>13</YPos><SelStart>837</SelStart><SelEnd>837</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>583</SelStart><SelEnd>583</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_hw.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>582</SelStart><SelEnd>582</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-00e8f078><key>iaridepm.enu1</key></Toolbar-00e8f078></Sizes></Row0><Row1><Sizes><Toolbar-00edb628><key>debuggergui.enu1</key></Toolbar-00edb628></Sizes></Row1></Top><Left><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>438</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>179051</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>179051</sizeVertCX><sizeVertCY>624113</sizeVertCY></Rect></Wnd4></Sizes></Row0></Left><Right><Row0><Sizes><Wnd5><Rect><Top>-2</Top><Left>-2</Left><Bottom>438</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>179051</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>179051</sizeVertCX><sizeVertCY>624113</sizeVertCY></Rect></Wnd5></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>1119</Right><x>-2</x><y>-2</y><xscreen>1121</xscreen><yscreen>200</yscreen><sizeHorzCX>1003581</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>179051</sizeVertCX><sizeVertCY>283688</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Project>
+
+
