@@ -62,7 +62,8 @@ void  halRfSetGain(uint8 gainMode);     // With CC2590/91 only
 
 uint8 halRfGetChipId(void);
 uint8 halRfGetChipVer(void);
-uint8 halRfGetRandomByte(void);
+uint16 halRfGetRandomByte(void);
+void  random_init(void);
 uint8 halRfGetRssiOffset(void);
 
 void  halRfWriteTxBuf(uint8* pData, uint8 length);

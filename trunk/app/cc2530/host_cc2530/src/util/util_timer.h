@@ -36,7 +36,7 @@
 /***********************************************************************************
 * GLOBAL FUNCTIONS
 */
-extern void timer1_init(void);
+extern void timer_init(void);
 extern void set_timer1isr(U16 sec);
 
 #endif

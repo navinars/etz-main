@@ -20,11 +20,11 @@
  * Describtion : none.
  *
  */
-int send(mac_buf_t *buf)
+int send(unsigned char *buf, unsigned char len)
 {
 	halRfDisableRxInterrupt();
 	
-	halRfWriteTxBuf(buf->dptr, buf->len);
+	halRfWriteTxBuf(buf, len);
 	
 	halRfEnableRxInterrupt();
 	
@@ -80,7 +80,7 @@ int mac_tx_handle(address_t *dest_addr, U8 *pdata, U8 len, U8 option)
 	default:
 		return FAILED;
 	}
-	status = send(txbuf);
+	status = send(txbuf->dptr, txbuf->len);
 	reset_tx_buf();
 	// send the frame to the tx handler for processing
 	return status;
@@ -112,7 +112,9 @@ void RfRxFrmDoneIsr(void)
 	
 	rxbuf->alloc = true;
 	
-	// Enable RX frame done interrupt again
-	halRfEnableRxInterrupt();
+	
+	halRfReceiveOn();    											/* Making sure that the RX FIFO is empty.*/
+	
+	halRfEnableRxInterrupt();										/* Enable RX frame done interrupt again.*/
 }
 

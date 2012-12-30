@@ -24,6 +24,7 @@ void mac_init(void)
 	/* Initialise RF radio.*/
 	halRfInit();
 	
+#if (0)
 	pib.coord_addr.mode			= SHORT_ADDR;
 	pib.coord_addr.short_addr	= 0x0000;		// Net coord short address is 0x0000;
 	pib.coord					= true;
@@ -35,20 +36,22 @@ void mac_init(void)
 	pib.assoc_permit			= false;		// Node's association is permit.
 //	pcb.mac_state				= MLME_SCAN;
 
-	pib.curr_channel			= 20;
+	pib.curr_channel			= 20;								/* channel 20.*/
 	pib.rx_on_when_idle			= true;
 	pib.max_csma_backoffs		= 3;
 	pib.min_be					= 3;
 	pib.dsn						= (U8)halRfGetChipId(); // Random value as frame number.
 	pib.tmp_pan_id				= 0xFFFF;
 	
-	// Set channel
-	halRfSetChannel(pib.curr_channel);
-	
-    /* Write the short address and the PAN ID to the CC2520 RAM*/
+    /* Write the short address and the PAN ID to the CC2530 RAM*/
 	halRfSetExtAddr(pib.ext_addr);
 	halRfSetShortAddr(pib.short_addr);
 	halRfSetPanId(pib.pan_id);
+#endif
+	pib.curr_channel			= 20;								/* channel 20.*/
+	
+	// Set channel
+	halRfSetChannel(pib.curr_channel);
 	
 	halRfRxInterruptConfig(RfRxFrmDoneIsr);
 	

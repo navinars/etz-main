@@ -33,6 +33,7 @@
 /* Do NOT remove the absolute address and do NOT remove the initialiser here */
 __xdata static unsigned long timer_value = 0;
 __xdata volatile unsigned short sysflag = 0;
+__xdata volatile unsigned char sys_mode = 0;
 
 
 /***********************************************************************************
@@ -91,33 +92,6 @@ void clock_init(void)
 }
 
 /* ------------------------------------------------------------------------------------------------------
- * @fn		HAL_ISR_FUNCTION
- *
- * @brief
- *
- */
-HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
-{
-	halIntOff();
-	STIF = 0;
-	STIE = 1;
-	
-	set_sleeptimer(TICK_VAL);
-	
-//	halLedSet(1);
-	
-	halRfReceiveOn();
-	
-	/* Start Timer3, 100.*/
-//	HalTimerStart(HAL_TIMER_1, 3906*1);
-//	HalTimerStart(HAL_TIMER_3, 390);
-
-	sysflag = ADC_FLAG_ISR;
-	
-	halIntOn();
-}
-
-/* ------------------------------------------------------------------------------------------------------
  * @fn		set_sleeptimer
  *
  * @brief
@@ -159,5 +133,35 @@ U32 read_sleeptimer(void)
 	timer_value += ((unsigned long int) ST2) << 16;
 	
 	return timer_value;
+}
+
+/* ------------------------------------------------------------------------------------------------------
+ * @fn		HAL_ISR_FUNCTION
+ *
+ * @brief
+ *
+ */
+HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
+{
+	halIntOff();
+	STIF = 0;
+	STIE = 1;
+	
+	// TODO: Don't set sleeptimer everytime.
+//	set_sleeptimer(TICK_VAL);										/* Reset sleep timer.*/
+	
+//	halLedSet(1);
+	
+	halRfReceiveOn();
+	
+	/* Start Timer3, 50ms.*/
+	if(sys_mode == SYS_MODE_RAND_WAKE)
+	{
+		HalTimerStart(HAL_TIMER_3, 195);							/* Delay 50ms, access sleep mode.*/
+	}
+	
+//	sysflag = ADC_FLAG_ISR;
+	
+	halIntOn();
 }
 

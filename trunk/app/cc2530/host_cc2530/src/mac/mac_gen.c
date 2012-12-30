@@ -335,3 +335,32 @@ void mac_gen_beacon_frm(mac_buf_t *buf, mac_hdr_t *hdr)
 //	mac_gen_beacon(buf);
 	mac_gen_header(buf, hdr);
 }
+
+
+/********************************************************************************************************
+*                                         mac_gen_syn_frm()
+*
+* Description : Generate the complete MAC frame header and place it in the specified buffer. 
+*
+* Argument(s) : none.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : none.
+*
+* Note(s)     : none.
+*/
+int mac_gen_syn_frm(mac_syn_t *syn)
+{
+	U8 dat[3], len = 3;
+	
+	dat[0] = 2;
+	dat[1] = (syn->msgType << 4)|(syn->routeCnt & 0x0F);
+	dat[2] = syn->offset;
+	
+	send(dat, len);
+//	mac_tx_handle(&destAddr, dat, len, option);
+	
+	return 0;
+}
+

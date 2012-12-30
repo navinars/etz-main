@@ -33,18 +33,18 @@
 #define INT_HEAP_LEN  2048  // 1.00K
 
 // Clock
-#define BSP_CONFIG_CLOCK_MHZ                32
+#define BSP_CONFIG_CLOCK_MHZ           		32
 
 // LEDs
-#define HAL_BOARD_IO_LED_1_PORT        0   // Green
-#define HAL_BOARD_IO_LED_1_PIN         0
-#define HAL_BOARD_IO_LED_2_PORT        0   // Red
-#define HAL_BOARD_IO_LED_2_PIN         1
+#define HAL_BOARD_IO_LED_1_PORT        		0   // Green
+#define HAL_BOARD_IO_LED_1_PIN         		0
+#define HAL_BOARD_IO_LED_2_PORT        		0   // Red
+#define HAL_BOARD_IO_LED_2_PIN         		1
 
 
 // Buttons
-#define HAL_BOARD_IO_BTN_1_PORT        0   // Button S1
-#define HAL_BOARD_IO_BTN_1_PIN         5
+#define HAL_BOARD_IO_BTN_1_PORT        		0   // Button S1
+#define HAL_BOARD_IO_BTN_1_PIN         		5
 
 // Potmeter
 #define HAL_POTMETER_ADC_PORT               0
@@ -88,12 +88,20 @@
 /***********************************************************************************
 * GLOBAL ENUM
 */
-typedef enum
-{
+typedef enum{
 	SYS_FLAG_SLEEP_START	= 0x0001,
 	SYS_FLAG_SLEEP_SET		= 0x0002,
+	ADC_FLAG_ISR			= 0x0004,
+	BROADCASR_FLAG_SYN		= 0x0008,
 	
 } system_flag_enums_t;
+
+typedef enum{
+	BROADCAST_ACK			= 0x00,
+	BROADCAST_SYN			= 0x01,
+	BROADCAST_CMD			= 0x02,
+	
+} syn_cmdtype_enums_t;
 
 /***********************************************************************************
 * GLOBAL VARIABLES

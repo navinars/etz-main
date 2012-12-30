@@ -311,6 +311,12 @@ typedef struct
 	U8				capability;
 } mac_assoc_req_t;
 
+typedef struct{
+	U8				msgType;
+	U8				routeCnt;
+	U8				offset;
+} mac_syn_t;
+
 /*
 *********************************************************************************************************
 *                                           GLOBAL VARIABLES
@@ -355,14 +361,15 @@ extern U16  mac_gen_superfrm_spec(void);
 
 extern void mac_gen_beacon_frm(mac_buf_t *buf, mac_hdr_t *hdr);
 
+extern int mac_gen_syn_frm(mac_syn_t *syn);
+
 
 //---------------------------------------mac_hw.c--------------------------------------------------------
-extern int  send(mac_buf_t *buf);
-
 extern int  mac_tx_handle(address_t *dest_addr, U8 *pdata, U8 len, U8 option);
 
 extern void RfRxFrmDoneIsr(void);
 
+extern int 	send(unsigned char *buf, unsigned char len);
 
 //---------------------------------------mac_parse.c--------------------------------------------------------
 extern void mac_parse_hdr(mac_buf_t *buf, mac_hdr_t *hdr);

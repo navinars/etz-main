@@ -12,7 +12,7 @@
           
           
           
-        <Column0>205</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+        <Column0>212</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
       </Workspace>
       <Build>
         
@@ -42,11 +42,11 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>host_cc2530</ExpandedNode><ExpandedNode>host_cc2530/APP</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>host_cc2530</ExpandedNode><ExpandedNode>host_cc2530/APP</ExpandedNode><ExpandedNode>host_cc2530/MAC</ExpandedNode><ExpandedNode>host_cc2530/MCU</ExpandedNode></NodeDict></Session>
           </Tab>
         <Tab><Identity>TabID-31619-13467</Identity><TabName>Source Browser</TabName><Factory>SourceBrowser</Factory><Session><TypeFilter>2147483647</TypeFilter><FileFilter>1</FileFilter></Session></Tab></Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd1><Wnd4>
+      <SelectedTab>0</SelectedTab></Wnd1><Wnd3>
         <Tabs>
           <Tab>
             <Identity>TabID-9994-24679</Identity>
@@ -60,28 +60,23 @@
             <Factory>Find-in-Files</Factory>
             <Session/>
           </Tab>
-          <Tab>
-            <Identity>TabID-4020-397</Identity>
-            <TabName>Debug Log</TabName>
-            <Factory>Debug-Log</Factory>
-            <Session/>
-          </Tab>
-        </Tabs>
+          
+        <Tab><Identity>TabID-6288-14669</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd4><Wnd5><Tabs><Tab><Identity>TabID-18257-13513</Identity><TabName>Breakpoints</TabName><Factory>Breakpoints</Factory></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd5></Windows>
+      <SelectedTab>0</SelectedTab></Wnd3></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.c</Filename><XPos>0</XPos><YPos>117</YPos><SelStart>2122</SelStart><SelEnd>2858</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.h</Filename><XPos>0</XPos><YPos>189</YPos><SelStart>11377</SelStart><SelEnd>11377</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_rf.c</Filename><XPos>0</XPos><YPos>399</YPos><SelStart>9724</SelStart><SelEnd>9724</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_hw.c</Filename><XPos>0</XPos><YPos>108</YPos><SelStart>898</SelStart><SelEnd>898</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\common\hal_types.h</Filename><XPos>0</XPos><YPos>135</YPos><SelStart>588</SelStart><SelEnd>588</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.h</Filename><XPos>0</XPos><YPos>63</YPos><SelStart>1610</SelStart><SelEnd>1610</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_buf.c</Filename><XPos>0</XPos><YPos>29</YPos><SelStart>1636</SelStart><SelEnd>1636</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_gen.c</Filename><XPos>0</XPos><YPos>69</YPos><SelStart>721</SelStart><SelEnd>721</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_adc.c</Filename><XPos>0</XPos><YPos>24</YPos><SelStart>999</SelStart><SelEnd>999</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Program Files\IAR Systems\Embedded Workbench 6.0 Evaluation\8051\inc\ioCC2530.h</Filename><XPos>0</XPos><YPos>240</YPos><SelStart>16061</SelStart><SelEnd>16061</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\app\main.c</Filename><XPos>0</XPos><YPos>33</YPos><SelStart>1733</SelStart><SelEnd>1733</SelEnd></Tab><ActiveTab>10</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.c</Filename><XPos>0</XPos><YPos>40</YPos><SelStart>1514</SelStart><SelEnd>1514</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_mcu.c</Filename><XPos>0</XPos><YPos>9</YPos><SelStart>558</SelStart><SelEnd>558</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.c</Filename><XPos>0</XPos><YPos>29</YPos><SelStart>1166</SelStart><SelEnd>1166</SelEnd></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_rf.c</Filename><XPos>0</XPos><YPos>244</YPos><SelStart>6370</SelStart><SelEnd>6470</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_gen.c</Filename><XPos>0</XPos><YPos>344</YPos><SelStart>9928</SelStart><SelEnd>9928</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_hw.c</Filename><XPos>0</XPos><YPos>72</YPos><SelStart>2074</SelStart><SelEnd>2074</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\app\main.c</Filename><XPos>0</XPos><YPos>65</YPos><SelStart>2682</SelStart><SelEnd>2682</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.h</Filename><XPos>0</XPos><YPos>305</YPos><SelStart>13050</SelStart><SelEnd>13050</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.h</Filename><XPos>0</XPos><YPos>27</YPos><SelStart>926</SelStart><SelEnd>926</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.c</Filename><XPos>0</XPos><YPos>105</YPos><SelStart>2855</SelStart><SelEnd>2855</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_rf.h</Filename><XPos>0</XPos><YPos>51</YPos><SelStart>2064</SelStart><SelEnd>2064</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\sfr-bits.h</Filename><XPos>0</XPos><YPos>161</YPos><SelStart>5196</SelStart><SelEnd>5196</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_clock.c</Filename><XPos>0</XPos><YPos>30</YPos><SelStart>1393</SelStart><SelEnd>1393</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-01f1dc48><key>iaridepm.enu1</key></Toolbar-01f1dc48></Sizes></Row0></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>450</Bottom><Right>279</Right><x>-2</x><y>-2</y><xscreen>250</xscreen><yscreen>212</yscreen><sizeHorzCX>220848</sizeHorzCX><sizeHorzCY>300709</sizeHorzCY><sizeVertCX>248233</sizeVertCX><sizeVertCY>641135</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>210</Bottom><Right>823</Right><x>-2</x><y>-2</y><xscreen>825</xscreen><yscreen>212</yscreen><sizeHorzCX>728799</sizeHorzCX><sizeHorzCY>300709</sizeHorzCY><sizeVertCX>220848</sizeVertCX><sizeVertCY>300709</sizeVertCY></Rect></Wnd4><Wnd5><Rect><Top>0</Top><Left>0</Left><Bottom>215876440</Bottom><Right>33454208</Right><x>821</x><y>-2</y><xscreen>313</xscreen><yscreen>212</yscreen><sizeHorzCX>276502</sizeHorzCX><sizeHorzCY>300709</sizeHorzCY><sizeVertCX>173145</sizeVertCX><sizeVertCY>280851</sizeVertCY></Rect></Wnd5></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-0289f078><key>iaridepm.enu1</key></Toolbar-0289f078></Sizes></Row0><Row1><Sizes/></Row1><Row2><Sizes/></Row2></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>450</Bottom><Right>303</Right><x>-2</x><y>-2</y><xscreen>247</xscreen><yscreen>212</yscreen><sizeHorzCX>221128</sizeHorzCX><sizeHorzCY>300709</sizeHorzCY><sizeVertCX>273053</sizeVertCX><sizeVertCY>641135</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>210</Bottom><Right>1119</Right><x>-2</x><y>-2</y><xscreen>1121</xscreen><yscreen>212</yscreen><sizeHorzCX>1003581</sizeHorzCX><sizeHorzCY>300709</sizeHorzCY><sizeVertCX>221128</sizeVertCX><sizeVertCY>300709</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 

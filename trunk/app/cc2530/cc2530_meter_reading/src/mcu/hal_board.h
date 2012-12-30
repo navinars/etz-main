@@ -20,8 +20,8 @@
  * CONSTANTS
  */
 /* Sleep timer runs on the 32.768k external RC. */
-/* One clock tick is 7.8 ms */
-#define TICK_VAL 1638
+/* One clock tick is 30.5 us */
+#define TICK_VAL 1638			//50ms
 
 
 // Internal (MCU) RAM addresses
@@ -38,8 +38,8 @@
 // LEDs
 #define HAL_BOARD_IO_LED_1_PORT        0   // Green
 #define HAL_BOARD_IO_LED_1_PIN         0
-#define HAL_BOARD_IO_LED_2_PORT        0   // Red
-#define HAL_BOARD_IO_LED_2_PIN         1
+#define HAL_BOARD_IO_LED_2_PORT        1   // Red
+#define HAL_BOARD_IO_LED_2_PIN         0
 
 
 // Buttons
@@ -88,18 +88,29 @@
 /***********************************************************************************
 * GLOBAL ENUM
 */
-typedef enum
-{
+typedef enum{
 	SYS_FLAG_SLEEP_START	= 0x0001,
 	SYS_FLAG_SLEEP_SET		= 0x0002,
 	ADC_FLAG_ISR			= 0x0004,
-	
+	SYS_FLAG_INIT_MODE		= 0x0008,
 } system_flag_enums_t;
+
+typedef enum{
+	SYS_MODE_RAND_WAKE		= 1,
+} system_mode_enums_t;
+
+typedef enum{
+	BROADCAST_ACK			= 0x00,
+	BROADCAST_SYN			= 0x01,
+	BROADCAST_CMD			= 0x02,
+} syn_cmdtype_enums_t;
+
 
 /***********************************************************************************
 * GLOBAL VARIABLES
 */
 extern volatile unsigned short sysflag;
+extern volatile unsigned char sys_mode;
 
 
 /***********************************************************************************

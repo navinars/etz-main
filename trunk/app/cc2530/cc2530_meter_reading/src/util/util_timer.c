@@ -59,7 +59,7 @@ void timer_init(void)
 				   HAL_TIMER_MODE_NORMAL,
 				   HAL_TIMER_CHANNEL_SINGLE, 
 				   HAL_TIMER_CH_MODE_OVERFLOW,
-				   false,
+				   true,
 				   util_Timer3CallBack);
 //	HalTimerStart(HAL_TIMER_3, 250);		// 1s run timer3 ISR on channel 1.
 	
@@ -125,13 +125,19 @@ static void util_Timer3CallBack ( uint8 timerId, uint8 channel, uint8 channelMod
 	
 	switch(channel)
 	{
+	/* Delay 50ms for waiting RX data, than pown down in mode 2.*/
 	case HAL_TIMER_CHANNEL_SINGLE:
+		set_sleeptimer(TICK_VAL);									/* Reset sleep timer.*/
+		sysflag = SYS_FLAG_SLEEP_START;
 		break;
+		
 	case HAL_TIMER_CHANNEL_0:
 		halLedToggle(2);
 		break;
+		
 	case HAL_TIMER_CHANNEL_1:
 		break;
+		
 	default:
 		break;
 	}
