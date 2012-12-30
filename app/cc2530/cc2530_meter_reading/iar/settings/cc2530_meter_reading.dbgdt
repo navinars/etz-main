@@ -8,30 +8,30 @@
         
       <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1058</ColumnWidth1></Debug-Log>
       <Build>
-        <ColumnWidth0>20</ColumnWidth0>
-        <ColumnWidth1>793</ColumnWidth1>
-        <ColumnWidth2>211</ColumnWidth2>
-        <ColumnWidth3>52</ColumnWidth3>
-      </Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>793</ColumnWidth1><ColumnWidth2>211</ColumnWidth2><ColumnWidth3>52</ColumnWidth3></Build>
       <Workspace>
         <ColumnWidths>
           
           
           
           
-        <Column0>124</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+        <Column0>186</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
       </Workspace>
       <Disassembly>
         
         
         
-      <MixedMode>1</MixedMode><CodeCovShow>1</CodeCovShow><InstrProfShow>1</InstrProfShow></Disassembly>
-    </Static>
+      <PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><MixedMode>1</MixedMode><CodeCovShow>1</CodeCovShow><InstrProfShow>1</InstrProfShow></Disassembly>
+    <Watch><Format><struct_types/><watch_formats/></Format><PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><Column0>100</Column0><Column1>100</Column1><Column2>100</Column2><Column3>100</Column3></Watch><QuickWatch><Column0>100</Column0><Column1>100</Column1><Column2>100</Column2><Column3>100</Column3><PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Watch</Factory></Window></Windows></PreferedWindows></QuickWatch><Register><PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows></Register></Static>
     <Windows>
       
       
       
-    <Wnd3>
+    <Wnd0>
         <Tabs>
           <Tab>
             <Identity>TabID-12909-14358</Identity>
@@ -47,7 +47,7 @@
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd3><Wnd4>
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
         <Tabs>
           <Tab>
             <Identity>TabID-23657-14361</Identity>
@@ -55,34 +55,24 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>cc2530_meter_reading</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>cc2530_meter_reading</ExpandedNode><ExpandedNode>cc2530_meter_reading/APP</ExpandedNode><ExpandedNode>cc2530_meter_reading/MAC</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd4><Wnd5>
-        <Tabs>
-          <Tab>
-            <Identity>TabID-1637-14365</Identity>
-            <TabName>Disassembly</TabName>
-            <Factory>Disassembly</Factory>
-            <Session/>
-          </Tab>
-        </Tabs>
-        
-      <SelectedTab>0</SelectedTab></Wnd5></Windows>
+      <SelectedTab>0</SelectedTab></Wnd1><Wnd2><Tabs><Tab><Identity>TabID-32206-1535</Identity><TabName>Breakpoints</TabName><Factory>Breakpoints</Factory></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd2><Wnd3><Tabs><Tab><Identity>TabID-27465-28829</Identity><TabName>Disassembly</TabName><Factory>Disassembly</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd3></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\app\main.c</Filename><XPos>0</XPos><YPos>26</YPos><SelStart>1530</SelStart><SelEnd>1530</SelEnd></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\bsp\mtreading.c</Filename><XPos>0</XPos><YPos>50</YPos><SelStart>1441</SelStart><SelEnd>1441</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\bsp\mtreading.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>112</SelStart><SelEnd>112</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_mcu.c</Filename><XPos>0</XPos><YPos>81</YPos><SelStart>2274</SelStart><SelEnd>2286</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\util\util_timer.c</Filename><XPos>0</XPos><YPos>86</YPos><SelStart>2825</SelStart><SelEnd>2825</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.c</Filename><XPos>0</XPos><YPos>38</YPos><SelStart>1424</SelStart><SelEnd>1424</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.c</Filename><XPos>0</XPos><YPos>66</YPos><SelStart>1838</SelStart><SelEnd>1838</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_led.c</Filename><XPos>0</XPos><YPos>13</YPos><SelStart>837</SelStart><SelEnd>837</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>583</SelStart><SelEnd>583</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_hw.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>582</SelStart><SelEnd>582</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\app\main.c</Filename><XPos>0</XPos><YPos>26</YPos><SelStart>1531</SelStart><SelEnd>1531</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.c</Filename><XPos>0</XPos><YPos>144</YPos><SelStart>3858</SelStart><SelEnd>3858</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_board.h</Filename><XPos>0</XPos><YPos>99</YPos><SelStart>3618</SelStart><SelEnd>3618</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\util\util_timer.c</Filename><XPos>0</XPos><YPos>115</YPos><SelStart>3533</SelStart><SelEnd>3533</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mcu\hal_timer.h</Filename><XPos>0</XPos><YPos>78</YPos><SelStart>4785</SelStart><SelEnd>4816</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac.c</Filename><XPos>0</XPos><YPos>105</YPos><SelStart>2619</SelStart><SelEnd>2619</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\mac\mac_hw.c</Filename><XPos>0</XPos><YPos>96</YPos><SelStart>1095</SelStart><SelEnd>1095</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\app\chipcon_cstartup.s51</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>231</SelStart><SelEnd>231</SelEnd></Tab><ActiveTab>7</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-00e8f078><key>iaridepm.enu1</key></Toolbar-00e8f078></Sizes></Row0><Row1><Sizes><Toolbar-00edb628><key>debuggergui.enu1</key></Toolbar-00edb628></Sizes></Row1></Top><Left><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>438</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>179051</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>179051</sizeVertCX><sizeVertCY>624113</sizeVertCY></Rect></Wnd4></Sizes></Row0></Left><Right><Row0><Sizes><Wnd5><Rect><Top>-2</Top><Left>-2</Left><Bottom>438</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>179051</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>179051</sizeVertCX><sizeVertCY>624113</sizeVertCY></Rect></Wnd5></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>1119</Right><x>-2</x><y>-2</y><xscreen>1121</xscreen><yscreen>200</yscreen><sizeHorzCX>1003581</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>179051</sizeVertCX><sizeVertCY>283688</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-0054f078><key>iaridepm.enu1</key></Toolbar-0054f078></Sizes></Row0><Row1><Sizes><Toolbar-0f1370f8><key>debuggergui.enu1</key></Toolbar-0f1370f8></Sizes></Row1><Row2><Sizes/></Row2></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>438</Bottom><Right>260</Right><x>-2</x><y>-2</y><xscreen>171</xscreen><yscreen>194</yscreen><sizeHorzCX>153089</sizeHorzCX><sizeHorzCY>275177</sizeHorzCY><sizeVertCX>234557</sizeVertCX><sizeVertCY>624113</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>438</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>179051</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>179051</sizeVertCX><sizeVertCY>624113</sizeVertCY></Rect></Wnd3></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>736</Right><x>-2</x><y>-2</y><xscreen>738</xscreen><yscreen>200</yscreen><sizeHorzCX>660698</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>153089</sizeVertCX><sizeVertCY>275177</sizeVertCY></Rect></Wnd0><Wnd2><Rect><Top>0</Top><Left>0</Left><Bottom>1262899029</Bottom><Right>1398164558</Right><x>734</x><y>-2</y><xscreen>385</xscreen><yscreen>200</yscreen><sizeHorzCX>344673</sizeHorzCX><sizeHorzCY>283688</sizeHorzCY><sizeVertCX>181737</sizeVertCX><sizeVertCY>283688</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Project>
 

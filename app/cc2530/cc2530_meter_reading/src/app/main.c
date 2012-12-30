@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------------------------------------------
  *
- *                                            timer_cc2530/Main
+ *                                            meter_reading/Main
  *                                            INTRODUCTION DEMO
  *
  *
@@ -38,13 +38,15 @@ int main(void)
 {
 	halBoardInit();													/* Initialise clock, enable master interrupt.*/
 	
-//	timer_init();													/* Initialise timer 1(16bit).*/
+	timer_init();													/* Initialise timer 1(16bit).*/
 	
 	mac_init();														/* Initialise MAC layer.*/
 	
 //	energy_init();													/* Initialise energy I/O.*/
 	
 	set_sleeptimer(TICK_VAL);										/* Enable sleep timer.*/
+	
+	sys_mode = SYS_MODE_RAND_WAKE;									/* Random wake up mode.*/
 	
 	SLEEPCMD = (SLEEPCMD & ~0x02) | 0x02;							/* Power-mode setting
 																		00: Active / Idle mode
@@ -55,11 +57,13 @@ int main(void)
 	
 	for(;;)
 	{
+
 		if(sysflag & SYS_FLAG_SLEEP_START)							/* Sleep mode.*/
 		{
 			sysflag &= ~SYS_FLAG_SLEEP_START;						/* Clear system flag.*/
 			
 			halLedClear(2);
+			
 			EnterSleepModeDisableInterruptsOnWakeup();
 		}
 		else if(sysflag & ADC_FLAG_ISR)								/* ADC mode.*/
@@ -68,8 +72,10 @@ int main(void)
 			
 			SensorADCInit();
 			SensorADCBegin();
+			
 			halLedSet(2);
 		}
+
 		mac_event_handle();											/* Rx mode handle.*/
 	}
 }

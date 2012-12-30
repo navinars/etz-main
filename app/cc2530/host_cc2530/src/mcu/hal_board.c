@@ -74,13 +74,8 @@ void clock_init(void)
 //	while(CLKCONSTA != CLKCONCMD);
 	while(!(CLKCONSTA & (CLKCONCMD_TICKSPD2 | CLKCONCMD_TICKSPD1)));
 	
+	/* Cache Prefetch control.*/
 	PREFETCH_ENABLE();
-	
-	/* Initialize tick value */
-	set_sleeptimer(TICK_VAL);
-	
-	STIF = 0;
-	STIE = 1; /* Sleep timer interrupt enable */
 }
 
 /* ------------------------------------------------------------------------------------------------------
@@ -100,10 +95,6 @@ HAL_ISR_FUNCTION( stIsr, ST_VECTOR )
 	halLedSet(1);
 	
 	halRfReceiveOn();
-	
-	/* Start Timer3, 100.*/
-	HalTimerStart(HAL_TIMER_1, 3906*1);
-	HalTimerStart(HAL_TIMER_3, 390);
 	
 	halIntOn();
 }
@@ -130,6 +121,9 @@ void set_sleeptimer(U32 value)
 	ST2 = (unsigned char) (timer_value >> 16);
 	ST1 = (unsigned char) (timer_value >> 8);
 	ST0 = (unsigned char) timer_value;
+	
+	STIF = 0;
+	STIE = 1; /* Sleep timer interrupt enable */
 }
 
 /* ------------------------------------------------------------------------------------------------------
