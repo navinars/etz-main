@@ -60,9 +60,10 @@
 
 #define  APP_CFG_TASK_START_PRIO                           	2
 #define  APP_CFG_TASK_CC2520_PRIO							4
-#define  APP_CFG_TASK_LCD_PRIO								5
+//#define  APP_CFG_TASK_LCD_PRIO							5
 
-#define configETHERNET_INPUT_TASK_PRIORITY					3
+/* Kinetis K60 MAC interrupt handler task prio.*/
+#define configETHERNET_INPUT_TASK_PRIORITY					5
 
 /*lwIP TCP/IP stack task.*/
 #define  TASK_LWIP_TASK_ISR_PRIO							14
@@ -87,9 +88,9 @@
 
 #define  TASK_START_STK_SIZE                     	 50
 #define  TASK_CC2520_STK_SIZE                       512
-#define  TASK_NET_CLIENT_STACK_SIZE					512
+#define  TASK_NET_CLIENT_STACK_SIZE					128
 #define  TASK_LCD_STK_SIZE							128
-#define  TASK_LWIP_STK_SIZE							512
+#define  TASK_LWIP_STK_SIZE							256
 /*
 *********************************************************************************************************
 *                               uC/Probe plug-in for uC/OS-II CONFIGURATION
@@ -160,8 +161,8 @@
 *                                     MODULE CONFIGURATION
 *********************************************************************************************************
 */
-//#define LCD
-//#define CC2520
+//#define			LCD
+//#define			CC2520
 
 /*
 *********************************************************************************************************
@@ -169,27 +170,27 @@
 *********************************************************************************************************
 */
 #include "os_cfg.h"
-#define portTICK_RATE_MS				( 1000 / OS_TICKS_PER_SEC)
+#define portTICK_RATE_MS		( 1000 / OS_TICKS_PER_SEC)
 
 /* MAC address configuration. */
-#define configMAC_ADDR0	0x00
-#define configMAC_ADDR1	0xCF
-#define configMAC_ADDR2	0x52
-#define configMAC_ADDR3	0x35
-#define configMAC_ADDR4	0x00
-#define configMAC_ADDR5	0x01
+#define configMAC_ADDR0			0x00
+#define configMAC_ADDR1			0xCF
+#define configMAC_ADDR2			0x52
+#define configMAC_ADDR3			0x35
+#define configMAC_ADDR4			0x00
+#define configMAC_ADDR5			0x01
 
 /* IP address configuration. */
-#define configIP_ADDR0		192
-#define configIP_ADDR1		168
-#define configIP_ADDR2		0
-#define configIP_ADDR3		201
+#define configIP_ADDR0			192
+#define configIP_ADDR1			168
+#define configIP_ADDR2			2
+#define configIP_ADDR3			201
 
 /* Netmask configuration. */
-#define configNET_MASK0		255
-#define configNET_MASK1		255
-#define configNET_MASK2		255
-#define configNET_MASK3		0
+#define configNET_MASK0			255
+#define configNET_MASK1			255
+#define configNET_MASK2			255
+#define configNET_MASK3			0
 
 /* Gateway IP address configuration. */
 #define configGW_ADDR0	        192
@@ -225,14 +226,15 @@
 #endif
 
 #define configNUM_ENET_TX_BUFFERS       3//more is useless for this specific driver: might try with lower
-#define configENET_TX_BUFFER_SIZE	1520/*no need to reduce this number*/
+#define configENET_TX_BUFFER_SIZE		1520/*no need to reduce this number*/
 
 #define configENET_MAX_PACKET_SIZE      1520
-#define configUSE_PROMISCUOUS_MODE	0
+#define configUSE_PROMISCUOUS_MODE		0
 #define configUSE_MII_MODE              0/*FSL: using RMII mode*/
 #define configETHERNET_INPUT_TASK_STACK_SIZE ( 256 )
 //#define configETHERNET_INPUT_TASK_PRIORITY 		//( configMAX_PRIORITIES - 1 )
 
+//#define TSIEVB
 #ifndef TSIEVB
 #define configPHY_ADDRESS	0
 #else

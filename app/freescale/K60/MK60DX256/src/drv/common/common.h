@@ -59,6 +59,10 @@
  * Include bsp utilities
  */
 #include "sysinit.h"
+#include "enet.h"
+#include "eth_phy.h"
+#include "mii.h"
+#include "nbuf.h"
 
 
 /* 

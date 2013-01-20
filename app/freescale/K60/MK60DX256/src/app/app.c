@@ -58,7 +58,8 @@ static  void  App_EventCreate (void)
  */
 static  void  App_TaskCreate (void)
 {
-//	TaskTcpip_Create();												/* Create lwIP task and init.*/
+
+	TaskTcpip_Create();												/* Create lwIP task and init.*/
 
 #ifdef LCD
 	TaskLCD_Create();												/* Create LCD task.*/
@@ -81,19 +82,18 @@ static  void  App_TaskStart (void *p_arg)
 {
 	(void)p_arg;
 	
-	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);		/* Initialize the SysTick.*/
-	
-	lwIP_init();													/* Initialise lwIP stack. */
-	
-// 	App_EventCreate();
-// 	
-// 	App_TaskCreate();
-	
 	/* Turn on all port clocks */
 	SIM_SCGC5 = SIM_SCGC5_PORTA_MASK | SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK | SIM_SCGC5_PORTD_MASK | SIM_SCGC5_PORTE_MASK;
 	
 	PORTB_PCR10 &= ~PORT_PCR_MUX_MASK;
 	PORTB_PCR10 |= PORT_PCR_MUX(1);
+	
+	
+	OS_CPU_SysTickInit(SysCtlClockGet() / OS_TICKS_PER_SEC);		/* Initialize the SysTick.*/
+	
+	App_EventCreate();
+	
+	App_TaskCreate();
 	
 	
     while(1)

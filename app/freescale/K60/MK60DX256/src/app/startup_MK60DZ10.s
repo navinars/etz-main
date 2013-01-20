@@ -140,9 +140,9 @@ __Vectors       DCD     __initial_sp  ; Top of Stack
                 DCD     USB0_IRQHandler  ; USB0 interrupt
                 DCD     USBDCD_IRQHandler  ; USBDCD Interrupt
                 DCD     ENET_1588_Timer_IRQHandler  ; Ethernet MAC IEEE 1588 Timer Interrupt
-                DCD     vENETISRHandler;ENET_Transmit_IRQHandler  ; Ethernet MAC Transmit Interrupt
-                DCD     vENETISRHandler;ENET_Receive_IRQHandler  ; Ethernet MAC Receive Interrupt
-                DCD     vENETISRHandler;ENET_Error_IRQHandler  ; Ethernet MAC Error and miscelaneous Interrupt
+                DCD     ENET_Transmit_IRQHandler  ; ENET_Transmit_IRQHandler  ; Ethernet MAC Transmit Interrupt
+                DCD     ENET_Receive_IRQHandler  ; ENET_Receive_IRQHandler  ; Ethernet MAC Receive Interrupt
+                DCD     ENET_Error_IRQHandler  ; ENET_Error_IRQHandler  ; Ethernet MAC Error and miscelaneous Interrupt
                 DCD     I2S0_IRQHandler  ; I2S0 Interrupt
                 DCD     SDHC_IRQHandler  ; SDHC Interrupt
                 DCD     DAC0_IRQHandler  ; DAC0 interrupt
@@ -522,11 +522,6 @@ OS_CPU_SysTickHandler\
                 EXPORT  OS_CPU_SysTickHandler     [WEAK]
                 B       .
                 ENDP
-vENETISRHandler\
-                PROC
-                EXPORT  vENETISRHandler     [WEAK]
-                B       .
-                ENDP
 Default_Handler PROC
                 EXPORT  DMA0_IRQHandler     [WEAK]
                 EXPORT  DMA1_IRQHandler     [WEAK]
@@ -604,9 +599,9 @@ Default_Handler PROC
                 EXPORT  USB0_IRQHandler     [WEAK]
                 EXPORT  USBDCD_IRQHandler     [WEAK]
                 EXPORT  ENET_1588_Timer_IRQHandler     [WEAK]
-                EXPORT  vENETISRHandler     [WEAK]
-                EXPORT  vENETISRHandler     [WEAK]
-                EXPORT  vENETISRHandler     [WEAK]
+                EXPORT  ENET_Transmit_IRQHandler     [WEAK]
+                EXPORT  ENET_Receive_IRQHandler     [WEAK]
+                EXPORT  ENET_Error_IRQHandler     [WEAK]
                 EXPORT  I2S0_IRQHandler     [WEAK]
                 EXPORT  SDHC_IRQHandler     [WEAK]
                 EXPORT  DAC0_IRQHandler     [WEAK]

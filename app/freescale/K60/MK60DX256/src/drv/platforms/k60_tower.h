@@ -21,7 +21,7 @@
 
 
 /* Define for the CPU on the K60 board */
-#define CPU_MK60D256ZVLL100
+#define CPU_MK60DX256ZVLL100
 
 /*
  * System Bus Clock Info
