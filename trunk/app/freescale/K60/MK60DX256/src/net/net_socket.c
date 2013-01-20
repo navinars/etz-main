@@ -34,21 +34,21 @@ int conn_amount;				/* current connection amount.*/
 //*****************************************************************************
 void NetDisplayIPAddress(unsigned long ipaddr)
 {
-	int ret;
-    char pucBuf[16];
-    unsigned char *pucTemp = (unsigned char *)&ipaddr;
+// 	int ret;
+//     char pucBuf[16];
+//     unsigned char *pucTemp = (unsigned char *)&ipaddr;
 
     //
     // Convert the IP Address into a string.
     //
-    sprintf(pucBuf, "%d.%d.%d.%d\n", pucTemp[0], pucTemp[1], pucTemp[2],
-             pucTemp[3]);
+//     sprintf(pucBuf, "%d.%d.%d.%d\n", pucTemp[0], pucTemp[1], pucTemp[2],
+//              pucTemp[3]);
 
-    //
-    // Display the string.
-    //
-    ret = lwip_write(s, pucBuf, sizeof(pucBuf));
-	LWIP_ASSERT("ret == -1", ret == -1);
+//     //
+//     // Display the string.
+//     //
+//     ret = lwip_write(s, pucBuf, sizeof(pucBuf));
+// 	LWIP_ASSERT("ret == -1", ret == -1);
 }
 
 /* ------------------------------------------------------------------------------------------------------

@@ -118,7 +118,7 @@ extern int periph_clk_khz;
 OS_STK	ETHERNET_INPUT_TASK_STACK[configETHERNET_INPUT_TASK_STACK_SIZE];
 
 //OS_EVENT xEthIntTask;
-
+void vENETISRHandler( void );
 /**
  * Helper struct to hold private data used to operate your ethernet interface.
  * Keeping the ethernet address of the MAC in this struct is not necessary
@@ -149,68 +149,68 @@ static void  ethernetif_input(/*FSL:struct netif *netif*/void *pParams);
 static void
 low_level_init(struct netif *netif)
 {
-/*unsigned portLONG*/ int usData;
-const unsigned char ucMACAddress[6] = 
-{
-  configMAC_ADDR0, configMAC_ADDR1,configMAC_ADDR2,configMAC_ADDR3,configMAC_ADDR4,configMAC_ADDR5
-};
+	/*unsigned portLONG*/ int usData;
+	const unsigned char ucMACAddress[6] = 
+	{
+		configMAC_ADDR0, configMAC_ADDR1,configMAC_ADDR2,configMAC_ADDR3,configMAC_ADDR4,configMAC_ADDR5
+	};
 
-//FSL:struct ethernetif *ethernetif = netif->state;
-  
-  /* set MAC hardware address length */
-  netif->hwaddr_len = ETHARP_HWADDR_LEN;
+	//FSL:struct ethernetif *ethernetif = netif->state;
 
-  /* set MAC hardware address */
-  netif->hwaddr[0] = configMAC_ADDR0;
-  netif->hwaddr[1] = configMAC_ADDR1;
-  netif->hwaddr[2] = configMAC_ADDR2;
-  netif->hwaddr[3] = configMAC_ADDR3;
-  netif->hwaddr[4] = configMAC_ADDR4;
-  netif->hwaddr[5] = configMAC_ADDR5;
+	/* set MAC hardware address length */
+	netif->hwaddr_len = ETHARP_HWADDR_LEN;
 
-  /* maximum transfer unit */
-  netif->mtu = configENET_MAX_PACKET_SIZE-20;
-  
-  /* device capabilities */
-  /* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
-  netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP;
- 
-  /* Do whatever else is needed to initialize interface. */  
-  
-  /* Enable the ENET clock. */
-  SIM_SCGC2 |= SIM_SCGC2_ENET_MASK;
+	/* set MAC hardware address */
+	netif->hwaddr[0] = configMAC_ADDR0;
+	netif->hwaddr[1] = configMAC_ADDR1;
+	netif->hwaddr[2] = configMAC_ADDR2;
+	netif->hwaddr[3] = configMAC_ADDR3;
+	netif->hwaddr[4] = configMAC_ADDR4;
+	netif->hwaddr[5] = configMAC_ADDR5;
 
-  /*FSL: allow concurrent access to MPU controller. Example: ENET uDMA to SRAM, otherwise bus error*/
-  MPU_CESR = 0;
-        
-  prvInitialiseENETBuffers();
-  
-  /*FSL: create semaphores*/
-  xRxENETSemaphore = OSSemCreate(0);
-  xTxENETSemaphore = OSSemCreate(0);
-  
-  /* Set the Reset bit and clear the Enable bit */
-  ENET_ECR = ENET_ECR_RESET_MASK;
+	/* maximum transfer unit */
+	netif->mtu = configENET_MAX_PACKET_SIZE-20;
 
-  /* Wait at least 8 clock cycles */
-  for( usData = 0; usData < 10; usData++ )
-  {
-    __asm( "NOP" );
-  }
-    
-  /*FSL: start MII interface*/
-  mii_init(0, periph_clk_khz/1000/*MHz*/);       
-        
-  //enet_interrupt_routine
-  set_irq_priority (76, 6);
-  enable_irq(76);//ENET xmit interrupt
-  //enet_interrupt_routine
-  set_irq_priority (77, 6);
-  enable_irq(77);//ENET rx interrupt
-  //enet_interrupt_routine
-  set_irq_priority (78, 6);
-  enable_irq(78);//ENET error and misc interrupts
-        
+	/* device capabilities */
+	/* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
+	netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP;
+
+	/* Do whatever else is needed to initialize interface. */  
+
+	/* Enable the ENET clock. */
+	SIM_SCGC2 |= SIM_SCGC2_ENET_MASK;
+
+	/*FSL: allow concurrent access to MPU controller. Example: ENET uDMA to SRAM, otherwise bus error*/
+	MPU_CESR = 0;
+
+	prvInitialiseENETBuffers();
+
+	/*FSL: create semaphores*/
+	xRxENETSemaphore = OSSemCreate(0);
+	xTxENETSemaphore = OSSemCreate(0);
+
+	/* Set the Reset bit and clear the Enable bit */
+	ENET_ECR = ENET_ECR_RESET_MASK;
+
+	/* Wait at least 8 clock cycles */
+	for( usData = 0; usData < 10; usData++ )
+	{
+		__asm( "NOP" );
+	}
+
+	/*FSL: start RMII interface*/
+	mii_init(0, periph_clk_khz/1000/*MHz*/);       
+
+	//enet_interrupt_routine
+	set_irq_priority (76, 7);
+	enable_irq(76);//ENET xmit interrupt
+	//enet_interrupt_routine
+	set_irq_priority (77, 7);
+	enable_irq(77);//ENET rx interrupt
+	//enet_interrupt_routine
+	set_irq_priority (78, 7);
+	enable_irq(78);//ENET error and misc interrupts
+
   /*
    * Make sure the external interface signals are enabled
    */
@@ -242,8 +242,8 @@ const unsigned char ucMACAddress[6] =
   PORTA_PCR15 = PORT_PCR_MUX(4);//RMII0_TXEN/MII0_TXEN
   PORTA_PCR16 = PORT_PCR_MUX(4);//RMII0_TXD0/MII0_TXD0
   PORTA_PCR17 = PORT_PCR_MUX(4);//RMII0_TXD1/MII0_TXD1
-#endif   
-    
+#endif
+
   /* Can we talk to the PHY? */
   do
   {
@@ -263,7 +263,7 @@ const unsigned char ucMACAddress[6] =
     mii_read( 0, configPHY_ADDRESS, PHY_BMSR, &usData );
 
   } while( !( usData & PHY_BMSR_AN_COMPLETE ) );
-
+//#if(0)
   /* When we get here we have a link - find out what has been negotiated. */
   usData = 0;
   mii_read( 0, configPHY_ADDRESS, PHY_STATUS, &usData );  
@@ -378,13 +378,15 @@ const unsigned char ucMACAddress[6] =
   OSTaskCreate( ethernetif_input, 
 				(void *) "ETH_INT", 
 				&ETHERNET_INPUT_TASK_STACK[configETHERNET_INPUT_TASK_STACK_SIZE - 1], 
-				configETHERNET_INPUT_TASK_PRIORITY);  
-  
+				configETHERNET_INPUT_TASK_PRIORITY);
+
   /* Enable the MAC itself. */
   ENET_ECR |= ENET_ECR_ETHEREN_MASK;
 
   /* Indicate that there have been empty receive buffers produced */
   ENET_RDAR = ENET_RDAR_RDAR_MASK;
+
+//#endif
 }
 
 /**
@@ -793,9 +795,9 @@ ethernetif_input(void *pParams)
       /* no packet could be read, silently ignore this */
       if (p == NULL)
       {
-	/* No packet could be read.  Wait a for an interrupt to tell us
-	   there is more data available. */
-	OSSemPend( xRxENETSemaphore, /*netifBLOCK_TIME_WAITING_FOR_INPUT*/0 , &err);
+		/* No packet could be read.  Wait a for an interrupt to tell us
+		   there is more data available. */
+		OSSemPend( xRxENETSemaphore, /*netifBLOCK_TIME_WAITING_FOR_INPUT*/0 , &err);
       }
     }while( p == NULL );  
     /* points to packet payload, which starts with an Ethernet header */
@@ -813,7 +815,8 @@ ethernetif_input(void *pParams)
     #endif /* PPPOE_SUPPORT */
         /* full packet send to tcpip_thread to process */
         if (netif->input(p, netif)!=ERR_OK)
-         { LWIP_DEBUGF(NETIF_DEBUG, ("ethernetif_input: IP input error\n"));
+         {
+		   LWIP_DEBUGF(NETIF_DEBUG, ("ethernetif_input: IP input error\n"));
            pbuf_free(p);
            p = NULL;
          }
@@ -963,7 +966,19 @@ unsigned char *pcBufPointer;
 }
 /*-----------------------------------------------------------*/
 
-void vENETISRHandler( void )
+//void vENETISRHandler( void )
+void ENET_Transmit_IRQHandler(void)
+{
+	unsigned long ulEvent;
+	//unsigned long xHighPriorityTaskWoken = FALSE;
+
+	/* Determine the cause of the interrupt. */
+	ulEvent = ENET_EIR & ENET_EIMR;
+	ENET_EIR = ulEvent;
+}
+
+
+void ENET_Receive_IRQHandler(void)
 {
 unsigned long ulEvent;
 //unsigned long xHighPriorityTaskWoken = FALSE;

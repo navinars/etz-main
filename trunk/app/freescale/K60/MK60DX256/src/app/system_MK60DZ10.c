@@ -107,7 +107,7 @@
     #define CPU_INT_FAST_CLK_HZ             4000000u /* Value of the fast internal oscillator clock frequency in Hz  */
     #define DEFAULT_SYSTEM_CLOCK            8000000u /* Default System clock value */
 #elif (CLOCK_SETUP == 3)
-    #define CPU_XTAL_CLK_HZ                 25000000u /* Value of the external crystal or oscillator clock frequency in Hz */
+    #define CPU_XTAL_CLK_HZ                 50000000u /* Value of the external crystal or oscillator clock frequency in Hz */
     #define CPU_XTAL32k_CLK_HZ              32768u   /* Value of the external 32k crystal or oscillator clock frequency in Hz */
     #define CPU_INT_SLOW_CLK_HZ             32768u   /* Value of the slow internal oscillator clock frequency in Hz  */
     #define CPU_INT_FAST_CLK_HZ             4000000u /* Value of the fast internal oscillator clock frequency in Hz  */
@@ -239,11 +239,13 @@ void SystemInit (void) {
   /* MCG->C2: ??=0,??=0,RANGE=2,HGO=0,EREFS=0,LP=0,IRCS=0 */
   MCG->C2 = (uint8_t)0x20u;
   /* MCG->C1: CLKS=2,FRDIV=5,IREFS=0,IRCLKEN=1,IREFSTEN=0 */
-  MCG->C1 = (uint8_t)0x9Au;
+	MCG->C1 = (uint8_t)0xAAu;
+//	MCG->C1 = (uint8_t)0x9Au;
   /* MCG->C4: DMX32=0,DRST_DRS=0 */
   MCG->C4 &= (uint8_t)~(uint8_t)0xE0u;
   /* MCG->C5: ??=0,PLLCLKEN=0,PLLSTEN=0,PRDIV=0x0F */
-  MCG->C5 = (uint8_t)0x04u;
+    MCG->C5 = (uint8_t)0x0Fu;
+//	MCG->C5 = (uint8_t)0x04u;
   /* MCG->C6: LOLIE=0,PLLS=0,CME=0,VDIV=0 */
   MCG->C6 = (uint8_t)0x00u;
   while((MCG->S & MCG_S_OSCINIT_MASK) == 0u) { /* Check that the oscillator is running */
@@ -254,9 +256,11 @@ void SystemInit (void) {
   }
   /* Switch to PBE Mode */
   /* MCG->C1: CLKS=2,FRDIV=5,IREFS=0,IRCLKEN=1,IREFSTEN=0 */
-  MCG->C1 = (uint8_t)0x9Au;
+    MCG->C1 = (uint8_t)0xAAu;
+//	MCG->C1 = (uint8_t)0x9Au;
   /* MCG->C6: LOLIE=0,PLLS=1,CME=0,VDIV=8 */
-  MCG->C6 = (uint8_t)0x40u;
+	MCG->C6 = (uint8_t)0x48u;
+//	MCG->C6 = (uint8_t)0x40u;
   while((MCG->S & MCG_S_PLLST_MASK) == 0u) { /* Wait until the source of the PLLS clock has switched to the PLL */
   }
   while((MCG->S & MCG_S_LOCK_MASK) == 0u) { /* Wait until locked */

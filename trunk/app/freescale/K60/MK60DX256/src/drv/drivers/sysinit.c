@@ -16,20 +16,20 @@
 /* Actual system clock frequency */
 int core_clk_khz   = 32768u;
 int core_clk_mhz   = 100000000u;
-int periph_clk_khz = 50000000u;
+int periph_clk_khz = 25000000u;
 
 /********************************************************************/
 void sysinit (void)
 {
-        /*
-         * Enable all of the port clocks. These have to be enabled to configure
-         * pin muxing options, so most code will need all of these on anyway.
-         */
-        SIM_SCGC5 |= (SIM_SCGC5_PORTA_MASK
-                      | SIM_SCGC5_PORTB_MASK
-                      | SIM_SCGC5_PORTC_MASK
-                      | SIM_SCGC5_PORTD_MASK
-                      | SIM_SCGC5_PORTE_MASK );
+	/*
+	 * Enable all of the port clocks. These have to be enabled to configure
+	 * pin muxing options, so most code will need all of these on anyway.
+	 */
+	SIM_SCGC5 |= (SIM_SCGC5_PORTA_MASK
+				  | SIM_SCGC5_PORTB_MASK
+				  | SIM_SCGC5_PORTC_MASK
+				  | SIM_SCGC5_PORTD_MASK
+				  | SIM_SCGC5_PORTE_MASK );
 
 #if defined(NO_PLL_INIT)
           core_clk_mhz = 21; //FEI mode
