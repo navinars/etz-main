@@ -51,7 +51,6 @@
  * The file is automatically generated and will be re-written when
  * running the ASF driver selector tool. Any changes will be discarded.
  */
-
 // From module: Common SAM compiler driver
 #include <compiler.h>
 #include <status_codes.h>
