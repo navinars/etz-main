@@ -26,6 +26,11 @@
  */
 #include "asf.h"
 
+extern void vApplicationMallocFailedHook( void );
+extern void vApplicationIdleHook( void );
+extern void vApplicationStackOverflowHook( xTaskHandle pxTask, signed char *pcTaskName );
+extern void vApplicationTickHook( void );
+
 int main (void)
 {
 	board_init();

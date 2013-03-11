@@ -90,12 +90,15 @@
  *----------------------------------------------------------*/
 
 #include <stdint.h>
-extern uint32_t SystemCoreClock;
+
+#if defined (__GNUC__) || defined (__ICCARM__) || defined(__CC_ARM)
+#   include "sysclk.h"
+#endif
 
 #define configUSE_PREEMPTION			1
 #define configUSE_IDLE_HOOK				1
 #define configUSE_TICK_HOOK				1
-#define configCPU_CLOCK_HZ				( SystemCoreClock )
+#define configCPU_CLOCK_HZ				( sysclk_get_cpu_hz() )
 #define configTICK_RATE_HZ				( ( portTickType ) 1000 )
 #define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 5 )
 #define configMINIMAL_STACK_SIZE		( ( unsigned short ) 130 )
@@ -112,6 +115,7 @@ extern uint32_t SystemCoreClock;
 #define configUSE_APPLICATION_TASK_TAG	0
 #define configUSE_COUNTING_SEMAPHORES	1
 #define configGENERATE_RUN_TIME_STATS	0
+#define configUSE_TICKLESS_IDLE			0
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 			0
