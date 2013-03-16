@@ -13,6 +13,12 @@
           <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.basic.clock" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.services.basic.serial" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.drivers.emac" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.drivers.tc" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.drivers.rstc" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.utils.linker_scripts#atsam3x4" value="Add" config="" content-id="Atmel.ASF" />
         </options>
         <configurations>
@@ -155,6 +161,25 @@
           <file path="src/ASF/common/services/gpio/gpio.h" framework="" version="3.7.2" source="common\services\gpio\gpio.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam/drivers/pio/pio_handler.c" framework="" version="3.7.2" source="sam\drivers\pio\pio_handler.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam/drivers/pio/pio_handler.h" framework="" version="3.7.2" source="sam\drivers\pio\pio_handler.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/ioport/sam/ioport_pio.h" framework="" version="3.7.2" source="common\services\ioport\sam\ioport_pio.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/ioport/ioport.h" framework="" version="3.7.2" source="common\services\ioport\ioport.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/uart/uart.c" framework="" version="3.7.2" source="sam\drivers\uart\uart.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/uart/uart.h" framework="" version="3.7.2" source="sam\drivers\uart\uart.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/usart/usart.c" framework="" version="3.7.2" source="sam\drivers\usart\usart.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/usart/usart.h" framework="" version="3.7.2" source="sam\drivers\usart\usart.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/serial/usart_serial.c" framework="" version="3.7.2" source="common\services\serial\usart_serial.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/serial/sam_uart/uart_serial.h" framework="" version="3.7.2" source="common\services\serial\sam_uart\uart_serial.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/serial/serial.h" framework="" version="3.7.2" source="common\services\serial\serial.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/stdio/read.c" framework="" version="3.7.2" source="common\utils\stdio\read.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/stdio/write.c" framework="" version="3.7.2" source="common\utils\stdio\write.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h" framework="" version="3.7.2" source="common\utils\stdio\stdio_serial\stdio_serial.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/emac/emac.c" framework="" version="3.7.2" source="sam\drivers\emac\emac.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/emac/emac.h" framework="" version="3.7.2" source="sam\drivers\emac\emac.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/Config/conf_eth.h" framework="" version="3.7.2" source="sam\drivers\emac\module_config\conf_eth.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/rstc/rstc.c" framework="" version="3.7.2" source="sam\drivers\rstc\rstc.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/rstc/rstc.h" framework="" version="3.7.2" source="sam\drivers\rstc\rstc.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/tc/tc.c" framework="" version="3.7.2" source="sam\drivers\tc\tc.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/tc/tc.h" framework="" version="3.7.2" source="sam\drivers\tc\tc.h" changed="False" content-id="Atmel.ASF" />
         </files>
         <documentation help="http://asf.atmel.com/docs/3.7.2/common.applications.user_application.user_board.sam3x/html/index.html" />
         <dependencies>
@@ -164,7 +189,7 @@
         <board id="board.user_board.sam3x" value="Add" config="" content-id="Atmel.ASF" />
       </framework-data>
     </AsfFrameworkConfig>
-    <avrdevice>ATSAM3X4C</avrdevice>
+    <avrdevice>ATSAM3X8H</avrdevice>
     <avrdeviceseries>sam3x</avrdeviceseries>
     <Language>C</Language>
     <ToolchainName>com.Atmel.ARMGCC.C</ToolchainName>
@@ -176,7 +201,8 @@
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
-    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <OverrideVtorValue>
+    </OverrideVtorValue>
     <eraseonlaunchrule>1</eraseonlaunchrule>
     <ProgFlashFromRam>true</ProgFlashFromRam>
     <RamSnippetAddress>0x20000000</RamSnippetAddress>
@@ -191,17 +217,17 @@
       <ToolNumber>000028011727</ToolNumber>
       <Channel>
         <host>127.0.0.1</host>
-        <port>50039</port>
+        <port>62675</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
         <InterfaceName>SWD</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>250000</JtagDbgClock>
+          <JtagDbgClock>4000000</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
           <IspClock>150000</IspClock>
           <JtagInChain>false</JtagInChain>
-          <JtagEnableExtResetOnStartSession>true</JtagEnableExtResetOnStartSession>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
           <JtagDevicesBefore>0</JtagDevicesBefore>
           <JtagDevicesAfter>0</JtagDevicesAfter>
           <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
@@ -214,7 +240,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <ArmGcc>
-        <armgcc.common.general.symbols>__SAM3X4C__</armgcc.common.general.symbols>
+        <armgcc.common.general.symbols>__SAM3X8H__</armgcc.common.general.symbols>
         <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
         <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
         <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
@@ -247,6 +273,15 @@
             <Value>../src/ASF/sam/drivers/pmc</Value>
             <Value>../src/ASF/common/services/clock</Value>
             <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/sam/drivers/uart</Value>
+            <Value>../src/ASF/sam/drivers/usart</Value>
+            <Value>../src/ASF/common/services/serial/sam_uart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/sam/drivers/emac</Value>
+            <Value>../src/ASF/sam/drivers/rstc</Value>
+            <Value>../src/ASF/sam/drivers/tc</Value>
           </ListValues>
         </armgcc.compiler.directories.IncludePaths>
         <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -280,6 +315,15 @@
             <Value>../src/ASF/sam/drivers/pmc</Value>
             <Value>../src/ASF/common/services/clock</Value>
             <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/sam/drivers/uart</Value>
+            <Value>../src/ASF/sam/drivers/usart</Value>
+            <Value>../src/ASF/common/services/serial/sam_uart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/sam/drivers/emac</Value>
+            <Value>../src/ASF/sam/drivers/rstc</Value>
+            <Value>../src/ASF/sam/drivers/tc</Value>
           </ListValues>
         </armgcc.assembler.general.IncludePaths>
         <armgcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
@@ -304,6 +348,15 @@
             <Value>../src/ASF/sam/drivers/pmc</Value>
             <Value>../src/ASF/common/services/clock</Value>
             <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/sam/drivers/uart</Value>
+            <Value>../src/ASF/sam/drivers/usart</Value>
+            <Value>../src/ASF/common/services/serial/sam_uart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/sam/drivers/emac</Value>
+            <Value>../src/ASF/sam/drivers/rstc</Value>
+            <Value>../src/ASF/sam/drivers/tc</Value>
           </ListValues>
         </armgcc.preprocessingassembler.general.IncludePaths>
       </ArmGcc>
@@ -316,99 +369,132 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <ArmGcc>
-  <armgcc.common.general.symbols>__SAM3X4C__</armgcc.common.general.symbols>
-  <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
-  <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
-  <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
-  <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
-  <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
-  <armgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>BOARD=USER_BOARD</Value>
-      <Value>printf=iprintf</Value>
-    </ListValues>
-  </armgcc.compiler.symbols.DefSymbols>
-  <armgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/common/boards/user_board</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/sam/utils</Value>
-      <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
-      <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
-      <Value>../src/ASF/sam/utils/header_files</Value>
-      <Value>../src/ASF/sam/utils/preprocessor</Value>
-      <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
-      <Value>../src/asf/thirdparty/freertos-7.3.0/Source/include</Value>
-      <Value>../src/asf/thirdparty/freertos-7.3.0/Source/portable/GCC/ARM_CM3</Value>
-      <Value>../src/config</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
-      <Value>../src/ASF/sam/drivers/pio</Value>
-      <Value>../src/ASF/sam/drivers/pmc</Value>
-      <Value>../src/ASF/common/services/clock</Value>
-      <Value>../src/ASF/common/services/gpio</Value>
-    </ListValues>
-  </armgcc.compiler.directories.IncludePaths>
-  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
-  <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
-  <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-  <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
-  <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
-  <armgcc.compiler.miscellaneous.OtherFlags>-pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Winline -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500</armgcc.compiler.miscellaneous.OtherFlags>
-  <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
-  <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x4/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
-  <armgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/common/boards/user_board</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/sam/utils</Value>
-      <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
-      <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
-      <Value>../src/ASF/sam/utils/header_files</Value>
-      <Value>../src/ASF/sam/utils/preprocessor</Value>
-      <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
-      <Value>../src/config</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
-      <Value>../src/ASF/sam/drivers/pio</Value>
-      <Value>../src/ASF/sam/drivers/pmc</Value>
-      <Value>../src/ASF/common/services/clock</Value>
-      <Value>../src/ASF/common/services/gpio</Value>
-    </ListValues>
-  </armgcc.assembler.general.IncludePaths>
-  <armgcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
-  <armgcc.preprocessingassembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/ASF/common/boards</Value>
-      <Value>../src/ASF/common/boards/user_board</Value>
-      <Value>../src/ASF/common/utils</Value>
-      <Value>../src/ASF/sam/utils</Value>
-      <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
-      <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
-      <Value>../src/ASF/sam/utils/header_files</Value>
-      <Value>../src/ASF/sam/utils/preprocessor</Value>
-      <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
-      <Value>../src/config</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
-      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
-      <Value>../src/ASF/sam/drivers/pio</Value>
-      <Value>../src/ASF/sam/drivers/pmc</Value>
-      <Value>../src/ASF/common/services/clock</Value>
-      <Value>../src/ASF/common/services/gpio</Value>
-    </ListValues>
-  </armgcc.preprocessingassembler.general.IncludePaths>
-</ArmGcc>
+        <armgcc.common.general.symbols>__SAM3X8H__</armgcc.common.general.symbols>
+        <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
+        <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
+        <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
+        <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
+        <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
+        <armgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>BOARD=USER_BOARD</Value>
+            <Value>printf=iprintf</Value>
+          </ListValues>
+        </armgcc.compiler.symbols.DefSymbols>
+        <armgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/common/boards/user_board</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/sam/utils</Value>
+            <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
+            <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
+            <Value>../src/ASF/sam/utils/header_files</Value>
+            <Value>../src/ASF/sam/utils/preprocessor</Value>
+            <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
+            <Value>../src/asf/thirdparty/freertos-7.3.0/Source/include</Value>
+            <Value>../src/asf/thirdparty/freertos-7.3.0/Source/portable/GCC/ARM_CM3</Value>
+            <Value>../src/config</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
+            <Value>../src/ASF/sam/drivers/pio</Value>
+            <Value>../src/ASF/sam/drivers/pmc</Value>
+            <Value>../src/ASF/common/services/clock</Value>
+            <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/sam/drivers/uart</Value>
+            <Value>../src/ASF/sam/drivers/usart</Value>
+            <Value>../src/ASF/common/services/serial/sam_uart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/sam/drivers/emac</Value>
+            <Value>../src/ASF/sam/drivers/rstc</Value>
+            <Value>../src/ASF/sam/drivers/tc</Value>
+            <Value>../src/ASF/components/ethernet_phy/dm9161a</Value>
+            <Value>../src/ASF/thirdparty/lwip/lwip-port-1.4.0/sam/include</Value>
+            <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include/ipv4</Value>
+            <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include</Value>
+            <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include/lwip</Value>
+            <Value>../src/network</Value>
+          </ListValues>
+        </armgcc.compiler.directories.IncludePaths>
+        <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
+        <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
+        <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+        <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
+        <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
+        <armgcc.compiler.miscellaneous.OtherFlags>-pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Winline -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500</armgcc.compiler.miscellaneous.OtherFlags>
+        <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+        <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
+        <armgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/common/boards/user_board</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/sam/utils</Value>
+            <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
+            <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
+            <Value>../src/ASF/sam/utils/header_files</Value>
+            <Value>../src/ASF/sam/utils/preprocessor</Value>
+            <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
+            <Value>../src/config</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
+            <Value>../src/ASF/sam/drivers/pio</Value>
+            <Value>../src/ASF/sam/drivers/pmc</Value>
+            <Value>../src/ASF/common/services/clock</Value>
+            <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/sam/drivers/uart</Value>
+            <Value>../src/ASF/sam/drivers/usart</Value>
+            <Value>../src/ASF/common/services/serial/sam_uart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/sam/drivers/emac</Value>
+            <Value>../src/ASF/sam/drivers/rstc</Value>
+            <Value>../src/ASF/sam/drivers/tc</Value>
+          </ListValues>
+        </armgcc.assembler.general.IncludePaths>
+        <armgcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
+        <armgcc.preprocessingassembler.general.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/common/boards/user_board</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/sam/utils</Value>
+            <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
+            <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
+            <Value>../src/ASF/sam/utils/header_files</Value>
+            <Value>../src/ASF/sam/utils/preprocessor</Value>
+            <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
+            <Value>../src/config</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
+            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
+            <Value>../src/ASF/sam/drivers/pio</Value>
+            <Value>../src/ASF/sam/drivers/pmc</Value>
+            <Value>../src/ASF/common/services/clock</Value>
+            <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/sam/drivers/uart</Value>
+            <Value>../src/ASF/sam/drivers/usart</Value>
+            <Value>../src/ASF/common/services/serial/sam_uart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/sam/drivers/emac</Value>
+            <Value>../src/ASF/sam/drivers/rstc</Value>
+            <Value>../src/ASF/sam/drivers/tc</Value>
+          </ListValues>
+        </armgcc.preprocessingassembler.general.IncludePaths>
+      </ArmGcc>
     </ToolchainSettings>
     <GenerateHexFile>True</GenerateHexFile>
     <GenerateMapFile>True</GenerateMapFile>
@@ -417,6 +503,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src\ASF\common\boards\user_board\init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BasicWEB.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BasicWEB.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\network\ethernet.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\network\ethernet.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\common\services\clock\genclk.h">
@@ -452,9 +550,51 @@
     <None Include="src\ASF\common\services\gpio\gpio.h">
       <SubType>compile</SubType>
     </None>
+    <None Include="src\ASF\common\services\ioport\sam\ioport_pio.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\ioport\ioport.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\serial\sam_uart\uart_serial.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\serial\serial.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\common\services\serial\usart_serial.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ASF\common\utils\interrupt\interrupt_sam_nvic.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ASF\common\utils\stdio\read.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\common\utils\stdio\stdio_serial\stdio_serial.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\common\utils\stdio\write.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\components\ethernet_phy\dm9161a\ethernet_phy.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\components\ethernet_phy\dm9161a\ethernet_phy.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\components\ethernet_phy\dm9161a\mii.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\components\ethernet_phy\documentation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\sam\drivers\emac\emac.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\emac\emac.h">
+      <SubType>compile</SubType>
+    </None>
     <Compile Include="src\ASF\sam\drivers\pio\pio.c">
       <SubType>compile</SubType>
     </Compile>
@@ -477,6 +617,30 @@
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\sam\drivers\pmc\sleep.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\sam\drivers\rstc\rstc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\rstc\rstc.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\sam\drivers\tc\tc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\tc\tc.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\sam\drivers\uart\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\uart\uart.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\sam\drivers\usart\usart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\usart\usart.h">
       <SubType>compile</SubType>
     </None>
     <Compile Include="src\ASF\sam\utils\cmsis\sam3x\source\templates\exceptions.c">
@@ -548,13 +712,265 @@
     <Compile Include="src\ASF\thirdparty\freertos-7.3.0\Source\timers.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\api_lib.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\api_msg.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\err.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\netbuf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\netdb.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\netifapi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\sockets.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\tcpip.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\def.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\dhcp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\dns.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\autoip.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\icmp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\igmp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\inet.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\inet_chksum.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\ip.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\ip_addr.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\ip_frag.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\lwip_timers_140.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\mem.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\memp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\netif.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\pbuf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\raw.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\stats.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\sys.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\tcp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\tcp_in.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\tcp_out.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\udp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\autoip.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\icmp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\igmp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\inet.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\inet_chksum.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\ip.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\ip_addr.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\ip_frag.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\api.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\api_msg.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\arch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\debug.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\def.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\dhcp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\dns.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\err.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\init.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\mem.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\memp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\memp_std.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\netbuf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\netdb.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\netif.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\netifapi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\opt.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\pbuf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\raw.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\sio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\snmp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\snmp_asn1.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\snmp_msg.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\snmp_structs.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\sockets.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\stats.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\sys.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\tcp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\tcpip.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\tcp_impl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\timers.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\udp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\netif\etharp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\netif\ppp_oe.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\netif\etharp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\arch\cc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\arch\perf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\arch\sys_arch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\netif\ethernetif.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\netif\ethernetif.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\sys_arch.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\config\conf_clock.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\config\conf_eth.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\config\conf_lwip_threads.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\config\conf_uart_serial.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\config\FreeRTOSConfig.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config\lwipopts.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\main.c">
@@ -848,6 +1264,9 @@
     <None Include="src\ASF\sam\utils\linker_scripts\sam3x\sam3x4\gcc\flash.ld">
       <SubType>compile</SubType>
     </None>
+    <None Include="src\ASF\sam\utils\linker_scripts\sam3x\sam3x8\gcc\flash.ld">
+      <SubType>compile</SubType>
+    </None>
     <None Include="src\ASF\sam\utils\make\Makefile.sam.in">
       <SubType>compile</SubType>
     </None>
@@ -890,6 +1309,9 @@
     <None Include="src\ASF\thirdparty\freertos-7.3.0\Source\readme.txt">
       <SubType>compile</SubType>
     </None>
+    <None Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\netif\FILES">
+      <SubType>compile</SubType>
+    </None>
     <None Include="src\config\conf_board.h">
       <SubType>compile</SubType>
     </None>
@@ -905,12 +1327,26 @@
     <Folder Include="src\ASF\common\services\clock\sam3x\" />
     <Folder Include="src\ASF\common\services\gpio\" />
     <Folder Include="src\ASF\common\services\gpio\sam_gpio\" />
+    <Folder Include="src\ASF\common\services\ioport\" />
+    <Folder Include="src\ASF\common\services\ioport\sam\" />
+    <Folder Include="src\ASF\common\services\serial\" />
+    <Folder Include="src\ASF\common\services\serial\sam_uart\" />
     <Folder Include="src\ASF\common\utils\" />
     <Folder Include="src\ASF\common\utils\interrupt\" />
+    <Folder Include="src\ASF\common\utils\stdio\" />
+    <Folder Include="src\ASF\common\utils\stdio\stdio_serial\" />
+    <Folder Include="src\ASF\components\" />
+    <Folder Include="src\ASF\components\ethernet_phy\" />
+    <Folder Include="src\ASF\components\ethernet_phy\dm9161a\" />
     <Folder Include="src\ASF\sam\" />
     <Folder Include="src\ASF\sam\drivers\" />
+    <Folder Include="src\ASF\sam\drivers\emac\" />
     <Folder Include="src\ASF\sam\drivers\pio\" />
     <Folder Include="src\ASF\sam\drivers\pmc\" />
+    <Folder Include="src\ASF\sam\drivers\rstc\" />
+    <Folder Include="src\ASF\sam\drivers\tc\" />
+    <Folder Include="src\ASF\sam\drivers\uart\" />
+    <Folder Include="src\ASF\sam\drivers\usart\" />
     <Folder Include="src\ASF\sam\utils\" />
     <Folder Include="src\ASF\sam\utils\cmsis\" />
     <Folder Include="src\ASF\sam\utils\cmsis\sam3x\" />
@@ -926,6 +1362,8 @@
     <Folder Include="src\ASF\sam\utils\linker_scripts\sam3x\" />
     <Folder Include="src\ASF\sam\utils\linker_scripts\sam3x\sam3x4\" />
     <Folder Include="src\ASF\sam\utils\linker_scripts\sam3x\sam3x4\gcc\" />
+    <Folder Include="src\ASF\sam\utils\linker_scripts\sam3x\sam3x8\" />
+    <Folder Include="src\ASF\sam\utils\linker_scripts\sam3x\sam3x8\gcc\" />
     <Folder Include="src\ASF\sam\utils\make\" />
     <Folder Include="src\ASF\sam\utils\preprocessor\" />
     <Folder Include="src\ASF\sam\utils\syscalls\" />
@@ -940,7 +1378,26 @@
     <Folder Include="src\ASF\thirdparty\freertos-7.3.0\Source\portable\GCC\" />
     <Folder Include="src\ASF\thirdparty\freertos-7.3.0\Source\portable\GCC\ARM_CM3\" />
     <Folder Include="src\ASF\thirdparty\freertos-7.3.0\Source\portable\MemMang\" />
+    <Folder Include="src\ASF\thirdparty\lwip\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\api\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\core\ipv4\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\ipv4\lwip\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\lwip\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\include\netif\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-1.4.0\src\netif\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\arch\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\netif\" />
+    <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\netif\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\network\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

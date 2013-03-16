@@ -133,7 +133,7 @@ extern "C" {
  * initialization.
  */
 #ifndef CONFIG_SYSCLK_SOURCE
-# define CONFIG_SYSCLK_SOURCE   SYSCLK_SRC_MAINCK_4M_RC
+# define CONFIG_SYSCLK_SOURCE   SYSCLK_SRC_PLLACK
 #endif
 /**
  * \def CONFIG_SYSCLK_PRES

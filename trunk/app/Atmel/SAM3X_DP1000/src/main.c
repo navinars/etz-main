@@ -26,17 +26,32 @@
  */
 #include "asf.h"
 
+
+
+// From module: FreeRTOS mini Real-Time Kernel
+#include <FreeRTOS.h>
+#include <StackMacros.h>
+#include <croutine.h>
+#include <list.h>
+#include <mpu_wrappers.h>
+#include <portable.h>
+#include <projdefs.h>
+#include <queue.h>
+#include <semphr.h>
+#include <task.h>
+#include <timers.h>
+#include "ethernet.h"
+
+xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
+
 extern void vApplicationMallocFailedHook( void );
 extern void vApplicationIdleHook( void );
 extern void vApplicationStackOverflowHook( xTaskHandle pxTask, signed char *pcTaskName );
 extern void vApplicationTickHook( void );
 
-int main (void)
-{
-	board_init();
-
-	// Insert application code here, after the board has been initialized.
-}
+void task_start(void *pvParameters);
+void task_led(void *pvParameters);
+void bsp_init(void);
 
 void vApplicationMallocFailedHook( void )
 {
@@ -90,5 +105,88 @@ void vApplicationTickHook( void )
 	code must not attempt to block, and only the interrupt safe FreeRTOS API
 	functions can be used (those that end in FromISR()). */
 }
-/*-----------------------------------------------------------*/
 
+/**
+ * \brief Configure the console UART.
+ */
+static void configure_console(void)
+{
+	const usart_serial_options_t uart_serial_options = {
+		.baudrate = CONF_UART_BAUDRATE,
+		.paritytype = CONF_UART_PARITY
+	};
+	
+	/* Configure console UART. */
+	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
+	stdio_serial_init(CONF_UART, &uart_serial_options);
+
+	/* Specify that stdout should not be buffered. */
+#if defined(__GNUC__)
+	setbuf(stdout, NULL);
+#else
+	/* Already the case in IAR's Normal DLIB default configuration: printf()
+	 * emits one character at a time.
+	 */
+#endif
+}
+
+void bsp_init(void)
+{
+}
+
+void task_led(void *pvParameters)
+{
+	(void) pvParameters;
+	
+	for (;;)
+	{
+		gpio_toggle_pin(PIO_PA12_IDX);
+		vTaskDelay(1000);
+	}
+}
+
+/*-----------------------------------------------------------*/
+void task_start(void *pvParameters)
+{
+	(void) pvParameters;
+	
+	bsp_init();
+	
+	/* Start the LED flash tasks */
+	xTaskCreate(task_led, (signed char*)"task_led", TASK_LED_STACK_SIZE, NULL, 
+				TASK_LED_PRIORITY, ( xTaskHandle * ) NULL);
+				
+	/* Start the ethernet tasks */
+	vStartEthernetTaskLauncher( configMAX_PRIORITIES );
+	
+	for (;;)
+	{
+		vTaskSuspend(vStartTaskHandler);
+	}
+}
+
+int main (void)
+{
+	/* Initialize the SAM system */
+	sysclk_init();
+	
+	board_init();
+	
+	/* Initialize the console uart */
+	configure_console();
+	
+	/* Output demo information. */
+	printf("-- FreeRTOS Example --\n\r");
+	
+	/* Ensure all priority bits are assigned as preemption priority bits. */
+	NVIC_SetPriorityGrouping( 0 );
+	
+	xTaskCreate(task_start, (signed char *)"task_start", TASK_START_STACKSIZE, NULL,
+				TASK_START_PRIORITY, NULL);
+	
+	/* Start the scheduler. */
+	vTaskStartScheduler();
+	
+	/* Will only get here if there was insufficient memory to create the idle task. */
+	return 0;
+}
