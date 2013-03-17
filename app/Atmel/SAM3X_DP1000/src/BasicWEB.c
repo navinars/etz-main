@@ -123,7 +123,7 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon );
  *  \param pvParameters   Input. Not Used.
  *
  */
-portTASK_FUNCTION( vBasicWEBServer, pvParameters );
+//portTASK_FUNCTION( vBasicWEBServer, pvParameters );
 portTASK_FUNCTION( vBasicWEBServer, pvParameters )
 {
 struct netconn *pxHTTPListener, *pxNewConnection;
