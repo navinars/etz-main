@@ -25,22 +25,17 @@
  * Atmel Software Framework (ASF).
  */
 #include "asf.h"
-
+#include <stdlib.h>
+#include <string.h>
 
 
 // From module: FreeRTOS mini Real-Time Kernel
 #include <FreeRTOS.h>
-#include <StackMacros.h>
-#include <croutine.h>
-#include <list.h>
-#include <mpu_wrappers.h>
-#include <portable.h>
-#include <projdefs.h>
-#include <queue.h>
-#include <semphr.h>
+#include "status_codes.h"
 #include <task.h>
-#include <timers.h>
+
 #include "ethernet.h"
+#include <compiler.h>
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 

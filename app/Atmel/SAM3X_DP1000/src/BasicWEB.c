@@ -52,6 +52,7 @@
   party.
 */
 
+#define HTTP_USED 1
 #if (HTTP_USED == 1)
 
 
@@ -65,7 +66,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
-#include "partest.h"
+//#include "partest.h"
 
 /* Demo includes. */
 /* Demo app includes. */
@@ -123,7 +124,7 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon );
  *  \param pvParameters   Input. Not Used.
  *
  */
-//portTASK_FUNCTION( vBasicWEBServer, pvParameters );
+portTASK_FUNCTION( vBasicWEBServer, pvParameters );
 portTASK_FUNCTION( vBasicWEBServer, pvParameters )
 {
 struct netconn *pxHTTPListener, *pxNewConnection;
@@ -145,14 +146,14 @@ struct netconn *pxHTTPListener, *pxNewConnection;
             vTaskDelay( webSHORT_DELAY );
 		}
 #endif
-		vParTestSetLED(webCONN_LED, pdTRUE);
+//		vParTestSetLED(webCONN_LED, pdTRUE);
 
 		if(pxNewConnection != NULL)
 		{
 			prvweb_ParseHTMLRequest(pxNewConnection);
 		}/* end if new connection */
 
-		vParTestSetLED(webCONN_LED, pdFALSE);
+//		vParTestSetLED(webCONN_LED, pdFALSE);
 
 	} /* end infinite loop */
 }
