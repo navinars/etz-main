@@ -190,8 +190,8 @@ void vStartEthernetTaskLauncher( unsigned portBASE_TYPE uxPriority )
 {
 	/* Spawn the Sentinel task. */
 	xTaskCreate( vStartEthernetTask, (const signed portCHAR *)"ETHLAUNCH",
-			configMINIMAL_STACK_SIZE, NULL, uxPriority,
-			(xTaskHandle *)NULL );
+				 configMINIMAL_STACK_SIZE, NULL, uxPriority,
+				 (xTaskHandle *)NULL );
 }
 
 /*! \brief create ethernet task, for ethernet management.
@@ -209,6 +209,7 @@ portTASK_FUNCTION(vStartEthernetTask, pvParameters)
 	sys_thread_new("WEB", vBasicWEBServer, (void *)NULL,
 			lwipBASIC_WEB_SERVER_STACK_SIZE,
 			lwipBASIC_WEB_SERVER_PRIORITY);
+
 #endif
 
 #if (TFTP_USED == 1)

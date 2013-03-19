@@ -30,11 +30,12 @@
 /*******************************************************************************
                               任务优先级
 *******************************************************************************/
-#define TASK_START_PRIORITY				(tskIDLE_PRIORITY + 9)
-#define TASK_ETH_INT_PRIORITY			(tskIDLE_PRIORITY + 8)
-#define TASK_TCPIP_PRIORITY				(tskIDLE_PRIORITY + 7)
-#define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 4)
-#define TASK_LED_PRIORITY				(tskIDLE_PRIORITY + 3)
+#define TASK_START_PRIORITY				(tskIDLE_PRIORITY + 19)
+#define TASK_ETH_INT_PRIORITY			(tskIDLE_PRIORITY + 18)
+#define TASK_TCPIP_PRIORITY				(tskIDLE_PRIORITY + 17)
+#define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 14)
+#define TASK_START_ETH_PRIORITY			(tskIDLE_PRIORITY + 15)
+#define TASK_LED_PRIORITY				(tskIDLE_PRIORITY + 13)
 
 
 /**

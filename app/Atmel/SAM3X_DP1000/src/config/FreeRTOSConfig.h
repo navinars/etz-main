@@ -100,10 +100,10 @@
 #define configUSE_TICK_HOOK				1
 #define configCPU_CLOCK_HZ				( sysclk_get_cpu_hz() )
 #define configTICK_RATE_HZ				( ( portTickType ) 1000 )
-#define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 13 )
+#define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 25 )
 #define configMINIMAL_STACK_SIZE		( ( unsigned short ) 130 )
 //#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 40960 ) )
-#define configMAX_TASK_NAME_LEN			( 10 )
+#define configMAX_TASK_NAME_LEN			( 16 )
 #define configUSE_TRACE_FACILITY		1
 #define configUSE_16_BIT_TICKS			0
 #define configIDLE_SHOULD_YIELD			1

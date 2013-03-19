@@ -152,7 +152,7 @@ void task_start(void *pvParameters)
 				TASK_LED_PRIORITY, ( xTaskHandle * ) NULL);
 				
 	/* Start the ethernet tasks */
-	vStartEthernetTaskLauncher( configMAX_PRIORITIES );
+	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
 	
 	for (;;)
 	{
