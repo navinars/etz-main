@@ -38,9 +38,6 @@
 /** board main clock xtal statup time */
 #define BOARD_OSC_STARTUP_US   15625
 
-/** Name of the board */
-#define BOARD_NAME "SAM3U-EK"
-
 #define CONSOLE_UART			   UART
 #define CONSOLE_UART_ID            ID_UART
 

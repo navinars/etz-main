@@ -94,8 +94,6 @@ extern "C" {
 /** Ethernet MII/RMII mode */
 #define ETH_PHY_MODE  BOARD_EMAC_MODE_RMII
 
-#define HTTP_USED									1
-
 /// @cond 0
 /**INDENT-OFF**/
 #ifdef __cplusplus
