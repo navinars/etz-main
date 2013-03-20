@@ -158,6 +158,7 @@ static void tcpip_init_done(void *arg)
 
 	/* Set hw and IP parameters, initialize MAC too */
 	ethernet_configure_interface();
+	
 #if ( (LWIP_VERSION) == ((1U << 24) | (3U << 16) | (2U << 8) | (LWIP_VERSION_RC)) )
   sys_sem_signal (*sem);    /* Signal the waiting thread that the TCP/IP init is done. */
 #else

@@ -101,9 +101,9 @@
 #define configCPU_CLOCK_HZ				( sysclk_get_cpu_hz() )
 #define configTICK_RATE_HZ				( ( portTickType ) 1000 )
 #define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 25 )
-#define configMINIMAL_STACK_SIZE		( ( unsigned short ) 130 )
+#define configMINIMAL_STACK_SIZE		( ( unsigned short ) 250 )
 //#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 40960 ) )
-#define configMAX_TASK_NAME_LEN			( 16 )
+#define configMAX_TASK_NAME_LEN			( 20 )
 #define configUSE_TRACE_FACILITY		1
 #define configUSE_16_BIT_TICKS			0
 #define configIDLE_SHOULD_YIELD			1
@@ -136,6 +136,8 @@ to exclude the API function. */
 #define INCLUDE_vTaskSuspend			1
 #define INCLUDE_vTaskDelayUntil			1
 #define INCLUDE_vTaskDelay				1
+#define INCLUDE_xTaskGetCurrentTaskHandle   1
+#define INCLUDE_xTaskGetSchedulerState      0
 
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS
@@ -168,9 +170,9 @@ header file. */
 
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
 standard names. */
-#define vPortSVCHandler SVC_Handler
-#define xPortPendSVHandler PendSV_Handler
-#define xPortSysTickHandler SysTick_Handler
+//#define vPortSVCHandler SVC_Handler
+//#define xPortPendSVHandler PendSV_Handler
+//#define xPortSysTickHandler SysTick_Handler
 
 #endif /* FREERTOS_CONFIG_H */
 

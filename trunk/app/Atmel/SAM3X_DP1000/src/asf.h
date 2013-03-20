@@ -65,34 +65,11 @@
 // From module: Ethernet Physical Transceiver (DM9161A)
 #include <ethernet_phy.h>
 
-// From module: FreeRTOS mini Real-Time Kernel
-#include <FreeRTOS.h>
-#include <StackMacros.h>
-#include <croutine.h>
-#include <list.h>
-#include <mpu_wrappers.h>
-#include <portable.h>
-#include <projdefs.h>
-#include <queue.h>
-#include <semphr.h>
-#include <task.h>
-#include <timers.h>
-
 // From module: GPIO - General purpose Input/Output
 #include <gpio.h>
 
 // From module: Generic board support
 #include <board.h>
-
-// From module: IPv4 support in lwIP v140
-#include <lwip/autoip.h>
-#include <lwip/icmp.h>
-#include <lwip/igmp.h>
-#include <lwip/inet.h>
-#include <lwip/inet_chksum.h>
-#include <lwip/ip.h>
-#include <lwip/ip_addr.h>
-#include <lwip/ip_frag.h>
 
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
@@ -131,6 +108,11 @@
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
 
+// From module: lwIP v140 port to FreeRTOS on SAM hardware module.
+#include <arch/cc.h>
+#include <arch/perf.h>
+#include <arch/sys_arch.h>
+#include <netif/ethernetif.h>
 
 // From module: pio_handler support enabled
 #include <pio_handler.h>

@@ -52,7 +52,6 @@
   party.
 */
 
-#define HTTP_USED 1
 #if (HTTP_USED == 1)
 
 

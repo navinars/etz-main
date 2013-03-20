@@ -31,10 +31,11 @@
 
 // From module: FreeRTOS mini Real-Time Kernel
 #include <FreeRTOS.h>
+#include "task.h"
 #include "status_codes.h"
-#include <task.h>
 
 #include "ethernet.h"
+#include "netif/etharp.h"
 #include <compiler.h>
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
