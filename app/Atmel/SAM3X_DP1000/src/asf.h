@@ -108,12 +108,6 @@
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
 
-// From module: lwIP v140 port to FreeRTOS on SAM hardware module.
-#include <arch/cc.h>
-#include <arch/perf.h>
-#include <arch/sys_arch.h>
-#include <netif/ethernetif.h>
-
 // From module: pio_handler support enabled
 #include <pio_handler.h>
 

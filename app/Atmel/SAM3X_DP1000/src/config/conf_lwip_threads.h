@@ -77,7 +77,7 @@
 #define lwipINTERFACE_TASK_PRIORITY       (configMAX_PRIORITIES - 1)
 
 /*! define netif task priority */
-#define netifINTERFACE_TASK_PRIORITY      (configMAX_PRIORITIES - 1)
+#define netifINTERFACE_TASK_PRIORITY      (configMAX_PRIORITIES - 2)
 
 /*! Number of threads that can be started with sys_thread_new() */
 #define SYS_THREAD_MAX                    8
