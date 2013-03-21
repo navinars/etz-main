@@ -44,10 +44,18 @@ extern void vApplicationMallocFailedHook( void );
 extern void vApplicationIdleHook( void );
 extern void vApplicationStackOverflowHook( xTaskHandle pxTask, signed char *pcTaskName );
 extern void vApplicationTickHook( void );
+extern void xPortSysTickHandler(void);
 
 void task_start(void *pvParameters);
 void task_led(void *pvParameters);
-void bsp_init(void);
+
+/**
+ * \brief Handler for System Tick interrupt.
+ */
+void SysTick_Handler(void)
+{
+	xPortSysTickHandler();
+}
 
 void vApplicationMallocFailedHook( void )
 {
@@ -126,10 +134,6 @@ static void configure_console(void)
 #endif
 }
 
-void bsp_init(void)
-{
-}
-
 void task_led(void *pvParameters)
 {
 	(void) pvParameters;
@@ -146,15 +150,13 @@ void task_start(void *pvParameters)
 {
 	(void) pvParameters;
 	
-	bsp_init();
-	
 	/* Start the LED flash tasks */
 	xTaskCreate(task_led, (signed char*)"task_led", TASK_LED_STACK_SIZE, NULL, 
 				TASK_LED_PRIORITY, ( xTaskHandle * ) NULL);
-				
+
 	/* Start the ethernet tasks */
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
-	
+
 	for (;;)
 	{
 		vTaskSuspend(vStartTaskHandler);

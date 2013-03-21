@@ -169,7 +169,7 @@ static void tcpip_init_done(void *arg)
 /**
  *  \brief start lwIP layer.
  */
-static void prvlwIPInit( void )
+void prvlwIPInit( void )
 {
   sys_sem_t sem;
 
