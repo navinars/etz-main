@@ -134,6 +134,7 @@ static void configure_console(void)
 #endif
 }
 
+/*-----------------------------------------------------------*/
 void task_led(void *pvParameters)
 {
 	(void) pvParameters;
@@ -151,7 +152,7 @@ void task_start(void *pvParameters)
 	(void) pvParameters;
 	
 	/* Start the LED flash tasks */
-	xTaskCreate(task_led, (signed char*)"task_led", TASK_LED_STACK_SIZE, NULL, 
+	xTaskCreate(task_led, (signed char*)"LED", TASK_LED_STACK_SIZE, NULL, 
 				TASK_LED_PRIORITY, ( xTaskHandle * ) NULL);
 
 	/* Start the ethernet tasks */
@@ -162,6 +163,7 @@ void task_start(void *pvParameters)
 		vTaskSuspend(vStartTaskHandler);
 	}
 }
+/*-----------------------------------------------------------*/
 
 int main (void)
 {
@@ -179,7 +181,7 @@ int main (void)
 	/* Ensure all priority bits are assigned as preemption priority bits. */
 	NVIC_SetPriorityGrouping( 0 );
 	
-	xTaskCreate(task_start, (signed char *)"task_start", TASK_START_STACKSIZE, NULL,
+	xTaskCreate(task_start, (signed char *)"START", TASK_START_STACKSIZE, NULL,
 				TASK_START_PRIORITY, NULL);
 	
 	/* Start the scheduler. */
