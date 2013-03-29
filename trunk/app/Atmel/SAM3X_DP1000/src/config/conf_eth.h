@@ -94,6 +94,8 @@ extern "C" {
 /** Ethernet MII/RMII mode */
 #define ETH_PHY_MODE  BOARD_EMAC_MODE_RMII
 
+#define SOCK_HOSR_PORT								8090
+
 /// @cond 0
 /**INDENT-OFF**/
 #ifdef __cplusplus

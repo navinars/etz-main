@@ -75,6 +75,11 @@
 #if (SMTP_USED == 1)
 #include "BasicSMTP.h"
 #endif
+
+#if (DATA_USED == 1)
+#include "net_handle.h"
+#endif
+
 #include "ethernet.h"
 /* lwIP includes */
 #include "lwip/sys.h"
@@ -158,7 +163,7 @@ static void tcpip_init_done(void *arg)
 
 	/* Set hw and IP parameters, initialize MAC too */
 	ethernet_configure_interface();
-	
+
 #if ( (LWIP_VERSION) == ((1U << 24) | (3U << 16) | (2U << 8) | (LWIP_VERSION_RC)) )
   sys_sem_signal (*sem);    /* Signal the waiting thread that the TCP/IP init is done. */
 #else
@@ -210,7 +215,6 @@ portTASK_FUNCTION(vStartEthernetTask, pvParameters)
 	sys_thread_new("WEB", vBasicWEBServer, (void *)NULL,
 			lwipBASIC_WEB_SERVER_STACK_SIZE,
 			lwipBASIC_WEB_SERVER_PRIORITY);
-
 #endif
 
 #if (TFTP_USED == 1)
@@ -226,6 +230,11 @@ portTASK_FUNCTION(vStartEthernetTask, pvParameters)
 			lwipBASIC_SMTP_CLIENT_STACK_SIZE,
 			lwipBASIC_SMTP_CLIENT_PRIORITY);
 #endif
+
+#if (DATA_USED == 1)
+	sys_thread_new("vNetHandle", vNetHandle, NULL, 256, 2);
+#endif
+	
 	/* Kill this task. */
 	vTaskDelete(NULL);
 }
