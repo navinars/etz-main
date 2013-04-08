@@ -23,7 +23,6 @@
 #define TASK_START_STACKSIZE			(configMINIMAL_STACK_SIZE + 50)
 #define TASK_LED_STACK_SIZE				(configMINIMAL_STACK_SIZE + 50)
 #define TASK_ETH_INT_STACK_SIZE			(configMINIMAL_STACK_SIZE + 50)
-#define TASK_LWIP_TCP_STACK_SIZE		(configMINIMAL_STACK_SIZE + 160)
 #define TASK_TCP_SERVER_STACK_SIZE		(configMINIMAL_STACK_SIZE + 150)
 
 
@@ -31,11 +30,9 @@
                               任务优先级
 *******************************************************************************/
 #define TASK_START_PRIORITY				(tskIDLE_PRIORITY + 19)
-#define TASK_ETH_INT_PRIORITY			(tskIDLE_PRIORITY + 18)
-#define TASK_TCPIP_PRIORITY				(tskIDLE_PRIORITY + 17)
-#define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 14)
-#define TASK_START_ETH_PRIORITY			(tskIDLE_PRIORITY + 15)
 #define TASK_LED_PRIORITY				(tskIDLE_PRIORITY + 13)
+#define TASK_START_ETH_PRIORITY			(tskIDLE_PRIORITY + 15)
+#define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 6)
 
 
 /**
@@ -61,5 +58,7 @@
 #define BOARD_EMAC_PHY_ADDR  0
 /*! EMAC RMII mode */
 #define BOARD_EMAC_MODE_RMII 1
+
+#define RS232printf					printf
 
 #endif // CONF_BOARD_H

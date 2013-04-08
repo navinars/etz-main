@@ -82,6 +82,12 @@ void vStartEthernetTaskLauncher( unsigned portBASE_TYPE uxPriority );
  */
 portTASK_FUNCTION( vStartEthernetTask, pvParameters );
 
+/*! \brief read IP value, for ethernet management.
+ *
+ *  \param pvParameters   Input; not used.
+ *
+ */
+unsigned long lwIPLocalIPAddrGet(void);
 
 /// @cond 0
 /**INDENT-OFF**/
