@@ -52,12 +52,12 @@
 #include "lwip/debug.h"
 
 /* Define default values for unconfigured parameters. */
-#define LWIP_NOASSERT 1 /* To suppress some errors for now (no debug output) */
+#define LWIP_NOASSERT					1 /* To suppress some errors for now (no debug output) */
 
 /* These two control is reclaimer functions should be compiled
  * in. Should always be turned on (1). */
-#define MEM_RECLAIM             1
-#define MEMP_RECLAIM            1
+#define MEM_RECLAIM						1
+#define MEMP_RECLAIM					1
 
 
 /* Platform specific locking */
@@ -74,42 +74,42 @@
 /* MEM_ALIGNMENT: should be set to the alignment of the CPU for which
  * lwIP is compiled. 4 byte alignment -> define MEM_ALIGNMENT to 4, 2
  * byte alignment -> define MEM_ALIGNMENT to 2. */
-#define MEM_ALIGNMENT           4
+#define MEM_ALIGNMENT					4
 
 /* MEM_SIZE: the size of the heap memory. If the application will send
  * a lot of data that needs to be copied, this should be set high. */
-#define MEM_SIZE                3 * 1024
+#define MEM_SIZE						6 * 1024
 
 /* MEMP_NUM_PBUF: the number of memp struct pbufs. If the application
  * sends a lot of data out of ROM (or other static memory), this
  * should be set high. */
-#define MEMP_NUM_PBUF           6
+#define MEMP_NUM_PBUF					6
 
 /* Number of raw connection PCBs */
 #define MEMP_NUM_RAW_PCB                1
 
 /* ---------- UDP options ---------- */
-  #define LWIP_UDP                1
-  #define UDP_TTL                 255
+  #define LWIP_UDP						1
+  #define UDP_TTL						255
 
 /* MEMP_NUM_UDP_PCB: the number of UDP protocol control blocks. One
  * per active UDP "connection". */
 
 /* required by DHCP (because DNS is used) */
-  #define MEMP_NUM_UDP_PCB        1
+  #define MEMP_NUM_UDP_PCB				1
 
 #if (TFTP_USED == 1)
 
 /* one PCB for DHCP (DNS used), one for TFTP */
   #undef MEMP_NUM_UDP_PCB
-  #define MEMP_NUM_UDP_PCB        2
+  #define MEMP_NUM_UDP_PCB				14
 
 #endif
 
 /* MEMP_NUM_TCP_PCB: the number of simultaneously active TCP connections. */
-#define MEMP_NUM_TCP_PCB        2
+#define MEMP_NUM_TCP_PCB        12
 /* MEMP_NUM_TCP_PCB_LISTEN: the number of listening TCP connections. */
-#define MEMP_NUM_TCP_PCB_LISTEN 1
+#define MEMP_NUM_TCP_PCB_LISTEN 2
 /* MEMP_NUM_TCP_SEG: the number of simultaneously queued TCP segments. */
 #define MEMP_NUM_TCP_SEG        9
 /* MEMP_NUM_SYS_TIMEOUT: the number of simulateously active timeouts. */
@@ -120,7 +120,7 @@
 /* MEMP_NUM_NETBUF: the number of struct netbufs. */
 #define MEMP_NUM_NETBUF         3
 /* MEMP_NUM_NETCONN: the number of struct netconns. */
-#define MEMP_NUM_NETCONN        4
+#define MEMP_NUM_NETCONN        8
 
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */
@@ -136,7 +136,7 @@
  * without this padding e.g. addresses in the IP header will not be aligned
  * on a 32-bit boundary, so setting this to 2 can speed up 32-bit-platforms.
  */
-#define ETH_PAD_SIZE                    0
+#define ETH_PAD_SIZE            0
 
 /* PBUF_LINK_HLEN: the number of bytes that should be allocated for a
  * link level header. */
@@ -226,6 +226,8 @@
 #ifdef LWIP_DHCP
 #define DHCP_USED
 #endif
+
+#define SO_REUSE				1
 
 /* 1 if you want to do an ARP check on the offered address
  * (recommended). */
