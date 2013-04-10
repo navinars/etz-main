@@ -9,187 +9,190 @@
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <AsfFrameworkConfig>
       <framework-data>
-        <options>
-          <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="common.services.basic.clock" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="common.services.basic.serial" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam.drivers.emac" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam.drivers.tc" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam.drivers.rstc" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam.utils.linker_scripts#atsam3x4" value="Add" config="" content-id="Atmel.ASF" />
-        </options>
-        <configurations>
-          <configuration key="config.compiler.armgcc.printf" value="iprintf" default="iprintf" content-id="Atmel.ASF" />
-          <configuration key="config.sam.pio.pio_handler" value="yes" default="yes" content-id="Atmel.ASF" />
-        </configurations>
-        <files>
-          <file path="src/main.c" framework="" version="" source="common/applications/user_application/main.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/config/conf_board.h" framework="" version="" source="common/applications/user_application/user_board/conf_board.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/boards/board.h" framework="" version="" source="common/boards/board.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/boards/user_board/init.c" framework="" version="" source="common/boards/user_board/init.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/boards/user_board/user_board.h" framework="" version="" source="common/boards/user_board/user_board.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/utils/interrupt.h" framework="" version="" source="common/utils/interrupt.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/utils/interrupt/interrupt_sam_nvic.c" framework="" version="" source="common/utils/interrupt/interrupt_sam_nvic.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/utils/interrupt/interrupt_sam_nvic.h" framework="" version="" source="common/utils/interrupt/interrupt_sam_nvic.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/utils/parts.h" framework="" version="" source="common/utils/parts.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_adc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_adc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_can.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_can.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_chipid.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_chipid.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_dacc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_dacc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_dmac.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_dmac.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_efc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_efc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_emac.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_emac.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_gpbr.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_gpbr.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_hsmci.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_hsmci.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_matrix.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_matrix.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_pdc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_pdc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_pio.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_pio.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_pmc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_pmc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_pwm.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_pwm.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_rstc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_rstc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_rtc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_rtc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_rtt.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_rtt.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_sdramc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_sdramc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_smc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_smc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_spi.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_spi.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_ssc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_ssc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_supc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_supc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_tc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_tc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_trng.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_trng.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_twi.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_twi.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_uart.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_uart.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_uotghs.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_uotghs.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_usart.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_usart.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_wdt.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_wdt.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_adc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_adc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_can0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_can0.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_can1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_can1.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_chipid.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_chipid.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_dacc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_dacc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_dmac.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_dmac.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_efc0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_efc0.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_efc1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_efc1.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_emac.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_emac.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_hsmci.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_hsmci.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_matrix.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_matrix.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pioa.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pioa.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_piob.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_piob.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pioc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pioc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_piod.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_piod.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pioe.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pioe.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_piof.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_piof.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pmc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pmc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pwm.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pwm.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_rstc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_rstc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_rtc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_rtc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_rtt.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_rtt.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_sdramc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_sdramc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_smc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_smc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_spi0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_spi0.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_spi1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_spi1.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_ssc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_ssc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_supc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_supc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_tc0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_tc0.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_tc1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_tc1.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_tc2.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_tc2.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_trng.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_trng.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_twi0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_twi0.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_twi1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_twi1.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_uart.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_uart.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_uotghs.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_uotghs.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_usart0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_usart0.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_usart1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_usart1.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_usart2.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_usart2.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_usart3.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_usart3.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_wdt.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_wdt.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3a4c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3a4c.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3a8c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3a8c.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x4c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x4c.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x4e.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x4e.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x8c.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3a4c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3a4c.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3a8c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3a8c.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x4c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x4c.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x4e.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x4e.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x8c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x8c.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x8e.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x8e.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x8h.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x8h.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3xa.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3xa.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.c" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/exceptions.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.h" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/exceptions.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.c" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.c" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/system_sam3x.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.h" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/system_sam3x.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/compiler.h" framework="" version="" source="sam/utils/compiler.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/header_files/io.h" framework="" version="" source="sam/utils/header_files/io.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/make/Makefile.sam.in" framework="" version="" source="sam/utils/make/Makefile.sam.in" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/preprocessor/mrepeat.h" framework="" version="" source="sam/utils/preprocessor/mrepeat.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/preprocessor/preprocessor.h" framework="" version="" source="sam/utils/preprocessor/preprocessor.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/preprocessor/stringz.h" framework="" version="" source="sam/utils/preprocessor/stringz.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/preprocessor/tpaste.h" framework="" version="" source="sam/utils/preprocessor/tpaste.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/status_codes.h" framework="" version="" source="sam/utils/status_codes.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/syscalls/gcc/syscalls.c" framework="" version="" source="sam/utils/syscalls/gcc/syscalls.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/thirdparty/CMSIS/CMSIS END USER LICENCE AGREEMENT.pdf" framework="" version="" source="thirdparty/CMSIS/CMSIS END USER LICENCE AGREEMENT.pdf" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/thirdparty/CMSIS/Include/core_cm3.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cm3.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/thirdparty/CMSIS/Include/core_cmFunc.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cmFunc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/thirdparty/CMSIS/Include/core_cmInstr.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cmInstr.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/thirdparty/CMSIS/README.txt" framework="" version="" source="thirdparty/CMSIS/README.txt" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/thirdparty/CMSIS/license.txt" framework="" version="" source="thirdparty/CMSIS/license.txt" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/utils/linker_scripts/sam3x/sam3x4/gcc/flash.ld" framework="" version="3.7.2" source="sam\utils\linker_scripts\sam3x\sam3x4\gcc\flash.ld" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/pio/pio.c" framework="" version="3.7.2" source="sam\drivers\pio\pio.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/pio/pio.h" framework="" version="3.7.2" source="sam\drivers\pio\pio.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/pmc/pmc.c" framework="" version="3.7.2" source="sam\drivers\pmc\pmc.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/pmc/sleep.c" framework="" version="3.7.2" source="sam\drivers\pmc\sleep.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/pmc/pmc.h" framework="" version="3.7.2" source="sam\drivers\pmc\pmc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/pmc/sleep.h" framework="" version="3.7.2" source="sam\drivers\pmc\sleep.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/sam3x/sysclk.c" framework="" version="3.7.2" source="common\services\clock\sam3x\sysclk.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/genclk.h" framework="" version="3.7.2" source="common\services\clock\genclk.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/osc.h" framework="" version="3.7.2" source="common\services\clock\osc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/sam3x/pll.h" framework="" version="3.7.2" source="common\services\clock\sam3x\pll.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/sam3x/sysclk.h" framework="" version="3.7.2" source="common\services\clock\sam3x\sysclk.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/sam3x/osc.h" framework="" version="3.7.2" source="common\services\clock\sam3x\osc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/sam3x/genclk.h" framework="" version="3.7.2" source="common\services\clock\sam3x\genclk.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/sysclk.h" framework="" version="3.7.2" source="common\services\clock\sysclk.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/clock/pll.h" framework="" version="3.7.2" source="common\services\clock\pll.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/gpio/sam_gpio/sam_gpio.h" framework="" version="3.7.2" source="common\services\gpio\sam_gpio\sam_gpio.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/gpio/gpio.h" framework="" version="3.7.2" source="common\services\gpio\gpio.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/pio/pio_handler.c" framework="" version="3.7.2" source="sam\drivers\pio\pio_handler.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/pio/pio_handler.h" framework="" version="3.7.2" source="sam\drivers\pio\pio_handler.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/ioport/sam/ioport_pio.h" framework="" version="3.7.2" source="common\services\ioport\sam\ioport_pio.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/ioport/ioport.h" framework="" version="3.7.2" source="common\services\ioport\ioport.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/uart/uart.c" framework="" version="3.7.2" source="sam\drivers\uart\uart.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/uart/uart.h" framework="" version="3.7.2" source="sam\drivers\uart\uart.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/usart/usart.c" framework="" version="3.7.2" source="sam\drivers\usart\usart.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/usart/usart.h" framework="" version="3.7.2" source="sam\drivers\usart\usart.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/serial/usart_serial.c" framework="" version="3.7.2" source="common\services\serial\usart_serial.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/serial/sam_uart/uart_serial.h" framework="" version="3.7.2" source="common\services\serial\sam_uart\uart_serial.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/services/serial/serial.h" framework="" version="3.7.2" source="common\services\serial\serial.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/utils/stdio/read.c" framework="" version="3.7.2" source="common\utils\stdio\read.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/utils/stdio/write.c" framework="" version="3.7.2" source="common\utils\stdio\write.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h" framework="" version="3.7.2" source="common\utils\stdio\stdio_serial\stdio_serial.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/emac/emac.c" framework="" version="3.7.2" source="sam\drivers\emac\emac.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/emac/emac.h" framework="" version="3.7.2" source="sam\drivers\emac\emac.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/Config/conf_eth.h" framework="" version="3.7.2" source="sam\drivers\emac\module_config\conf_eth.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/rstc/rstc.c" framework="" version="3.7.2" source="sam\drivers\rstc\rstc.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/rstc/rstc.h" framework="" version="3.7.2" source="sam\drivers\rstc\rstc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/tc/tc.c" framework="" version="3.7.2" source="sam\drivers\tc\tc.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam/drivers/tc/tc.h" framework="" version="3.7.2" source="sam\drivers\tc\tc.h" changed="False" content-id="Atmel.ASF" />
-        </files>
-        <documentation help="http://asf.atmel.com/docs/3.7.2/common.applications.user_application.user_board.sam3x/html/index.html" />
-        <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.7.2" />
-        </dependencies>
-        <project id="common.applications.user_application.user_board.sam3x" value="Add" config="" content-id="Atmel.ASF" />
-        <board id="board.user_board.sam3x" value="Add" config="" content-id="Atmel.ASF" />
-      </framework-data>
+  <options>
+    <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="common.services.basic.clock" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="common.services.basic.serial" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="sam.drivers.emac" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="sam.drivers.rstc" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="sam.drivers.tc" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="sam.drivers.spi" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="sam.utils.linker_scripts#atsam3x4" value="Add" config="" content-id="Atmel.ASF" />
+  </options>
+  <configurations>
+    <configuration key="config.compiler.armgcc.printf" value="iprintf" default="iprintf" content-id="Atmel.ASF" />
+    <configuration key="config.sam.pio.pio_handler" value="yes" default="yes" content-id="Atmel.ASF" />
+  </configurations>
+  <files>
+    <file path="src/main.c" framework="" version="" source="common/applications/user_application/main.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/config/conf_board.h" framework="" version="" source="common/applications/user_application/user_board/conf_board.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/boards/board.h" framework="" version="" source="common/boards/board.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/boards/user_board/init.c" framework="" version="" source="common/boards/user_board/init.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/boards/user_board/user_board.h" framework="" version="" source="common/boards/user_board/user_board.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/utils/interrupt.h" framework="" version="" source="common/utils/interrupt.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/utils/interrupt/interrupt_sam_nvic.c" framework="" version="" source="common/utils/interrupt/interrupt_sam_nvic.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/utils/interrupt/interrupt_sam_nvic.h" framework="" version="" source="common/utils/interrupt/interrupt_sam_nvic.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/utils/parts.h" framework="" version="" source="common/utils/parts.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_adc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_adc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_can.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_can.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_chipid.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_chipid.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_dacc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_dacc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_dmac.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_dmac.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_efc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_efc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_emac.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_emac.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_gpbr.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_gpbr.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_hsmci.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_hsmci.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_matrix.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_matrix.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_pdc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_pdc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_pio.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_pio.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_pmc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_pmc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_pwm.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_pwm.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_rstc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_rstc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_rtc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_rtc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_rtt.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_rtt.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_sdramc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_sdramc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_smc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_smc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_spi.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_spi.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_ssc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_ssc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_supc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_supc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_tc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_tc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_trng.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_trng.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_twi.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_twi.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_uart.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_uart.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_uotghs.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_uotghs.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_usart.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_usart.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/component/component_wdt.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/component/component_wdt.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_adc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_adc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_can0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_can0.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_can1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_can1.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_chipid.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_chipid.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_dacc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_dacc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_dmac.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_dmac.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_efc0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_efc0.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_efc1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_efc1.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_emac.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_emac.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_hsmci.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_hsmci.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_matrix.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_matrix.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pioa.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pioa.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_piob.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_piob.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pioc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pioc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_piod.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_piod.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pioe.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pioe.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_piof.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_piof.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pmc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pmc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_pwm.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_pwm.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_rstc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_rstc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_rtc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_rtc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_rtt.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_rtt.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_sdramc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_sdramc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_smc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_smc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_spi0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_spi0.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_spi1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_spi1.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_ssc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_ssc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_supc.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_supc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_tc0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_tc0.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_tc1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_tc1.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_tc2.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_tc2.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_trng.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_trng.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_twi0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_twi0.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_twi1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_twi1.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_uart.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_uart.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_uotghs.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_uotghs.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_usart0.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_usart0.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_usart1.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_usart1.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_usart2.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_usart2.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_usart3.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_usart3.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/instance/instance_wdt.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/instance/instance_wdt.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3a4c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3a4c.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3a8c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3a8c.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x4c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x4c.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x4e.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x4e.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x8c.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3a4c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3a4c.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3a8c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3a8c.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x4c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x4c.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x4e.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x4e.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x8c.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x8c.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x8e.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x8e.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3x8h.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3x8h.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/include/sam3xa.h" framework="" version="" source="sam/utils/cmsis/sam3x/include/sam3xa.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.c" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/exceptions.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.h" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/exceptions.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.c" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.c" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/system_sam3x.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.h" framework="" version="" source="sam/utils/cmsis/sam3x/source/templates/system_sam3x.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/compiler.h" framework="" version="" source="sam/utils/compiler.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/header_files/io.h" framework="" version="" source="sam/utils/header_files/io.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/make/Makefile.sam.in" framework="" version="" source="sam/utils/make/Makefile.sam.in" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/preprocessor/mrepeat.h" framework="" version="" source="sam/utils/preprocessor/mrepeat.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/preprocessor/preprocessor.h" framework="" version="" source="sam/utils/preprocessor/preprocessor.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/preprocessor/stringz.h" framework="" version="" source="sam/utils/preprocessor/stringz.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/preprocessor/tpaste.h" framework="" version="" source="sam/utils/preprocessor/tpaste.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/status_codes.h" framework="" version="" source="sam/utils/status_codes.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/syscalls/gcc/syscalls.c" framework="" version="" source="sam/utils/syscalls/gcc/syscalls.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/thirdparty/CMSIS/CMSIS END USER LICENCE AGREEMENT.pdf" framework="" version="" source="thirdparty/CMSIS/CMSIS END USER LICENCE AGREEMENT.pdf" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/thirdparty/CMSIS/Include/core_cm3.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cm3.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/thirdparty/CMSIS/Include/core_cmFunc.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cmFunc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/thirdparty/CMSIS/Include/core_cmInstr.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cmInstr.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/thirdparty/CMSIS/README.txt" framework="" version="" source="thirdparty/CMSIS/README.txt" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/thirdparty/CMSIS/license.txt" framework="" version="" source="thirdparty/CMSIS/license.txt" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/utils/linker_scripts/sam3x/sam3x4/gcc/flash.ld" framework="" version="3.7.2" source="sam\utils\linker_scripts\sam3x\sam3x4\gcc\flash.ld" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/pio/pio.c" framework="" version="3.7.2" source="sam\drivers\pio\pio.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/pio/pio.h" framework="" version="3.7.2" source="sam\drivers\pio\pio.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/pmc/pmc.c" framework="" version="3.7.2" source="sam\drivers\pmc\pmc.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/pmc/sleep.c" framework="" version="3.7.2" source="sam\drivers\pmc\sleep.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/pmc/pmc.h" framework="" version="3.7.2" source="sam\drivers\pmc\pmc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/pmc/sleep.h" framework="" version="3.7.2" source="sam\drivers\pmc\sleep.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/sam3x/sysclk.c" framework="" version="3.7.2" source="common\services\clock\sam3x\sysclk.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/genclk.h" framework="" version="3.7.2" source="common\services\clock\genclk.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/osc.h" framework="" version="3.7.2" source="common\services\clock\osc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/sam3x/pll.h" framework="" version="3.7.2" source="common\services\clock\sam3x\pll.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/sam3x/sysclk.h" framework="" version="3.7.2" source="common\services\clock\sam3x\sysclk.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/sam3x/osc.h" framework="" version="3.7.2" source="common\services\clock\sam3x\osc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/sam3x/genclk.h" framework="" version="3.7.2" source="common\services\clock\sam3x\genclk.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/sysclk.h" framework="" version="3.7.2" source="common\services\clock\sysclk.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/clock/pll.h" framework="" version="3.7.2" source="common\services\clock\pll.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/gpio/sam_gpio/sam_gpio.h" framework="" version="3.7.2" source="common\services\gpio\sam_gpio\sam_gpio.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/gpio/gpio.h" framework="" version="3.7.2" source="common\services\gpio\gpio.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/pio/pio_handler.c" framework="" version="3.7.2" source="sam\drivers\pio\pio_handler.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/pio/pio_handler.h" framework="" version="3.7.2" source="sam\drivers\pio\pio_handler.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/ioport/sam/ioport_pio.h" framework="" version="3.7.2" source="common\services\ioport\sam\ioport_pio.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/ioport/ioport.h" framework="" version="3.7.2" source="common\services\ioport\ioport.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/uart/uart.c" framework="" version="3.7.2" source="sam\drivers\uart\uart.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/uart/uart.h" framework="" version="3.7.2" source="sam\drivers\uart\uart.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/usart/usart.c" framework="" version="3.7.2" source="sam\drivers\usart\usart.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/usart/usart.h" framework="" version="3.7.2" source="sam\drivers\usart\usart.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/serial/usart_serial.c" framework="" version="3.7.2" source="common\services\serial\usart_serial.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/serial/sam_uart/uart_serial.h" framework="" version="3.7.2" source="common\services\serial\sam_uart\uart_serial.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/serial/serial.h" framework="" version="3.7.2" source="common\services\serial\serial.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/utils/stdio/read.c" framework="" version="3.7.2" source="common\utils\stdio\read.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/utils/stdio/write.c" framework="" version="3.7.2" source="common\utils\stdio\write.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h" framework="" version="3.7.2" source="common\utils\stdio\stdio_serial\stdio_serial.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/emac/emac.c" framework="" version="3.7.2" source="sam\drivers\emac\emac.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/emac/emac.h" framework="" version="3.7.2" source="sam\drivers\emac\emac.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/Config/conf_eth.h" framework="" version="3.7.2" source="sam\drivers\emac\module_config\conf_eth.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/rstc/rstc.c" framework="" version="3.7.2" source="sam\drivers\rstc\rstc.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/rstc/rstc.h" framework="" version="3.7.2" source="sam\drivers\rstc\rstc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/tc/tc.c" framework="" version="3.7.2" source="sam\drivers\tc\tc.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/tc/tc.h" framework="" version="3.7.2" source="sam\drivers\tc\tc.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/spi/spi.c" framework="" version="3.7.2" source="sam\drivers\spi\spi.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/spi/spi.h" framework="" version="3.7.2" source="sam\drivers\spi\spi.h" changed="False" content-id="Atmel.ASF" />
+  </files>
+  <documentation help="http://asf.atmel.com/docs/3.7.2/common.applications.user_application.user_board.sam3x/html/index.html" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.7.2" />
+  </dependencies>
+  <project id="common.applications.user_application.user_board.sam3x" value="Add" config="" content-id="Atmel.ASF" />
+  <board id="board.user_board.sam3x" value="Add" config="" content-id="Atmel.ASF" />
+</framework-data>
     </AsfFrameworkConfig>
-    <avrdevice>ATSAM3X8H</avrdevice>
+    <avrdevice>ATSAM3X4C</avrdevice>
     <avrdeviceseries>sam3x</avrdeviceseries>
     <Language>C</Language>
     <ToolchainName>com.Atmel.ARMGCC.C</ToolchainName>
@@ -217,13 +220,13 @@
       <ToolNumber>000028011727</ToolNumber>
       <Channel>
         <host>127.0.0.1</host>
-        <port>49425</port>
+        <port>49419</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
         <InterfaceName>SWD</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>0</JtagDbgClock>
+          <JtagDbgClock>4000000</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
           <IspClock>150000</IspClock>
           <JtagInChain>false</JtagInChain>
@@ -232,7 +235,7 @@
           <JtagDevicesAfter>0</JtagDevicesAfter>
           <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
           <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
-          <SwdClock>4330000</SwdClock>
+          <SwdClock>4000000</SwdClock>
         </InterfaceProperties>
       </ToolOptions>
     </com_atmel_avrdbg_tool_samice>
@@ -240,126 +243,129 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <ArmGcc>
-        <armgcc.common.general.symbols>__SAM3X8H__</armgcc.common.general.symbols>
-        <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
-        <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
-        <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
-        <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
-        <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
-        <armgcc.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>BOARD=USER_BOARD</Value>
-            <Value>printf=iprintf</Value>
-          </ListValues>
-        </armgcc.compiler.symbols.DefSymbols>
-        <armgcc.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>../src</Value>
-            <Value>../src/ASF/common/boards</Value>
-            <Value>../src/ASF/common/boards/user_board</Value>
-            <Value>../src/ASF/common/utils</Value>
-            <Value>../src/ASF/sam/utils</Value>
-            <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
-            <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
-            <Value>../src/ASF/sam/utils/header_files</Value>
-            <Value>../src/ASF/sam/utils/preprocessor</Value>
-            <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
-            <Value>../src/config</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
-            <Value>../src/ASF/sam/drivers/pio</Value>
-            <Value>../src/ASF/sam/drivers/pmc</Value>
-            <Value>../src/ASF/common/services/clock</Value>
-            <Value>../src/ASF/common/services/gpio</Value>
-            <Value>../src/ASF/common/services/ioport</Value>
-            <Value>../src/ASF/sam/drivers/uart</Value>
-            <Value>../src/ASF/sam/drivers/usart</Value>
-            <Value>../src/ASF/common/services/serial/sam_uart</Value>
-            <Value>../src/ASF/common/services/serial</Value>
-            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
-            <Value>../src/ASF/sam/drivers/emac</Value>
-            <Value>../src/ASF/sam/drivers/rstc</Value>
-            <Value>../src/ASF/sam/drivers/tc</Value>
-          </ListValues>
-        </armgcc.compiler.directories.IncludePaths>
-        <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
-        <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
-        <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-        <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
-        <armgcc.compiler.miscellaneous.OtherFlags>-pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Winline -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500</armgcc.compiler.miscellaneous.OtherFlags>
-        <armgcc.linker.general.DoNotUseStandardStartFiles />
-        <armgcc.linker.general.DoNotUseDefaultLibraries />
-        <armgcc.linker.general.NoStartupOrDefaultLibs />
-        <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
-        <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x4/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
-        <armgcc.assembler.general.IncludePaths>
-          <ListValues>
-            <Value>../src</Value>
-            <Value>../src/ASF/common/boards</Value>
-            <Value>../src/ASF/common/boards/user_board</Value>
-            <Value>../src/ASF/common/utils</Value>
-            <Value>../src/ASF/sam/utils</Value>
-            <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
-            <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
-            <Value>../src/ASF/sam/utils/header_files</Value>
-            <Value>../src/ASF/sam/utils/preprocessor</Value>
-            <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
-            <Value>../src/config</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
-            <Value>../src/ASF/sam/drivers/pio</Value>
-            <Value>../src/ASF/sam/drivers/pmc</Value>
-            <Value>../src/ASF/common/services/clock</Value>
-            <Value>../src/ASF/common/services/gpio</Value>
-            <Value>../src/ASF/common/services/ioport</Value>
-            <Value>../src/ASF/sam/drivers/uart</Value>
-            <Value>../src/ASF/sam/drivers/usart</Value>
-            <Value>../src/ASF/common/services/serial/sam_uart</Value>
-            <Value>../src/ASF/common/services/serial</Value>
-            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
-            <Value>../src/ASF/sam/drivers/emac</Value>
-            <Value>../src/ASF/sam/drivers/rstc</Value>
-            <Value>../src/ASF/sam/drivers/tc</Value>
-          </ListValues>
-        </armgcc.assembler.general.IncludePaths>
-        <armgcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
-        <armgcc.preprocessingassembler.general.IncludePaths>
-          <ListValues>
-            <Value>../src</Value>
-            <Value>../src/ASF/common/boards</Value>
-            <Value>../src/ASF/common/boards/user_board</Value>
-            <Value>../src/ASF/common/utils</Value>
-            <Value>../src/ASF/sam/utils</Value>
-            <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
-            <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
-            <Value>../src/ASF/sam/utils/header_files</Value>
-            <Value>../src/ASF/sam/utils/preprocessor</Value>
-            <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
-            <Value>../src/config</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
-            <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
-            <Value>../src/ASF/sam/drivers/pio</Value>
-            <Value>../src/ASF/sam/drivers/pmc</Value>
-            <Value>../src/ASF/common/services/clock</Value>
-            <Value>../src/ASF/common/services/gpio</Value>
-            <Value>../src/ASF/common/services/ioport</Value>
-            <Value>../src/ASF/sam/drivers/uart</Value>
-            <Value>../src/ASF/sam/drivers/usart</Value>
-            <Value>../src/ASF/common/services/serial/sam_uart</Value>
-            <Value>../src/ASF/common/services/serial</Value>
-            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
-            <Value>../src/ASF/sam/drivers/emac</Value>
-            <Value>../src/ASF/sam/drivers/rstc</Value>
-            <Value>../src/ASF/sam/drivers/tc</Value>
-          </ListValues>
-        </armgcc.preprocessingassembler.general.IncludePaths>
-      </ArmGcc>
+  <armgcc.common.general.symbols>__SAM3X4C__</armgcc.common.general.symbols>
+  <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
+  <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
+  <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
+  <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
+  <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
+  <armgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>BOARD=USER_BOARD</Value>
+      <Value>printf=iprintf</Value>
+    </ListValues>
+  </armgcc.compiler.symbols.DefSymbols>
+  <armgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../src</Value>
+      <Value>../src/ASF/common/boards</Value>
+      <Value>../src/ASF/common/boards/user_board</Value>
+      <Value>../src/ASF/common/utils</Value>
+      <Value>../src/ASF/sam/utils</Value>
+      <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
+      <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
+      <Value>../src/ASF/sam/utils/header_files</Value>
+      <Value>../src/ASF/sam/utils/preprocessor</Value>
+      <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../src/config</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
+      <Value>../src/ASF/sam/drivers/pio</Value>
+      <Value>../src/ASF/sam/drivers/pmc</Value>
+      <Value>../src/ASF/common/services/clock</Value>
+      <Value>../src/ASF/common/services/gpio</Value>
+      <Value>../src/ASF/common/services/ioport</Value>
+      <Value>../src/ASF/sam/drivers/uart</Value>
+      <Value>../src/ASF/sam/drivers/usart</Value>
+      <Value>../src/ASF/common/services/serial/sam_uart</Value>
+      <Value>../src/ASF/common/services/serial</Value>
+      <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+      <Value>../src/ASF/sam/drivers/emac</Value>
+      <Value>../src/ASF/sam/drivers/rstc</Value>
+      <Value>../src/ASF/sam/drivers/tc</Value>
+      <Value>../src/ASF/sam/drivers/spi</Value>
+    </ListValues>
+  </armgcc.compiler.directories.IncludePaths>
+  <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
+  <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
+  <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+  <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
+  <armgcc.compiler.miscellaneous.OtherFlags>-pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Winline -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500</armgcc.compiler.miscellaneous.OtherFlags>
+  <armgcc.linker.general.DoNotUseStandardStartFiles />
+  <armgcc.linker.general.DoNotUseDefaultLibraries />
+  <armgcc.linker.general.NoStartupOrDefaultLibs />
+  <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+  <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x4/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
+  <armgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>../src</Value>
+      <Value>../src/ASF/common/boards</Value>
+      <Value>../src/ASF/common/boards/user_board</Value>
+      <Value>../src/ASF/common/utils</Value>
+      <Value>../src/ASF/sam/utils</Value>
+      <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
+      <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
+      <Value>../src/ASF/sam/utils/header_files</Value>
+      <Value>../src/ASF/sam/utils/preprocessor</Value>
+      <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../src/config</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
+      <Value>../src/ASF/sam/drivers/pio</Value>
+      <Value>../src/ASF/sam/drivers/pmc</Value>
+      <Value>../src/ASF/common/services/clock</Value>
+      <Value>../src/ASF/common/services/gpio</Value>
+      <Value>../src/ASF/common/services/ioport</Value>
+      <Value>../src/ASF/sam/drivers/uart</Value>
+      <Value>../src/ASF/sam/drivers/usart</Value>
+      <Value>../src/ASF/common/services/serial/sam_uart</Value>
+      <Value>../src/ASF/common/services/serial</Value>
+      <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+      <Value>../src/ASF/sam/drivers/emac</Value>
+      <Value>../src/ASF/sam/drivers/rstc</Value>
+      <Value>../src/ASF/sam/drivers/tc</Value>
+      <Value>../src/ASF/sam/drivers/spi</Value>
+    </ListValues>
+  </armgcc.assembler.general.IncludePaths>
+  <armgcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
+  <armgcc.preprocessingassembler.general.IncludePaths>
+    <ListValues>
+      <Value>../src</Value>
+      <Value>../src/ASF/common/boards</Value>
+      <Value>../src/ASF/common/boards/user_board</Value>
+      <Value>../src/ASF/common/utils</Value>
+      <Value>../src/ASF/sam/utils</Value>
+      <Value>../src/ASF/sam/utils/cmsis/sam3x/include</Value>
+      <Value>../src/ASF/sam/utils/cmsis/sam3x/source/templates</Value>
+      <Value>../src/ASF/sam/utils/header_files</Value>
+      <Value>../src/ASF/sam/utils/preprocessor</Value>
+      <Value>../src/ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../src/config</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\CMSIS\Include</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL</Value>
+      <Value>C:\Program Files\Atmel\Atmel Toolchain\ARM GCC\Native\4.7.2.87\arm-gnu-toolchain\bin\..\..\CMSIS_Atmel\Device\ATMEL\sam3xa\include</Value>
+      <Value>../src/ASF/sam/drivers/pio</Value>
+      <Value>../src/ASF/sam/drivers/pmc</Value>
+      <Value>../src/ASF/common/services/clock</Value>
+      <Value>../src/ASF/common/services/gpio</Value>
+      <Value>../src/ASF/common/services/ioport</Value>
+      <Value>../src/ASF/sam/drivers/uart</Value>
+      <Value>../src/ASF/sam/drivers/usart</Value>
+      <Value>../src/ASF/common/services/serial/sam_uart</Value>
+      <Value>../src/ASF/common/services/serial</Value>
+      <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+      <Value>../src/ASF/sam/drivers/emac</Value>
+      <Value>../src/ASF/sam/drivers/rstc</Value>
+      <Value>../src/ASF/sam/drivers/tc</Value>
+      <Value>../src/ASF/sam/drivers/spi</Value>
+    </ListValues>
+  </armgcc.preprocessingassembler.general.IncludePaths>
+</ArmGcc>
     </ToolchainSettings>
     <GenerateHexFile>True</GenerateHexFile>
     <GenerateMapFile>True</GenerateMapFile>
@@ -369,7 +375,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <ArmGcc>
-  <armgcc.common.general.symbols>__SAM3X8H__</armgcc.common.general.symbols>
+  <armgcc.common.general.symbols>__SAM3X4C__</armgcc.common.general.symbols>
   <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
   <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
   <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
@@ -422,6 +428,8 @@
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include/ipv4</Value>
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include</Value>
       <Value>../src/network</Value>
+      <Value>../src/ASF/sam/drivers/spi</Value>
+      <Value>../src/BSP</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
@@ -440,7 +448,7 @@
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
-  <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
+  <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x4/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
       <Value>../src</Value>
@@ -474,6 +482,7 @@
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include</Value>
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include/ipv4</Value>
       <Value>../src/ASF/thirdparty/lwip/lwip-port-1.4.0/sam/include</Value>
+      <Value>../src/ASF/sam/drivers/spi</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
@@ -511,6 +520,7 @@
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include/lwip</Value>
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include</Value>
       <Value>../src</Value>
+      <Value>../src/ASF/sam/drivers/spi</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -524,6 +534,12 @@
     <Compile Include="src\ASF\common\boards\user_board\init.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ASF\sam\drivers\spi\spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\spi\spi.h">
+      <SubType>compile</SubType>
+    </None>
     <Compile Include="src\ASF\thirdparty\freertos-7.0.0\source\croutine.c">
       <SubType>compile</SubType>
     </Compile>
@@ -585,6 +601,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\BasicWEB.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BSP\ht1000_spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config\conf_spi.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\network\ethernet.c">
@@ -1372,6 +1394,7 @@
     <Folder Include="src\ASF\sam\drivers\pio\" />
     <Folder Include="src\ASF\sam\drivers\pmc\" />
     <Folder Include="src\ASF\sam\drivers\rstc\" />
+    <Folder Include="src\ASF\sam\drivers\spi\" />
     <Folder Include="src\ASF\sam\drivers\tc\" />
     <Folder Include="src\ASF\sam\drivers\uart\" />
     <Folder Include="src\ASF\sam\drivers\usart\" />
@@ -1424,6 +1447,7 @@
     <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\arch\" />
     <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\include\netif\" />
     <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\netif\" />
+    <Folder Include="src\BSP\" />
     <Folder Include="src\config\" />
     <Folder Include="src\network\" />
   </ItemGroup>

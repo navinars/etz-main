@@ -62,14 +62,14 @@
 // From module: Ethernet MAC (EMAC)
 #include <emac.h>
 
-// From module: Ethernet Physical Transceiver (DM9161A)
-#include <ethernet_phy.h>
-
 // From module: GPIO - General purpose Input/Output
 #include <gpio.h>
 
 // From module: Generic board support
 #include <board.h>
+
+// From module: IOPORT - General purpose I/O service
+#include <ioport.h>
 
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
@@ -89,6 +89,9 @@
 
 // From module: SAM3X startup code
 #include <exceptions.h>
+
+// From module: SPI - Serial Peripheral Interface
+#include <spi.h>
 
 // From module: Standard serial I/O (stdio) - SAM implementation
 #include <stdio_serial.h>

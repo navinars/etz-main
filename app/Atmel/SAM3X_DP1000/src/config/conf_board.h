@@ -54,6 +54,25 @@
 #define PIN_EMAC_EMDIO        PIO_PB9_IDX
 #define PIN_EMAC_FLAGS        PIO_PERIPH_A | PIO_DEFAULT
 
+/** Enable Com Port. */
+#define CONF_BOARD_UART_CONSOLE
+
+/** Usart Hw ID used by the console (UART). */
+#define CONSOLE_UART_ID          ID_UART
+
+/** SPI0 MACRO definition */
+#define CONF_BOARD_SPI0
+
+/** SPI0 slave select0 MACRO definition */
+#define CONF_BOARD_SPI0_NPCS0
+
+/** Spi Hw ID . */
+#define SPI_ID          ID_SPI0
+
+/** SPI base address for SPI master mode*/
+#define SPI_MASTER_BASE      SPI0
+/** SPI base address for SPI slave mode, (on different board) */
+#define SPI_SLAVE_BASE       SPI0
 /** EMAC PHY address */
 #define BOARD_EMAC_PHY_ADDR  0
 /*! EMAC RMII mode */

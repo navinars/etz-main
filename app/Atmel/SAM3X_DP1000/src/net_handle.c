@@ -4,6 +4,7 @@
 /* Standard includes. */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "conf_board.h"
 #include "conf_eth.h"
@@ -35,10 +36,11 @@
 
 #define BACKLOG								6
 
+u_char sock_buf[100] = {0};
 
 portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 {
-	int sock_fd, new_fd, max_fd;
+	int sock_fd, new_fd, max_fd, old_fd = 0;
 	socklen_t sin_size;
 	int ret, yes = 1;
 	struct sockaddr_in server_addr;
@@ -98,25 +100,38 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 			continue;
 		}
 		
-		//for(i = 0; i < conn_amount; i++)							/* Check every fd in the set.*/
-		//{
-			//if (FD_ISSET(fd_A[i], &fdsr))
-			//{
-				//int opt = 100;									/* set recv timeout (100 ms) */
-				//lwip_setsockopt(fd_A[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
-				//
-				//ret = lwip_read(fd_A[i], buf, 8);					/* receive data to buf[].*/
-				//if (ret <= 0)
-				//{
-					//
-				//}
-				//else
-				//{
-					//
-				//}
-			//}
-		//}
-		//
+		for(i = 0; i < conn_amount; i++)							/* Check every fd in the set.*/
+		{
+			if (FD_ISSET(fd_A[i], &fdsr))
+			{
+				u_char	len;
+				int opt = 100;										/* set recv timeout (100 ms) */
+				lwip_setsockopt(fd_A[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+				
+				ret = lwip_read(fd_A[i], &len, 1);
+				if (ret > 0)
+				{
+					len = len - 0x30;								/* Char type to integer type.*/
+					ret = lwip_read(fd_A[i], sock_buf, len);		/* receive data to buffers.*/
+					if (ret <= 0)
+					{
+						memset(sock_buf, 0, 100);
+					}
+					else
+					{
+						// TODO: Socket frame handle.
+						memset(sock_buf, 0, len);
+					}
+				}
+				else if(ret == 0){
+					lwip_close(fd_A[i]);							/* Can't decide which socket is closed.*/
+				}
+				else {
+					;
+				}
+			}
+		}
+		
 		if (FD_ISSET(sock_fd, &fdsr))								/* Check whether a new connection comes.*/
 		{
 			new_fd = lwip_accept(sock_fd, (struct sockaddr *)&client_addr, &sin_size);
@@ -132,11 +147,11 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				}
 			}
 			else {
-				lwip_close(fd_A[conn_amount - 1]);
-				fd_A[conn_amount - 1] = new_fd;
+				lwip_close(fd_A[old_fd]);
+				fd_A[old_fd ++] = new_fd;
 				
-				if (new_fd > max_fd) {
-					max_fd = new_fd;
+				if (old_fd == BACKLOG) {
+					old_fd = 0;
 				}
 			}
 		}
