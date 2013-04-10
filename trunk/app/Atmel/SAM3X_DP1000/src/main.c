@@ -145,8 +145,8 @@ void task_led(void *pvParameters)
 		vTaskDelay(1000);
 	}
 }
-
 /*-----------------------------------------------------------*/
+
 void task_start(void *pvParameters)
 {
 	(void) pvParameters;
