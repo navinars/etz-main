@@ -54,6 +54,38 @@
 #define PIN_EMAC_EMDIO        PIO_PB9_IDX
 #define PIN_EMAC_FLAGS        PIO_PERIPH_A | PIO_DEFAULT
 
+/* ------------------------------------------------------------------------ */
+/* SPI                                                                      */
+/* ------------------------------------------------------------------------ */
+/*! SPI0 MISO pin definition. */
+#define SPI0_MISO_GPIO        (PIO_PA25_IDX)
+#define SPI0_MISO_FLAGS       (PIO_PERIPH_A | PIO_DEFAULT)
+/*! SPI0 MOSI pin definition. */
+#define SPI0_MOSI_GPIO        (PIO_PA26_IDX)
+#define SPI0_MOSI_FLAGS       (PIO_PERIPH_A | PIO_DEFAULT)
+/*! SPI0 SPCK pin definition. */
+#define SPI0_SPCK_GPIO        (PIO_PA27_IDX)
+#define SPI0_SPCK_FLAGS       (PIO_PERIPH_A | PIO_DEFAULT)
+
+/*! SPI0 chip select 0 pin definition. (Only one configuration is possible) */
+#define SPI0_NPCS0_GPIO            (PIO_PA28_IDX)
+#define SPI0_NPCS0_FLAGS           (PIO_PERIPH_A | PIO_DEFAULT)
+/*! SPI0 chip select 1 pin definition. (multiple configurations are possible) */
+#define SPI0_NPCS1_PA29_GPIO       (PIO_PA29_IDX)
+#define SPI0_NPCS1_PA29_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
+#define SPI0_NPCS1_PB20_GPIO       (PIO_PB20_IDX)
+#define SPI0_NPCS1_PB20_FLAGS      (PIO_PERIPH_B | PIO_DEFAULT)
+/*! SPI0 chip select 2 pin definition. (multiple configurations are possible) */
+#define SPI0_NPCS2_PA30_GPIO       (PIO_PA30_IDX)
+#define SPI0_NPCS2_PA30_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
+#define SPI0_NPCS2_PB21_GPIO       (PIO_PB21_IDX)
+#define SPI0_NPCS2_PB21_FLAGS      (PIO_PERIPH_B | PIO_DEFAULT)
+/*! SPI0 chip select 3 pin definition. (multiple configurations are possible) */
+#define SPI0_NPCS3_PA31_GPIO       (PIO_PA31_IDX)
+#define SPI0_NPCS3_PA31_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
+#define SPI0_NPCS3_PB23_GPIO       (PIO_PB23_IDX)
+#define SPI0_NPCS3_PB23_FLAGS      (PIO_PERIPH_B | PIO_DEFAULT)
+
 /** Enable Com Port. */
 #define CONF_BOARD_UART_CONSOLE
 

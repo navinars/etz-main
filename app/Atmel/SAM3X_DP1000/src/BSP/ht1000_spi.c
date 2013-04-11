@@ -105,6 +105,7 @@
 #include "conf_board.h"
 #include "conf_clock.h"
 #include "conf_spi.h"
+#include "ht1000_spi.h"
 
 /// @cond 0
 /**INDENT-OFF**/
@@ -180,11 +181,6 @@ extern "C" {
 /* Max retry times. */
 #define MAX_RETRY    4
 
-#define STRING_EOL    "\r"
-#define STRING_HEADER "--Spi Example --\r\n" \
-		"-- "BOARD_NAME" --\r\n" \
-		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
-
 /* Status block. */
 struct status_block_t {
 	/** Number of data blocks. */
@@ -225,24 +221,6 @@ static uint32_t gs_ul_test_block_number;
 static const uint32_t gs_ul_clock_configurations[] =
 		{ 500000, 1000000, 2000000, 5000000 };
 
-
-/**
- * \brief Display the user menu on the terminal.
- */
-static void display_menu(void)
-{
-	uint32_t i;
-
-	puts("\n\rMenu :\n\r"
-			"------\r");
-
-	for (i = 0; i < NUM_SPCK_CONFIGURATIONS; i++) {
-		printf("  %u: Set SPCK = %7lu Hz\n\r", (unsigned)i,
-			(unsigned long)gs_ul_clock_configurations[i]);
-	}
-	puts("  t: Perform SPI master\n\r"
-			"  h: Display this menu again\n\r\r");
-}
 
 /**
  * \brief Set SPI slave transfer.
@@ -379,7 +357,7 @@ void SPI_Handler(void)
 /**
  * \brief Initialize SPI as slave.
  */
-static void spi_slave_initialize(void)
+void spi_slave_initialize(void)
 {
 	uint32_t i;
 
@@ -413,7 +391,7 @@ static void spi_slave_initialize(void)
 /**
  * \brief Initialize SPI as master.
  */
-static void spi_master_initialize(void)
+void spi_master_initialize(void)
 {
 	puts("-I- Initialize SPI as master\r");
 
@@ -441,10 +419,10 @@ static void spi_master_initialize(void)
  *
  * \param configuration  Index of the configuration to set.
  */
-static void spi_set_clock_configuration(uint8_t configuration)
+void spi_set_clock_configuration(uint8_t configuration)
 {
 	gs_ul_spi_clock = gs_ul_clock_configurations[configuration];
-	printf("Setting SPI clock #%lu ... \n\r", (unsigned long)gs_ul_spi_clock);
+	RS232printf("Setting SPI clock #%lu ... \n\r", (unsigned long)gs_ul_spi_clock);
 	spi_master_initialize();
 }
 
@@ -454,7 +432,7 @@ static void spi_set_clock_configuration(uint8_t configuration)
  * \param pbuf Pointer to buffer to transfer.
  * \param size Size of the buffer.
  */
-static void spi_master_transfer(void *p_buf, uint32_t size)
+void spi_master_transfer(void *p_buf, uint32_t size)
 {
 	uint32_t i;
 	uint8_t uc_pcs;
@@ -476,7 +454,7 @@ static void spi_master_transfer(void *p_buf, uint32_t size)
 /**
  * \brief Start SPI transfer test.
  */
-static void spi_master_go(void)
+void spi_master_go(void)
 {
 	uint32_t cmd;
 	uint32_t block;

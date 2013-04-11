@@ -37,6 +37,7 @@
 #include "ethernet.h"
 #include "netif/etharp.h"
 #include <compiler.h>
+#include "ht1000_spi.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
@@ -171,6 +172,9 @@ int main (void)
 	sysclk_init();
 	
 	board_init();
+	
+	/* Initialize the SPI0. */
+	spi_set_clock_configuration(1);
 	
 	/* Initialize the console uart */
 	configure_console();

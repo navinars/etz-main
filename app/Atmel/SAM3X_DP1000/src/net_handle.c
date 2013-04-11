@@ -33,6 +33,8 @@
 /* ethernet includes */
 #include "ethernet.h"
 
+/* HT1000_BSP includes */
+#include "ht1000_spi.h"
 
 #define BACKLOG								6
 
@@ -112,6 +114,7 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				if (ret > 0)
 				{
 					len = len - 0x30;								/* Char type to integer type.*/
+					
 					ret = lwip_read(fd_A[i], sock_buf, len);		/* receive data to buffers.*/
 					if (ret <= 0)
 					{
@@ -119,7 +122,11 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 					}
 					else
 					{
+						//
 						// TODO: Socket frame handle.
+						//
+						spi_master_transfer(sock_buf, len);
+						
 						memset(sock_buf, 0, len);
 					}
 				}
