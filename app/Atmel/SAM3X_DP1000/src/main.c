@@ -173,11 +173,11 @@ int main (void)
 	
 	board_init();
 	
-	/* Initialize the SPI0. */
-	spi_set_clock_configuration(1);
-	
 	/* Initialize the console uart */
 	configure_console();
+	
+	/* Initialize the SPI0. */
+	spi_set_clock_configuration(1);
 	
 	/* Output demo information. */
 	printf("-- FreeRTOS Example --\n\r");
