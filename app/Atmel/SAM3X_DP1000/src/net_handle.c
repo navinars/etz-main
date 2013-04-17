@@ -98,7 +98,7 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 		
 		ret = lwip_select(max_fd + 1, &allset, NULL, NULL, NULL);
 		
-		if(ret == 0)												/* If FD is not add, than continue.*/
+		if(ret < 0)													/* If FD is not add, than continue.*/
 		{
 			continue;
 		}
