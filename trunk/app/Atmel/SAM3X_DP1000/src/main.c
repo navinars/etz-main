@@ -38,6 +38,7 @@
 #include "netif/etharp.h"
 #include <compiler.h>
 #include "ht1000_spi.h"
+#include "net_handle.h"
 #include "spi_handle.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
@@ -139,12 +140,32 @@ static void configure_console(void)
 /*-----------------------------------------------------------*/
 void task_led(void *pvParameters)
 {
+	
+	uint16_t crc;
 	(void) pvParameters;
+	
+	spi_t.buf[0] = 0x01;
+	spi_t.buf[1] = 0x06;
+	spi_t.buf[2] = 0x00;
+	spi_t.buf[3] = 0x01;
+	spi_t.buf[4] = 0x01;
+	spi_t.buf[5] = 0x00;
+	
+	crc = Crc16CheckSum(spi_t.buf, 6);
+	
+	spi_t.buf[6] = crc>>8;
+	spi_t.buf[7] = crc;
 	
 	for (;;)
 	{
+		//spi_csn0_disable();
+		//spi_master_transfer(spi_t.buf, spi_t.len);
+		//vTaskDelay(20);												/* Wait 20 millisecond.*/
+		//spi_master_transfer(spi_t.buf, spi_t.len);					/* Update to spi.buf[].*/
+		//spi_csn0_enable();
+		//
 		gpio_toggle_pin(PIO_PA12_IDX);
-		vTaskDelay(1000);
+		vTaskDelay(3000);
 	}
 }
 /*-----------------------------------------------------------*/
