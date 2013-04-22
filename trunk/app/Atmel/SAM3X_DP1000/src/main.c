@@ -38,6 +38,7 @@
 #include "netif/etharp.h"
 #include <compiler.h>
 #include "ht1000_spi.h"
+#include "spi_handle.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
@@ -158,6 +159,8 @@ void task_start(void *pvParameters)
 
 	/* Start the ethernet tasks */
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
+	
+	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
 
 	for (;;)
 	{
@@ -171,20 +174,22 @@ int main (void)
 	/* Initialize the SAM system */
 	sysclk_init();
 	
+	/* Initialize mcu's peripheral.*/
 	board_init();
 	
 	/* Initialize the console uart */
 	configure_console();
 	
+	/* Output demo information. */
+	RS232printf("\n\r-- FreeRTOS Example --\n\r");
+	
 	/* Initialize the SPI0. */
 	spi_set_clock_configuration(1);
-	
-	/* Output demo information. */
-	printf("-- FreeRTOS Example --\n\r");
 	
 	/* Ensure all priority bits are assigned as preemption priority bits. */
 	NVIC_SetPriorityGrouping( 0 );
 	
+	/* Create freeRTOS START task.*/
 	xTaskCreate(task_start, (signed char *)"START", TASK_START_STACKSIZE, NULL,
 				TASK_START_PRIORITY, NULL);
 	

@@ -192,7 +192,7 @@
         <board id="board.user_board.sam3x" value="Add" config="" content-id="Atmel.ASF" />
       </framework-data>
     </AsfFrameworkConfig>
-    <avrdevice>ATSAM3X4C</avrdevice>
+    <avrdevice>ATSAM3X8H</avrdevice>
     <avrdeviceseries>sam3x</avrdeviceseries>
     <Language>C</Language>
     <ToolchainName>com.Atmel.ARMGCC.C</ToolchainName>
@@ -220,7 +220,7 @@
       <ToolNumber>000028011727</ToolNumber>
       <Channel>
         <host>127.0.0.1</host>
-        <port>53954</port>
+        <port>50179</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
@@ -235,7 +235,7 @@
           <JtagDevicesAfter>0</JtagDevicesAfter>
           <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
           <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
-          <SwdClock>4080000</SwdClock>
+          <SwdClock>4120000</SwdClock>
         </InterfaceProperties>
       </ToolOptions>
     </com_atmel_avrdbg_tool_samice>
@@ -432,6 +432,7 @@
       <Value>../src/BSP</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
+  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
   <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
   <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
   <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
@@ -448,7 +449,7 @@
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
-  <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x4/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
+  <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
       <Value>../src</Value>
@@ -535,6 +536,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ASF\sam\drivers\spi\spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\spi_handle.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\spi_handle.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\sam\drivers\spi\spi.h">
