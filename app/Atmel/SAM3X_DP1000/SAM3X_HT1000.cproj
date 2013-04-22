@@ -212,7 +212,8 @@
     <CacheFlash>true</CacheFlash>
     <UncachedRange />
     <BootSegment>0</BootSegment>
-    <avrtool>com.atmel.avrdbg.tool.samice</avrtool>
+    <avrtool>
+    </avrtool>
     <avrtoolinterface>SWD</avrtoolinterface>
     <com_atmel_avrdbg_tool_samice>
       <ToolType>com.atmel.avrdbg.tool.samice</ToolType>
@@ -220,7 +221,7 @@
       <ToolNumber>000028011727</ToolNumber>
       <Channel>
         <host>127.0.0.1</host>
-        <port>50179</port>
+        <port>50579</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
@@ -235,7 +236,6 @@
           <JtagDevicesAfter>0</JtagDevicesAfter>
           <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
           <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
-          <SwdClock>4120000</SwdClock>
         </InterfaceProperties>
       </ToolOptions>
     </com_atmel_avrdbg_tool_samice>

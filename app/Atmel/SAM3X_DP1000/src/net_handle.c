@@ -46,11 +46,11 @@ int client_fd[BACKLOG] = {0};										/* Inti client file describe.*/
 	
 xSemaphoreHandle xSemaNetHandle = NULL;
 
-unsigned int crc16(unsigned char buff, unsigned int fcs);
+static unsigned int crc16(unsigned char buff, unsigned int fcs);
 unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length);
 
 
-unsigned int crc16(unsigned char buff, unsigned int fcs)
+static unsigned int crc16(unsigned char buff, unsigned int fcs)
 {
 	unsigned char i,temp;
 	
@@ -91,7 +91,7 @@ static void eth_data_handle(void)
 	u_short crc;
 	
 	len = sock_buf[0] - 0x30;
-	if (len == 6)
+	if ((len == 6) && (spi_t.alloc == false))
 	{
 		spi_t.alloc = true;
 		spi_t.len = len;
@@ -106,6 +106,7 @@ static void eth_data_handle(void)
 			;
 		}
 		bzero(sock_buf, 100);
+		memset(&spi_t, 0, sizeof(spi_data_send_t));
 	}
 	else
 	{

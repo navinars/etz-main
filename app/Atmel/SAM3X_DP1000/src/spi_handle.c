@@ -34,8 +34,17 @@ void vStartSpiTaskLauncher( unsigned portBASE_TYPE uxPriority )
 }
 
 
+static spi_data_handle(spi_data_send_t* pdata)
+{
+//	RS232printf("\r\nSPI_HANDLE is running...");
+
+}
+
 portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 {
+	
+	(void)pvParameters;
+	memset(&spi_t, 0, sizeof(spi_data_send_t));
 	
 	while(1)
 	{
@@ -52,6 +61,7 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				spi_csn0_enable();
 				
 				// enable spi receive data function.
+				spi_data_handle(&spi_t);
 				
 				RS232printf("%4x", sock_buf[0]);
 				
