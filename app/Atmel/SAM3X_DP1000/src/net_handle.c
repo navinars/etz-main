@@ -33,12 +33,85 @@
 /* ethernet includes */
 #include "ethernet.h"
 
-/* HT1000_BSP includes */
-#include "ht1000_spi.h"
+/* user header file.*/
+#include "net_handle.h"
+#include "spi_handle.h"
 
-#define BACKLOG								6
 
-u_char sock_buf[100] = {0};
+#define BACKLOG					6
+
+u_char sock_buf[NETBUF_NUM] = {0};
+	
+int client_fd[BACKLOG] = {0};										/* Inti client file describe.*/
+	
+xSemaphoreHandle xSemaNetHandle = NULL;
+
+unsigned int crc16(unsigned char buff, unsigned int fcs);
+unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length);
+
+
+unsigned int crc16(unsigned char buff, unsigned int fcs)
+{
+	unsigned char i,temp;
+	
+	fcs = buff^fcs;
+	
+	for (i = 0;i < 8;i ++)
+	{
+		temp = fcs&0x01;
+		
+		if (temp == 0)
+			fcs = fcs >> 1;
+		else
+		{
+			fcs = fcs >> 1;
+			fcs = fcs^0xa001;
+		}
+	}
+	return fcs;
+}
+
+unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length)
+{
+	unsigned int xym;
+	
+	xym = 0xffff;
+	
+	while(length --)
+	{
+		xym = crc16(*ptr, xym);
+		ptr ++;
+	}
+	return xym;
+}
+
+static void eth_data_handle(void)
+{
+	u_char len;
+	u_short crc;
+	
+	len = sock_buf[0] - 0x30;
+	if (len == 6)
+	{
+		spi_t.alloc = true;
+		spi_t.len = len;
+		
+		crc = Crc16CheckSum(&sock_buf[1], len);
+		*((u_short *)&sock_buf[len]) = crc;
+		
+		memcpy(spi_t.buf, &sock_buf[1], len + 2);
+																	/* Take semaphore with waiting 1 ticks.*/
+		if (xSemaphoreTake(xSemaNetHandle,( portTickType ) 1 ) == pdTRUE)
+		{
+			;
+		}
+		bzero(sock_buf, 100);
+	}
+	else
+	{
+		bzero(sock_buf, 100);
+	}
+}
 
 portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 {
@@ -49,11 +122,13 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	struct sockaddr_in client_addr;
 	
 	fd_set allset;													/* Create file descriptor.*/
-	int conn_amount = 0;
+	u_char conn_amount = 0;
 	struct timeval tv;
 	
-	unsigned int i;
-	int fd_A[BACKLOG] = {0};
+	u_char i;
+	
+	vSemaphoreCreateBinary(xSemaNetHandle);							/* Create binary semaphore.*/
+	RS232printf("\nCreate binary semaphore.");
 	
 	listen_fd = lwip_socket(AF_INET, SOCK_STREAM, 0);				/* Create new socket.*/
 	
@@ -68,7 +143,7 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 		vTaskSuspend(vNetHandle);
 	}
 	
-	bzero(&server_addr, sizeof(server_addr));						/* Clear socket server struct.*/
+	memset(&server_addr, 0, sizeof(server_addr));					/* Clear socket server struct.*/
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_len = sizeof(server_addr);
 	server_addr.sin_port = PP_HTONS(SOCK_HOSR_PORT);
@@ -80,23 +155,22 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	sin_size = sizeof(client_addr);
 	max_fd = listen_fd;
 	
-	FD_ZERO(&allset);												/* Initialize file descriptor set.*/
-	FD_SET(listen_fd, &allset);
-	
-	for (i = 0; i < BACKLOG; i++)									/* Add active connection to fd set.*/
-	{
-		if (fd_A[i] != 0) {
-			FD_SET(fd_A[i], &allset);
-		}
-	}
-	
 	tv.tv_sec = 10;													/* Timeout setting.*/
 	tv.tv_usec = 0;
 	
 	while(1)
 	{
+		FD_ZERO(&allset);											/* Initialize file descriptor set.*/
+		FD_SET(listen_fd, &allset);
 		
-		ret = lwip_select(max_fd + 1, &allset, NULL, NULL, NULL);
+		for (i = 0; i < BACKLOG; i++)								/* Add active connection to fd set.*/
+		{
+			if (client_fd[i] != 0) {
+				FD_SET(client_fd[i], &allset);
+			}
+		}
+		
+		ret = lwip_select(max_fd + 1, &allset, NULL, NULL, &tv);
 		
 		if(ret < 0)													/* If FD is not add, than continue.*/
 		{
@@ -105,37 +179,34 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 		
 		for(i = 0; i < conn_amount; i++)							/* Check every fd in the set.*/
 		{
-			if (FD_ISSET(fd_A[i], &allset))
+			if (FD_ISSET(client_fd[i], &allset))
 			{
 				u_char	len;
 				int opt = 100;										/* set recv timeout (100 ms) */
-				lwip_setsockopt(fd_A[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
+				lwip_setsockopt(client_fd[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 				
-				ret = lwip_read(fd_A[i], &len, 1);
+				ret = lwip_read(client_fd[i], &sock_buf, 20);
 				if (ret > 0)
 				{
-					len = len - 0x30;								/* Char type to integer type.*/
+					len = ret - 1;
+					if(len > 16)
+					{
+						memset(&sock_buf, 0, len);
+						continue;
+					}
 					
-					ret = lwip_read(fd_A[i], sock_buf, len);		/* receive data to buffers.*/
-					if (ret <= 0)
-					{
-						memset(sock_buf, 0, 100);
-					}
-					else
-					{
-						//
-						// TODO: Socket frame handle.
-						//
-//						spi_master_transfer(sock_buf, len);
-						
-						memset(sock_buf, 0, len);
-					}
+					eth_data_handle();
+					
+					RS232printf("\n\rRead from socket %d", client_fd[i]);
 				}
-				else if(ret == 0){
-//					lwip_close(fd_A[i]);							/* Can't decide which socket is closed.*/
+				else if(ret == 0)									/* If read ZERO,than return end of file .*/
+				{
 				}
-				else {
-					;
+				else												/* Read error, than close this socket.*/
+				{
+					lwip_close(client_fd[i]);						/* Can't decide which socket is closed.*/
+					RS232printf("\nClose old socket");
+					client_fd[i] = 0;
 				}
 			}
 		}
@@ -148,15 +219,19 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				continue;
 			}
 			if (conn_amount < BACKLOG) {
-				fd_A[conn_amount ++] = new_fd;
+				client_fd[conn_amount ++] = new_fd;
+				puts("\n\rNew socket");
 				
 				if(new_fd > max_fd) {
 					max_fd = new_fd;
 				}
 			}
 			else {
-				lwip_close(fd_A[old_fd]);
-				fd_A[old_fd ++] = new_fd;
+				lwip_close(client_fd[old_fd]);
+				client_fd[old_fd ++] = new_fd;
+				
+				RS232printf("\nNew socket");
+				RS232printf("\nClose old socket");
 				
 				if (old_fd == BACKLOG) {
 					old_fd = 0;

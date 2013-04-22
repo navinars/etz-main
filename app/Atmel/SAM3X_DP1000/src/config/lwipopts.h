@@ -223,8 +223,10 @@
  * turning this on does currently not work. */
 #define LWIP_DHCP               1
 
-#ifdef LWIP_DHCP
-#define DHCP_USED
+#if (LWIP_DHCP == 1)
+#define DHCP_USED				1
+#else
+#define DHCP_USED				0
 #endif
 
 #define SO_REUSE				1

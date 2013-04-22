@@ -74,16 +74,16 @@ extern "C" {
 /* The IP address being used. */
 #define ETHERNET_CONF_IPADDR0                         192
 #define ETHERNET_CONF_IPADDR1                         168
-#define ETHERNET_CONF_IPADDR2                         0
-#define ETHERNET_CONF_IPADDR3                         2
+#define ETHERNET_CONF_IPADDR2                         1
+#define ETHERNET_CONF_IPADDR3                         1
 
 /** WAN gateway: 192.168.0.1 */
 
 /*! The gateway address being used. */
 #define ETHERNET_CONF_GATEWAY_ADDR0                   192
 #define ETHERNET_CONF_GATEWAY_ADDR1                   168
-#define ETHERNET_CONF_GATEWAY_ADDR2                   0
-#define ETHERNET_CONF_GATEWAY_ADDR3                   1
+#define ETHERNET_CONF_GATEWAY_ADDR2                   1
+#define ETHERNET_CONF_GATEWAY_ADDR3                   223
 
 /** The network mask being used. */
 #define ETHERNET_CONF_NET_MASK0                       255

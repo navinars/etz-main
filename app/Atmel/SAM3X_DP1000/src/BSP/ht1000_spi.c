@@ -393,7 +393,7 @@ void spi_slave_initialize(void)
  */
 void spi_master_initialize(void)
 {
-	puts("-I- Initialize SPI as master\r");
+	RS232printf("\n\r-I- Initialize SPI as master");
 
 	/* Configure an SPI peripheral. */
 	spi_enable_clock(SPI_MASTER_BASE);
@@ -412,6 +412,8 @@ void spi_master_initialize(void)
 	spi_set_transfer_delay(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_DLYBS,
 			SPI_DLYBCT);
 	spi_enable(SPI_MASTER_BASE);
+	
+	spi_csn0_disable();
 }
 
 /**
@@ -422,7 +424,7 @@ void spi_master_initialize(void)
 void spi_set_clock_configuration(uint8_t configuration)
 {
 	gs_ul_spi_clock = gs_ul_clock_configurations[configuration];
-	RS232printf("Setting SPI clock #%lu ... \n\r", (unsigned long)gs_ul_spi_clock);
+	RS232printf("\n\rSetting SPI clock #%lu ... ", (unsigned long)gs_ul_spi_clock);
 	spi_master_initialize();
 }
 
@@ -551,6 +553,22 @@ void spi_master_go(void)
 
 	puts("\r");
 	puts("SPI transfer test finished! \r");
+}
+
+/**
+ * \brief Disable SPI active.
+ */
+void spi_csn0_disable(void)
+{
+	pio_set_pin_low(SPI0_NPCS0_GPIO);
+}
+
+/**
+ * \brief Enable SPI active.
+ */
+void spi_csn0_enable(void)
+{
+	pio_set_pin_high(SPI0_NPCS0_GPIO);
 }
 
 /// @cond 0

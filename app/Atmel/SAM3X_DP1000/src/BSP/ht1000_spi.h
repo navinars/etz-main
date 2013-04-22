@@ -19,6 +19,10 @@ void spi_master_transfer(void *p_buf, uint32_t size);
 
 void spi_master_go(void);
 
+void spi_csn0_disable(void);
+
+void spi_csn0_enable(void);
+
 /// @cond 0
 /**INDENT-OFF**/
 #ifdef __cplusplus

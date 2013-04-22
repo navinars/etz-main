@@ -3,6 +3,9 @@
 
 #include "portmacro.h"
 
+#define NETBUF_NUM			100
+
+extern u_char sock_buf[NETBUF_NUM];
 
 /*! \brief WEB server main task
  *

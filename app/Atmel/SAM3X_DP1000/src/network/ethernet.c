@@ -106,6 +106,8 @@ typedef struct timers_info {
 	void (*timer_func)(void);
 } timers_info_t;
 
+void prvlwIPInit( void );
+
 /**
  *  \brief Set ethernet config.
  */
@@ -144,7 +146,7 @@ static void ethernet_configure_interface(void)
 	netif_set_status_callback(&gs_net_if, status_callback);
 
 	/* Bring it up */
-#if defined(DHCP_USED)
+#if (DHCP_USED == 1)
 	printf("LwIP: DHCP Started");
 	dhcp_start(&gs_net_if);
 #else
