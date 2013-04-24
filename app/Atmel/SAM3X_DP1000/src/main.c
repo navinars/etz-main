@@ -160,12 +160,12 @@ void task_led(void *pvParameters)
 	{
 		//spi_csn0_disable();
 		//spi_master_transfer(spi_t.buf, spi_t.len);
-		//vTaskDelay(20);												/* Wait 20 millisecond.*/
-		//spi_master_transfer(spi_t.buf, spi_t.len);					/* Update to spi.buf[].*/
+		//vTaskDelay(20);											/* Wait 20 millisecond.*/
+		//spi_master_transfer(spi_t.buf, spi_t.len);				/* Update to spi.buf[].*/
 		//spi_csn0_enable();
 		//
 		gpio_toggle_pin(PIO_PA12_IDX);
-		vTaskDelay(3000);
+		vTaskDelay(1000);
 	}
 }
 /*-----------------------------------------------------------*/
@@ -177,12 +177,13 @@ void task_start(void *pvParameters)
 	/* Start the LED flash tasks */
 	xTaskCreate(task_led, (signed char*)"LED", TASK_LED_STACK_SIZE, NULL, 
 				TASK_LED_PRIORITY, ( xTaskHandle * ) NULL);
-
-	/* Start the ethernet tasks */
+	
+	/* Start the ethernet tasks. */
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
 	
+	/* Start the SPI app tasks. */
 	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
-
+	
 	for (;;)
 	{
 		vTaskSuspend(vStartTaskHandler);
