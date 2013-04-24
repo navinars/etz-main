@@ -38,82 +38,59 @@
 #include "spi_handle.h"
 
 
-#define BACKLOG					6
+#define NETBUF_NUM				100									/* Maximum socket buffer number.*/
+#define BACKLOG					6									/* Maximum socket client number.*/
 
-u_char sock_buf[NETBUF_NUM] = {0};
+u_char sock_buf[NETBUF_NUM] = {0};									/* create socket buffer. */
 	
-int client_fd[BACKLOG] = {0};										/* Inti client file describe.*/
+int client_fd[BACKLOG] = {0};										/* create client file describe.*/
 	
-xSemaphoreHandle xSemaNetHandle = NULL;
+xSemaphoreHandle xSemaNetHandle = NULL;								/* initialize freeRTOS's Semaphore.*/
 
-static unsigned int crc16(unsigned char buff, unsigned int fcs);
-unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length);
-
-
-static unsigned int crc16(unsigned char buff, unsigned int fcs)
-{
-	unsigned char i,temp;
-	
-	fcs = buff^fcs;
-	
-	for (i = 0;i < 8;i ++)
-	{
-		temp = fcs&0x01;
-		
-		if (temp == 0)
-			fcs = fcs >> 1;
-		else
-		{
-			fcs = fcs >> 1;
-			fcs = fcs^0xa001;
-		}
-	}
-	return fcs;
-}
-
-unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length)
-{
-	unsigned int xym;
-	
-	xym = 0xffff;
-	
-	while(length --)
-	{
-		xym = crc16(*ptr, xym);
-		ptr ++;
-	}
-	return xym;
-}
-
-static void eth_data_handle(void)
+/**
+ * \brief Net receive data handle..
+ * 
+ * \param pbuf
+ * \param port
+ * 
+ * \return void
+ */
+static void eth_data_handle( u_char* pbuf, int port )
 {
 	u_char len;
-	u_short crc;
 	
-	len = sock_buf[0] - 0x30;
-	if ((len == 6) && (spi_t.alloc == false))
+	len = *pbuf;
+	
+	if ((len == '6') && (spi_t.alloc == false))
 	{
 		spi_t.alloc = true;
-		spi_t.len = len;
+		spi_t.len = *pbuf - 0x30;
+		spi_t.port = port;
 		
-		crc = Crc16CheckSum(&sock_buf[1], len);
-		*((u_short *)&sock_buf[len]) = crc;
-		
-		memcpy(spi_t.buf, &sock_buf[1], len + 2);
-																	/* Take semaphore with waiting 1 ticks.*/
-		if (xSemaphoreTake(xSemaNetHandle,( portTickType ) 1 ) == pdTRUE)
+		memcpy(spi_t.buf, (pbuf + 1), spi_t.len);
+																	/* Take Semaphore in waiting 1 tick.*/
+		if (xSemaphoreTake(xSemaNetHandle, ( portTickType ) 1 ) == pdTRUE)
 		{
 			;
 		}
-		bzero(sock_buf, 100);
-		memset(&spi_t, 0, sizeof(spi_data_send_t));
+		
+		RS232printf("\n\rTake Semaphore..");
+		bzero(pbuf, 100);
 	}
 	else
 	{
-		bzero(sock_buf, 100);
+		bzero(pbuf, 100);
 	}
 }
 
+/**
+ * \brief 
+ * 
+ * \param 
+ * \param 
+ * 
+ * \return 
+ */
 portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 {
 	int listen_fd, new_fd, max_fd, old_fd = 0;
@@ -186,17 +163,19 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				int opt = 100;										/* set recv timeout (100 ms) */
 				lwip_setsockopt(client_fd[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 				
-				ret = lwip_read(client_fd[i], &sock_buf, 20);
+				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
 				if (ret > 0)
 				{
-					len = ret - 1;
-					if(len > 16)
+					len = sock_buf[0] - 0x30;
+					
+					if (len != (ret - 1))
 					{
-						memset(&sock_buf, 0, len);
+						bzero(sock_buf, 100);
+						RS232printf("\n\rRead error length data from socket.");
 						continue;
 					}
 					
-					eth_data_handle();
+					eth_data_handle( sock_buf, client_fd[i] );		/* !!handle socket data to SPI modle.!!*/
 					
 					RS232printf("\n\rRead from socket %d", client_fd[i]);
 				}
