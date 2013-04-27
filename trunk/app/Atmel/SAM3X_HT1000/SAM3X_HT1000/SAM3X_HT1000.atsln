@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SAM3X8H_HT1000", "SAM3X8H_HT1000\SAM3X8H_HT1000.cproj", "{BD649A84-CA2B-4E6D-A884-49802D63D011}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SAM3X4C_HT1000", "SAM3X4C_HT1000\SAM3X4C_HT1000.cproj", "{BCD3B82A-48D8-4CA7-B759-2DAB0B08995E}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Release|ARM = Release|ARM
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD649A84-CA2B-4E6D-A884-49802D63D011}.Debug|ARM.ActiveCfg = Debug|ARM
+		{BD649A84-CA2B-4E6D-A884-49802D63D011}.Debug|ARM.Build.0 = Debug|ARM
+		{BD649A84-CA2B-4E6D-A884-49802D63D011}.Release|ARM.ActiveCfg = Release|ARM
+		{BD649A84-CA2B-4E6D-A884-49802D63D011}.Release|ARM.Build.0 = Release|ARM
+		{BCD3B82A-48D8-4CA7-B759-2DAB0B08995E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{BCD3B82A-48D8-4CA7-B759-2DAB0B08995E}.Debug|ARM.Build.0 = Debug|ARM
+		{BCD3B82A-48D8-4CA7-B759-2DAB0B08995E}.Release|ARM.ActiveCfg = Release|ARM
+		{BCD3B82A-48D8-4CA7-B759-2DAB0B08995E}.Release|ARM.Build.0 = Release|ARM
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
