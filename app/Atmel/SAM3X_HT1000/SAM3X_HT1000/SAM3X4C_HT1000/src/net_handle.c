@@ -160,34 +160,34 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 			if (FD_ISSET(client_fd[i], &allset))
 			{
 				u_char	len;
-				int opt = 100;										/* set recv timeout (100 ms) */
+				int opt = 10;										/* set recv timeout (100 ms) */
 				lwip_setsockopt(client_fd[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 				
 				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
-				//if (ret > 0)
-				//{
-					//len = sock_buf[0] - 0x30;
-					//
-					//if (len != (ret - 1))
-					//{
-						//bzero(sock_buf, 100);
-						//RS232printf("\n\rRead error length data from socket.");
-						//continue;
-					//}
-					//
-					//eth_data_handle( sock_buf, client_fd[i] );		/* !!handle socket data to SPI modle.!!*/
-					//
-					//RS232printf("\n\rRead from socket %d", client_fd[i]);
-				//}
-				//else if(ret == 0)									/* If read ZERO,than return end of file .*/
-				//{
-				//}
-				//else												/* Read error, than close this socket.*/
-				//{
-					//lwip_close(client_fd[i]);						/* Can't decide which socket is closed.*/
-					//RS232printf("\nClose old socket");
-					//client_fd[i] = 0;
-				//}
+				if (ret > 0)
+				{
+					len = sock_buf[0] - 0x30;
+					
+					if (len != (ret - 1))
+					{
+						bzero(sock_buf, 100);
+						RS232printf("\n\rRead error length data from socket.");
+						continue;
+					}
+					
+					eth_data_handle( sock_buf, client_fd[i] );	/* !!handle socket data to SPI modle.!!*/
+					
+					RS232printf("\n\rRead from socket %d", client_fd[i]);
+				}
+				else if(ret == 0)									/* If read ZERO,than return end of file .*/
+				{
+				}
+				else												/* Read error, than close this socket.*/
+				{
+					lwip_close(client_fd[i]);						/* Can't decide which socket is closed.*/
+					RS232printf("\nClose old socket");
+					client_fd[i] = 0;
+				}
 			}
 		}
 		

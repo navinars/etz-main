@@ -219,7 +219,7 @@ static uint32_t gs_ul_test_block_number;
 
 /* SPI clock configuration. */
 static const uint32_t gs_ul_clock_configurations[] =
-		{ 500000, 1000000, 2000000, 5000000 };
+		{ 100000, 1000000, 2000000, 5000000 };
 
 
 /**

@@ -71,7 +71,7 @@
 // From module: IOPORT - General purpose I/O service
 #include <ioport.h>
 
-// From module: Interrupt management - SAM implementation
+// From module: Interrupt management - SAM3 implementation
 #include <interrupt.h>
 
 // From module: PIO - Parallel Input/Output Controller
@@ -86,9 +86,6 @@
 
 // From module: RSTC - Reset Controller
 #include <rstc.h>
-
-// From module: SAM3X startup code
-#include <exceptions.h>
 
 // From module: SPI - Serial Peripheral Interface
 #include <spi.h>
@@ -105,11 +102,8 @@
 // From module: UART - Univ. Async Rec/Trans
 #include <uart.h>
 
-// From module: USART - Serial interface - SAM implementation for devices with both UART and USART
+// From module: USART - Serial interface
 #include <serial.h>
-
-// From module: USART - Univ. Syn Async Rec/Trans
-#include <usart.h>
 
 // From module: pio_handler support enabled
 #include <pio_handler.h>

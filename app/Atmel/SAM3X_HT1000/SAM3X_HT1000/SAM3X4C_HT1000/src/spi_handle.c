@@ -105,8 +105,11 @@ static void spi_data_handle ( spi_data_send_t* pdata )
 {
 	int ret;
 	
-//	RS232printf("\r\nSPI data receive...");
-//	ret = lwip_write(pdata->port, &pdata->buf[0], pdata->len);
+	RS232printf("\r\nSPI data receive...");
+	if(pdata->port >0)
+	{
+		ret = lwip_write(pdata->port, &pdata->buf[0], pdata->len);
+	}
 	
 	if(ret < 0){
 		RS232printf("\n\rAn error occurred lwip_write..");
@@ -138,15 +141,16 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				
 				RS232printf("\r\nSPI_HANDLE is running...");
 				
-				len = spi_t.len - 0x30;
+				len = spi_t.len;
 				
 				crc = Crc16CheckSum(&spi_t.buf[1], len);
 				*((u_short *)&spi_t.buf[len]) = crc;
 				
 				spi_csn0_disable();
-				spi_master_transfer(spi_t.buf, spi_t.len + 2);
-				vTaskDelay(20);										/* Wait 20 millisecond.*/
-				spi_master_transfer(spi_t.buf, spi_t.len + 2);		/* Update to spi.buf[].*/
+//				vTaskDelay(1);										/* Wait 20 millisecond.*/
+				spi_soft_transfer(spi_t.buf, spi_t.len + 2);
+				vTaskDelay(5);										/* Wait 20 millisecond.*/
+				spi_soft_transfer(spi_t.buf, spi_t.len + 2);		/* Update to spi.buf[].*/
 				spi_csn0_enable();
 				
 				RS232printf("0x%x", spi_t.buf[0]);
