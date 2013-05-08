@@ -483,17 +483,18 @@ uint8_t spi_soft_write( uint8_t data )
 	for(i = 0;i < 8;i ++)
 	{
 		SPI_SCLK_H();
-		if((data&0x01) == 1)
+		if((data&0x80) == 0x80)
 			SPI_MOSI_H();
 		else
 			SPI_MOSI_L();
-//		vTaskDelay(1);
+		vTaskDelay(1);
 		
 		if(SP_MISO_READ() == 1)
-			temp = temp | (1<<i);
-		data >>= 1;
+			temp = temp | (1<<(7-i));
+		data = data<<1;
 		SPI_SCLK_L();
 		vTaskDelay(1);
+		SPI_MOSI_L();
 	}
 	
 	return temp;
