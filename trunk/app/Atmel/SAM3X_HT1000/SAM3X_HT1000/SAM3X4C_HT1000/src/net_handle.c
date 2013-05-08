@@ -61,13 +61,13 @@ static void eth_data_handle( u_char* pbuf, int port )
 	
 	len = *pbuf;
 	
-	if ((len == '6') && (spi_t.alloc == false))
+	if ((len == 6 ) && (spi_t.alloc == false))
 	{
 		spi_t.alloc = true;
-		spi_t.len = *pbuf - 0x30;
+		spi_t.len = len;// - 0x30;
 		spi_t.port = port;
 		
-		memcpy(spi_t.buf, (pbuf + 1), spi_t.len);
+		memcpy(spi_t.buf, (pbuf + 1), len);
 																	/* Take Semaphore in waiting 1 tick.*/
 		if (xSemaphoreTake(xSemaNetHandle, ( portTickType ) 1 ) == pdTRUE)
 		{
@@ -166,7 +166,7 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
 				if (ret > 0)
 				{
-					len = sock_buf[0] - 0x30;
+					len = sock_buf[0];
 					
 					if (len != (ret - 1))
 					{

@@ -62,7 +62,7 @@ static unsigned int crc16(unsigned char buff, unsigned int fcs)
 		temp = fcs&0x01;
 		
 		if (temp == 0)
-		fcs = fcs >> 1;
+			fcs = fcs >> 1;
 		else
 		{
 			fcs = fcs >> 1;
@@ -143,11 +143,11 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				
 				len = spi_t.len;
 				
-				crc = Crc16CheckSum(&spi_t.buf[1], len);
+				crc = Crc16CheckSum(&spi_t.buf[0], len);
 				*((u_short *)&spi_t.buf[len]) = crc;
 				
 				spi_csn0_disable();
-//				vTaskDelay(1);										/* Wait 20 millisecond.*/
+				vTaskDelay(1);										/* Wait 20 millisecond.*/
 				spi_soft_transfer(spi_t.buf, spi_t.len + 2);
 				vTaskDelay(5);										/* Wait 20 millisecond.*/
 				spi_soft_transfer(spi_t.buf, spi_t.len + 2);		/* Update to spi.buf[].*/

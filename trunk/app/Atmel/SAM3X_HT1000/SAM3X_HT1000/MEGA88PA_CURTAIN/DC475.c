@@ -342,7 +342,7 @@ ISR(USART_RX_vect )
 
 //#pragma vector = PCINT0_vect
 //__interrupt void PCINT0_ISR(void)
-( INT0_vect )
+ISR( INT0_vect )
 {
       //static unsigned char i = 0;
       static unsigned char n = 0;
