@@ -107,6 +107,11 @@
 #include "conf_spi.h"
 #include "ht1000_spi.h"
 
+// From module: FreeRTOS mini Real-Time Kernel
+#include <FreeRTOS.h>
+#include "task.h"
+#include "status_codes.h"
+
 /// @cond 0
 /**INDENT-OFF**/
 #ifdef __cplusplus
@@ -114,6 +119,17 @@ extern "C" {
 #endif
 /**INDENT-ON**/
 /// @endcond
+
+
+#define SPI_MOSI_H()				gpio_set_pin_high(SPI0_MOSI_GPIO)
+
+#define SPI_MOSI_L()				gpio_set_pin_low(SPI0_MOSI_GPIO)
+
+#define SPI_SCLK_H()				gpio_set_pin_high(SPI0_SPCK_GPIO)
+
+#define SPI_SCLK_L()				gpio_set_pin_low(SPI0_SPCK_GPIO)
+
+#define SP_MISO_READ()				pio_get_pin_value(SPI0_MOSI_GPIO)
 
 /* Chip select. */
 #define SPI_CHIP_SEL 0
@@ -192,7 +208,7 @@ struct status_block_t {
 };
 
 /* SPI clock setting (Hz). */
-static uint32_t gs_ul_spi_clock = 500000;
+static uint32_t gs_ul_spi_clock = 10000;
 
 /* Current SPI return code. */
 static uint32_t gs_ul_spi_cmd = RC_SYN;
@@ -219,7 +235,7 @@ static uint32_t gs_ul_test_block_number;
 
 /* SPI clock configuration. */
 static const uint32_t gs_ul_clock_configurations[] =
-		{ 500000, 1000000, 2000000, 5000000 };
+		{ 100000, 1000000, 2000000, 5000000 };
 
 
 /**
@@ -454,11 +470,64 @@ void spi_master_transfer(void *p_buf, uint32_t size)
 }
 
 /**
+ * \brief 
+ * 
+ * \param p_buffer
+ * 
+ * \return void
+ */
+uint8_t spi_soft_write( uint8_t data ) 
+{
+	uint8_t i, temp = 0;
+	
+	for(i = 0;i < 8;i ++)
+	{
+		SPI_SCLK_H();
+		if((data&0x01) == 1)
+			SPI_MOSI_H();
+		else
+			SPI_MOSI_L();
+//		vTaskDelay(1);
+		
+		if(SP_MISO_READ() == 1)
+			temp = temp | (1<<i);
+		data >>= 1;
+		SPI_SCLK_L();
+		vTaskDelay(1);
+	}
+	
+	return temp;
+}
+
+/**
+ * \brief Perform SPI soft transfer.
+ * 
+ * \param p_buf Pointer to buffer to transfer.
+ * \param size Size of the buffer.
+ * 
+ * \return void
+ */
+void spi_soft_transfer(void *p_buf, uint32_t size)
+{
+	uint32_t i;
+	uint8_t uc_pcs;
+	static uint16_t data;
+
+	uint8_t *p_buffer;
+
+	p_buffer = p_buf;
+	
+	for (i = 0; i < size; i++) {
+		p_buffer[i] = spi_soft_write( p_buffer[i] );
+	}
+}
+
+/**
  * \brief Disable SPI active.
  */
 void spi_csn0_disable(void)
 {
-	gpio_set_pin_low(SPI0_NPCS0_GPIO);
+	gpio_set_pin_high(SPI0_NPCS0_GPIO);
 }
 
 /**
@@ -466,7 +535,7 @@ void spi_csn0_disable(void)
  */
 void spi_csn0_enable(void)
 {
-	gpio_set_pin_high(SPI0_NPCS0_GPIO);
+	gpio_set_pin_low(SPI0_NPCS0_GPIO);
 }
 
 /// @cond 0

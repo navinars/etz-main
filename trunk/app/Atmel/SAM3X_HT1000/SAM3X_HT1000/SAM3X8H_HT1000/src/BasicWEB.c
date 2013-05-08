@@ -192,7 +192,7 @@ static unsigned portLONG ulPageHits = 0;
 		{
 			/* Update the hit count. */
 			ulPageHits++;
-			sprintf( cPageHits, "%d", (int)ulPageHits );
+			RS232printf( cPageHits, "%d", (int)ulPageHits );
 
 			/* Write out the HTTP OK header. */
 			netconn_write( pxNetCon, webHTTP_OK, (u16_t) strlen( webHTTP_OK ), NETCONN_COPY );

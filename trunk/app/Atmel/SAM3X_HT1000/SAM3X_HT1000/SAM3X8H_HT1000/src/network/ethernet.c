@@ -147,10 +147,10 @@ static void ethernet_configure_interface(void)
 
 	/* Bring it up */
 #if (DHCP_USED == 1)
-	printf("LwIP: DHCP Started");
+	RS232printf("LwIP: DHCP Started");
 	dhcp_start(&gs_net_if);
 #else
-	printf("LwIP: Static IP Address Assigned");
+	RS232printf("LwIP: Static IP Address Assigned");
 	netif_set_up(&gs_net_if);
 #endif
 }
@@ -253,13 +253,13 @@ void status_callback(struct netif *netif)
 {
 	int8_t c_mess[25];
 	if (netif_is_up(netif)) {
-		printf("Network up");
+		RS232printf("Network up");
 		strcpy((char *)c_mess, "IP=");
 		strcat((char *)c_mess,
 				inet_ntoa(*(struct in_addr *)&(netif->ip_addr)));
-		printf((char const *)c_mess);
+		RS232printf((char const *)c_mess);
 	} else {
-		printf("Network down");
+		RS232printf("Network down");
 	}
 }
 

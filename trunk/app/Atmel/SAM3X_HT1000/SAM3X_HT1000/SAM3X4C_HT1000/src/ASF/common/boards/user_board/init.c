@@ -27,9 +27,12 @@ void board_init(void)
 	gpio_configure_pin(PIN_USART1_TXD_IDX, PIN_USART1_TXD_FLAGS);
 	
 	/* Configure SPI1 pins */
-	gpio_configure_pin(SPI0_MISO_GPIO, SPI0_MISO_FLAGS);
-	gpio_configure_pin(SPI0_MOSI_GPIO, SPI0_MOSI_FLAGS);
-	gpio_configure_pin(SPI0_SPCK_GPIO, SPI0_SPCK_FLAGS);
+	gpio_configure_pin(SPI0_MOSI_GPIO, PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT);
+	gpio_configure_pin(SPI0_SPCK_GPIO, PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT);
+	
+	/* Set direction and pullup on the given button IOPORT */
+	ioport_set_pin_dir(SPI0_MISO_GPIO, IOPORT_DIR_INPUT);
+	ioport_set_pin_mode(SPI0_MISO_GPIO, IOPORT_MODE_PULLUP);
 	
 	gpio_configure_pin(SPI0_NPCS0_GPIO, PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT);
 }

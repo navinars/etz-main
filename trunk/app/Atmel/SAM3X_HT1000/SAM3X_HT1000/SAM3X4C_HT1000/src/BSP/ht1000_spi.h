@@ -23,6 +23,8 @@ void spi_csn0_disable(void);
 
 void spi_csn0_enable(void);
 
+void spi_soft_transfer(void *p_buf, uint32_t size);
+
 /// @cond 0
 /**INDENT-OFF**/
 #ifdef __cplusplus

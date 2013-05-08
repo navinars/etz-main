@@ -141,31 +141,31 @@ static void configure_console(void)
 void task_led(void *pvParameters)
 {
 	
-	uint16_t crc;
-	(void) pvParameters;
-	
-	spi_t.buf[0] = 0x01;
-	spi_t.buf[1] = 0x06;
-	spi_t.buf[2] = 0x00;
-	spi_t.buf[3] = 0x01;
-	spi_t.buf[4] = 0x01;
-	spi_t.buf[5] = 0x00;
-	
-	crc = Crc16CheckSum(spi_t.buf, 6);
-	
-	spi_t.buf[6] = crc>>8;
-	spi_t.buf[7] = crc;
-	
-	spi_t.len    = 8;
+	//uint16_t crc;
+	//(void) pvParameters;
+	//
+	//spi_t.buf[0] = 0x01;
+	//spi_t.buf[1] = 0x06;
+	//spi_t.buf[2] = 0x00;
+	//spi_t.buf[3] = 0x01;
+	//spi_t.buf[4] = 0x01;
+	//spi_t.buf[5] = 0x00;
+	//
+	//crc = Crc16CheckSum(spi_t.buf, 6);
+	//
+	//spi_t.buf[6] = crc>>8;
+	//spi_t.buf[7] = crc;
+	//
+	//spi_t.len    = 8;
 	
 	for (;;)
 	{
-		spi_csn0_disable();
-		spi_master_transfer(spi_t.buf, spi_t.len);
-		vTaskDelay(20);												/* Wait 20 millisecond.*/
-		spi_master_transfer(spi_t.buf, spi_t.len);					/* Update to spi.buf[].*/
-		spi_csn0_enable();
-		
+		//spi_csn0_disable();
+		//spi_master_transfer(spi_t.buf, spi_t.len);
+		//vTaskDelay(20);												/* Wait 20 millisecond.*/
+		//spi_master_transfer(spi_t.buf, spi_t.len);					/* Update to spi.buf[].*/
+		//spi_csn0_enable();
+		//
 		gpio_toggle_pin(LED0_GPIO);
 		vTaskDelay(1000);
 	}
@@ -180,11 +180,9 @@ void task_start(void *pvParameters)
 	xTaskCreate(task_led, (signed char*)"LED", TASK_LED_STACK_SIZE, NULL, 
 				TASK_LED_PRIORITY, ( xTaskHandle * ) NULL);
 	
-	///* Start the ethernet tasks. */
-	//vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
-	//
-	///* Start the SPI app tasks. */
-	//vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
+	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );			/* Start the ethernet tasks. */
+	
+	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );				/* Start the SPI app tasks. */
 	
 	for (;;)
 	{
@@ -208,7 +206,7 @@ int main (void)
 	RS232printf("\n\r-- FreeRTOS Example --\n\r");
 	
 	/* Initialize the SPI0. */
-	spi_set_clock_configuration(1);
+	spi_set_clock_configuration(0);
 	
 	/* Ensure all priority bits are assigned as preemption priority bits. */
 	NVIC_SetPriorityGrouping( 0 );
