@@ -108,7 +108,7 @@ static void spi_data_handle ( spi_data_send_t* pdata )
 	RS232printf("\r\nSPI data receive...");
 	if(pdata->port >0)
 	{
-		ret = lwip_write(pdata->port, &pdata->buf[0], pdata->len);
+		ret = lwip_write(pdata->port, &pdata->buf[0], pdata->len + 2);
 	}
 	
 	if(ret < 0){
@@ -149,7 +149,8 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				spi_csn0_disable();
 				vTaskDelay(1);										/* Wait 20 millisecond.*/
 				spi_soft_transfer(spi_t.buf, spi_t.len + 2);
-				vTaskDelay(5);										/* Wait 20 millisecond.*/
+				vTaskDelay(6);										/* Wait 20 millisecond.*/
+				bzero(spi_t.buf, 8);
 				spi_soft_transfer(spi_t.buf, spi_t.len + 2);		/* Update to spi.buf[].*/
 				spi_csn0_enable();
 				

@@ -61,9 +61,13 @@
 /*! SPI0 MISO pin definition. */
 #define SPI0_MISO_GPIO        (PIO_PA25_IDX)
 #define SPI0_MISO_FLAGS       (PIO_PERIPH_A | PIO_DEFAULT)
+#define SPI0_MISO_PORT		  (IOPORT_PIOA)
+#define SPI0_MISO_MASK		  (PIO_PA25)
+
 /*! SPI0 MOSI pin definition. */
 #define SPI0_MOSI_GPIO        (PIO_PA26_IDX)
 #define SPI0_MOSI_FLAGS       (PIO_PERIPH_A | PIO_DEFAULT)
+
 /*! SPI0 SPCK pin definition. */
 #define SPI0_SPCK_GPIO        (PIO_PA27_IDX)
 #define SPI0_SPCK_FLAGS       (PIO_PERIPH_A | PIO_DEFAULT)

@@ -58,7 +58,7 @@ unsigned char SPI_process(void)
 {
       if(SPI.SPI_recvbuff_ovf)
       {
-            unsigned char check_sum;
+            unsigned short check_sum;
             unsigned char crc16_l;
             unsigned char crc16_h;
             unsigned int Virtual_address;
@@ -70,12 +70,12 @@ unsigned char SPI_process(void)
             if((SPI.SPI_recv[CRC16_L] != crc16_l) || (SPI.SPI_recv[CRC16_H] != crc16_h))
             {
                 return _false;
-            }
+            }/*
             if(SPI.SPI_recv[ADDR] != 0)
             {
                 USART_Transmit(SPI.SPI_recv,8);
                 return _true;
-            }
+            }*/
             else
             {
                 Virtual_address = (SPI.SPI_recv[ADDR_H] * 256) | SPI.SPI_recv[ADDR_L];
