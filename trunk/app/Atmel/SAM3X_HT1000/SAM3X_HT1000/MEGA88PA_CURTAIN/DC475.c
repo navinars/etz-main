@@ -12,7 +12,7 @@
 #include "Max485.h"
 #include <string.h>
 #include "optimize.h"
-#include <avr/interrupt.h>
+#include <util/delay.h>
 
 #define OPEN	1
 #define CLOSE	2
@@ -285,16 +285,16 @@ unsigned char table[8];
 unsigned  char  com[11];
 
 struct{
-  unsigned char f_spi_recv;
-  unsigned char f_spi_update;
-  unsigned char SPI_en;
-  unsigned char SPI_recv_len;
-  unsigned char recv_cnt;
-  unsigned char SPI_update_len;
-  unsigned char recv_timeout;
-  unsigned char SPI_recvbuff_ovf;
-  unsigned char SPI_recv[10];
-  unsigned char SPI_update[8];
+	unsigned char f_spi_recv;
+	unsigned char f_spi_update;
+	unsigned char SPI_en;
+	unsigned char SPI_recv_len;
+	unsigned char recv_cnt;
+	unsigned char SPI_update_len;
+	unsigned char recv_timeout;
+	unsigned char SPI_recvbuff_ovf;
+	unsigned char SPI_recv[10];
+	unsigned char SPI_update[8];
 }SPI;
 
 struct{
@@ -331,9 +331,10 @@ void  SetLimit(void);
 void clearclucth_set(unsigned char sec,unsigned char delay,unsigned char relay);
 extern unsigned char SPI_process(void);
 unsigned char ack_cmd(void);//应答
+
 //#pragma vector = USART_RX_vect
-//__interrupt void USART_RX_ISR(void)//
-ISR(USART_RX_vect )
+//__interrupt void USART_RX_ISR(void)
+ISR( USART_RX_vect )
 {
 	UART.recv_timeout = 30;
 	UART.uart_recv[UART.recv_cnt] = UDR0;
@@ -344,66 +345,74 @@ ISR(USART_RX_vect )
 //__interrupt void PCINT0_ISR(void)
 ISR( INT0_vect )
 {
-      //static unsigned char i = 0;
-      static unsigned char n = 0;
-      static unsigned char tdata;
-      if(!PIN_SPI_CLK)
-      {
-          //SPI.recv_cnt++;
-          if(SPI.f_spi_recv)
-          {
-              n = 0;
-              SPI.recv_timeout = 30;         //3ms接收超时，表示接收完成
-              tdata = tdata<<1;
-              if(PIN_SPI_MOSI)
-		  tdata = tdata|0x01;    // 若接收到的位为1，则数据的最后一位置1
-	      else 
-		  tdata = tdata&0xfe;    // 否则数据的最后一位置0
-              SPI.SPI_recv_len++;
-              if(SPI.SPI_recv_len>7)
-              {
-                  SPI.SPI_recv[SPI.recv_cnt]=tdata;
-                  SPI.recv_cnt++;
-                  //if(i>9)i=0;//调试
-                  SPI.SPI_recv_len=0;
-              }
-          }
-          if(SPI.f_spi_update)
-          {
-              SPI.recv_cnt = 0;
-              if((SPI.SPI_update[n]&0x80) == 0x80)
-                  SET_SPI_MISO;
-              else
-                  CLR_SPI_MISO;
-              SPI.SPI_update[n] = SPI.SPI_update[n]<<1;
-              SPI.SPI_update_len++;
-              if(SPI.SPI_update_len>7)
-              {
-                  n++;
-                  SPI.SPI_update_len=0;
-                  if(n>7)
-                  {
-                        for(unsigned char j=0;j<8;j++)
-                          SPI.SPI_update[j] = 0;
-                  }
-              }
-          }
-      }
+	//static unsigned char i = 0;
+	static unsigned char n = 0;
+	static unsigned char tdata;
+	if(!PIN_SPI_CLK)
+	{
+//		SPI.recv_cnt++;
+		if(SPI.f_spi_recv)
+		{
+			n = 0;
+			SPI.recv_timeout = 30;         //3ms接收超时，表示接收完成
+			
+			if(PIN_SPI_MOSI)
+				tdata = tdata|0x01;    // 若接收到的位为1，则数据的最后一位置1
+			else 
+				tdata = tdata&0xfe;    // 否则数据的最后一位置0
+			
+			SPI.SPI_recv_len++;
+			
+			if(SPI.SPI_recv_len>7)
+			{
+				SPI.SPI_recv[SPI.recv_cnt]=tdata;
+				SPI.recv_cnt++;
+				//if(i>9)i=0;//调试
+				SPI.SPI_recv_len=0;
+			}
+			else
+				tdata = tdata<<1;
+		}
+		if(SPI.f_spi_update)
+		{
+			SPI.recv_cnt = 0;
+			
+			if((SPI.SPI_update[n]&0x80) == 0x80)
+				SET_SPI_MISO;
+			else
+				CLR_SPI_MISO;
+			
+			SPI.SPI_update[n] = SPI.SPI_update[n]<<1;
+			SPI.SPI_update_len++;
+			
+			if(SPI.SPI_update_len>7)
+			{
+				n++;
+				SPI.SPI_update_len=0;
+				
+				if(n>7)
+				{
+					for(unsigned char j=0;j<8;j++)
+						SPI.SPI_update[j] = 0;
+				}
+			}
+		}
+	}
 }
 
 
 //#pragma vector = PCINT1_vect
 //__interrupt void PCINT1_ISR(void)
-ISR(INT1_vect )
+ISR( INT1_vect )
 {
-      unsigned char temp,temp1,temp2;
-      f_KeyswChange = 1;
-      ChangeHoldtime = 0;
-      temp = PIN_SW_KEY2;
-      temp1 = PIN_SW_KEY1;
-      temp2 = PIN_KEY1;
-      temp = temp + temp1 + temp2;
-      inputbuf = temp;
+	unsigned char temp,temp1,temp2;
+	f_KeyswChange = 1;
+	ChangeHoldtime = 0;
+	temp = PIN_SW_KEY2;
+	temp1 = PIN_SW_KEY1;
+	temp2 = PIN_KEY1;
+	temp = temp + temp1 + temp2;
+	inputbuf = temp;
 }
 
 //===========================================================
@@ -412,52 +421,52 @@ ISR(INT1_vect )
 //-----------------------------------------------------------
 //#pragma vector = TIMER0_OVF_vect
 //__interrupt void TMR0_ISR(void)
-ISR(TIMER0_OVF_vect )
+ISR( TIMER0_OVF_vect )
 {
-        sei();
-        TCNT0 = T_TMR0;
+	sei();
+	TCNT0 = T_TMR0;
 	Time100us++;
 	PulseWidth++;
-        if(UART.recv_timeout)
-        {
-              UART.recv_timeout--;
-              if(!UART.recv_timeout)
-              {
-                    UART.recvbuff_ovf = 1;
-                    UART.recv_cnt = 0;
-              }
-        }
-          
-        if(SPI.recv_timeout)
-        {
-            SPI.recv_timeout--;
-            if(!SPI.recv_timeout)
-            {
-                SPI.SPI_recvbuff_ovf = 1;
-                SPI.f_spi_recv   = 0;
-                SPI.f_spi_update = 1;
-            }
-        }
-        /******判断SPI片选使能，开clk接收中断*****/
+	if(UART.recv_timeout)
+	{
+		UART.recv_timeout--;
+		if(!UART.recv_timeout)
+		{
+			UART.recvbuff_ovf = 1;
+			UART.recv_cnt = 0;
+		}
+	}
+
+	if(SPI.recv_timeout)
+	{
+		SPI.recv_timeout--;
+		if(!SPI.recv_timeout)
+		{
+			SPI.SPI_recvbuff_ovf = 1;
+			SPI.f_spi_recv   = 0;
+			SPI.f_spi_update = 1;
+		}
+	}
+	/******判断SPI片选使能，开clk接收中断*****/
 	//if((PIN_SPI_CS_WIFI || PIN_SPI_CS_LAN)&&(!SPI.SPI_en))
-        if(PIN_SPI_CS_LAN&&(!SPI.SPI_en))
-        {
-              SPI.SPI_en       = 1;
-              SPI.SPI_recv_len = 0;
-              SPI.recv_timeout = 30;    //3ms接收超时，表示接收完成
-              SPI.f_spi_recv   = 1;
-              PCIFR |= 0x01;
-              PCICR |= 0x01;
-        }
-        else if((!PIN_SPI_CS_LAN)&&SPI.SPI_en)
-        {
-              SPI.SPI_en       = 0;
-              SPI.f_spi_update = 0;
-              SPI.f_spi_recv   = 0;
-              SPI.recv_cnt=0;
-              PCICR &= ~0x01;
-        }
-        
+	if(PIN_SPI_CS_LAN&&(!SPI.SPI_en))
+	{
+		SPI.SPI_en       = 1;
+		SPI.SPI_recv_len = 0;
+		SPI.recv_timeout = 30;    //3ms接收超时，表示接收完成
+		SPI.f_spi_recv   = 1;
+		PCIFR |= 0x01;
+		PCICR |= 0x01;
+	}
+	else if((!PIN_SPI_CS_LAN)&&SPI.SPI_en)
+	{
+		SPI.SPI_en       = 0;
+		SPI.f_spi_update = 0;
+		SPI.f_spi_recv   = 0;
+		SPI.recv_cnt	 = 0;
+		PCICR &= ~0x01;
+	}
+	
 	// 检测脉冲输入是否变化
 		if (PIN_HALL1 == f_LastPulse1)
 		{
@@ -588,9 +597,9 @@ int main(void)
 	Init();
 	for ( ; ; )
 	{
-                SPI_process();
-                max485_tarns();
-                
+		SPI_process();
+		max485_tarns();
+		
 		// 保存缓冲区中的力量数据到EEPROM
 		
 		if (Time100us < 5)
@@ -1229,7 +1238,7 @@ void Init()
 	}
 	else								// 上电复位、掉电检测复位、外部复位
 	{
-		_delay_ms(125);
+		_delay_ms(120);
 		WDTCSR |= (1<<WDCE) | (1<<WDE);	// WATCHDOG ENABLED，使能看门狗
 		WDTCSR |= (1<<WDE) | (1<<WDP1) | (1<<WDP0); // 125ms喂狗
 	}
@@ -2030,7 +2039,7 @@ void RunToMid(unsigned int Mid_Position)
               TIFR1 |= (1 << ICIE1);
               TIMSK1 &= ~(1 << ICIE1); //清中断
 
-              wdt_reset();
+              clrwdt();
               
               SMCR |= BIT(SE);
 	      __sleep();//开始睡眠

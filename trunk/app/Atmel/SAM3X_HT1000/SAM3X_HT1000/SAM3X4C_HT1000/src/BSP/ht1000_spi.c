@@ -129,7 +129,7 @@ extern "C" {
 
 #define SPI_SCLK_L()				gpio_set_pin_low(SPI0_SPCK_GPIO)
 
-#define SP_MISO_READ()				pio_get_pin_value(SPI0_MOSI_GPIO)
+#define SPI_MISO_READ()				gpio_pin_is_high(SPI0_MISO_GPIO)
 
 /* Chip select. */
 #define SPI_CHIP_SEL 0
@@ -478,22 +478,29 @@ void spi_master_transfer(void *p_buf, uint32_t size)
  */
 uint8_t spi_soft_write( uint8_t data ) 
 {
-	uint8_t i, temp = 0;
+	uint8_t i, temp = 0, b;
 	
 	for(i = 0;i < 8;i ++)
 	{
 		SPI_SCLK_H();
+		
 		if((data&0x80) == 0x80)
 			SPI_MOSI_H();
 		else
 			SPI_MOSI_L();
+		
 		vTaskDelay(1);
 		
-		if(SP_MISO_READ() == 1)
-			temp = temp | (1<<(7-i));
 		data = data<<1;
+		
 		SPI_SCLK_L();
 		vTaskDelay(1);
+		
+		if(SPI_MISO_READ() == 1)
+		{
+			temp = temp | (1<<(7-i));
+		}
+		
 		SPI_MOSI_L();
 	}
 	

@@ -143,50 +143,46 @@ void task_led(void *pvParameters)
 	
 	uint16_t crc;
 	(void) pvParameters;
-	//
-	//spi_t.buf[0] = 0x01;
-	//spi_t.buf[1] = 0x06;
-	//spi_t.buf[2] = 0x00;
-	//spi_t.buf[3] = 0x01;
-	//spi_t.buf[4] = 0x01;
-	//spi_t.buf[5] = 0x00;
-	//
-	//crc = Crc16CheckSum(spi_t.buf, 6);
-	//
-	//spi_t.buf[6] = crc>>8;
-	//spi_t.buf[7] = crc;
-	//
-	//spi_t.len    = 8;
-	//
+
 	for (;;)
 	{
+		//spi_t.buf[0] = 0x01;
+		//spi_t.buf[1] = 0x06;
+		//spi_t.buf[2] = 0x00;
+		//spi_t.buf[3] = 0x01;
+		//spi_t.buf[4] = 0x00;
+		//spi_t.buf[5] = 0x64;
+		//
+		//crc = Crc16CheckSum(spi_t.buf, 6);
+		//spi_t.buf[6] = (uint8_t)crc;
+		//spi_t.buf[7] = crc>>8;
+		//spi_t.len    = 8;
 		//spi_csn0_disable();
 		//vTaskDelay(1);
 		//spi_soft_transfer(spi_t.buf, spi_t.len);
-		//vTaskDelay(20);												/* Wait 20 millisecond.*/
+		//vTaskDelay(5);												/* Wait 20 millisecond.*/
 		//spi_soft_transfer(spi_t.buf, spi_t.len);					/* Update to spi.buf[].*/
 		//spi_csn0_enable();
+		//
+		gpio_toggle_pin(LED0_GPIO);
+		vTaskDelay(1000);
 		//
 		//spi_t.buf[0] = 0x01;
 		//spi_t.buf[1] = 0x06;
 		//spi_t.buf[2] = 0x00;
 		//spi_t.buf[3] = 0x01;
-		//spi_t.buf[4] = 0x01;
+		//spi_t.buf[4] = 0x00;
 		//spi_t.buf[5] = 0x00;
-		//
 		//crc = Crc16CheckSum(spi_t.buf, 6);
-		//
-		//spi_t.buf[6] = crc>>8;
-		//spi_t.buf[7] = crc;
-		//
+		//spi_t.buf[6] = (uint8_t)crc;
+		//spi_t.buf[7] = crc>>8;
 		//spi_t.len    = 8;
-		//
-		
-//		gpio_toggle_pin(LED0_GPIO);
-		gpio_set_pin_high(LED0_GPIO);
-		vTaskDelay(1000);
-		gpio_set_pin_low(LED0_GPIO);
-		vTaskDelay(1000);
+		//spi_csn0_disable();
+		//vTaskDelay(1);
+		//spi_soft_transfer(spi_t.buf, spi_t.len);
+		//vTaskDelay(5);												/* Wait 20 millisecond.*/
+		//spi_soft_transfer(spi_t.buf, spi_t.len);					/* Update to spi.buf[].*/
+		//spi_csn0_enable();
 	}
 }
 /*-----------------------------------------------------------*/
