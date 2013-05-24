@@ -32,9 +32,13 @@
 #include "spi_handle.h"
 #include "net_handle.h"
 
+#define ERROR_DATA_NUM					4
+
 spi_data_send_t spi_t;
 
 static unsigned int crc16(unsigned char buff, unsigned int fcs);
+static void spi_transmit(spi_data_send_t *p);
+
 
 /**
  * \brief 
@@ -95,6 +99,24 @@ unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length)
 }
 
 /**
+ * \brief 
+ * 
+ * \param p
+ * 
+ * \return void
+ */
+static void spi_transmit(spi_data_send_t* p)
+{
+	spi_csn0_disable();
+	vTaskDelay(1);													/* Wait 20 millisecond.*/
+	spi_soft_transfer(&p->buf[1], p->len + 2);
+	vTaskDelay(6);													/* Wait 20 millisecond.*/
+//	bzero(p, sizeof(spi_data_send_t));
+	spi_soft_transfer(&p->buf[1], p->len + 2);						/* Update to spi.buf[].*/
+	spi_csn0_enable();
+}
+
+/**
  * \brief SPI data handle function.
  * 
  * \param pdata
@@ -103,12 +125,33 @@ unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length)
  */
 static void spi_data_handle ( spi_data_send_t* pdata )
 {
+	uint8_t i = 0, a;
 	int ret;
 	
-	RS232printf("\r\nSPI data receive...");
-	if(pdata->port >0)
+	spi_data_send_t spi;
+	
+	memcpy(&spi, pdata, sizeof(spi_data_send_t));					// Copy spi_data to temp struct.
+	memcpy(&spi.buf[1], pdata->buf, sizeof(spi.buf));
+	spi.buf[0] = 6;
+	
+	if(spi.port >0)
 	{
-		ret = lwip_write(pdata->port, &pdata->buf[0], pdata->len + 2);
+		spi_transmit(&spi);
+		
+		a = spi.buf[1];
+		while(((a == 0xFF) || (a == 0x00)) && (i < ERROR_DATA_NUM))
+		{
+			memcpy(&spi, pdata, sizeof(spi_data_send_t));
+			memcpy(&spi.buf[1], pdata->buf, sizeof(spi.buf));
+			spi.buf[0] = 6;
+			
+			spi_transmit(&spi);
+			vTaskDelay(6);
+			a = spi.buf[1];
+			i ++;
+		}
+		
+		ret = lwip_write(spi.port, &spi.buf[0], spi.len + 1);
 	}
 	
 	if(ret < 0){
@@ -145,14 +188,6 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				
 				crc = Crc16CheckSum(&spi_t.buf[0], len);
 				*((u_short *)&spi_t.buf[len]) = crc;
-				
-				spi_csn0_disable();
-				vTaskDelay(1);										/* Wait 20 millisecond.*/
-				spi_soft_transfer(spi_t.buf, spi_t.len + 2);
-				vTaskDelay(6);										/* Wait 20 millisecond.*/
-				bzero(spi_t.buf, 8);
-				spi_soft_transfer(spi_t.buf, spi_t.len + 2);		/* Update to spi.buf[].*/
-				spi_csn0_enable();
 				
 				RS232printf("0x%x", spi_t.buf[0]);
 				
