@@ -17,12 +17,12 @@ void board_init(void)
 	WDT->WDT_MR = WDT_MR_WDDIS;
 	
 	sysclk_enable_peripheral_clock(ID_PIOA);
-	sysclk_enable_peripheral_clock(ID_PIOB);
-	
-	for(i = 0;i < PIO_PB31_IDX;i ++)
-	{
-		gpio_configure_pin(i, PIO_TYPE_PIO_OUTPUT_0 | PIO_DEFAULT);
-	}
+	//sysclk_enable_peripheral_clock(ID_PIOB);
+	//
+	//for(i = 0;i < PIO_PB31_IDX;i ++)
+	//{
+		//gpio_configure_pin(i, PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT);
+	//}
 	
 	/* Configure LED pins */
 	gpio_configure_pin(LED0_GPIO, LED0_FLAGS);
