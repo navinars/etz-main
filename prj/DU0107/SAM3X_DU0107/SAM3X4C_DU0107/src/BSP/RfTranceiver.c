@@ -48,13 +48,13 @@
     //save break point
 //    StoreAndDisRfInterrupt(Rex);
     //enable stabilize
-	Enable_CC1101;
+	Enable_CC1101();
 	//wait for cc1101
-	while(CC1101_Check_So);
+	while(CC1101_Check_So());
 	//write strobe command to register 
 	APIWriteByte(stro); 
     //disable cc1101 
-	Disable_CC1101;
+	Disable_CC1101();
     //resume break point 
 //    RestoreRfInterrupt(Rex);
  }
@@ -68,15 +68,15 @@
     //save break point 
     StoreAndDisRfInterrupt(Rex);
     //enable cc1101 
-    Enable_CC1101; 
+    Enable_CC1101(); 
 	//wait for ....
-    while(CC1101_Check_So);
+    while(CC1101_Check_So());
 	//write address of register 
 	APIWriteByte(addr);  
 	//write value to register 
 	APIWriteByte(value); 
 	//disable cc1101 
-	Disable_CC1101;
+	Disable_CC1101();
     //resume break point 
     RestoreRfInterrupt(Rex);
  }
@@ -92,15 +92,15 @@
 	//write burst set 1
 	temp=addr|WRITE_BURST;
 	//enable cc1101 
-	Enable_CC1101;
+	Enable_CC1101();
 	//wait for....
-	while(CC1101_Check_So);
+	while(CC1101_Check_So());
 	//write address
 	APIWriteByte(temp);
 	//write data bytes
     APIWriteArrayBytes(buffer,count);
     //disable cc1101 
-	Disable_CC1101;
+	Disable_CC1101();
     //resume break point 
     RestoreRfInterrupt(Rex);
  }
@@ -117,15 +117,15 @@
     //re-build address
 	temp=addr|READ_SINGLE; 
 	//enable cc1101
-	Enable_CC1101;
+	Enable_CC1101();
 	//wait for...
-	while(CC1101_Check_So);
+	while(CC1101_Check_So());
 	//write address
 	APIWriteByte(temp);
 	//read data byte
 	value=APIReadByte();
 	//disable cc1101 
-	Disable_CC1101;
+	Disable_CC1101();
     //resume break point 
     RestoreRfInterrupt(Rex);
 	return value;
@@ -141,15 +141,15 @@
     //re-build net address
 	temp=cc1101_RXFIFO|READ_BURST;
 	//enable cc1101 
-	Enable_CC1101;
+	Enable_CC1101();
 	//wait for ...
-	while(CC1101_Check_So);
+	while(CC1101_Check_So());
 	//write address
 	APIWriteByte(temp);
 	//从CC1101 RX FIFO 中读取数据
 	APIReadArrayBytes(count);
     //disable cc1101 
-	Disable_CC1101;
+	Disable_CC1101();
     //resume break point 
     RestoreRfInterrupt(Rex);
  }
@@ -165,15 +165,15 @@
     //re-build new address
 	temp=addr|READ_BURST;
 	//enable cc1101 
-	Enable_CC1101;
+	Enable_CC1101();
 	//wait for ...
-	while(CC1101_Check_So);
+	while(CC1101_Check_So());
 	//write address...
 	APIWriteByte(temp);
 	//read data byte 
 	value=APIReadByte();
 	//disable cc1101 
-	Disable_CC1101;
+	Disable_CC1101();
     //resume break point 
     RestoreRfInterrupt(Rex);
     //return read data 
@@ -185,9 +185,15 @@
  * ============================================ */
  void CC1101_Rf_Write_Settings(void)
  {
+	 uint8_t tmp;
     //CC1100 FSCTRL
 	CC1101_Write_Reg(cc1101_FSCTRL0,FSCTRL2);
     CC1101_Write_Reg(cc1101_FSCTRL1,FSCTRL1);
+    tmp = CC1101_Read_Reg(cc1101_FSCTRL1);
+	if(tmp == 0x00)
+	{
+		tmp = 0;
+	}
 	CC1101_Write_Reg(cc1101_FSCTRL0,FSCTRL0);
 	//MDMCFG
     CC1101_Write_Reg(cc1101_MDMCFG4,MDMCFG4);
@@ -230,7 +236,7 @@ void _delay_us(unsigned char x)
 	
 	while(x --)
 	{
-		for(i = 0;i < 1000;i++)
+		for(i = 0;i < 100000;i++)
 		{
 			asm("NOP");
 		}
@@ -243,22 +249,22 @@ void _delay_us(unsigned char x)
  void CC1101_Power_Up(void) 
  {
 	//enable cc1101
-	Enable_CC1101;
+	Enable_CC1101();
     _delay_us(1);
     //disable cc1101
-	Disable_CC1101;
+	Disable_CC1101();
 	//delay 40 us
 	_delay_us(40);
 	//enable cc1101
-	Enable_CC1101;
+	Enable_CC1101();
 	//wait cc1101 stabilize
-	while(CC1101_Check_So);
+	while(CC1101_Check_So());																// SOMI is low...
 	//transmit cc1101 command
 	APIWriteByte(cc1101_SRES);
 	//wait
-	while(CC1101_Check_So);
+	while(CC1101_Check_So());
 	//disable cc1101
-	Disable_CC1101;
+	Disable_CC1101();
  }
    
 /* ============================================ *
@@ -269,15 +275,15 @@ void _delay_us(unsigned char x)
     unsigned char i,temp;
     //setting rf cc100 power address
 	temp = cc1101_PATABLE|WRITE_BURST;
-	Enable_CC1101;
-	while(CC1101_Check_So);
+	Enable_CC1101();
+	while(CC1101_Check_So());
 	APIWriteByte(temp);
 	//write data 8 times 
 	for(i=0;i<8;i++)
 	{
 		APIWriteByte(power);
 	}
-	Disable_CC1101;
+	Disable_CC1101();
  }
  
 /* ============================================ *
@@ -586,10 +592,10 @@ void CC1101_Interrupt_Config(unsigned char priority)
  void CC1101_WakeUpToIdleMode(void)
  {
     //wake up cc1101
-    Enable_CC1101;
+    Enable_CC1101();
     //delay 100us 
     _delay_us(100);
-	Disable_CC1101;
+	Disable_CC1101();
     //rf frequency scal 
     CC1101_Entry_XMode(Rf_Frq_Scal);
  }
@@ -615,7 +621,7 @@ void CC1101_Interrupt_Config(unsigned char priority)
     CC1101_Config_Gpio2(IOCFG2);
     CC1101_Config_Gpio0(IOCFG0);
 	//check CC1101 initial whether success.....
-	if(CC1101_Read_Reg(cc1101_IOCFG2) != IOCFG2)
+	if(CC1101_Read_Reg(cc1101_IOCFG0) != IOCFG0)
 	{
 	    for(;;)
 		{
@@ -871,13 +877,13 @@ void CC1101_Interrupt_Config(unsigned char priority)
         //disable rf interrupt
         StoreAndDisRfInterrupt(Rex);
         //enable cc1101
-	    Enable_CC1101;
+	    Enable_CC1101();
         //wait for ....
-	    while(CC1101_Check_So);
+	    while(CC1101_Check_So());
         //get cc1101 status
         status = APIReadByte();
 	    //disable cc1101
-	    Disable_CC1101;
+	    Disable_CC1101();
 
         //检查发送是否溢出
 	    if(CHECK_TXFIFO(status) == TX_OVERFLOW)

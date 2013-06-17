@@ -138,7 +138,7 @@ void Disable_CC1101(void)
 
 uint8_t CC1101_Check_So(void)
 {
-	return gpio_pin_is_high(SPI0_MISO_GPIO);
+	return gpio_pin_is_low(SPI0_MISO_GPIO);
 }
 
 void APIWriteByte(uint8_t data)
@@ -173,7 +173,7 @@ portTASK_FUNCTION(vAppSpiTask, pvParameters)
 	
 	for(;;)
 	{
-		
+		vTaskDelay(1000);
 	}
 }
 
