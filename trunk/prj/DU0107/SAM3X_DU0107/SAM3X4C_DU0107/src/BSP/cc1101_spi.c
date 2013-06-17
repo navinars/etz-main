@@ -164,3 +164,23 @@ uint8_t Check_Rf_Level(void)
 {
 	return gpio_pin_is_high(SPI0_MISO_GPIO);
 }
+
+portTASK_FUNCTION(vAppSpiTask, pvParameters)
+{
+	(void)pvParameters;
+	
+	CC1101_Initialization();
+	
+	for(;;)
+	{
+		
+	}
+}
+
+void vStartSpiTaskLauncher( unsigned portBASE_TYPE uxPriority )
+{
+	/* Spawn the Sentinel task. */
+	xTaskCreate( vAppSpiTask, (const signed portCHAR *)"SPILAUNCH",
+				configMINIMAL_STACK_SIZE, NULL, uxPriority,
+				(xTaskHandle *)NULL );
+}

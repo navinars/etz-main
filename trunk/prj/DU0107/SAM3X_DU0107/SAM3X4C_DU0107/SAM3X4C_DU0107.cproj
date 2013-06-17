@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.1</ProjectVersion>
     <ProjectGuid>{bcd3b82a-48d8-4ca7-b759-2dab0b08995e}</ProjectGuid>
-    <Name>$(MSBuildProjectName)</Name>
+    <Name>SAM3X4C_DU0107</Name>
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <AsfFrameworkConfig>
@@ -579,12 +579,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ethernet.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\spi_handle.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\spi_handle.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\sam\drivers\spi\spi.h">

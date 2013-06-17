@@ -37,9 +37,7 @@
 #include "ethernet.h"
 #include "netif/etharp.h"
 #include <compiler.h>
-#include "ht1000_spi.h"
-#include "net_handle.h"
-#include "spi_handle.h"
+#include "cc1101_spi.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
@@ -162,9 +160,9 @@ void task_start(void *pvParameters)
 	
 	///* Start the ethernet tasks. */
 	//vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
-	//
-	///* Start the SPI app tasks. */
-	//vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
+	
+	/* Start the SPI app tasks. */
+	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
 	
 	for (;;)
 	{
