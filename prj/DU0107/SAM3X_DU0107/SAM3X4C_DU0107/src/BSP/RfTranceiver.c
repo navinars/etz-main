@@ -18,6 +18,11 @@
 #include "RfTranceiver.h"
 #include "stdio.h"
  
+ // From module: FreeRTOS mini Real-Time Kernel
+ #include <FreeRTOS.h>
+ #include "task.h"
+ #include "status_codes.h"
+ 
  #define StoreAndDisRfInterrupt(x)
  #define RestoreRfInterrupt(x)
  #define APIReadArrayBytes(x)
@@ -236,7 +241,7 @@ void _delay_us(unsigned char x)
 	
 	while(x --)
 	{
-		for(i = 0;i < 100000;i++)
+		for(i = 0;i < 10000;i++)
 		{
 			asm("NOP");
 		}
@@ -258,7 +263,7 @@ void _delay_us(unsigned char x)
 	//enable cc1101
 	Enable_CC1101();
 	//wait cc1101 stabilize
-	while(CC1101_Check_So());																// SOMI is low...
+	while(CC1101_Check_So());										// SOMI is low...
 	//transmit cc1101 command
 	APIWriteByte(cc1101_SRES);
 	//wait
@@ -625,11 +630,8 @@ void CC1101_Interrupt_Config(unsigned char priority)
 	{
 	    for(;;)
 		{
-		    #ifdef CC1101_BreakDown_Status
-			    //LED to TGL
-//			    CC1101_BreakDown_Status;
-//				_delay_ms(250);
-			#endif
+			CC1101_Config_Gpio0(IOCFG0);
+		    vTaskDelay(2);
 		}
 	}
 	
