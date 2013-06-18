@@ -18,7 +18,7 @@
 #define SPI_CLK_POLARITY 0
 
 /* Clock phase. */
-#define SPI_CLK_PHASE 0
+#define SPI_CLK_PHASE 1
 
 /* Delay before SPCK. */
 #define SPI_DLYBS 0x40
@@ -81,11 +81,11 @@ static void spi_master_initialize(void)
 	spi_set_clock_polarity(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CLK_POLARITY);
 	spi_set_clock_phase(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CLK_PHASE);
 	spi_set_bits_per_transfer(SPI_MASTER_BASE, SPI_CHIP_SEL,
-			SPI_CSR_BITS_8_BIT);
+								SPI_CSR_BITS_8_BIT);
 	spi_set_baudrate_div(SPI_MASTER_BASE, SPI_CHIP_SEL,
-			(sysclk_get_cpu_hz() / gs_ul_spi_clock));
+						(sysclk_get_cpu_hz() / gs_ul_spi_clock));
 	spi_set_transfer_delay(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_DLYBS,
-			SPI_DLYBCT);
+							SPI_DLYBCT);
 	spi_enable(SPI_MASTER_BASE);
 }
 
@@ -138,7 +138,18 @@ void Disable_CC1101(void)
 
 uint8_t CC1101_Check_So(void)
 {
-	return gpio_pin_is_low(SPI0_MISO_GPIO);
+	uint8_t value;
+	//spi_disable_clock(SPI_MASTER_BASE);
+	//spi_disable(SPI_MASTER_BASE);
+	//gpio_configure_pin(SPI0_MISO_GPIO, (PIO_INPUT | PIO_DEFAULT));
+	//
+	value = gpio_pin_is_high(SPI0_MISO_GPIO);
+	//
+	//gpio_configure_pin(SPI0_MISO_GPIO, (PIO_PERIPH_A | PIO_DEFAULT));
+	//spi_enable_clock(SPI_MASTER_BASE);
+	//spi_enable(SPI_MASTER_BASE);
+	//
+	return value;
 }
 
 void APIWriteByte(uint8_t data)
