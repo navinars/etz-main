@@ -47,10 +47,10 @@ void button_handler(uint32_t id, uint32_t mask)
 void configure_cc1101_int(void)
 {
 	/* Configure PIO clock. */
-	pmc_enable_periph_clk(CC1101_INT_ID);
+	//pmc_enable_periph_clk(CC1101_INT_ID);
 
 	/* Adjust pio debounce filter parameters, uses 10 Hz filter. */
-	pio_set_debounce_filter(CC1101_INT_PIO, CC1101_INT_PIN_MSK, 10);
+	//pio_set_debounce_filter(CC1101_INT_PIO, CC1101_INT_PIN_MSK, 10);
 
 	/* Initialize pios interrupt handlers, see PIO definition in board.h. */
 	pio_handler_set(CC1101_INT_PIO, CC1101_INT_ID, CC1101_INT_PIN_MSK,
@@ -138,18 +138,17 @@ void Disable_CC1101(void)
 
 uint8_t CC1101_Check_So(void)
 {
-	uint8_t value;
-	//spi_disable_clock(SPI_MASTER_BASE);
 	//spi_disable(SPI_MASTER_BASE);
+	//spi_disable_clock(SPI_MASTER_BASE);
 	//gpio_configure_pin(SPI0_MISO_GPIO, (PIO_INPUT | PIO_DEFAULT));
 	//
-	value = gpio_pin_is_high(SPI0_MISO_GPIO);
+	while(gpio_pin_is_high(SPI0_MISO_GPIO));
 	//
 	//gpio_configure_pin(SPI0_MISO_GPIO, (PIO_PERIPH_A | PIO_DEFAULT));
 	//spi_enable_clock(SPI_MASTER_BASE);
 	//spi_enable(SPI_MASTER_BASE);
-	//
-	return value;
+	
+	return 0;
 }
 
 void APIWriteByte(uint8_t data)
@@ -179,6 +178,8 @@ uint8_t Check_Rf_Level(void)
 portTASK_FUNCTION(vAppSpiTask, pvParameters)
 {
 	(void)pvParameters;
+	
+	configure_cc1101_int();
 	
 	CC1101_Initialization();
 	

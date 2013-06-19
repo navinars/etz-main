@@ -255,7 +255,7 @@ void _delay_us(unsigned char x)
  {
 	//enable cc1101
 	Enable_CC1101();
-    _delay_us(1);
+    _delay_us(10);
     //disable cc1101
 	Disable_CC1101();
 	//delay 40 us
