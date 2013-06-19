@@ -186,7 +186,7 @@ int main (void)
 	RS232printf("\n\r-- FreeRTOS Example --\n\r");
 	
 	/* Initialize the SPI0. */
-	//spi_set_clock_configuration(1);
+	spi_set_clock_configuration(1);
 	
 	/* Ensure all priority bits are assigned as preemption priority bits. */
 	NVIC_SetPriorityGrouping( 0 );
