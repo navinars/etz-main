@@ -1,0 +1,18 @@
+#include <msp430.h>
+
+    PUBLIC  OSCPURestoreSR
+    PUBLIC  OSCPUSaveSR
+	
+   RSEG        CODE                    ; Program code
+	   
+OSCPUSaveSR
+    MOV.W       SR, R12
+    DINT
+    RETA
+
+
+OSCPURestoreSR
+    MOV.W       R12, SR
+    RETA
+    END
+				

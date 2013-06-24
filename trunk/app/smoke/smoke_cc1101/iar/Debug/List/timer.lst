@@ -1,0 +1,149 @@
+###############################################################################
+#                                                                             #
+#                                                       24/Jun/2013  16:43:06 #
+# IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430         #
+# Copyright 1996-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    __rt_version  =  3                                                       #
+#    __double_size =  32                                                      #
+#    __reg_r4      =  free                                                    #
+#    __reg_r5      =  free                                                    #
+#    __pic         =  no                                                      #
+#    __core        =  430                                                     #
+#    Source file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\lib\timer.c  #
+#    Command line  =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\lib\timer.c  #
+#                     -lC E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Li #
+#                     st\ -lA E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debu #
+#                     g\List\ -o E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\D #
+#                     ebug\Obj\ --no_cse --no_unroll --no_inline              #
+#                     --no_code_motion --no_tbaa --debug -D__MSP430G2433__    #
+#                     -e --double=32 --dlib_config "C:\Program Files\IAR      #
+#                     Systems\Embedded Workbench 6.4                          #
+#                     Evaluation\430\LIB\DLIB\dl430fn.h" -I                   #
+#                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\app\  #
+#                     -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\bs #
+#                     p\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src #
+#                     \lib\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\ #
+#                     src\Radio\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\ia #
+#                     r\..\src\Radio\CC1101\ -I E:\Dooya\dooya_dev\DU0106\Sou #
+#                     rce\smoke\iar\..\src\Radio\Si4455\ -Ol                  #
+#    List file     =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\List\t #
+#                     imer.lst                                                #
+#    Object file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Obj\ti #
+#                     mer.r43                                                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+E:\Dooya\dooya_dev\DU0106\Source\smoke\src\lib\timer.c
+      1          #include <msp430.h>
+
+   \                                 In  segment DATA16_AN, at 0x12e
+   \   unsigned short const volatile TA0IV
+   \                     TA0IV:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x160
+   \   unsigned short volatile TA0CTL
+   \                     TA0CTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x162
+   \   unsigned short volatile TA0CCTL0
+   \                     TA0CCTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x172
+   \   unsigned short volatile TA0CCR0
+   \                     TA0CCR0:
+   \   000000                DS8 2
+      2          #include "timer.h"
+      3          
+
+   \                                 In  segment CODE, align 2
+      4          void timer_A_init(void)
+   \                     timer_A_init:
+      5          {
+      6          	CCTL0 = CCIE;                             						// CCR0 interrupt enabled
+   \   000000   B24010006201 MOV.W   #0x10, &0x162
+      7          	CCR0 = 1000-1;                             						// CCR0 Period
+   \   000006   B240E7037201 MOV.W   #0x3e7, &0x172
+      8          	
+      9          	TACTL = TASSEL_1 + MC_1;	            						// ACLK, up mode, interrupt.
+   \   00000C   B24010016001 MOV.W   #0x110, &0x160
+     10          
+     11          	_BIS_SR(LPM3_bits);                       						// Enter LPM3
+   \   000012   32D0D000     BIS.W   #0xd0, SR
+     12          }
+   \   000016   3041         RET
+   \   000018                REQUIRE TA0CCTL0
+   \   000018                REQUIRE TA0CCR0
+   \   000018                REQUIRE TA0CTL
+     13          
+     14          extern void radio_timer_send(void);
+     15          
+     16          // Timer A0 interrupt service routine
+     17          #pragma vector=TIMER0_A0_VECTOR
+
+   \                                 In  segment CODE, align 2
+     18          __interrupt void Timer_A(void)
+   \                     Timer_A:
+     19          {
+   \   000000   0F12         PUSH.W  R15
+     20          //	radio_timer_send();
+     21          
+     22          	switch( TA0IV )
+   \   000002   1F422E01     MOV.W   &0x12e, R15
+   \   000006   2F83         SUB.W   #0x2, R15
+   \   000008   0424         JEQ     ??Timer_A_2
+   \   00000A   2F83         SUB.W   #0x2, R15
+   \   00000C   0224         JEQ     ??Timer_A_2
+   \   00000E   3F800600     SUB.W   #0x6, R15
+     23          	{
+     24          		case  2:  break;                        					// CCR1 not used
+     25          		case  4:  break;                        					// CCR2 not used
+     26          		case 10:  
+     27          			                						// send timer data
+     28          				  break;
+     29          	}
+     30          }
+   \                     ??Timer_A_2:
+   \   000012   3F41         POP.W   R15
+   \   000014   0013         RETI
+   \   000016                REQUIRE TA0IV
+
+   \                                 In  segment INTVEC, offset 0x12, root
+   \                     `??Timer_A??INTVEC 18`:
+   \   000012   ....         DC16    Timer_A
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+       6  Timer_A
+       2  timer_A_init
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  ??Timer_A??INTVEC 18
+       2  TA0CCR0
+       2  TA0CCTL0
+       2  TA0CTL
+       2  TA0IV
+      22  Timer_A
+      24  timer_A_init
+
+ 
+ 46 bytes in segment CODE
+  8 bytes in segment DATA16_AN
+  2 bytes in segment INTVEC
+ 
+ 46 bytes of CODE  memory
+  0 bytes of CONST memory (+ 2 bytes shared)
+  0 bytes of DATA  memory (+ 8 bytes shared)
+
+Errors: none
+Warnings: none
