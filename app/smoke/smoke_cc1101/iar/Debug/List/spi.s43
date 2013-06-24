@@ -1,0 +1,435 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+//                                                      24/Jun/2013  09:03:14 /
+// IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430        /
+// Copyright 1996-2012 IAR Systems AB.                                        /
+//                                                                            /
+//    __rt_version  =  3                                                      /
+//    __double_size =  32                                                     /
+//    __reg_r4      =  free                                                   /
+//    __reg_r5      =  free                                                   /
+//    __pic         =  no                                                     /
+//    __core        =  430                                                    /
+//    Source file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\lib\spi.c   /
+//    Command line  =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\lib\spi.c   /
+//                     -lC E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\L /
+//                     ist\ -lA E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\De /
+//                     bug\List\ -o E:\Dooya\dooya_dev\DU0106\Source\smoke\ia /
+//                     r\Debug\Obj\ --no_cse --no_unroll --no_inline          /
+//                     --no_code_motion --no_tbaa --debug -D__MSP430G2433__   /
+//                     -e --double=32 --dlib_config "C:\Program Files\IAR     /
+//                     Systems\Embedded Workbench 6.4                         /
+//                     Evaluation\430\LIB\DLIB\dl430fn.h" -I                  /
+//                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\app\ /
+//                      -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\ /
+//                     bsp\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\ /
+//                     src\lib\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar /
+//                     \..\src\Radio\ -I E:\Dooya\dooya_dev\DU0106\Source\smo /
+//                     ke\iar\..\src\Radio\CC1101\ -I                         /
+//                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\Radi /
+//                     o\Si4455\ -Ol                                          /
+//    List file     =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\List\ /
+//                     spi.s43                                                /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME spi
+
+        RTMODEL "__SystemLibrary", "DLib"
+        RTMODEL "__core", "430"
+        RTMODEL "__double_size", "32"
+        RTMODEL "__pic", "no"
+        RTMODEL "__reg_r4", "free"
+        RTMODEL "__reg_r5", "free"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:SORT:NOROOT(0)
+
+        EXTERN ?longjmp_r4
+        EXTERN ?longjmp_r5
+        EXTERN ?setjmp_r4
+        EXTERN ?setjmp_r5
+
+        PUBWEAK ?setjmp_save_r4
+        PUBWEAK ?setjmp_save_r5
+        PUBWEAK IE2
+        PUBWEAK IFG2
+        PUBWEAK P1OUT
+        PUBWEAK P1SEL
+        PUBWEAK P1SEL2
+        PUBLIC Spi_Read_Byte
+        FUNCTION Spi_Read_Byte,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC Spi_Write_Byte
+        FUNCTION Spi_Write_Byte,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBWEAK UCA0BR0
+        PUBWEAK UCA0BR1
+        PUBWEAK UCA0CTL0
+        PUBWEAK UCA0CTL1
+        PUBWEAK UCA0MCTL
+        PUBWEAK UCA0RXBUF
+        PUBWEAK UCA0TXBUF
+        PUBLIC spi_cs_disable
+        FUNCTION spi_cs_disable,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC spi_cs_enable
+        FUNCTION spi_cs_enable,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC spi_init
+        FUNCTION spi_init,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC spi_isr_enable
+        FUNCTION spi_isr_enable,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC spi_read_buf
+        FUNCTION spi_read_buf,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC spi_readwrite
+        FUNCTION spi_readwrite,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC spi_write_buf
+        FUNCTION spi_write_buf,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA SP DATA
+          CFI Resource PC:16, SP:16, SR:16, R4:16, R5:16, R6:16, R7:16, R8:16
+          CFI Resource R9:16, R10:16, R11:16, R12:16, R13:16, R14:16, R15:16
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 2
+          CFI ReturnAddress PC CODE
+          CFI CFA SP+2
+          CFI PC Frame(CFA, -2)
+          CFI SR Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 Undefined
+          CFI R13 Undefined
+          CFI R14 Undefined
+          CFI R15 Undefined
+          CFI EndCommon cfiCommon0
+        
+// E:\Dooya\dooya_dev\DU0106\Source\smoke\src\lib\spi.c
+//    1 #include <msp430.h>
+
+        ASEGN DATA16_AN:DATA:NOROOT,01H
+// unsigned char volatile IE2
+IE2:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,03H
+// unsigned char volatile IFG2
+IFG2:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,021H
+// unsigned char volatile P1OUT
+P1OUT:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,026H
+// unsigned char volatile P1SEL
+P1SEL:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,041H
+// unsigned char volatile P1SEL2
+P1SEL2:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,060H
+// unsigned char volatile UCA0CTL0
+UCA0CTL0:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,061H
+// unsigned char volatile UCA0CTL1
+UCA0CTL1:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,062H
+// unsigned char volatile UCA0BR0
+UCA0BR0:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,063H
+// unsigned char volatile UCA0BR1
+UCA0BR1:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,064H
+// unsigned char volatile UCA0MCTL
+UCA0MCTL:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,066H
+// unsigned char const volatile UCA0RXBUF
+UCA0RXBUF:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,067H
+// unsigned char volatile UCA0TXBUF
+UCA0TXBUF:
+        DS8 1
+//    2 #include "spi.h"
+//    3 
+//    4 //#define Soft_SPI
+//    5 #define SPI_SOMI		BIT1
+//    6 #define SPI_SIMO		BIT2
+//    7 #define SPI_CLK			BIT4
+//    8 #define SPI_STE			BIT5
+//    9 
+//   10 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   11 void spi_init(void)
+spi_init:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function spi_init
+//   12 {
+//   13 	P1SEL = BIT1 + BIT2 + BIT4;
+        MOV.B   #0x16, &0x26
+//   14 	P1SEL2 = BIT1 + BIT2 + BIT4;
+        MOV.B   #0x16, &0x41
+//   15 	
+//   16 	UCA0CTL0 |= UCCKPL + UCMSB + UCMST + UCSYNC;  					// 3-pin, 8-bit SPI master
+        BIS.B   #0x69, &0x60
+//   17 	UCA0CTL1 |= UCSSEL_2;                     						// SMCLK
+        BIS.B   #0x80, &0x61
+//   18 	
+//   19 	UCA0BR0 |= 0x02;                          						// /2
+        BIS.B   #0x2, &0x62
+//   20 	UCA0BR1 = 0;
+        MOV.B   #0x0, &0x63
+//   21 	
+//   22 	UCA0MCTL = 0;                             						// No modulation
+        MOV.B   #0x0, &0x64
+//   23 	UCA0CTL1 &= ~UCSWRST;                     						// **Initialize USCI state machine**
+        BIC.B   #0x1, &0x61
+//   24 }
+        RET
+          CFI EndBlock cfiBlock0
+        REQUIRE P1SEL
+        REQUIRE P1SEL2
+        REQUIRE UCA0CTL0
+        REQUIRE UCA0CTL1
+        REQUIRE UCA0BR0
+        REQUIRE UCA0BR1
+        REQUIRE UCA0MCTL
+//   25 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   26 void spi_isr_enable(void)
+spi_isr_enable:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function spi_isr_enable
+//   27 {
+//   28 	IE2 |= UCA0RXIE;                          						// Enable USCI0 RX interrupt
+        BIS.B   #0x1, &0x1
+//   29 }
+        RET
+          CFI EndBlock cfiBlock1
+        REQUIRE IE2
+//   30 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   31 void spi_cs_enable(void)
+spi_cs_enable:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function spi_cs_enable
+//   32 {
+//   33 	P1OUT &=~SPI_STE;
+        BIC.B   #0x20, &0x21
+//   34 }
+        RET
+          CFI EndBlock cfiBlock2
+        REQUIRE P1OUT
+//   35 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   36 void spi_cs_disable(void)
+spi_cs_disable:
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Function spi_cs_disable
+//   37 {
+//   38 	P1OUT |= SPI_STE;
+        BIS.B   #0x20, &0x21
+//   39 }
+        RET
+          CFI EndBlock cfiBlock3
+        REQUIRE P1OUT
+//   40 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   41 void Spi_Write_Byte(unsigned char data)
+Spi_Write_Byte:
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function Spi_Write_Byte
+//   42 {
+//   43 	UCA0TXBUF = data;
+        MOV.B   R12, &0x67
+//   44 	while (!(IFG2 & UCA0TXIFG));
+??Spi_Write_Byte_0:
+        BIT.B   #0x2, &0x3
+        JNC     ??Spi_Write_Byte_0
+//   45 }
+        RET
+          CFI EndBlock cfiBlock4
+        REQUIRE UCA0TXBUF
+        REQUIRE IFG2
+//   46 
+//   47 //spi read byte
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   48 unsigned char Spi_Read_Byte(void)
+Spi_Read_Byte:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function Spi_Read_Byte
+//   49 {
+//   50 	Spi_Write_Byte(0x00);
+        FUNCALL Spi_Read_Byte, Spi_Write_Byte
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   #0x0, R12
+        CALL    #Spi_Write_Byte
+//   51 	return UCA0RXBUF;
+        MOV.B   &0x66, R12
+        RET
+          CFI EndBlock cfiBlock5
+        REQUIRE UCA0RXBUF
+//   52 }
+//   53 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   54 unsigned char spi_readwrite(unsigned char data)
+spi_readwrite:
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Function spi_readwrite
+//   55 {
+//   56 	Spi_Write_Byte(data);
+        FUNCALL spi_readwrite, Spi_Write_Byte
+        LOCFRAME CSTACK, 2, STACK
+        CALL    #Spi_Write_Byte
+//   57 	return UCA0RXBUF;
+        MOV.B   &0x66, R12
+        RET
+          CFI EndBlock cfiBlock6
+        REQUIRE UCA0RXBUF
+//   58 }
+//   59 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   60 void spi_write_buf(unsigned char *pdata, unsigned char len)
+spi_write_buf:
+??spi_write_buf_0:
+          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Function spi_write_buf
+//   61 {
+//   62 	while(len-- < 1)
+        MOV.B   R13, R14
+        MOV.B   R14, R13
+        ADD.B   #0xff, R13
+        CMP.B   #0x1, R14
+        JC      ??spi_write_buf_2
+//   63 	{
+//   64 		UCA0TXBUF = *pdata;
+        MOV.B   @R12, &0x67
+//   65 		while (!(IFG2 & UCA0TXIFG));
+??spi_write_buf_1:
+        BIT.B   #0x2, &0x3
+        JC      ??spi_write_buf_0
+        JMP     ??spi_write_buf_1
+//   66 	}
+//   67 }
+??spi_write_buf_2:
+        RET
+          CFI EndBlock cfiBlock7
+        REQUIRE UCA0TXBUF
+        REQUIRE IFG2
+//   68 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   69 void spi_read_buf(unsigned char *pdata, unsigned char len)
+spi_read_buf:
+          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Function spi_read_buf
+//   70 {
+        JMP     ??spi_read_buf_2
+//   71 	while(len-- < 1)
+//   72 	{
+//   73 		UCA0TXBUF = 0xFF;
+??spi_read_buf_1:
+        MOV.B   #0xff, &0x67
+//   74 		while (!(IFG2 & UCA0TXIFG));
+??spi_read_buf_0:
+        BIT.B   #0x2, &0x3
+        JNC     ??spi_read_buf_0
+//   75 		*pdata = UCA0RXBUF;
+        MOV.B   &0x66, 0(R12)
+//   76 	}
+??spi_read_buf_2:
+        MOV.B   R13, R14
+        MOV.B   R14, R13
+        ADD.B   #0xff, R13
+        CMP.B   #0x1, R14
+        JNC     ??spi_read_buf_1
+//   77 }
+        RET
+          CFI EndBlock cfiBlock8
+        REQUIRE UCA0TXBUF
+        REQUIRE IFG2
+        REQUIRE UCA0RXBUF
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r4:
+        REQUIRE ?setjmp_r4
+        REQUIRE ?longjmp_r4
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r5:
+        REQUIRE ?setjmp_r5
+        REQUIRE ?longjmp_r5
+
+        END
+//   78 /*
+//   79 #pragma vector=USCIAB0RX_VECTOR
+//   80 __interrupt void USCIA0RX_ISR(void)
+//   81 {
+//   82 	volatile unsigned int i;
+//   83 
+//   84 	while (!(IFG2 & UCA0TXIFG));              	// USCI_A0 TX buffer ready?
+//   85 	
+//   86 	if (UCA0RXBUF == 0x00)
+//   87 	{
+//   88 		P1OUT &=~BIT2;
+//   89 	}
+//   90 }
+//   91 */
+// 
+// 152 bytes in segment CODE
+//  12 bytes in segment DATA16_AN
+// 
+// 152 bytes of CODE memory
+//   0 bytes of DATA memory (+ 12 bytes shared)
+//
+//Errors: none
+//Warnings: none

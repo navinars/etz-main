@@ -1,0 +1,213 @@
+###############################################################################
+#                                                                             #
+#                                                       19/Jun/2013  14:39:02 #
+# IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430         #
+# Copyright 1996-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    __rt_version  =  3                                                       #
+#    __double_size =  32                                                      #
+#    __reg_r4      =  free                                                    #
+#    __reg_r5      =  free                                                    #
+#    __pic         =  no                                                      #
+#    __core        =  430                                                     #
+#    Source file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\radio_ #
+#                     hal.c                                                   #
+#    Command line  =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\radio_ #
+#                     hal.c -lC E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\De #
+#                     bug\List\ -lA E:\Dooya\dooya_dev\DU0106\Source\smoke\ia #
+#                     r\Debug\List\ -o E:\Dooya\dooya_dev\DU0106\Source\smoke #
+#                     \iar\Debug\Obj\ --no_cse --no_unroll --no_inline        #
+#                     --no_code_motion --no_tbaa --debug -D__MSP430G2303__    #
+#                     -e --double=32 --dlib_config "C:\Program Files\IAR      #
+#                     Systems\Embedded Workbench 6.4                          #
+#                     Evaluation\430\LIB\DLIB\dl430fn.h" -I                   #
+#                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\app\  #
+#                     -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\bs #
+#                     p\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src #
+#                     \lib\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\ #
+#                     src\Radio\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\ia #
+#                     r\..\src\Radio\CC1101\ -I E:\Dooya\dooya_dev\DU0106\Sou #
+#                     rce\smoke\iar\..\src\Radio\Si4455\ -Ol                  #
+#    List file     =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\List\r #
+#                     adio_hal.lst                                            #
+#    Object file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Obj\ra #
+#                     dio_hal.r43                                             #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\radio_hal.c
+      1          /*!
+      2           * File:
+      3           *  radio_hal.c
+      4           *
+      5           * Description:
+      6           *  This file contains RADIO HAL.
+      7           *
+      8           * Silicon Laboratories Confidential
+      9           * Copyright 2011 Silicon Laboratories, Inc.
+     10           */
+     11          
+     12                          /* ======================================= *
+     13                           *              I N C L U D E              *
+     14                           * ======================================= */
+     15          
+     16          #include "bsp.h"
+
+      U8  TEST0;
+          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\Radio\Si4455\si4455_defs.h",43  Error[Pe040]: 
+          expected an identifier
+
+      U8  TEST1;
+          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\Radio\Si4455\si4455_defs.h",44  Error[Pe040]: 
+          expected an identifier
+
+      U8  TEST2;
+          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\Radio\Si4455\si4455_defs.h",45  Error[Pe040]: 
+          expected an identifier
+     17          
+     18          
+     19                          /* ======================================= *
+     20                           *          D E F I N I T I O N S          *
+     21                           * ======================================= */
+     22          
+     23                          /* ======================================= *
+     24                           *     G L O B A L   V A R I A B L E S     *
+     25                           * ======================================= */
+     26          
+     27                          /* ======================================= *
+     28                           *      L O C A L   F U N C T I O N S      *
+     29                           * ======================================= */
+     30          
+     31                          /* ======================================= *
+     32                           *     P U B L I C   F U N C T I O N S     *
+     33                           * ======================================= */
+     34          
+     35          void radio_hal_AssertShutdown(void)
+     36          {
+     37          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+     38            RF_PWRDN = 1;
+     39          #else
+     40            P2OUT |= BIT3;
+     41          #endif
+     42          }
+     43          
+     44          void radio_hal_DeassertShutdown(void)
+     45          {
+     46          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+     47            RF_PWRDN = 0;
+     48          #else
+     49            P2OUT &=~BIT3;
+     50          #endif
+     51          }
+     52          
+     53          void radio_hal_ClearNsel(void)
+     54          {
+     55              P2OUT &=~BIT4;
+     56          }
+     57          
+     58          void radio_hal_SetNsel(void)
+     59          {
+     60              P2OUT |= BIT4;
+     61          }
+     62          
+     63          U8 radio_hal_NirqLevel(void)
+     64          {
+     65              return P2IN&BIT5;
+     66          }
+     67          
+     68          void radio_hal_SpiWriteByte(U8 byteToWrite)
+     69          {
+     70          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+     71            bSpi_ReadWriteSpi1(byteToWrite);
+     72          #else
+     73            spi_readwrite(byteToWrite);
+     74          #endif
+     75          }
+     76          
+     77          U8 radio_hal_SpiReadByte(void)
+     78          {
+     79          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+     80            return bSpi_ReadWriteSpi1(0xFF);
+     81          #else
+     82            return spi_readwrite(0xFF);
+     83          #endif
+     84          }
+     85          
+     86          void radio_hal_SpiWriteData(U8 byteCount, U8* pData)
+     87          {
+     88          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+     89            vSpi_WriteDataSpi1(byteCount, pData);
+     90          #else
+     91            spi_write_buf(pData, byteCount);
+     92          #endif
+     93          }
+     94          
+     95          void radio_hal_SpiReadData(U8 byteCount, U8* pData)
+     96          {
+     97          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+     98            vSpi_ReadDataSpi1(byteCount, pData);
+     99          #else
+    100            spi_write_buf(pData, byteCount);
+    101          #endif
+    102          }
+    103          
+    104          #ifdef RADIO_DRIVER_EXTENDED_SUPPORT
+    105          BIT radio_hal_Gpio0Level(void)
+    106          {
+    107          #ifdef SILABS_PLATFORM_DKMB
+    108            return 0;
+    109          #endif
+    110          #ifdef SILABS_PLATFORM_UDP
+    111            return EZRP_RX_DOUT;
+    112          #endif
+    113          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB)
+    114            return RF_GPIO0;
+    115          #endif
+    116          #if (defined SILABS_PLATFORM_WMB)
+    117            return 0;
+    118          #endif
+    119          }
+    120          
+    121          BIT radio_hal_Gpio1Level(void)
+    122          {
+    123          #ifdef SILABS_PLATFORM_DKMB
+    124            return FSK_CLK_OUT;
+    125          #endif
+    126          #ifdef SILABS_PLATFORM_UDP
+    127            return 0; //No Pop
+    128          #endif
+    129          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+    130            return RF_GPIO1;
+    131          #endif
+    132          }
+    133          
+    134          BIT radio_hal_Gpio2Level(void)
+    135          {
+    136          #ifdef SILABS_PLATFORM_DKMB
+    137            return DATA_NFFS;
+    138          #endif
+    139          #ifdef SILABS_PLATFORM_UDP
+    140            return 0; //No Pop
+    141          #endif
+    142          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+    143            return RF_GPIO2;
+    144          #endif
+    145          }
+    146          
+    147          BIT radio_hal_Gpio3Level(void)
+    148          {
+    149          #if (defined SILABS_PLATFORM_RFSTICK) || (defined SILABS_PLATFORM_LCD_BB) || (defined SILABS_PLATFORM_WMB)
+    150            return RF_GPIO3;
+    151          #else
+    152            return 0;
+    153          #endif
+    154          }
+    155          
+    156          #endif
+
+Errors: 3
+Warnings: none

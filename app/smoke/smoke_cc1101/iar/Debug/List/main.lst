@@ -1,0 +1,148 @@
+###############################################################################
+#                                                                             #
+#                                                       24/Jun/2013  16:27:41 #
+# IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430         #
+# Copyright 1996-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    __rt_version  =  3                                                       #
+#    __double_size =  32                                                      #
+#    __reg_r4      =  free                                                    #
+#    __reg_r5      =  free                                                    #
+#    __pic         =  no                                                      #
+#    __core        =  430                                                     #
+#    Source file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\app\main.c   #
+#    Command line  =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\app\main.c   #
+#                     -lC E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Li #
+#                     st\ -lA E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debu #
+#                     g\List\ -o E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\D #
+#                     ebug\Obj\ --no_cse --no_unroll --no_inline              #
+#                     --no_code_motion --no_tbaa --debug -D__MSP430G2433__    #
+#                     -e --double=32 --dlib_config "C:\Program Files\IAR      #
+#                     Systems\Embedded Workbench 6.4                          #
+#                     Evaluation\430\LIB\DLIB\dl430fn.h" -I                   #
+#                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\app\  #
+#                     -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\bs #
+#                     p\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src #
+#                     \lib\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\ #
+#                     src\Radio\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\ia #
+#                     r\..\src\Radio\CC1101\ -I E:\Dooya\dooya_dev\DU0106\Sou #
+#                     rce\smoke\iar\..\src\Radio\Si4455\ -Ol                  #
+#    List file     =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\List\m #
+#                     ain.lst                                                 #
+#    Object file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Obj\ma #
+#                     in.r43                                                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+E:\Dooya\dooya_dev\DU0106\Source\smoke\src\app\main.c
+      1          #include "bsp.h"
+
+   \                                 In  segment DATA16_AN, at 0x56
+   \   unsigned char volatile DCOCTL
+   \                     DCOCTL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x57
+   \   unsigned char volatile BCSCTL1
+   \                     BCSCTL1:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x10fa
+   \   unsigned char const volatile CALDCO_12MHZ
+   \                     CALDCO_12MHZ:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x10fb
+   \   unsigned char const volatile CALBC1_12MHZ
+   \                     CALBC1_12MHZ:
+   \   000000                DS8 1
+      2          
+
+   \                                 In  segment CODE, align 2
+      3          int main(void)
+   \                     main:
+      4          {
+      5          	WDTCTL = WDTPW + WDTHOLD;										// Disable WDT.
+   \   000000   B240805A2001 MOV.W   #0x5a80, &0x120
+      6          	
+      7          	if (CALBC1_12MHZ==0xFF)											// If calibration constant erased.
+   \   000006   F293FB10     CMP.B   #0xff, &0x10fb
+   \   00000A   0120         JNE     ??main_2
+      8          	{
+      9          		while(1);                               					// do not load, trap CPU!!	
+   \                     ??main_0:
+   \   00000C   FF3F         JMP     ??main_0
+     10          	}
+     11          	
+     12          	DCOCTL = 0;
+   \                     ??main_2:
+   \   00000E   C2435600     MOV.B   #0x0, &0x56
+     13          	BCSCTL1 = CALBC1_12MHZ;											// MCLK = 12Mhz.
+   \   000012   D242FB105700 MOV.B   &0x10fb, &0x57
+     14          	DCOCTL = CALDCO_12MHZ;
+   \   000018   D242FA105600 MOV.B   &0x10fa, &0x56
+     15          	
+     16          	GPIO_init();													// Init gpio.
+   \   00001E   B012....     CALL    #GPIO_init
+     17          	
+     18          	spi_init();
+   \   000022   B012....     CALL    #spi_init
+     19          	
+     20          	CC1101_Initialization();
+   \   000026   B012....     CALL    #CC1101_Initialization
+     21          	
+     22          	timer_A_init();
+   \   00002A   B012....     CALL    #timer_A_init
+     23          	
+     24          	_BIS_SR(GIE);													// Enable genration interrupt.
+   \   00002E   32D2         BIS.W   #0x8, SR
+     25          	for(;;)
+   \                     ??main_1:
+   \   000030   FF3F         JMP     ??main_1
+   \   000032                REQUIRE WDTCTL
+   \   000032                REQUIRE CALBC1_12MHZ
+   \   000032                REQUIRE DCOCTL
+   \   000032                REQUIRE BCSCTL1
+   \   000032                REQUIRE CALDCO_12MHZ
+     26          	{
+     27          		
+     28          	}
+     29          }
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+       2  main
+            2 -> CC1101_Initialization
+            2 -> GPIO_init
+            2 -> spi_init
+            2 -> timer_A_init
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       1  BCSCTL1
+       1  CALBC1_12MHZ
+       1  CALDCO_12MHZ
+       1  DCOCTL
+       2  WDTCTL
+      50  main
+
+ 
+ 50 bytes in segment CODE
+  6 bytes in segment DATA16_AN
+ 
+ 50 bytes of CODE memory
+  0 bytes of DATA memory (+ 6 bytes shared)
+
+Errors: none
+Warnings: none

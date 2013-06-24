@@ -1,0 +1,522 @@
+###############################################################################
+#                                                                             #
+#                                                       19/Jun/2013  14:39:37 #
+# IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430         #
+# Copyright 1996-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    __rt_version  =  3                                                       #
+#    __double_size =  32                                                      #
+#    __reg_r4      =  free                                                    #
+#    __reg_r5      =  free                                                    #
+#    __pic         =  no                                                      #
+#    __core        =  430                                                     #
+#    Source file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455 #
+#                     \si4455_api_lib.c                                       #
+#    Command line  =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455 #
+#                     \si4455_api_lib.c -lC E:\Dooya\dooya_dev\DU0106\Source\ #
+#                     smoke\iar\Debug\List\ -lA E:\Dooya\dooya_dev\DU0106\Sou #
+#                     rce\smoke\iar\Debug\List\ -o                            #
+#                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Obj\   #
+#                     --no_cse --no_unroll --no_inline --no_code_motion       #
+#                     --no_tbaa --debug -D__MSP430G2303__ -e --double=32      #
+#                     --dlib_config "C:\Program Files\IAR Systems\Embedded    #
+#                     Workbench 6.4 Evaluation\430\LIB\DLIB\dl430fn.h" -I     #
+#                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\app\  #
+#                     -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\bs #
+#                     p\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src #
+#                     \lib\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\ #
+#                     src\Radio\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\ia #
+#                     r\..\src\Radio\CC1101\ -I E:\Dooya\dooya_dev\DU0106\Sou #
+#                     rce\smoke\iar\..\src\Radio\Si4455\ -Ol                  #
+#    List file     =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\List\s #
+#                     i4455_api_lib.lst                                       #
+#    Object file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Obj\si #
+#                     4455_api_lib.r43                                        #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c
+      1          /*!
+      2           * File:
+      3           *  si4455_api_lib.c
+      4           *
+      5           * Description:
+      6           *  This file contains the Si4455 API library.
+      7           *
+      8           * Silicon Laboratories Confidential
+      9           * Copyright 2011 Silicon Laboratories, Inc.
+     10           */
+     11          
+     12          #include "bsp.h"
+     13          #include <stdarg.h>
+     14          
+     15          #define SI4455_USER_CONFIG_XTAL_FREQ 30000000L
+     16          SEGMENT_VARIABLE( Si4455Cmd, union si4455_cmd_reply_union, XDATA );
+     17          SEGMENT_VARIABLE( radioCmd[16u], U8, XDATA );
+     18          
+     19          
+     20          /*!
+     21           * This functions is used to reset the si4455 radio by applying shutdown and
+     22           * releasing it.  After this function @ref si4455_boot should be called.  You
+     23           * can check if POR has completed by waiting 4 ms or by polling GPIO 0, 2, or 3.
+     24           * When these GPIOs are high, it is safe to call @ref si4455_boot.
+     25           */
+     26          void si4455_reset(void)
+     27          {
+     28              U8 loopCount;
+     29          
+     30              /* Put radio in shutdown, wait then release */
+     31              radio_hal_AssertShutdown();
+                     ^
+Warning[Pe223]: function "radio_hal_AssertShutdown" declared implicitly
+     32              //! @todo this needs to be a better delay function.
+     33              for (loopCount = 255; loopCount != 0; loopCount--);
+     34              radio_hal_DeassertShutdown();
+                     ^
+Warning[Pe223]: function "radio_hal_DeassertShutdown" declared implicitly
+     35          }
+     36          
+     37          void si4455_power_up(U8 BOOT_OPTIONS, U8 XTAL_OPTIONS, U32 XO_FREQ)
+     38          {
+     39              radioCmd[0] = SI4455_CMD_ID_POWER_UP;
+                                   ^
+Error[Pe020]: identifier "SI4455_CMD_ID_POWER_UP" is undefined
+     40              radioCmd[1] = BOOT_OPTIONS;
+     41              radioCmd[2] = XTAL_OPTIONS;
+     42              radioCmd[3] = (U8)(XO_FREQ >> 24);
+     43              radioCmd[4] = (U8)(XO_FREQ >> 16);
+     44              radioCmd[5] = (U8)(XO_FREQ >> 8);
+     45              radioCmd[6] = (U8)(XO_FREQ);
+     46          
+     47              radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_POWER_UP, radioCmd );
+                     ^
+Warning[Pe223]: function "radio_comm_SendCmd" declared implicitly
+
+      radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_POWER_UP, radioCmd );
+                          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",47  Error[Pe020]: 
+          identifier "SI4455_CMD_ARG_COUNT_POWER_UP" is undefined
+     48          }
+     49          
+     50          void si4455_write_ezconfig_array(U8 numBytes, U8 * pEzConfigArray)
+     51          {
+     52            radio_comm_WriteData(SI4455_CMD_ID_WRITE_TX_FIFO, 1, numBytes, pEzConfigArray);
+                   ^
+Warning[Pe223]: function "radio_comm_WriteData" declared implicitly
+
+    radio_comm_WriteData(SI4455_CMD_ID_WRITE_TX_FIFO, 1, numBytes, pEzConfigArray);
+                         ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",52  Error[Pe020]: 
+          identifier "SI4455_CMD_ID_WRITE_TX_FIFO" is undefined
+     53          }
+     54          
+     55          void si4455_ezconfig_check(U16 CHECKSUM)
+     56          {
+     57            /* Do not check CTS */
+     58          
+     59            radio_hal_ClearNsel();
+                   ^
+Warning[Pe223]: function "radio_hal_ClearNsel" declared implicitly
+     60          
+     61            /* Command byte */
+     62            radio_hal_SpiWriteByte(SI4455_CMD_ID_EZCONFIG_CHECK);
+                   ^
+Warning[Pe223]: function "radio_hal_SpiWriteByte" declared implicitly
+
+    radio_hal_SpiWriteByte(SI4455_CMD_ID_EZCONFIG_CHECK);
+                           ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",62  Error[Pe020]: 
+          identifier "SI4455_CMD_ID_EZCONFIG_CHECK" is undefined
+     63          
+     64            /* CRC */
+     65            radio_hal_SpiWriteByte((U16) CHECKSUM >> 8u);
+     66            radio_hal_SpiWriteByte((U16) CHECKSUM & 0x00FF);
+     67          
+     68            radio_hal_SetNsel();
+                   ^
+Warning[Pe223]: function "radio_hal_SetNsel" declared implicitly
+     69          
+     70            /* Get the respoonse from the radio chip */
+     71            radio_comm_GetResp(1u, radioCmd);
+                   ^
+Warning[Pe223]: function "radio_comm_GetResp" declared implicitly
+     72          }
+     73          
+     74          void si4455_start_tx(U8 CHANNEL, U8 CONDITION, U16 TX_LEN)
+     75          {
+     76              radioCmd[0] = SI4455_CMD_ID_START_TX;
+                                   ^
+Error[Pe020]: identifier "SI4455_CMD_ID_START_TX" is undefined
+     77              radioCmd[1] = CHANNEL;
+     78              radioCmd[2] = CONDITION;
+     79              radioCmd[3] = (U8)(TX_LEN >> 8);
+     80              radioCmd[4] = (U8)(TX_LEN);
+     81          
+     82              radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_START_TX, radioCmd );
+                     ^
+Warning[Pe223]: function "radio_comm_SendCmd" declared implicitly
+
+      radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_START_TX, radioCmd );
+                          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",82  Error[Pe020]: 
+          identifier "SI4455_CMD_ARG_COUNT_START_TX" is undefined
+     83          }
+     84          
+     85          void si4455_start_rx(U8 CHANNEL, U8 CONDITION, U16 RX_LEN, U8 NEXT_STATE1, U8 NEXT_STATE2, U8 NEXT_STATE3)
+     86          {
+     87              radioCmd[0] = SI4455_CMD_ID_START_RX;
+                                   ^
+Error[Pe020]: identifier "SI4455_CMD_ID_START_RX" is undefined
+     88              radioCmd[1] = CHANNEL;
+     89              radioCmd[2] = CONDITION;
+     90              radioCmd[3] = (U8)(RX_LEN >> 8);
+     91              radioCmd[4] = (U8)(RX_LEN);
+     92              radioCmd[5] = NEXT_STATE1;
+     93              radioCmd[6] = NEXT_STATE2;
+     94              radioCmd[7] = NEXT_STATE3;
+     95          
+     96              radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_START_RX, radioCmd );
+                     ^
+Warning[Pe223]: function "radio_comm_SendCmd" declared implicitly
+
+      radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_START_RX, radioCmd );
+                          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",96  Error[Pe020]: 
+          identifier "SI4455_CMD_ARG_COUNT_START_RX" is undefined
+     97          }
+     98          
+     99          void si4455_get_int_status(U8 PH_CLR_PEND, U8 MODEM_CLR_PEND, U8 CHIP_CLR_PEND)
+    100          {
+    101              radioCmd[0] = SI4455_CMD_ID_GET_INT_STATUS;
+                                   ^
+Error[Pe020]: identifier "SI4455_CMD_ID_GET_INT_STATUS" is undefined
+    102              radioCmd[1] = PH_CLR_PEND;
+    103              radioCmd[2] = MODEM_CLR_PEND;
+    104              radioCmd[3] = CHIP_CLR_PEND;
+    105          
+    106              radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_GET_INT_STATUS,
+                     ^
+Warning[Pe223]: function "radio_comm_SendCmdGetResp" declared implicitly
+
+      radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_GET_INT_STATUS,
+                                 ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",106  Error[Pe020]: 
+          identifier "SI4455_CMD_ARG_COUNT_GET_INT_STATUS" is undefined
+    107                                        radioCmd,
+    108                                        SI4455_CMD_REPLY_COUNT_GET_INT_STATUS,
+                                               ^
+Error[Pe020]: identifier "SI4455_CMD_REPLY_COUNT_GET_INT_STATUS" is undefined
+    109                                        radioCmd );
+    110          
+    111              Si4455Cmd.GET_INT_STATUS.INT_PEND       = radioCmd[0];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    112              Si4455Cmd.GET_INT_STATUS.INT_STATUS     = radioCmd[1];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    113              Si4455Cmd.GET_INT_STATUS.PH_PEND        = radioCmd[2];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    114              Si4455Cmd.GET_INT_STATUS.PH_STATUS      = radioCmd[3];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    115              Si4455Cmd.GET_INT_STATUS.MODEM_PEND     = radioCmd[4];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    116              Si4455Cmd.GET_INT_STATUS.MODEM_STATUS   = radioCmd[5];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    117              Si4455Cmd.GET_INT_STATUS.CHIP_PEND      = radioCmd[6];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    118              Si4455Cmd.GET_INT_STATUS.CHIP_STATUS    = radioCmd[7];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    119          }
+    120          
+    121          void si4455_gpio_pin_cfg(U8 GPIO0, U8 GPIO1, U8 GPIO2, U8 GPIO3, U8 NIRQ, U8 SDO, U8 GEN_CONFIG)
+    122          {
+    123              radioCmd[0] = SI4455_CMD_ID_GPIO_PIN_CFG;
+                                   ^
+Error[Pe020]: identifier "SI4455_CMD_ID_GPIO_PIN_CFG" is undefined
+    124              radioCmd[1] = GPIO0;
+    125              radioCmd[2] = GPIO1;
+    126              radioCmd[3] = GPIO2;
+    127              radioCmd[4] = GPIO3;
+    128              radioCmd[5] = NIRQ;
+    129              radioCmd[6] = SDO;
+    130              radioCmd[7] = GEN_CONFIG;
+    131          
+    132              radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_GPIO_PIN_CFG,
+                     ^
+Warning[Pe223]: function "radio_comm_SendCmdGetResp" declared implicitly
+
+      radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_GPIO_PIN_CFG,
+                                 ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",132  Error[Pe020]: 
+          identifier "SI4455_CMD_ARG_COUNT_GPIO_PIN_CFG" is undefined
+    133                                        radioCmd,
+    134                                        SI4455_CMD_REPLY_COUNT_GPIO_PIN_CFG,
+                                               ^
+Error[Pe020]: identifier "SI4455_CMD_REPLY_COUNT_GPIO_PIN_CFG" is undefined
+    135                                        radioCmd );
+    136          
+    137              Si4455Cmd.GPIO_PIN_CFG.GPIO0        = radioCmd[0];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    138              Si4455Cmd.GPIO_PIN_CFG.GPIO1        = radioCmd[1];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    139              Si4455Cmd.GPIO_PIN_CFG.GPIO2        = radioCmd[2];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    140              Si4455Cmd.GPIO_PIN_CFG.GPIO3        = radioCmd[3];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    141              Si4455Cmd.GPIO_PIN_CFG.NIRQ         = radioCmd[4];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    142              Si4455Cmd.GPIO_PIN_CFG.SDO          = radioCmd[5];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    143              Si4455Cmd.GPIO_PIN_CFG.GEN_CONFIG   = radioCmd[6];
+                     ^
+Error[Pe070]: incomplete type is not allowed
+    144          }
+    145          
+    146          #ifdef __C51__
+    147          #pragma maxargs (13)  /* allow 13 bytes for parameters */
+    148          #endif
+    149          void si4455_set_property( U8 GROUP, U8 NUM_PROPS, U8 START_PROP, ... )
+    150          {
+    151              va_list argList;
+    152              U8 cmdIndex;
+    153          
+    154              radioCmd[0] = SI4455_CMD_ID_SET_PROPERTY;
+                                   ^
+Error[Pe020]: identifier "SI4455_CMD_ID_SET_PROPERTY" is undefined
+    155              radioCmd[1] = GROUP;
+    156              radioCmd[2] = NUM_PROPS;
+    157              radioCmd[3] = START_PROP;
+    158          
+    159              va_start (argList, START_PROP);
+    160              cmdIndex = 4;
+    161              while(NUM_PROPS--)
+    162              {
+    163                  radioCmd[cmdIndex] = va_arg (argList, U8);
+    164                  cmdIndex++;
+    165              }
+    166              va_end(argList);
+    167          
+    168              radio_comm_SendCmd( cmdIndex, radioCmd );
+                     ^
+Warning[Pe223]: function "radio_comm_SendCmd" declared implicitly
+    169          }
+    170          
+    171          void si4455_change_state(U8 NEXT_STATE1)
+    172          {
+    173              radioCmd[0] = SI4455_CMD_ID_CHANGE_STATE;
+                                   ^
+Error[Pe020]: identifier "SI4455_CMD_ID_CHANGE_STATE" is undefined
+    174              radioCmd[1] = NEXT_STATE1;
+    175          
+    176              radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_CHANGE_STATE, radioCmd );
+                     ^
+Warning[Pe223]: function "radio_comm_SendCmd" declared implicitly
+
+      radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_CHANGE_STATE, radioCmd );
+                          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",176  Error[Pe020]: 
+          identifier "SI4455_CMD_ARG_COUNT_CHANGE_STATE" is undefined
+
+  SEGMENT_VARIABLE( Si4455Cmd, union si4455_cmd_reply_union, XDATA );
+                    ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\Si4455\si4455_api_lib.c",16  Error[Pe235]: 
+          variable "Si4455Cmd" was declared with a never-completed type
+    177          }
+    178          
+    179          #ifdef RADIO_DRIVER_EXTENDED_SUPPORT
+    180          void si4455_nop(void)
+    181          {
+    182              radioCmd[0] = SI4455_CMD_ID_NOP;
+    183          
+    184              radio_comm_SendCmd( SI4455_CMD_ARG_COUNT_NOP, radioCmd );
+    185          }
+    186          
+    187          void si4455_fifo_info(U8 FIFO)
+    188          {
+    189              radioCmd[0] = SI4455_CMD_ID_FIFO_INFO;
+    190              radioCmd[1] = FIFO;
+    191          
+    192              radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_FIFO_INFO,
+    193                                        radioCmd,
+    194                                        SI4455_CMD_REPLY_COUNT_FIFO_INFO,
+    195                                        radioCmd );
+    196          
+    197              Si4455Cmd.FIFO_INFO.RX_FIFO_COUNT   = radioCmd[0];
+    198              Si4455Cmd.FIFO_INFO.TX_FIFO_SPACE   = radioCmd[1];
+    199          }
+    200          
+    201          void si4455_part_info(void)
+    202          {
+    203              radioCmd[0] = SI4455_CMD_ID_PART_INFO;
+    204          
+    205              radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_PART_INFO,
+    206                                        radioCmd,
+    207                                        SI4455_CMD_REPLY_COUNT_PART_INFO,
+    208                                        radioCmd );
+    209          
+    210              Si4455Cmd.PART_INFO.CHIPREV         = radioCmd[0];
+    211              Si4455Cmd.PART_INFO.PART.U8[MSB]    = radioCmd[1];
+    212              Si4455Cmd.PART_INFO.PART.U8[LSB]    = radioCmd[2];
+    213              Si4455Cmd.PART_INFO.PBUILD          = radioCmd[3];
+    214              Si4455Cmd.PART_INFO.ID.U8[MSB]      = radioCmd[4];
+    215              Si4455Cmd.PART_INFO.ID.U8[LSB]      = radioCmd[5];
+    216              Si4455Cmd.PART_INFO.CUSTOMER        = radioCmd[6];
+    217              Si4455Cmd.PART_INFO.ROMID           = radioCmd[7];
+    218              Si4455Cmd.PART_INFO.BOND            = radioCmd[8];
+    219          }
+    220          
+    221          void si4455_write_tx_fifo(U8 numBytes, U8* pTxData)
+    222          {
+    223              radio_comm_WriteData( SI4455_CMD_ID_WRITE_TX_FIFO, 0, numBytes, pTxData );
+    224          }
+    225          
+    226          void si4455_read_rx_fifo(U8 numBytes, U8* pRxData)
+    227          {
+    228              radio_comm_ReadData( SI4455_CMD_ID_READ_RX_FIFO, 0, numBytes, pRxData );
+    229          }
+    230          
+    231          void si4455_get_property(U8 GROUP, U8 NUM_PROPS, U8 START_PROP)
+    232          {
+    233              radioCmd[0] = SI4455_CMD_ID_GET_PROPERTY;
+    234              radioCmd[1] = GROUP;
+    235              radioCmd[2] = NUM_PROPS;
+    236              radioCmd[3] = START_PROP;
+    237          
+    238              radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_GET_PROPERTY,
+    239                                        radioCmd,
+    240                                        SI4455_CMD_REPLY_COUNT_GET_PROPERTY,
+    241                                        radioCmd );
+    242          
+    243              Si4455Cmd.GET_PROPERTY.DATA0    = radioCmd[0];
+    244              Si4455Cmd.GET_PROPERTY.DATA1    = radioCmd[1];
+    245              Si4455Cmd.GET_PROPERTY.DATA2    = radioCmd[2];
+    246              Si4455Cmd.GET_PROPERTY.DATA3    = radioCmd[3];
+    247              Si4455Cmd.GET_PROPERTY.DATA4    = radioCmd[4];
+    248              Si4455Cmd.GET_PROPERTY.DATA5    = radioCmd[5];
+    249              Si4455Cmd.GET_PROPERTY.DATA6    = radioCmd[6];
+    250              Si4455Cmd.GET_PROPERTY.DATA7    = radioCmd[7];
+    251              Si4455Cmd.GET_PROPERTY.DATA8    = radioCmd[8];
+    252              Si4455Cmd.GET_PROPERTY.DATA9    = radioCmd[9];
+    253              Si4455Cmd.GET_PROPERTY.DATA10   = radioCmd[10];
+    254              Si4455Cmd.GET_PROPERTY.DATA11   = radioCmd[11];
+    255              Si4455Cmd.GET_PROPERTY.DATA12   = radioCmd[12];
+    256              Si4455Cmd.GET_PROPERTY.DATA13   = radioCmd[13];
+    257              Si4455Cmd.GET_PROPERTY.DATA14   = radioCmd[14];
+    258              Si4455Cmd.GET_PROPERTY.DATA15   = radioCmd[15];
+    259          }
+    260          
+    261          #ifdef RADIO_DRIVER_FULL_SUPPORT
+    262          void si4455_func_info(void)
+    263          {
+    264              radioCmd[0] = SI4455_CMD_ID_FUNC_INFO;
+    265          
+    266              radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_FUNC_INFO,
+    267                                        radioCmd,
+    268                                        SI4455_CMD_REPLY_COUNT_FUNC_INFO,
+    269                                        radioCmd );
+    270          
+    271              Si4455Cmd.FUNC_INFO.REVEXT          = radioCmd[0];
+    272              Si4455Cmd.FUNC_INFO.REVBRANCH       = radioCmd[1];
+    273              Si4455Cmd.FUNC_INFO.REVINT          = radioCmd[2];
+    274              Si4455Cmd.FUNC_INFO.PATCH.U8[MSB]   = radioCmd[3];
+    275              Si4455Cmd.FUNC_INFO.PATCH.U8[LSB]   = radioCmd[4];
+    276              Si4455Cmd.FUNC_INFO.FUNC            = radioCmd[5];
+    277              Si4455Cmd.FUNC_INFO.SVNFLAGS        = radioCmd[6];
+    278              Si4455Cmd.FUNC_INFO.SVNREV.U8[b3]   = radioCmd[7];
+    279              Si4455Cmd.FUNC_INFO.SVNREV.U8[b2]   = radioCmd[8];
+    280              Si4455Cmd.FUNC_INFO.SVNREV.U8[b1]   = radioCmd[9];
+    281              Si4455Cmd.FUNC_INFO.SVNREV.U8[b0]   = radioCmd[10];
+    282          }
+    283          
+    284          void si4455_frr_a_read(U8 respByteCount)
+    285          {
+    286              radio_comm_ReadData(SI4455_CMD_ID_FRR_A_READ,
+    287                                      0,
+    288                                  respByteCount,
+    289                                  radioCmd);
+    290          
+    291              Si4455Cmd.FRR_A_READ.FRR_A_VALUE = radioCmd[0];
+    292              Si4455Cmd.FRR_A_READ.FRR_B_VALUE = radioCmd[1];
+    293              Si4455Cmd.FRR_A_READ.FRR_C_VALUE = radioCmd[2];
+    294              Si4455Cmd.FRR_A_READ.FRR_D_VALUE = radioCmd[3];
+    295          }
+    296          
+    297          
+    298          void si4455_frr_b_read(U8 respByteCount)
+    299          {
+    300              radio_comm_ReadData(SI4455_CMD_ID_FRR_B_READ,
+    301                                      0,
+    302                                  respByteCount,
+    303                                  radioCmd);
+    304          
+    305              Si4455Cmd.FRR_B_READ.FRR_B_VALUE = radioCmd[0];
+    306              Si4455Cmd.FRR_B_READ.FRR_C_VALUE = radioCmd[1];
+    307              Si4455Cmd.FRR_B_READ.FRR_D_VALUE = radioCmd[2];
+    308              Si4455Cmd.FRR_B_READ.FRR_A_VALUE = radioCmd[3];
+    309          }
+    310          
+    311          
+    312          void si4455_frr_c_read(U8 respByteCount)
+    313          {
+    314              radio_comm_ReadData(SI4455_CMD_ID_FRR_C_READ,
+    315                                      0,
+    316                                  respByteCount,
+    317                                  radioCmd);
+    318          
+    319              Si4455Cmd.FRR_C_READ.FRR_C_VALUE = radioCmd[0];
+    320              Si4455Cmd.FRR_C_READ.FRR_D_VALUE = radioCmd[1];
+    321              Si4455Cmd.FRR_C_READ.FRR_A_VALUE = radioCmd[2];
+    322              Si4455Cmd.FRR_C_READ.FRR_B_VALUE = radioCmd[3];
+    323          }
+    324          
+    325          
+    326          void si4455_frr_d_read(U8 respByteCount)
+    327          {
+    328              radio_comm_ReadData(SI4455_CMD_ID_FRR_D_READ,
+    329                                      0,
+    330                                  respByteCount,
+    331                                  radioCmd);
+    332          
+    333              Si4455Cmd.FRR_D_READ.FRR_D_VALUE = radioCmd[0];
+    334              Si4455Cmd.FRR_D_READ.FRR_A_VALUE = radioCmd[1];
+    335              Si4455Cmd.FRR_D_READ.FRR_B_VALUE = radioCmd[2];
+    336              Si4455Cmd.FRR_D_READ.FRR_C_VALUE = radioCmd[3];
+    337          }
+    338          
+    339          void si4455_request_device_state(void)
+    340          {
+    341              radioCmd[0] = SI4455_CMD_ID_REQUEST_DEVICE_STATE;
+    342          
+    343              radio_comm_SendCmdGetResp( SI4455_CMD_ARG_COUNT_REQUEST_DEVICE_STATE,
+    344                                        radioCmd,
+    345                                        SI4455_CMD_REPLY_COUNT_REQUEST_DEVICE_STATE,
+    346                                        radioCmd );
+    347          
+    348              Si4455Cmd.REQUEST_DEVICE_STATE.CURR_STATE       = radioCmd[0];
+    349              Si4455Cmd.REQUEST_DEVICE_STATE.CURRENT_CHANNEL  = radioCmd[1];
+    350          }
+    351          
+    352          void si4455_read_cmd_buff(void)
+    353          {
+    354              // TODO:
+    355          }
+    356          
+    357          #endif
+    358          
+    359          #endif
+
+Errors: 33
+Warnings: 14

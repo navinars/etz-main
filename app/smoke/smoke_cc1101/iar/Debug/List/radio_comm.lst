@@ -1,0 +1,251 @@
+###############################################################################
+#                                                                             #
+#                                                       19/Jun/2013  14:39:02 #
+# IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430         #
+# Copyright 1996-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    __rt_version  =  3                                                       #
+#    __double_size =  32                                                      #
+#    __reg_r4      =  free                                                    #
+#    __reg_r5      =  free                                                    #
+#    __pic         =  no                                                      #
+#    __core        =  430                                                     #
+#    Source file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\radio_ #
+#                     comm.c                                                  #
+#    Command line  =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\radio_ #
+#                     comm.c -lC E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\D #
+#                     ebug\List\ -lA E:\Dooya\dooya_dev\DU0106\Source\smoke\i #
+#                     ar\Debug\List\ -o E:\Dooya\dooya_dev\DU0106\Source\smok #
+#                     e\iar\Debug\Obj\ --no_cse --no_unroll --no_inline       #
+#                     --no_code_motion --no_tbaa --debug -D__MSP430G2303__    #
+#                     -e --double=32 --dlib_config "C:\Program Files\IAR      #
+#                     Systems\Embedded Workbench 6.4                          #
+#                     Evaluation\430\LIB\DLIB\dl430fn.h" -I                   #
+#                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\app\  #
+#                     -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\bs #
+#                     p\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src #
+#                     \lib\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\ #
+#                     src\Radio\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\ia #
+#                     r\..\src\Radio\CC1101\ -I E:\Dooya\dooya_dev\DU0106\Sou #
+#                     rce\smoke\iar\..\src\Radio\Si4455\ -Ol                  #
+#    List file     =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\List\r #
+#                     adio_comm.lst                                           #
+#    Object file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Obj\ra #
+#                     dio_comm.r43                                            #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\radio_comm.c
+      1          /*!
+      2           * File:
+      3           *  radio_comm.h
+      4           *
+      5           * Description:
+      6           *  This file contains the RADIO communication layer.
+      7           *
+      8           * Silicon Laboratories Confidential
+      9           * Copyright 2012 Silicon Laboratories, Inc.
+     10           */
+     11          
+     12                          /* ======================================= *
+     13                           *              I N C L U D E              *
+     14                           * ======================================= */
+     15          
+     16          #include "bsp.h"
+
+      U8  TEST0;
+          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\Radio\Si4455\si4455_defs.h",43  Error[Pe040]: 
+          expected an identifier
+
+      U8  TEST1;
+          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\Radio\Si4455\si4455_defs.h",44  Error[Pe040]: 
+          expected an identifier
+
+      U8  TEST2;
+          ^
+"E:\Dooya\dooya_dev\DU0106\Source\smoke\src\Radio\Si4455\si4455_defs.h",45  Error[Pe040]: 
+          expected an identifier
+     17          
+     18                          /* ======================================= *
+     19                           *          D E F I N I T I O N S          *
+     20                           * ======================================= */
+     21          
+     22                          /* ======================================= *
+     23                           *     G L O B A L   V A R I A B L E S     *
+     24                           * ======================================= */
+     25          
+     26          U8 ctsWentHigh = 0;
+     27          
+     28          
+     29                          /* ======================================= *
+     30                           *      L O C A L   F U N C T I O N S      *
+     31                           * ======================================= */
+     32          
+     33                          /* ======================================= *
+     34                           *     P U B L I C   F U N C T I O N S     *
+     35                           * ======================================= */
+     36          
+     37          /*!
+     38           * Gets a command response from the radio chip
+     39           *
+     40           * @param byteCount     Number of bytes to get from the radio chip
+     41           * @param pData         Pointer to where to put the data
+     42           *
+     43           * @return CTS value
+     44           */
+     45          U8 radio_comm_GetResp(U8 byteCount, U8* pData)
+     46          {
+     47            SEGMENT_VARIABLE(ctsVal = 0u, U8, XDATA);
+     48            SEGMENT_VARIABLE(errCnt = RADIO_CTS_TIMEOUT, U16, XDATA);
+     49          
+     50            while (errCnt != 0)      //wait until radio IC is ready with the data
+     51            {
+     52              radio_hal_ClearNsel();
+     53              radio_hal_SpiWriteByte(0x44);    //read CMD buffer
+     54              ctsVal = radio_hal_SpiReadByte();
+     55              if (ctsVal == 0xFF)
+     56              {
+     57                if (byteCount)
+     58                {
+     59                  radio_hal_SpiReadData(byteCount, pData);
+     60                }
+     61                radio_hal_SetNsel();
+     62                break;
+     63              }
+     64              radio_hal_SetNsel();
+     65              errCnt--;
+     66            }
+     67          
+     68            if( errCnt == 0 )
+     69            {
+     70              while(1)
+     71              {
+     72                /* ERROR!!!!  CTS should never take this long. */
+     73              }
+     74            }
+     75          
+     76            if (ctsVal == 0xFF)
+     77            {
+     78              ctsWentHigh = 1;
+     79            }
+     80          
+     81            return ctsVal;
+     82          }
+     83          
+     84          
+     85          
+     86          /*!
+     87           * Waits for CTS to be high
+     88           *
+     89           * @return CTS value
+     90           */
+     91          U8 radio_comm_PollCTS(void)
+     92          {
+     93          #ifdef RADIO_USER_CFG_USE_GPIO1_FOR_CTS
+     94              while(!radio_hal_Gpio1Level())
+     95              {
+     96                  /* Wait...*/
+     97              }
+     98              ctsWentHigh = 1;
+     99              return 0xFF;
+    100          #else
+    101              return radio_comm_GetResp(0, 0);
+    102          #endif
+    103          }
+    104          
+    105          /*!
+    106           * Sends a command to the radio chip
+    107           *
+    108           * @param byteCount     Number of bytes in the command to send to the radio device
+    109           * @param pData         Pointer to the command to send.
+    110           */
+    111          void radio_comm_SendCmd(U8 byteCount, U8* pData)
+    112          {
+    113              /* There was a bug in A1 hardware that will not handle 1 byte commands. 
+    114                 It was supposedly fixed in B0 but the fix didn't make it at the last minute, so here we go again */
+    115              if (byteCount == 1)
+    116                  byteCount++;
+    117          
+    118              while (!ctsWentHigh)
+    119              {
+    120                  radio_comm_PollCTS();
+    121              }
+    122              radio_hal_ClearNsel();
+    123              radio_hal_SpiWriteData(byteCount, pData);
+    124              radio_hal_SetNsel();
+    125              ctsWentHigh = 0;
+    126          }
+    127          
+    128          /*!
+    129           * Sends a command to the radio chip and gets a response
+    130           *
+    131           * @param cmdByteCount  Number of bytes in the command to send to the radio device
+    132           * @param pCmdData      Pointer to the command data
+    133           * @param respByteCount Number of bytes in the response to fetch
+    134           * @param pRespData     Pointer to where to put the response data
+    135           *
+    136           * @return CTS value
+    137           */
+    138          U8 radio_comm_SendCmdGetResp(U8 cmdByteCount, U8* pCmdData, U8 respByteCount, U8* pRespData)
+    139          {
+    140              radio_comm_SendCmd(cmdByteCount, pCmdData);
+    141              return radio_comm_GetResp(respByteCount, pRespData);
+    142          }
+    143          
+    144          
+    145          /*!
+    146           * Gets a command response from the radio chip
+    147           *
+    148           * @param cmd           Command ID
+    149           * @param pollCts       Set to poll CTS
+    150           * @param byteCount     Number of bytes to get from the radio chip.
+    151           * @param pData         Pointer to where to put the data.
+    152           */
+    153          void radio_comm_ReadData(U8 cmd, U8 pollCts, U8 byteCount, U8* pData)
+    154          {
+    155              if(pollCts)
+    156              {
+    157                  while(!ctsWentHigh)
+    158                  {
+    159                      radio_comm_PollCTS();
+    160                  }
+    161              }
+    162              radio_hal_ClearNsel();
+    163              radio_hal_SpiWriteByte(cmd);
+    164              radio_hal_SpiReadData(byteCount, pData);
+    165              radio_hal_SetNsel();
+    166              ctsWentHigh = 0;
+    167          }
+    168          
+    169          
+    170          /*!
+    171           * Gets a command response from the radio chip
+    172           *
+    173           * @param cmd           Command ID
+    174           * @param pollCts       Set to poll CTS
+    175           * @param byteCount     Number of bytes to get from the radio chip
+    176           * @param pData         Pointer to where to put the data
+    177           */
+    178          void radio_comm_WriteData(U8 cmd, U8 pollCts, U8 byteCount, U8* pData)
+    179          {
+    180              if(pollCts)
+    181              {
+    182                  while(!ctsWentHigh)
+    183                  {
+    184                      radio_comm_PollCTS();
+    185                  }
+    186              }
+    187              radio_hal_ClearNsel();
+    188              radio_hal_SpiWriteByte(cmd);
+    189              radio_hal_SpiWriteData(byteCount, pData);
+    190              radio_hal_SetNsel();
+    191              ctsWentHigh = 0;
+    192          }
+    193          
+    194          
+
+Errors: 3
+Warnings: none

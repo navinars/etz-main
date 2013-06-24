@@ -1,0 +1,2590 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+//                                                      24/Jun/2013  16:18:28 /
+// IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430        /
+// Copyright 1996-2012 IAR Systems AB.                                        /
+//                                                                            /
+//    __rt_version  =  3                                                      /
+//    __double_size =  32                                                     /
+//    __reg_r4      =  free                                                   /
+//    __reg_r5      =  free                                                   /
+//    __pic         =  no                                                     /
+//    __core        =  430                                                    /
+//    Source file   =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\CC110 /
+//                     1\RfTranceiver.c                                       /
+//    Command line  =  E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\CC110 /
+//                     1\RfTranceiver.c -lC E:\Dooya\dooya_dev\DU0106\Source\ /
+//                     smoke\iar\Debug\List\ -lA E:\Dooya\dooya_dev\DU0106\So /
+//                     urce\smoke\iar\Debug\List\ -o                          /
+//                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\Obj\  /
+//                     --no_cse --no_unroll --no_inline --no_code_motion      /
+//                     --no_tbaa --debug -D__MSP430G2433__ -e --double=32     /
+//                     --dlib_config "C:\Program Files\IAR Systems\Embedded   /
+//                     Workbench 6.4 Evaluation\430\LIB\DLIB\dl430fn.h" -I    /
+//                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\app\ /
+//                      -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\ /
+//                     bsp\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\ /
+//                     src\lib\ -I E:\Dooya\dooya_dev\DU0106\Source\smoke\iar /
+//                     \..\src\Radio\ -I E:\Dooya\dooya_dev\DU0106\Source\smo /
+//                     ke\iar\..\src\Radio\CC1101\ -I                         /
+//                     E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\..\src\Radi /
+//                     o\Si4455\ -Ol                                          /
+//    List file     =  E:\Dooya\dooya_dev\DU0106\Source\smoke\iar\Debug\List\ /
+//                     RfTranceiver.s43                                       /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME RfTranceiver
+
+        RTMODEL "__SystemLibrary", "DLib"
+        RTMODEL "__core", "430"
+        RTMODEL "__dlib_file_descriptor", "0"
+        RTMODEL "__double_size", "32"
+        RTMODEL "__pic", "no"
+        RTMODEL "__reg_r4", "free"
+        RTMODEL "__reg_r5", "free"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:SORT:NOROOT(0)
+
+        EXTERN ?SwitchKey8
+        EXTERN ?cstart_init_copy
+        EXTERN ?cstart_init_zero
+        EXTERN ?longjmp_r4
+        EXTERN ?longjmp_r5
+        EXTERN ?setjmp_r4
+        EXTERN ?setjmp_r5
+
+        PUBWEAK ?setjmp_save_r4
+        PUBWEAK ?setjmp_save_r5
+        PUBLIC CC1101_CarrierSense_Threshold
+        FUNCTION CC1101_CarrierSense_Threshold,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Check_Receive_Packet
+        FUNCTION CC1101_Check_Receive_Packet,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Check_RxBuffer_Free
+        FUNCTION CC1101_Check_RxBuffer_Free,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Config_Gpio0
+        FUNCTION CC1101_Config_Gpio0,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Config_Gpio2
+        FUNCTION CC1101_Config_Gpio2,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Config_Pins
+        FUNCTION CC1101_Config_Pins,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_EnterIntoSleepMode
+        FUNCTION CC1101_EnterIntoSleepMode,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Entry_XMode
+        FUNCTION CC1101_Entry_XMode,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        PUBLIC CC1101_Erase_Buffer
+        FUNCTION CC1101_Erase_Buffer,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Frequency_Adjust
+        FUNCTION CC1101_Frequency_Adjust,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Get_Channel_LQI
+        FUNCTION CC1101_Get_Channel_LQI,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        PUBLIC CC1101_Get_Channel_RSSI
+        FUNCTION CC1101_Get_Channel_RSSI,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        PUBLIC CC1101_Get_Rx_Data
+        FUNCTION CC1101_Get_Rx_Data,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Initialization
+        FUNCTION CC1101_Initialization,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Interrupt_Config
+        FUNCTION CC1101_Interrupt_Config,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Power_Up
+        FUNCTION CC1101_Power_Up,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Read_Burst_Reg
+        FUNCTION CC1101_Read_Burst_Reg,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Read_Packet
+        FUNCTION CC1101_Read_Packet,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Read_Reg
+        FUNCTION CC1101_Read_Reg,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Read_Status
+        FUNCTION CC1101_Read_Status,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Receive_Packet
+        FUNCTION CC1101_Receive_Packet,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_ResetCallBackRegister
+        FUNCTION CC1101_ResetCallBackRegister,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Rf_Write_Settings
+        FUNCTION CC1101_Rf_Write_Settings,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Routine_Check
+        FUNCTION CC1101_Routine_Check,061203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        PUBLIC CC1101_RxBuffer_Initial
+        FUNCTION CC1101_RxBuffer_Initial,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Select_Transmit_Power_Level
+        FUNCTION CC1101_Select_Transmit_Power_Level,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Send_Packet
+        FUNCTION CC1101_Send_Packet,0a1203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Setting_Address
+        FUNCTION CC1101_Setting_Address,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Setting_Channel
+        FUNCTION CC1101_Setting_Channel,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Setting_FreSection
+        FUNCTION CC1101_Setting_FreSection,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Setting_Power
+        FUNCTION CC1101_Setting_Power,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        PUBLIC CC1101_Setting_SynchHead
+        FUNCTION CC1101_Setting_SynchHead,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Strobe
+        FUNCTION CC1101_Strobe,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_WakeUpToIdleMode
+        FUNCTION CC1101_WakeUpToIdleMode,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC CC1101_Write_Burst_Reg
+        FUNCTION CC1101_Write_Burst_Reg,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        PUBLIC CC1101_Write_Fifo
+        FUNCTION CC1101_Write_Fifo,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        PUBLIC CC1101_Write_Reg
+        FUNCTION CC1101_Write_Reg,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        PUBWEAK P1DIR
+        PUBWEAK P1IN
+        PUBWEAK P1OUT
+        PUBWEAK P2DIR
+        PUBWEAK P2IE
+        PUBWEAK P2IES
+        PUBWEAK P2IFG
+        PUBWEAK P2IN
+        PUBLIC RxBuf
+        PUBLIC _delay_us
+        FUNCTION _delay_us,080203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC dat
+        PUBLIC ptrRxBufOver
+        PUBLIC ptrRxBufRead
+        PUBLIC ptrRxBufWrite
+        PUBLIC sys_send
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA SP DATA
+          CFI Resource PC:16, SP:16, SR:16, R4:16, R5:16, R6:16, R7:16, R8:16
+          CFI Resource R9:16, R10:16, R11:16, R12:16, R13:16, R14:16, R15:16
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 2
+          CFI ReturnAddress PC CODE
+          CFI CFA SP+2
+          CFI PC Frame(CFA, -2)
+          CFI SR Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 Undefined
+          CFI R13 Undefined
+          CFI R14 Undefined
+          CFI R15 Undefined
+          CFI EndCommon cfiCommon0
+        
+        EXTERN spi_readwrite
+        FUNCTION spi_readwrite,0202H
+        EXTERN spi_write_buf
+        FUNCTION spi_write_buf,0202H
+
+// E:\Dooya\dooya_dev\DU0106\Source\smoke\src\radio\CC1101\RfTranceiver.c
+//    1 /* ********************************************************************** *
+//    2  *                           DOOYA Company                                *
+//    3  * The Tree of the NetWork Design Basic CC1101                            *
+//    4  * Compiler : MPLAB IDE V8.66                                             *
+//    5  * Crystal  : 32MHZ                                                       *
+//    6  * MCU      : PIC24FJ64GA002                                              *
+//    7  * FileName : RfTranceiver.c                                              *
+//    8  * Author   : Softli                                                      *
+//    9  * Address  : NingBo                                                      *
+//   10  * Time     : 2012-12-21                                                  *
+//   11  * Version  : V1.0                                                        *
+//   12  * Testing                                                                *
+//   13  * ********************************************************************** */
+//   14  
+//   15  #define _Tranceiver_Global_
+//   16  
+//   17 #include "msp430.h"
+
+        ASEGN DATA16_AN:DATA:NOROOT,020H
+// unsigned char const volatile P1IN
+P1IN:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,021H
+// unsigned char volatile P1OUT
+P1OUT:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,022H
+// unsigned char volatile P1DIR
+P1DIR:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,028H
+// unsigned char const volatile P2IN
+P2IN:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02aH
+// unsigned char volatile P2DIR
+P2DIR:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02bH
+// unsigned char volatile P2IFG
+P2IFG:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02cH
+// unsigned char volatile P2IES
+P2IES:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02dH
+// unsigned char volatile P2IE
+P2IE:
+        DS8 1
+//   18 #include "spi.h"
+//   19 #include "RfTranceiver.h"
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(0)
+        REQUIRE ?cstart_init_zero
+// unsigned char RxBuf[20]
+RxBuf:
+        DS8 20
+
+        RSEG DATA16_C:CONST:SORT:NOROOT(1)
+// unsigned char *const ptrRxBufOver
+ptrRxBufOver:
+        DC16 RxBuf + 14H
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(1)
+        REQUIRE ?cstart_init_zero
+// unsigned char volatile *ptrRxBufWrite
+ptrRxBufWrite:
+        DS8 2
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(1)
+        REQUIRE ?cstart_init_zero
+// unsigned char *ptrRxBufRead
+ptrRxBufRead:
+        DS8 2
+//   20 #include "stdio.h"
+//   21  
+//   22  //routine check counter 
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(0)
+        REQUIRE ?cstart_init_zero
+//   23  static unsigned char          RoutineCounter = 0;
+RoutineCounter:
+        DS8 1
+//   24  //cc1101 reset call back function  
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(1)
+        REQUIRE ?cstart_init_zero
+//   25  static RfResetCallBack        pRfResetCallBack = NULL;
+pRfResetCallBack:
+        DS8 2
+//   26  
+
+        RSEG DATA16_I:DATA:SORT:NOROOT(0)
+        REQUIRE ?cstart_init_copy
+//   27  unsigned char dat[2] = {0xB1, 0x01};
+dat:
+        DS8 2
+        REQUIRE `?<Initializer for dat>`
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(0)
+        REQUIRE ?cstart_init_zero
+//   28  unsigned char sys_send = 0;
+sys_send:
+        DS8 1
+//   29  //extend interrupt0 insert address
+//   30 // void __attribute__((interrupt,auto_psv)) _INT1Interrupt(void)
+//   31 
+//   32 /* ============================================ *
+//   33  *    register cc1101 reset callback function   *
+//   34  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   35  void CC1101_ResetCallBackRegister(RfResetCallBack pCallBack)
+CC1101_ResetCallBackRegister:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function CC1101_ResetCallBackRegister
+//   36  {
+//   37     pRfResetCallBack=pCallBack;
+        MOV.W   R12, &pRfResetCallBack
+//   38  }
+        RET
+          CFI EndBlock cfiBlock0
+//   39  
+//   40 /* ============================================ *
+//   41  *        write strobe command to cc11001       *
+//   42  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   43  void CC1101_Strobe(unsigned char stro)
+CC1101_Strobe:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function CC1101_Strobe
+//   44  {
+//   45 //    unsigned char Rex;
+//   46     //save break point
+//   47 //    StoreAndDisRfInterrupt(Rex);
+//   48     //enable stabilize
+//   49 	Enable_CC1101;
+        FUNCALL CC1101_Strobe, spi_readwrite
+        LOCFRAME CSTACK, 2, STACK
+        BIC.B   #0x20, &0x21
+//   50 	//wait for cc1101
+//   51 	while(CC1101_Check_So);
+??CC1101_Strobe_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Strobe_0
+//   52 	//write strobe command to register 
+//   53 	spi_readwrite(stro); 
+        CALL    #spi_readwrite
+//   54     //disable cc1101 
+//   55 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//   56     //resume break point 
+//   57 //    RestoreRfInterrupt(Rex);
+//   58  }
+        RET
+          CFI EndBlock cfiBlock1
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//   59  
+//   60 /* ============================================ *
+//   61  *            write register to cc1101          *
+//   62  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   63  void CC1101_Write_Reg(unsigned char addr,unsigned char value)
+CC1101_Write_Reg:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function CC1101_Write_Reg
+//   64  {
+        FUNCALL CC1101_Write_Reg, spi_readwrite
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Write_Reg, spi_readwrite
+        LOCFRAME CSTACK, 4, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        MOV.B   R13, R10
+//   65 //    unsigned char Rex;
+//   66     //save break point 
+//   67     StoreAndDisRfInterrupt(Rex);
+        BIC.B   #0x1, &0x2d
+//   68     //enable cc1101 
+//   69     Enable_CC1101; 
+        BIC.B   #0x20, &0x21
+//   70 	//wait for ....
+//   71     while(CC1101_Check_So);
+??CC1101_Write_Reg_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Write_Reg_0
+//   72 	//write address of register 
+//   73 	spi_readwrite(addr);  
+        CALL    #spi_readwrite
+//   74 	//write value to register 
+//   75 	spi_readwrite(value); 
+        MOV.B   R10, R12
+        CALL    #spi_readwrite
+//   76 	//disable cc1101 
+//   77 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//   78     //resume break point 
+//   79     RestoreRfInterrupt(Rex);
+        BIS.B   #0x1, &0x2d
+//   80  }
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock2
+        REQUIRE P2IE
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//   81    
+//   82 /* ============================================ *
+//   83  *            write many register once          *
+//   84  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   85  void CC1101_Write_Burst_Reg(unsigned char addr,unsigned char *buffer,unsigned char count)
+CC1101_Write_Burst_Reg:
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Function CC1101_Write_Burst_Reg
+//   86  {
+        FUNCALL CC1101_Write_Burst_Reg, spi_readwrite
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL CC1101_Write_Burst_Reg, spi_write_buf
+        LOCFRAME CSTACK, 6, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.W   R13, R11
+        MOV.B   R14, R10
+//   87     unsigned char temp;
+//   88     //save break point 
+//   89     StoreAndDisRfInterrupt(Rex);
+        BIC.B   #0x1, &0x2d
+//   90 	//write burst set 1
+//   91 	temp=addr|WRITE_BURST;
+        BIS.B   #0x40, R12
+//   92 	//enable cc1101 
+//   93 	Enable_CC1101;
+        BIC.B   #0x20, &0x21
+//   94 	//wait for....
+//   95 	while(CC1101_Check_So);
+??CC1101_Write_Burst_Reg_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Write_Burst_Reg_0
+//   96 	//write address
+//   97 	spi_readwrite(temp);
+        CALL    #spi_readwrite
+//   98 	//write data bytes
+//   99     spi_write_buf(buffer,count);
+        MOV.B   R10, R13
+        MOV.W   R11, R12
+        CALL    #spi_write_buf
+//  100     //disable cc1101 
+//  101 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  102     //resume break point 
+//  103     RestoreRfInterrupt(Rex);
+        BIS.B   #0x1, &0x2d
+//  104  }
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock3
+        REQUIRE P2IE
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//  105  
+//  106 /* ============================================ * 
+//  107  *           read single register once          * 
+//  108  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  109  unsigned char CC1101_Read_Reg(unsigned char addr) 
+CC1101_Read_Reg:
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function CC1101_Read_Reg
+//  110  {
+//  111 	unsigned char value,temp;
+//  112 //    unsigned char Rex;
+//  113     //save break point 
+//  114     StoreAndDisRfInterrupt(Rex);
+        FUNCALL CC1101_Read_Reg, spi_readwrite
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Read_Reg, spi_readwrite
+        LOCFRAME CSTACK, 2, STACK
+        BIC.B   #0x1, &0x2d
+//  115     //re-build address
+//  116 	temp=addr|READ_SINGLE; 
+        BIS.B   #0x80, R12
+//  117 	//enable cc1101
+//  118 	Enable_CC1101;
+        BIC.B   #0x20, &0x21
+//  119 	//wait for...
+//  120 	while(CC1101_Check_So);
+??CC1101_Read_Reg_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Read_Reg_0
+//  121 	//write address
+//  122 	spi_readwrite(temp);
+        CALL    #spi_readwrite
+//  123 	//read data byte
+//  124 	value=spi_readwrite(0xff);
+        MOV.B   #0xff, R12
+        CALL    #spi_readwrite
+//  125 	//disable cc1101 
+//  126 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  127     //resume break point 
+//  128     RestoreRfInterrupt(Rex);
+        BIS.B   #0x1, &0x2d
+//  129 	return value;
+        RET
+          CFI EndBlock cfiBlock4
+        REQUIRE P2IE
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//  130  }
+//  131 
+//  132 /* ============================================ *
+//  133  *           read read register more once       *
+//  134  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  135  void CC1101_Read_Burst_Reg(unsigned char count)
+CC1101_Read_Burst_Reg:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function CC1101_Read_Burst_Reg
+//  136  {  
+//  137     unsigned char temp;
+//  138     StoreAndDisRfInterrupt(Rex);
+        FUNCALL CC1101_Read_Burst_Reg, spi_readwrite
+        LOCFRAME CSTACK, 2, STACK
+        BIC.B   #0x1, &0x2d
+//  139     //re-build net address
+//  140 	temp=cc1101_RXFIFO|READ_BURST;
+        MOV.B   #0xff, R12
+//  141 	//enable cc1101 
+//  142 	Enable_CC1101;
+        BIC.B   #0x20, &0x21
+//  143 	//wait for ...
+//  144 	while(CC1101_Check_So);
+??CC1101_Read_Burst_Reg_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Read_Burst_Reg_0
+//  145 	//write address
+//  146 	spi_readwrite(temp);
+        CALL    #spi_readwrite
+//  147 	//从CC1101 RX FIFO 中读取数据
+//  148 //	APIReadArrayBytes(count);
+//  149     //disable cc1101 
+//  150 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  151     //resume break point 
+//  152     RestoreRfInterrupt(Rex);
+        BIS.B   #0x1, &0x2d
+//  153  }
+        RET
+          CFI EndBlock cfiBlock5
+        REQUIRE P2IE
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//  154  
+//  155 /* ============================================ *
+//  156  *     读状态积存器  burst 位应该为 --> 1      *
+//  157  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  158  unsigned char CC1101_Read_Status(unsigned char addr) 
+CC1101_Read_Status:
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Function CC1101_Read_Status
+//  159  {
+//  160    	unsigned char value,temp;
+//  161 //    unsigned char Rex;
+//  162     StoreAndDisRfInterrupt(Rex);
+        FUNCALL CC1101_Read_Status, spi_readwrite
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Read_Status, spi_readwrite
+        LOCFRAME CSTACK, 2, STACK
+        BIC.B   #0x1, &0x2d
+//  163     //re-build new address
+//  164 	temp=addr|READ_BURST;
+        BIS.B   #0xc0, R12
+//  165 	//enable cc1101 
+//  166 	Enable_CC1101;
+        BIC.B   #0x20, &0x21
+//  167 	//wait for ...
+//  168 	while(CC1101_Check_So);
+??CC1101_Read_Status_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Read_Status_0
+//  169 	//write address...
+//  170 	spi_readwrite(temp);
+        CALL    #spi_readwrite
+//  171 	//read data byte 
+//  172 	value=spi_readwrite(0xff);
+        MOV.B   #0xff, R12
+        CALL    #spi_readwrite
+//  173 	//disable cc1101 
+//  174 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  175     //resume break point 
+//  176     RestoreRfInterrupt(Rex);
+        BIS.B   #0x1, &0x2d
+//  177     //return read data 
+//  178 	return value;
+        RET
+          CFI EndBlock cfiBlock6
+        REQUIRE P2IE
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//  179  }
+//  180 
+//  181 /* ============================================ *
+//  182  *           CC1101 Setting Parameter           *
+//  183  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  184  void CC1101_Rf_Write_Settings(void)
+CC1101_Rf_Write_Settings:
+          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Function CC1101_Rf_Write_Settings
+//  185  {
+//  186     //CC1100 FSCTRL
+//  187 	CC1101_Write_Reg(cc1101_FSCTRL0,FSCTRL2);
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Rf_Write_Settings, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   #0x0, R13
+        MOV.B   #0xc, R12
+        CALL    #CC1101_Write_Reg
+//  188     CC1101_Write_Reg(cc1101_FSCTRL1,FSCTRL1);
+        MOV.B   #0xc, R13
+        MOV.B   #0xb, R12
+        CALL    #CC1101_Write_Reg
+//  189 	CC1101_Write_Reg(cc1101_FSCTRL0,FSCTRL0);
+        MOV.B   #0x0, R13
+        MOV.B   #0xc, R12
+        CALL    #CC1101_Write_Reg
+//  190 	//MDMCFG
+//  191     CC1101_Write_Reg(cc1101_MDMCFG4,MDMCFG4);
+        MOV.B   #0x2d, R13
+        MOV.B   #0x10, R12
+        CALL    #CC1101_Write_Reg
+//  192 	CC1101_Write_Reg(cc1101_MDMCFG3,MDMCFG3);
+        MOV.B   #0x3b, R13
+        MOV.B   #0x11, R12
+        CALL    #CC1101_Write_Reg
+//  193 	CC1101_Write_Reg(cc1101_MDMCFG2,MDMCFG2);
+        MOV.B   #0x13, R13
+        MOV.B   #0x12, R12
+        CALL    #CC1101_Write_Reg
+//  194 	CC1101_Write_Reg(cc1101_MDMCFG1,MDMCFG1);
+        MOV.B   #0x23, R13
+        MOV.B   #0x13, R12
+        CALL    #CC1101_Write_Reg
+//  195 	CC1101_Write_Reg(cc1101_MDMCFG0,MDMCFG0);
+        MOV.B   #0xff, R13
+        MOV.B   #0x14, R12
+        CALL    #CC1101_Write_Reg
+//  196 	CC1101_Write_Reg(cc1101_FIFOTHR,FIFOTHR);
+        MOV.B   #0x7, R13
+        MOV.B   #0x3, R12
+        CALL    #CC1101_Write_Reg
+//  197 	//DEVIATN 
+//  198 	CC1101_Write_Reg(cc1101_DEVIATN,DEVIATN);
+        MOV.B   #0x62, R13
+        MOV.B   #0x15, R12
+        CALL    #CC1101_Write_Reg
+//  199 	//FREND
+//  200 	CC1101_Write_Reg(cc1101_FREND1,FREND1);
+        MOV.B   #0xb6, R13
+        MOV.B   #0x21, R12
+        CALL    #CC1101_Write_Reg
+//  201 	CC1101_Write_Reg(cc1101_FREND0,FREND0);
+        MOV.B   #0x10, R13
+        MOV.B   #0x22, R12
+        CALL    #CC1101_Write_Reg
+//  202     CC1101_Write_Reg(cc1101_MCSM1,MCSM1);
+        MOV.B   #0x30, R13
+        MOV.B   #0x17, R12
+        CALL    #CC1101_Write_Reg
+//  203 	//MCSM0
+//  204 	CC1101_Write_Reg(cc1101_MCSM0,MCSM0);
+        MOV.B   #0x18, R13
+        MOV.B   #0x18, R12
+        CALL    #CC1101_Write_Reg
+//  205 	//FOCCFG
+//  206 	CC1101_Write_Reg(cc1101_FOCCFG,FOCCFG);
+        MOV.B   #0x1d, R13
+        MOV.B   #0x19, R12
+        CALL    #CC1101_Write_Reg
+//  207 	//BSCFG
+//  208 	CC1101_Write_Reg(cc1101_BSCFG,BSCFG);
+        MOV.B   #0x1c, R13
+        MOV.B   #0x1a, R12
+        CALL    #CC1101_Write_Reg
+//  209 	//FSCAL
+//  210 	CC1101_Write_Reg(cc1101_FSCAL3,FSCAL3);
+        MOV.B   #0xea, R13
+        MOV.B   #0x23, R12
+        CALL    #CC1101_Write_Reg
+//  211 	CC1101_Write_Reg(cc1101_FSCAL2,FSCAL2);
+        MOV.B   #0x2a, R13
+        MOV.B   #0x24, R12
+        CALL    #CC1101_Write_Reg
+//  212 	CC1101_Write_Reg(cc1101_FSCAL1,FSCAL1);
+        MOV.B   #0x0, R13
+        MOV.B   #0x25, R12
+        CALL    #CC1101_Write_Reg
+//  213 	CC1101_Write_Reg(cc1101_FSCAL0,FSCAL0);
+        MOV.B   #0x1f, R13
+        MOV.B   #0x26, R12
+        CALL    #CC1101_Write_Reg
+//  214 	///FSTEST TEST2 1 0
+//  215 	CC1101_Write_Reg(cc1101_FSTEST,FSTEST);
+        MOV.B   #0x59, R13
+        MOV.B   #0x29, R12
+        CALL    #CC1101_Write_Reg
+//  216 	CC1101_Write_Reg(cc1101_TEST2,TEST2);
+        MOV.B   #0x88, R13
+        MOV.B   #0x2c, R12
+        CALL    #CC1101_Write_Reg
+//  217 	CC1101_Write_Reg(cc1101_TEST1,TEST1);
+        MOV.B   #0x31, R13
+        MOV.B   #0x2d, R12
+        CALL    #CC1101_Write_Reg
+//  218 	CC1101_Write_Reg(cc1101_TEST0,TEST0);
+        MOV.B   #0x9, R13
+        MOV.B   #0x2e, R12
+        CALL    #CC1101_Write_Reg
+//  219 	//PKTCTRL 
+//  220 	CC1101_Write_Reg(cc1101_PKTCTRL1,PKTCTRL1);
+        MOV.B   #0x6, R13
+        MOV.B   #0x7, R12
+        CALL    #CC1101_Write_Reg
+//  221 	CC1101_Write_Reg(cc1101_PKTCTRL0,PKTCTRL0);
+        MOV.B   #0x5, R13
+        MOV.B   #0x8, R12
+        CALL    #CC1101_Write_Reg
+//  222 	CC1101_Write_Reg(cc1101_PKTLEN,PKTLEN);
+        MOV.B   #0xff, R13
+        MOV.B   #0x6, R12
+        BR      #CC1101_Write_Reg
+          CFI EndBlock cfiBlock7
+//  223  }
+//  224 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  225 void _delay_us(unsigned char x)
+_delay_us:
+??_delay_us_0:
+          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Function _delay_us
+//  226 {
+//  227 	unsigned long i;
+//  228 	
+//  229 	while(x --)
+        MOV.B   R12, R14
+        MOV.B   R14, R12
+        ADD.B   #0xff, R12
+        CMP.B   #0x0, R14
+        JEQ     ??_delay_us_2
+//  230 	{
+//  231 		for(i = 0;i < 2000;i++)
+        MOV.W   #0x0, R14
+        MOV.W   #0x0, R15
+??_delay_us_1:
+        CMP.W   #0x0, R15
+        JNC     ??_delay_us_3
+        JNE     ??_delay_us_0
+        CMP.W   #0x7d0, R14
+        JC      ??_delay_us_0
+//  232 		{
+//  233 			asm("NOP");
+??_delay_us_3:
+        NOP
+//  234 		}
+        ADD.W   #0x1, R14
+        ADDC.W  #0x0, R15
+        JMP     ??_delay_us_1
+//  235 	}
+//  236 }
+??_delay_us_2:
+        RET
+          CFI EndBlock cfiBlock8
+//  237 
+//  238 /* ============================================ *
+//  239  *                power up reset                *
+//  240  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  241  void CC1101_Power_Up(void) 
+CC1101_Power_Up:
+          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Function CC1101_Power_Up
+//  242  {
+//  243 	//enable cc1101
+//  244 	Enable_CC1101;
+        FUNCALL CC1101_Power_Up, _delay_us
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Power_Up, _delay_us
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Power_Up, spi_readwrite
+        LOCFRAME CSTACK, 2, STACK
+        BIC.B   #0x20, &0x21
+//  245     _delay_us(10);
+        MOV.B   #0xa, R12
+        CALL    #_delay_us
+//  246     //disable cc1101
+//  247 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  248 	//delay 40 us
+//  249 	_delay_us(40);
+        MOV.B   #0x28, R12
+        CALL    #_delay_us
+//  250 	//enable cc1101
+//  251 	Enable_CC1101;
+        BIC.B   #0x20, &0x21
+//  252 	//wait cc1101 stabilize
+//  253 	while(CC1101_Check_So);
+??CC1101_Power_Up_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Power_Up_0
+//  254 	//transmit cc1101 command
+//  255 	spi_readwrite(cc1101_SRES);
+        MOV.B   #0x30, R12
+        CALL    #spi_readwrite
+//  256 	//wait
+//  257 	while(CC1101_Check_So);
+??CC1101_Power_Up_1:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Power_Up_1
+//  258 	//disable cc1101
+//  259 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  260  }
+        RET
+          CFI EndBlock cfiBlock9
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//  261    
+//  262 /* ============================================ *
+//  263  *                  rf set power                *
+//  264  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  265  void CC1101_Setting_Power(RF_Tx_Power power)
+CC1101_Setting_Power:
+          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Function CC1101_Setting_Power
+//  266  {
+        FUNCALL CC1101_Setting_Power, spi_readwrite
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL CC1101_Setting_Power, spi_readwrite
+        LOCFRAME CSTACK, 6, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.B   R12, R10
+//  267     unsigned char i,temp;
+//  268     //setting rf cc100 power address
+//  269 	temp = cc1101_PATABLE|WRITE_BURST;
+        MOV.B   #0x7e, R12
+//  270 	Enable_CC1101;
+        BIC.B   #0x20, &0x21
+//  271 	while(CC1101_Check_So);
+??CC1101_Setting_Power_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Setting_Power_0
+//  272 	spi_readwrite(temp);
+        CALL    #spi_readwrite
+//  273 	//write data 8 times 
+//  274 	for(i=0;i<8;i++)
+        MOV.B   #0x0, R11
+        JMP     ??CC1101_Setting_Power_2
+//  275 	{
+//  276 		spi_readwrite(power);
+??CC1101_Setting_Power_1:
+        MOV.B   R10, R12
+        CALL    #spi_readwrite
+//  277 	}
+        ADD.B   #0x1, R11
+??CC1101_Setting_Power_2:
+        CMP.B   #0x8, R11
+        JNC     ??CC1101_Setting_Power_1
+//  278 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  279  }
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock10
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//  280  
+//  281 /* ============================================ *
+//  282  *         rf Select transmit power             *
+//  283  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  284  void CC1101_Select_Transmit_Power_Level(Rf_Transmit_Level level)
+CC1101_Select_Transmit_Power_Level:
+          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Function CC1101_Select_Transmit_Power_Level
+//  285  {
+//  286     switch(level)
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Select_Transmit_Power_Level, CC1101_Setting_Power
+        LOCFRAME CSTACK, 2, STACK
+        SXT     R12
+        CMP.W   #0xa, R12
+        JC      ??CC1101_Select_Transmit_Power_Level_0
+        ADD.W   R12, R12
+        BR      `?<Jumptable for CC1101_Select_Transmit_Power_L_0`(R12)
+`?<Jumptable for CC1101_Select_Transmit_Power_L_0`:
+        DC16    ??CC1101_Select_Transmit_Power_Level_1
+        DC16    ??CC1101_Select_Transmit_Power_Level_2
+        DC16    ??CC1101_Select_Transmit_Power_Level_3
+        DC16    ??CC1101_Select_Transmit_Power_Level_4
+        DC16    ??CC1101_Select_Transmit_Power_Level_5
+        DC16    ??CC1101_Select_Transmit_Power_Level_6
+        DC16    ??CC1101_Select_Transmit_Power_Level_7
+        DC16    ??CC1101_Select_Transmit_Power_Level_8
+        DC16    ??CC1101_Select_Transmit_Power_Level_9
+        DC16    ??CC1101_Select_Transmit_Power_Level_10
+//  287     {
+//  288         //max level
+//  289         case Rf_Transmit_Level9 :
+//  290         {
+//  291             CC1101_Setting_Power(RF_TxPower_12dbm);
+??CC1101_Select_Transmit_Power_Level_10:
+        MOV.B   #0xc0, R12
+        BR      #CC1101_Setting_Power
+//  292         }break;
+//  293         //level -8
+//  294         case Rf_Transmit_Level8 :
+//  295         { 
+//  296             CC1101_Setting_Power(RF_TxPower_10dbm);
+??CC1101_Select_Transmit_Power_Level_9:
+        MOV.B   #0xc5, R12
+        BR      #CC1101_Setting_Power
+//  297         }break;
+//  298         //level -7
+//  299         case Rf_Transmit_Level7 : 
+//  300         {
+//  301             CC1101_Setting_Power(RF_TxPower_7dbm);
+??CC1101_Select_Transmit_Power_Level_8:
+        MOV.B   #0xcd, R12
+        BR      #CC1101_Setting_Power
+//  302         }break;
+//  303         //level -6
+//  304         case Rf_Transmit_Level6 : 
+//  305         {
+//  306             CC1101_Setting_Power(RF_TxPower_5dbm);
+??CC1101_Select_Transmit_Power_Level_7:
+        MOV.B   #0x86, R12
+        BR      #CC1101_Setting_Power
+//  307         }break;
+//  308         //level -5
+//  309         case Rf_Transmit_Level5 : 
+//  310         {
+//  311             CC1101_Setting_Power(RF_TxPower_0dbm);
+??CC1101_Select_Transmit_Power_Level_6:
+        MOV.B   #0x50, R12
+        BR      #CC1101_Setting_Power
+//  312         }break;
+//  313         //level -4
+//  314         case Rf_Transmit_Level4 : 
+//  315         {
+//  316             CC1101_Setting_Power(RF_TxPower_N6dbm);
+??CC1101_Select_Transmit_Power_Level_5:
+        MOV.B   #0x37, R12
+        BR      #CC1101_Setting_Power
+//  317         }break;
+//  318         //level -3
+//  319         case Rf_Transmit_Level3 :  
+//  320         {
+//  321             CC1101_Setting_Power(RF_TxPower_N10dbm);
+??CC1101_Select_Transmit_Power_Level_4:
+        MOV.B   #0x26, R12
+        BR      #CC1101_Setting_Power
+//  322         }break;
+//  323         //level -2
+//  324         case Rf_Transmit_Level2 : 
+//  325         {
+//  326             CC1101_Setting_Power(RF_TxPower_N15dbm);
+??CC1101_Select_Transmit_Power_Level_3:
+        MOV.B   #0x1d, R12
+        BR      #CC1101_Setting_Power
+//  327         }break;
+//  328         //level -1
+//  329         case Rf_Transmit_Level1 : 
+//  330         {
+//  331             CC1101_Setting_Power(RF_TxPower_N20dbm);
+??CC1101_Select_Transmit_Power_Level_2:
+        MOV.B   #0x17, R12
+        BR      #CC1101_Setting_Power
+//  332         }break;
+//  333         //level -0
+//  334         case Rf_Transmit_Level0 : 
+//  335         {
+//  336             CC1101_Setting_Power(RF_TxPower_N30dbm);
+??CC1101_Select_Transmit_Power_Level_1:
+        MOV.B   #0x3, R12
+        BR      #CC1101_Setting_Power
+//  337         }break;
+//  338         //default 0dbm 
+//  339         default :
+//  340         {
+//  341             CC1101_Setting_Power(RF_TxPower_0dbm);
+??CC1101_Select_Transmit_Power_Level_0:
+        MOV.B   #0x50, R12
+        BR      #CC1101_Setting_Power
+          CFI EndBlock cfiBlock11
+//  342         }break;
+//  343     }
+//  344  }
+//  345 
+//  346 /* ============================================== *
+//  347  *               CC1101 set channel               *
+//  348  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  349  void CC1101_Setting_Channel(RF_Frequency_Channel channel)
+CC1101_Setting_Channel:
+          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Function CC1101_Setting_Channel
+//  350  {
+//  351     //setting channel 
+//  352 	CC1101_Write_Reg(cc1101_CHANNR,channel);
+        FUNCALL CC1101_Setting_Channel, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   R12, R13
+        MOV.B   #0xa, R12
+        BR      #CC1101_Write_Reg
+          CFI EndBlock cfiBlock12
+//  353  }
+//  354  
+//  355 /* ============================================== *
+//  356  *           CC1101 set Synch Head word           *
+//  357  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  358  void CC1101_Setting_SynchHead(void)
+CC1101_Setting_SynchHead:
+          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Function CC1101_Setting_SynchHead
+//  359  {
+//  360  	//SYNCH
+//  361 	CC1101_Write_Reg(cc1101_SYNC1,Hi_Uint8(Rf_Synch_Code));
+        FUNCALL CC1101_Setting_SynchHead, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_SynchHead, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   #0xc5, R13
+        MOV.B   #0x4, R12
+        CALL    #CC1101_Write_Reg
+//  362 	CC1101_Write_Reg(cc1101_SYNC0,Lo_Uint8(Rf_Synch_Code));
+        MOV.B   #0x26, R13
+        MOV.B   #0x5, R12
+        BR      #CC1101_Write_Reg
+          CFI EndBlock cfiBlock13
+//  363  }
+//  364 
+//  365 /* ============================================== *
+//  366  *       CC1101 set carrier sense threshold       *
+//  367  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  368  void CC1101_CarrierSense_Threshold(RF_Threshold threshold)
+CC1101_CarrierSense_Threshold:
+          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Function CC1101_CarrierSense_Threshold
+//  369  {
+//  370     switch(threshold)
+        FUNCALL CC1101_CarrierSense_Threshold, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_CarrierSense_Threshold, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_CarrierSense_Threshold, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_CarrierSense_Threshold, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_CarrierSense_Threshold, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_CarrierSense_Threshold, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_CarrierSense_Threshold, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_CarrierSense_Threshold, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        SUB.B   #0x0, R12
+        JEQ     ??CC1101_CarrierSense_Threshold_0
+        SUB.B   #0x1, R12
+        JEQ     ??CC1101_CarrierSense_Threshold_1
+        SUB.B   #0x1, R12
+        JEQ     ??CC1101_CarrierSense_Threshold_2
+        SUB.B   #0x1, R12
+        JEQ     ??CC1101_CarrierSense_Threshold_3
+        SUB.B   #0x1, R12
+        JEQ     ??CC1101_CarrierSense_Threshold_4
+        JMP     ??CC1101_CarrierSense_Threshold_5
+//  371     {
+//  372         //-80dbm
+//  373         case RF_Threshold_80dbm :
+//  374         {
+//  375 	        CC1101_Write_Reg(cc1101_AGCCTRL2,0x0e);
+??CC1101_CarrierSense_Threshold_0:
+        MOV.B   #0xe, R13
+        MOV.B   #0x1b, R12
+        CALL    #CC1101_Write_Reg
+//  376         }break;
+        JMP     ??CC1101_CarrierSense_Threshold_6
+//  377         //-78dbm
+//  378         case RF_Threshold_78dbm :
+//  379         {
+//  380 	        CC1101_Write_Reg(cc1101_AGCCTRL2,0x15);
+??CC1101_CarrierSense_Threshold_1:
+        MOV.B   #0x15, R13
+        MOV.B   #0x1b, R12
+        CALL    #CC1101_Write_Reg
+//  381         }break;
+        JMP     ??CC1101_CarrierSense_Threshold_6
+//  382         //-75dbm 
+//  383         case RF_Threshold_75dbm :
+//  384         {
+//  385 	        CC1101_Write_Reg(cc1101_AGCCTRL2,0x17);
+??CC1101_CarrierSense_Threshold_2:
+        MOV.B   #0x17, R13
+        MOV.B   #0x1b, R12
+        CALL    #CC1101_Write_Reg
+//  386         }break;
+        JMP     ??CC1101_CarrierSense_Threshold_6
+//  387         //-72dbm 
+//  388         case RF_Threshold_72dbm :
+//  389         {
+//  390 	        CC1101_Write_Reg(cc1101_AGCCTRL2,0x1f);
+??CC1101_CarrierSense_Threshold_3:
+        MOV.B   #0x1f, R13
+        MOV.B   #0x1b, R12
+        CALL    #CC1101_Write_Reg
+//  391         }break;
+        JMP     ??CC1101_CarrierSense_Threshold_6
+//  392         //-68dbm 
+//  393         case RF_Threshold_68dbm :
+//  394         {
+//  395 	        CC1101_Write_Reg(cc1101_AGCCTRL2,0x2f);
+??CC1101_CarrierSense_Threshold_4:
+        MOV.B   #0x2f, R13
+        MOV.B   #0x1b, R12
+        CALL    #CC1101_Write_Reg
+//  396         }break;
+        JMP     ??CC1101_CarrierSense_Threshold_6
+//  397         //otherwise way -72dbm 
+//  398         default :
+//  399         {
+//  400 	        CC1101_Write_Reg(cc1101_AGCCTRL2,0x1f);
+??CC1101_CarrierSense_Threshold_5:
+        MOV.B   #0x1f, R13
+        MOV.B   #0x1b, R12
+        CALL    #CC1101_Write_Reg
+//  401         }break;
+//  402     }
+//  403     CC1101_Write_Reg(cc1101_AGCCTRL1,AGCCTRL1);
+??CC1101_CarrierSense_Threshold_6:
+        MOV.B   #0x41, R13
+        MOV.B   #0x1c, R12
+        CALL    #CC1101_Write_Reg
+//  404     CC1101_Write_Reg(cc1101_AGCCTRL0,AGCCTRL0);
+        MOV.B   #0x91, R13
+        MOV.B   #0x1d, R12
+        BR      #CC1101_Write_Reg
+          CFI EndBlock cfiBlock14
+//  405  }
+//  406 
+//  407 /* ============================================== *
+//  408  *                 CC1101 set Gpio2               *
+//  409  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  410  void CC1101_Config_Gpio2(RF_Gpio gpio)
+CC1101_Config_Gpio2:
+          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Function CC1101_Config_Gpio2
+//  411  {
+//  412 	//IOCFG
+//  413     CC1101_Write_Reg(cc1101_IOCFG2,gpio);
+        FUNCALL CC1101_Config_Gpio2, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   R12, R13
+        MOV.B   #0x0, R12
+        BR      #CC1101_Write_Reg
+          CFI EndBlock cfiBlock15
+//  414  }
+//  415 
+//  416 /* ============================================== *
+//  417  *                 CC1101 set Gpio0               *
+//  418  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  419  void CC1101_Config_Gpio0(RF_Gpio gpio)
+CC1101_Config_Gpio0:
+          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Function CC1101_Config_Gpio0
+//  420  {
+//  421 	//IOCFG
+//  422     CC1101_Write_Reg(cc1101_IOCFG0,gpio);
+        FUNCALL CC1101_Config_Gpio0, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   R12, R13
+        MOV.B   #0x2, R12
+        BR      #CC1101_Write_Reg
+          CFI EndBlock cfiBlock16
+//  423  }
+//  424 
+//  425 /* ============================================== *
+//  426  *            setting cc1101 address              *
+//  427  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  428  void CC1101_Setting_Address(unsigned char Addr)
+CC1101_Setting_Address:
+          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Function CC1101_Setting_Address
+//  429  {
+//  430     CC1101_Write_Reg(cc1101_ADDR,Addr);
+        FUNCALL CC1101_Setting_Address, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   R12, R13
+        MOV.B   #0x9, R12
+        BR      #CC1101_Write_Reg
+          CFI EndBlock cfiBlock17
+//  431  }
+//  432 
+//  433 /* ============================================== *
+//  434  *         CC1101 set Frequency section           *
+//  435  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  436  void CC1101_Setting_FreSection(RF_Frequency_Section section)
+CC1101_Setting_FreSection:
+          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Function CC1101_Setting_FreSection
+//  437  {
+//  438      switch(section)
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Setting_FreSection, CC1101_Write_Reg
+        LOCFRAME CSTACK, 2, STACK
+        SUB.B   #0x0, R12
+        JEQ     ??CC1101_Setting_FreSection_0
+        SUB.B   #0x1, R12
+        JEQ     ??CC1101_Setting_FreSection_1
+        SUB.B   #0x1, R12
+        JEQ     ??CC1101_Setting_FreSection_2
+        SUB.B   #0x1, R12
+        JEQ     ??CC1101_Setting_FreSection_3
+        JMP     ??CC1101_Setting_FreSection_4
+//  439      {
+//  440          //ism 315MHz
+//  441          case RF_ISM_315MHz :
+//  442          {
+//  443 	        CC1101_Write_Reg(cc1101_FREQ2,0x0c);
+??CC1101_Setting_FreSection_0:
+        MOV.B   #0xc, R13
+        MOV.B   #0xd, R12
+        CALL    #CC1101_Write_Reg
+//  444  	        CC1101_Write_Reg(cc1101_FREQ1,0x1d);
+        MOV.B   #0x1d, R13
+        MOV.B   #0xe, R12
+        CALL    #CC1101_Write_Reg
+//  445 	        CC1101_Write_Reg(cc1101_FREQ0,0x89);
+        MOV.B   #0x89, R13
+        MOV.B   #0xf, R12
+        BR      #CC1101_Write_Reg
+//  446          }break;
+//  447          //ISM 433MHz 
+//  448          case RF_ISM_433MHz :
+//  449          {
+//  450 	        CC1101_Write_Reg(cc1101_FREQ2,0x10);
+??CC1101_Setting_FreSection_1:
+        MOV.B   #0x10, R13
+        MOV.B   #0xd, R12
+        CALL    #CC1101_Write_Reg
+//  451  	        CC1101_Write_Reg(cc1101_FREQ1,0xa7);
+        MOV.B   #0xa7, R13
+        MOV.B   #0xe, R12
+        CALL    #CC1101_Write_Reg
+//  452 	        CC1101_Write_Reg(cc1101_FREQ0,0x62); 
+        MOV.B   #0x62, R13
+        MOV.B   #0xf, R12
+        BR      #CC1101_Write_Reg
+//  453          }break;
+//  454          //ISM 868MHz
+//  455          case RF_ISM_868MHz :
+//  456 	     {
+//  457             //CC1101_Write_Reg(cc1101_FREQ2,0x21);
+//  458  	        //CC1101_Write_Reg(cc1101_FREQ1,0x62);
+//  459 	        //CC1101_Write_Reg(cc1101_FREQ0,0x76);
+//  460             CC1101_Write_Reg(cc1101_FREQ2,0x21);
+??CC1101_Setting_FreSection_2:
+        MOV.B   #0x21, R13
+        MOV.B   #0xd, R12
+        CALL    #CC1101_Write_Reg
+//  461  	        CC1101_Write_Reg(cc1101_FREQ1,0x13);
+        MOV.B   #0x13, R13
+        MOV.B   #0xe, R12
+        CALL    #CC1101_Write_Reg
+//  462 	        CC1101_Write_Reg(cc1101_FREQ0,0xb1);
+        MOV.B   #0xb1, R13
+        MOV.B   #0xf, R12
+        BR      #CC1101_Write_Reg
+//  463          }break;
+//  464          //ISM 915MHz
+//  465          case RF_ISM_915MHz :
+//  466          {
+//  467 	        CC1101_Write_Reg(cc1101_FREQ2,0x23);
+??CC1101_Setting_FreSection_3:
+        MOV.B   #0x23, R13
+        MOV.B   #0xd, R12
+        CALL    #CC1101_Write_Reg
+//  468  	        CC1101_Write_Reg(cc1101_FREQ1,0x31);
+        MOV.B   #0x31, R13
+        MOV.B   #0xe, R12
+        CALL    #CC1101_Write_Reg
+//  469 	        CC1101_Write_Reg(cc1101_FREQ0,0x3b);
+        MOV.B   #0x3b, R13
+        MOV.B   #0xf, R12
+        BR      #CC1101_Write_Reg
+//  470          }break;
+//  471          //otherwise is ISM 433MHz
+//  472          default :
+//  473          {
+//  474 	        CC1101_Write_Reg(cc1101_FREQ2,0x10);
+??CC1101_Setting_FreSection_4:
+        MOV.B   #0x10, R13
+        MOV.B   #0xd, R12
+        CALL    #CC1101_Write_Reg
+//  475  	        CC1101_Write_Reg(cc1101_FREQ1,0xa7);
+        MOV.B   #0xa7, R13
+        MOV.B   #0xe, R12
+        CALL    #CC1101_Write_Reg
+//  476 	        CC1101_Write_Reg(cc1101_FREQ0,0x62);
+        MOV.B   #0x62, R13
+        MOV.B   #0xf, R12
+        BR      #CC1101_Write_Reg
+          CFI EndBlock cfiBlock18
+//  477          }break;
+//  478      }
+//  479  }
+//  480 
+//  481 /* ============================================== *
+//  482  *               CC1101 entry x mode              *
+//  483  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  484  void CC1101_Entry_XMode(RF_Mode Mode)
+CC1101_Entry_XMode:
+          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Function CC1101_Entry_XMode
+//  485  {
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Entry_XMode, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        MOV.B   R12, R10
+//  486     //idle mode 
+//  487     CC1101_Strobe(cc1101_SIDLE);
+        MOV.B   #0x36, R12
+        CALL    #CC1101_Strobe
+//  488     switch(Mode)
+        SXT     R10
+        CMP.W   #0x9, R10
+        JC      ??CC1101_Entry_XMode_0
+        ADD.W   R10, R10
+        BR      `?<Jumptable for CC1101_Entry_XMode>_0`(R10)
+`?<Jumptable for CC1101_Entry_XMode>_0`:
+        DC16    ??CC1101_Entry_XMode_1
+        DC16    ??CC1101_Entry_XMode_2
+        DC16    ??CC1101_Entry_XMode_0
+        DC16    ??CC1101_Entry_XMode_3
+        DC16    ??CC1101_Entry_XMode_4
+        DC16    ??CC1101_Entry_XMode_5
+        DC16    ??CC1101_Entry_XMode_6
+        DC16    ??CC1101_Entry_XMode_7
+        DC16    ??CC1101_Entry_XMode_8
+//  489     {
+//  490         //rf rx mode
+//  491         case Rf_Rx_Mode : 
+//  492         {
+//  493             //CC1100 回到接收模式 
+//  494             CC1101_Strobe(cc1101_SRX);
+??CC1101_Entry_XMode_1:
+        MOV.B   #0x34, R12
+        CALL    #CC1101_Strobe
+//  495         }break;
+        JMP     ??CC1101_Entry_XMode_0
+//  496         //rf tx mode
+//  497         case Rf_Tx_Mode :  
+//  498         {
+//  499             //进入发送模式发送数据
+//  500 	        CC1101_Strobe(cc1101_STX);
+??CC1101_Entry_XMode_2:
+        MOV.B   #0x35, R12
+        CALL    #CC1101_Strobe
+//  501         }break;
+        JMP     ??CC1101_Entry_XMode_0
+//  502         //rf idle mode
+//  503         case Rf_Idle_Mode :
+//  504         {
+//  505             
+//  506         }break;
+//  507         //rf WOR mode
+//  508         case Rf_Wor_Mode :
+//  509         {
+//  510             CC1101_Strobe(cc1101_SWOR);
+??CC1101_Entry_XMode_3:
+        MOV.B   #0x38, R12
+        CALL    #CC1101_Strobe
+//  511         }break;
+        JMP     ??CC1101_Entry_XMode_0
+//  512         //rf power down mode
+//  513         case Rf_Pwd_Mode :
+//  514         {
+//  515             CC1101_Strobe(cc1101_SPWD);
+??CC1101_Entry_XMode_4:
+        MOV.B   #0x39, R12
+        CALL    #CC1101_Strobe
+//  516         }break;
+        JMP     ??CC1101_Entry_XMode_0
+//  517         //rf frequency scal 
+//  518         case Rf_Frq_Scal :
+//  519         {
+//  520             //开启和校准频率合成器....
+//  521 	        CC1101_Strobe(cc1101_SCAL); 
+??CC1101_Entry_XMode_5:
+        MOV.B   #0x33, R12
+        CALL    #CC1101_Strobe
+//  522         }break;
+        JMP     ??CC1101_Entry_XMode_0
+//  523         //flush rx fifo
+//  524         case Rf_Flush_RxFifo :
+//  525         {
+//  526             CC1101_Strobe(cc1101_SFRX); 
+??CC1101_Entry_XMode_6:
+        MOV.B   #0x3a, R12
+        CALL    #CC1101_Strobe
+//  527         }break;
+        JMP     ??CC1101_Entry_XMode_0
+//  528         //flush tx fifo
+//  529         case Rf_Flush_TxFfio :
+//  530         {
+//  531             CC1101_Strobe(cc1101_SFTX);
+??CC1101_Entry_XMode_7:
+        MOV.B   #0x3b, R12
+        CALL    #CC1101_Strobe
+//  532         }break;
+        JMP     ??CC1101_Entry_XMode_0
+//  533         //entry rx mode and flush rx fifo
+//  534         case Rf_Rx_Flush_RxFifo :
+//  535         {
+//  536             //清空接收缓冲区
+//  537             CC1101_Strobe(cc1101_SFRX);
+??CC1101_Entry_XMode_8:
+        MOV.B   #0x3a, R12
+        CALL    #CC1101_Strobe
+//  538             //CC1100 回到接收模式
+//  539             CC1101_Strobe(cc1101_SRX);
+        MOV.B   #0x34, R12
+        CALL    #CC1101_Strobe
+//  540         }break;
+//  541         //otherwise none
+//  542         default :
+//  543          break;
+//  544     }                 
+//  545  }
+??CC1101_Entry_XMode_0:
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock19
+//  546  
+//  547  /* ============================================== *
+//  548   *            CC1101 Initialization               *
+//  549   * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  550  void CC1101_Config_Pins(void)
+CC1101_Config_Pins:
+          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Function CC1101_Config_Pins
+//  551  {
+//  552     //cs
+//  553 	CS_OUTPUT;           //output
+        BIS.B   #0x20, &0x22
+//  554 	Disable_CC1101;      //high
+        BIS.B   #0x20, &0x21
+//  555 	//si
+//  556 	SI_OUTPUT;           //output
+        BIS.B   #0x4, &0x22
+//  557 	CC1101_Si_Low;       //low
+        BIC.B   #0x4, &0x21
+//  558 	//so
+//  559 	SO_INPUT;            //input
+        BIC.B   #0x2, &0x22
+//  560 	CC1101_So_High;      //high
+        BIS.B   #0x2, &0x21
+//  561 	//sclk
+//  562 	SCLK_OUTPUT;         //output
+        BIS.B   #0x10, &0x22
+//  563 	CC1101_Sclk_High;     //low
+        BIS.B   #0x10, &0x21
+//  564 	//gdo0
+//  565 	GDO0_INPUT;          //output
+        BIC.B   #0x1, &0x2a
+//  566 //	CC1101_Gdo0_High;    //low
+//  567 
+//  568 	//gdo2
+//  569 	GDO2_INPUT;          //input
+        BIC.B   #0x2, &0x2a
+//  570 //	CC1101_Gdo2_High;    //low
+//  571 
+//  572  }
+        RET
+          CFI EndBlock cfiBlock20
+        REQUIRE P1DIR
+        REQUIRE P1OUT
+        REQUIRE P2DIR
+//  573 
+//  574 /* ============================================== *
+//  575  *          CC1101 Interrupt  Config              *
+//  576  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  577  void CC1101_Interrupt_Config(unsigned char priority)
+CC1101_Interrupt_Config:
+          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Function CC1101_Interrupt_Config
+//  578  {
+//  579     //config interupt pin 
+//  580 //    RPINR0bits.INT1R = Rf_Interrupt_Pin;
+//  581 	P2IE  |= BIT0;
+        BIS.B   #0x1, &0x2d
+//  582 	P2IES |= BIT0;					// 选择上升/下降沿
+        BIS.B   #0x1, &0x2c
+//  583 //	P2REN |= BIT0;					// 上拉
+//  584     //clean interrupt isr flag
+//  585     Clean_Interrupt_ISR_Flag;
+        BIC.B   #0x1, &0x2b
+//  586     //config interupt level
+//  587 //    IPC5bits.INT1IP   = priority;
+//  588     //Up level interrupt 
+//  589     Enable_DownLevel_Interrupt;
+//  590     //enable interrupt 
+//  591     Enable_Interrupt;
+        BIS.B   #0x1, &0x2d
+//  592  }
+        RET
+          CFI EndBlock cfiBlock21
+        REQUIRE P2IE
+        REQUIRE P2IES
+        REQUIRE P2IFG
+//  593  
+//  594 /* ============================================== *
+//  595  *            rf mac rx buffer initial            *
+//  596  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  597  void CC1101_RxBuffer_Initial(void)
+CC1101_RxBuffer_Initial:
+          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Function CC1101_RxBuffer_Initial
+//  598  {
+//  599     ptrRxBufWrite = &RxBuf[0];
+        MOV.W   #RxBuf, &ptrRxBufWrite
+//  600  	ptrRxBufRead  = &RxBuf[0];
+        MOV.W   #RxBuf, &ptrRxBufRead
+//  601  }
+        RET
+          CFI EndBlock cfiBlock22
+//  602  
+//  603 /* ============================================== *
+//  604  *          CC1101 enter into sleep mode          *
+//  605  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  606  void CC1101_EnterIntoSleepMode(void)
+CC1101_EnterIntoSleepMode:
+          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Function CC1101_EnterIntoSleepMode
+//  607  {
+//  608     //cc1101 power down 
+//  609     CC1101_Entry_XMode(Rf_Pwd_Mode);
+        FUNCALL CC1101_EnterIntoSleepMode, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   #0x4, R12
+        BR      #CC1101_Entry_XMode
+          CFI EndBlock cfiBlock23
+//  610  }
+//  611 
+//  612 /* ============================================== *
+//  613  *          CC1101 wake up to idle mode           *
+//  614  * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  615  void CC1101_WakeUpToIdleMode(void)
+CC1101_WakeUpToIdleMode:
+          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Function CC1101_WakeUpToIdleMode
+//  616  {
+//  617     //wake up cc1101
+//  618     Enable_CC1101;
+        FUNCALL CC1101_WakeUpToIdleMode, _delay_us
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_WakeUpToIdleMode, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        BIC.B   #0x20, &0x21
+//  619     //delay 100us 
+//  620     _delay_us(100);
+        MOV.B   #0x64, R12
+        CALL    #_delay_us
+//  621 	Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  622     //rf frequency scal 
+//  623     CC1101_Entry_XMode(Rf_Frq_Scal);
+        MOV.B   #0x5, R12
+        BR      #CC1101_Entry_XMode
+          CFI EndBlock cfiBlock24
+        REQUIRE P1OUT
+//  624  }
+//  625 
+//  626  /* ============================================== *
+//  627   *            CC1101 Initialization               *
+//  628   * ============================================== */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  629  void CC1101_Initialization(void)
+CC1101_Initialization:
+          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Function CC1101_Initialization
+//  630  {
+//  631     //Confing CC1101 Pins
+//  632     CC1101_Config_Pins();
+        FUNCALL CC1101_Initialization, CC1101_Config_Pins
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Power_Up
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Rf_Write_Settings
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Setting_SynchHead
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Config_Gpio2
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Config_Gpio0
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Read_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Select_Transmit_Power_Level
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Setting_Channel
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_CarrierSense_Threshold
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Setting_Address
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Setting_FreSection
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Interrupt_Config
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Initialization, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        CALL    #CC1101_Config_Pins
+//  633     //spi initial
+//  634 //    APISpiModuleInitial();
+//  635     //disable rf interrupt
+//  636     Disable_Interrupt;
+        BIC.B   #0x1, &0x2d
+//  637 	//power un and reset
+//  638 	CC1101_Power_Up();
+        CALL    #CC1101_Power_Up
+//  639 	//cc1100 setting config register
+//  640 	CC1101_Rf_Write_Settings();
+        CALL    #CC1101_Rf_Write_Settings
+//  641     //setting cc1101 synch head word 
+//  642     CC1101_Setting_SynchHead();
+        CALL    #CC1101_Setting_SynchHead
+//  643     //config gpio function
+//  644     CC1101_Config_Gpio2(IOCFG2);
+        MOV.B   #0xe, R12
+        CALL    #CC1101_Config_Gpio2
+//  645     CC1101_Config_Gpio0(IOCFG0);
+        MOV.B   #0x6, R12
+        CALL    #CC1101_Config_Gpio0
+//  646 	//check CC1101 initial whether success.....
+//  647 	if(CC1101_Read_Reg(cc1101_IOCFG2) != IOCFG2)
+        MOV.B   #0x0, R12
+        CALL    #CC1101_Read_Reg
+        CMP.B   #0xe, R12
+        JEQ     ??CC1101_Initialization_1
+//  648 	{
+//  649 	    for(;;)
+??CC1101_Initialization_0:
+        JMP     ??CC1101_Initialization_0
+//  650 		{
+//  651 		    #ifdef CC1101_BreakDown_Status
+//  652 			    //LED to TGL
+//  653 //			    CC1101_BreakDown_Status;
+//  654 //				_delay_ms(250);
+//  655 			#endif
+//  656 		}
+//  657 	}
+//  658 	
+//  659 	CC1101_Select_Transmit_Power_Level(Rf_Transmit_Level5);
+??CC1101_Initialization_1:
+        MOV.B   #0x5, R12
+        CALL    #CC1101_Select_Transmit_Power_Level
+//  660 	CC1101_Setting_Channel(RF_Frequency_Channel10);
+        MOV.B   #0xa, R12
+        CALL    #CC1101_Setting_Channel
+//  661 	CC1101_CarrierSense_Threshold(RF_Threshold_72dbm);
+        MOV.B   #0x3, R12
+        CALL    #CC1101_CarrierSense_Threshold
+//  662 	CC1101_Setting_Address(0x01);
+        MOV.B   #0x1, R12
+        CALL    #CC1101_Setting_Address
+//  663 	CC1101_Setting_FreSection(RF_ISM_868MHz);
+        MOV.B   #0x2, R12
+        CALL    #CC1101_Setting_FreSection
+//  664 //	CC1101_Entry_XMode(Rf_Rx_Mode);
+//  665 	
+//  666 	
+//  667     //wish cc1101 rx fifo ...
+//  668     CC1101_Entry_XMode(Rf_Flush_RxFifo);
+        MOV.B   #0x6, R12
+        CALL    #CC1101_Entry_XMode
+//  669     //wish cc1101 tx fifo ...
+//  670     CC1101_Entry_XMode(Rf_Flush_TxFfio);
+        MOV.B   #0x7, R12
+        CALL    #CC1101_Entry_XMode
+//  671 	
+//  672     //config ... 
+//  673     CC1101_Interrupt_Config(Rf_Level_Priority);
+        MOV.B   #0x7, R12
+        CALL    #CC1101_Interrupt_Config
+//  674 	
+//  675 	CC1101_Entry_XMode(Rf_Rx_Mode);
+        MOV.B   #0x0, R12
+        BR      #CC1101_Entry_XMode
+          CFI EndBlock cfiBlock25
+        REQUIRE P2IE
+//  676  }
+//  677  
+//  678 /* ============================================ *
+//  679  *              rf cc1101 write FIFO            *
+//  680  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  681  void CC1101_Write_Fifo(unsigned char *txptr,unsigned char size)
+CC1101_Write_Fifo:
+          CFI Block cfiBlock26 Using cfiCommon0
+          CFI Function CC1101_Write_Fifo
+//  682  {
+        FUNCALL CC1101_Write_Fifo, CC1101_Write_Reg
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL CC1101_Write_Fifo, CC1101_Write_Burst_Reg
+        LOCFRAME CSTACK, 6, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.W   R12, R11
+        MOV.B   R13, R10
+//  683 //	unsigned char Rex;
+//  684     StoreAndDisRfInterrupt(Rex);
+        BIC.B   #0x1, &0x2d
+//  685     //length
+//  686 	CC1101_Write_Reg(cc1101_TXFIFO, size);
+        MOV.B   R10, R13
+        MOV.B   #0x3f, R12
+        CALL    #CC1101_Write_Reg
+//  687     //write data buffer 
+//  688 	CC1101_Write_Burst_Reg(cc1101_TXFIFO,txptr,size);
+        MOV.B   R10, R14
+        MOV.W   R11, R13
+        MOV.B   #0x3f, R12
+        CALL    #CC1101_Write_Burst_Reg
+//  689     RestoreRfInterrupt(Rex);
+        BIS.B   #0x1, &0x2d
+//  690  }
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock26
+        REQUIRE P2IE
+//  691  
+//  692 /* ============================================ *
+//  693  *              rf cc1101 send packet           *
+//  694  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  695  void CC1101_Send_Packet(void)
+CC1101_Send_Packet:
+          CFI Block cfiBlock27 Using cfiCommon0
+          CFI Function CC1101_Send_Packet
+//  696  {	
+//  697 //    unsigned char Rex;
+//  698     //disable rf interrupt
+//  699     StoreAndDisRfInterrupt(Rex);
+        FUNCALL CC1101_Send_Packet, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Send_Packet, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Send_Packet, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        BIC.B   #0x1, &0x2d
+//  700     //rx mode after tx
+//  701     CC1101_Entry_XMode(Rf_Tx_Mode);
+        MOV.B   #0x1, R12
+        CALL    #CC1101_Entry_XMode
+        JMP     ??CC1101_Send_Packet_2
+//  702 	// Wait for GDO0 to be set -> sync transmitted  
+//  703 	while(!Check_Rf_Level)
+//  704     {
+//  705 	   asm("nop");
+??CC1101_Send_Packet_0:
+        nop
+//  706     }
+??CC1101_Send_Packet_2:
+        BIT.B   #0x1, &0x28
+        JNC     ??CC1101_Send_Packet_0
+//  707 	// Wait for GDO0 to be cleared -> end of packet  
+//  708 	while(Check_Rf_Level)
+??CC1101_Send_Packet_1:
+        BIT.B   #0x1, &0x28
+        JNC     ??CC1101_Send_Packet_3
+//  709     {
+//  710 	   asm("nop");
+        nop
+        JMP     ??CC1101_Send_Packet_1
+//  711     }
+//  712 //	_delay_us(100);
+//  713     //wish cc1101 tx fifo
+//  714     CC1101_Entry_XMode(Rf_Flush_TxFfio);
+??CC1101_Send_Packet_3:
+        MOV.B   #0x7, R12
+        CALL    #CC1101_Entry_XMode
+//  715     //rx mode after tx 
+//  716     CC1101_Entry_XMode(Rf_Rx_Mode);
+        MOV.B   #0x0, R12
+        CALL    #CC1101_Entry_XMode
+//  717     //enable rf rx interrupt
+//  718 	Clean_Interrupt_ISR_Flag;
+        BIC.B   #0x1, &0x2b
+//  719     RestoreRfInterrupt(Rex);
+        BIS.B   #0x1, &0x2d
+//  720  }
+        RET
+          CFI EndBlock cfiBlock27
+        REQUIRE P2IE
+        REQUIRE P2IN
+        REQUIRE P2IFG
+//  721  
+//  722 /* ======================================= * 
+//  723  *     check cc1101 rx buffer is free?     * 
+//  724  * ======================================= */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  725  void CC1101_Read_Packet(unsigned char length)
+CC1101_Read_Packet:
+          CFI Block cfiBlock28 Using cfiCommon0
+          CFI Function CC1101_Read_Packet
+//  726  {
+        FUNCALL CC1101_Read_Packet, CC1101_Check_RxBuffer_Free
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Read_Packet, CC1101_Read_Burst_Reg
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   R12, R14
+//  727     unsigned int remain;
+//  728     //check rx buffer wheterh free .....
+//  729     remain = CC1101_Check_RxBuffer_Free();
+        CALL    #CC1101_Check_RxBuffer_Free
+//  730     //add status bytes
+//  731     length += RfFcsBytes;
+        ADD.B   #0x2, R14
+//  732     //check rx buffer space wheterh enough...
+//  733     if(remain < length)
+        MOV.B   R14, R14
+        CMP.W   R14, R12
+        JNC     ??CC1101_Read_Packet_1
+//  734 	{
+//  735          return;
+//  736     }
+//  737     //write length of data packet 
+//  738     *ptrRxBufWrite++ =  length;
+        MOV.W   &ptrRxBufWrite, R15
+        MOV.B   R14, 0(R15)
+        ADD.W   #0x1, &ptrRxBufWrite
+//  739     if(ptrRxBufWrite == ptrRxBufOver)
+        CMP.W   &ptrRxBufOver, &ptrRxBufWrite
+        JNE     ??CC1101_Read_Packet_2
+//  740     {
+//  741         ptrRxBufWrite = &RxBuf[0];
+        MOV.W   #RxBuf, &ptrRxBufWrite
+//  742     }
+//  743     //read cc1101 FIFO to RXbuffer 
+//  744     CC1101_Read_Burst_Reg(length);
+??CC1101_Read_Packet_2:
+        MOV.B   R14, R12
+        CALL    #CC1101_Read_Burst_Reg
+//  745  }
+??CC1101_Read_Packet_1:
+        RET
+          CFI EndBlock cfiBlock28
+//  746  
+//  747 /* ============================================ *
+//  748  *             rf cc1100 receive packet         *
+//  749  * status[0] = RSSI-->6:2, status[1] = LQI      *
+//  750  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  751  void CC1101_Receive_Packet(void)
+CC1101_Receive_Packet:
+          CFI Block cfiBlock29 Using cfiCommon0
+          CFI Function CC1101_Receive_Packet
+//  752  {
+//  753 	//check CRC
+//  754     if(CC1101_Read_Status(cc1101_LQI) & cc1101_CRC_OK)
+        FUNCALL CC1101_Receive_Packet, CC1101_Read_Status
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Receive_Packet, CC1101_Read_Reg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Receive_Packet, CC1101_Read_Packet
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Receive_Packet, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   #0x33, R12
+        CALL    #CC1101_Read_Status
+        CMP.B   #0x0, R12
+        JGE     ??CC1101_Receive_Packet_0
+//  755 	{
+//  756 	    unsigned char length;
+//  757         //get length of data packet
+//  758 		length=CC1101_Read_Reg(cc1101_RXFIFO);
+        MOV.B   #0x3f, R12
+        CALL    #CC1101_Read_Reg
+//  759 		
+//  760 		if((length > 0)&&(length <= MAX_RX_DATA_LEN))
+        MOV.B   R12, R14
+        SUB.B   #0x1, R14
+        CMP.B   #0x3e, R14
+        JC      ??CC1101_Receive_Packet_0
+//  761 		{	
+//  762 			//get data packet
+//  763 		    CC1101_Read_Packet(length);
+        CALL    #CC1101_Read_Packet
+//  764 	    }
+//  765 	}
+//  766     //CC1100 回到接收模式
+//  767     CC1101_Entry_XMode(Rf_Rx_Flush_RxFifo); 	
+??CC1101_Receive_Packet_0:
+        MOV.B   #0x8, R12
+        BR      #CC1101_Entry_XMode
+          CFI EndBlock cfiBlock29
+//  768  }
+//  769 
+//  770 /* ======================================= *
+//  771  *     check cc1101 rx buffer is free?     *
+//  772  * ======================================= */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  773  unsigned int CC1101_Check_RxBuffer_Free(void)
+CC1101_Check_RxBuffer_Free:
+          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Function CC1101_Check_RxBuffer_Free
+//  774  {  
+//  775 //    unsigned char  Rex;
+//  776     unsigned int   remain;
+//  777     //disable rf interrupt
+//  778     StoreAndDisRfInterrupt(Rex);
+        BIC.B   #0x1, &0x2d
+//  779     
+//  780 	// Check cc1101 rx buffer free
+//  781     if(ptrRxBufWrite < ptrRxBufRead)
+        CMP.W   &ptrRxBufRead, &ptrRxBufWrite
+        JC      ??CC1101_Check_RxBuffer_Free_0
+//  782 	{
+//  783         remain = ptrRxBufRead - ptrRxBufWrite - 1;
+        MOV.W   &ptrRxBufRead, R12
+        SUB.W   &ptrRxBufWrite, R12
+        ADD.W   #0xffff, R12
+        JMP     ??CC1101_Check_RxBuffer_Free_1
+//  784     }
+//  785     else
+//  786 	{
+//  787         remain = RX_BUFFER_SIZE - (ptrRxBufWrite - ptrRxBufRead) - 1;
+??CC1101_Check_RxBuffer_Free_0:
+        MOV.W   #0x13, R12
+        MOV.W   &ptrRxBufWrite, R15
+        SUB.W   &ptrRxBufRead, R15
+        SUB.W   R15, R12
+//  788 	}
+//  789     
+//  790     //enable rf rx interrupt 
+//  791     RestoreRfInterrupt(Rex);
+??CC1101_Check_RxBuffer_Free_1:
+        BIS.B   #0x1, &0x2d
+//  792     
+//  793 	return remain;
+        RET
+          CFI EndBlock cfiBlock30
+        REQUIRE P2IE
+//  794  }
+//  795 
+//  796 /* ======================================= *
+//  797  *    check RX rx receive data packet ?    *
+//  798  * ======================================= */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  799  unsigned int CC1101_Check_Receive_Packet(void)
+CC1101_Check_Receive_Packet:
+          CFI Block cfiBlock31 Using cfiCommon0
+          CFI Function CC1101_Check_Receive_Packet
+//  800  {
+//  801  //   unsigned char  Rex;
+//  802     unsigned int   length;
+//  803     //disable rf interrupt
+//  804     StoreAndDisRfInterrupt(Rex);
+        BIC.B   #0x1, &0x2d
+//  805     
+//  806 	// Check Serial whether to receive data
+//  807     if(ptrRxBufWrite < ptrRxBufRead)
+        CMP.W   &ptrRxBufRead, &ptrRxBufWrite
+        JC      ??CC1101_Check_Receive_Packet_0
+//  808     {
+//  809         length = RX_BUFFER_SIZE - (ptrRxBufRead - ptrRxBufWrite);
+        MOV.W   #0x14, R12
+        MOV.W   &ptrRxBufRead, R15
+        SUB.W   &ptrRxBufWrite, R15
+        SUB.W   R15, R12
+        JMP     ??CC1101_Check_Receive_Packet_1
+//  810     }
+//  811     else
+//  812 	{
+//  813         length = ptrRxBufWrite - ptrRxBufRead; 
+??CC1101_Check_Receive_Packet_0:
+        MOV.W   &ptrRxBufWrite, R12
+        SUB.W   &ptrRxBufRead, R12
+//  814     }
+//  815     //enable rf rx interrupt 
+//  816     RestoreRfInterrupt(Rex);
+??CC1101_Check_Receive_Packet_1:
+        BIS.B   #0x1, &0x2d
+//  817 	return length;
+        RET
+          CFI EndBlock cfiBlock31
+        REQUIRE P2IE
+//  818  }
+//  819  
+//  820 /* ============================================ *
+//  821  *       rf Erase the Packet of The length      *
+//  822  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  823  void CC1101_Erase_Buffer(unsigned int length)
+CC1101_Erase_Buffer:
+          CFI Block cfiBlock32 Using cfiCommon0
+          CFI Function CC1101_Erase_Buffer
+//  824  {
+//  825 //	unsigned char  Rex;
+//  826     unsigned int   used;
+//  827     //disable rf interrupt
+//  828     StoreAndDisRfInterrupt(Rex);
+        BIC.B   #0x1, &0x2d
+//  829     //需要擦除的大小必须小于等于写进去的长度
+//  830     if(ptrRxBufWrite < ptrRxBufRead)
+        CMP.W   &ptrRxBufRead, &ptrRxBufWrite
+        JC      ??CC1101_Erase_Buffer_1
+//  831     {
+//  832         used = RX_BUFFER_SIZE - (ptrRxBufRead - ptrRxBufWrite);
+        MOV.W   #0x14, R15
+        MOV.W   &ptrRxBufRead, R14
+        SUB.W   &ptrRxBufWrite, R14
+        SUB.W   R14, R15
+        JMP     ??CC1101_Erase_Buffer_2
+//  833     }
+//  834     else
+//  835     {
+//  836         used = ptrRxBufWrite - ptrRxBufRead;
+??CC1101_Erase_Buffer_1:
+        MOV.W   &ptrRxBufWrite, R15
+        SUB.W   &ptrRxBufRead, R15
+//  837     }
+//  838     length = (length > used)?used:length;
+??CC1101_Erase_Buffer_2:
+        CMP.W   R12, R15
+        JC      ??CC1101_Erase_Buffer_0
+        MOV.W   R15, R12
+//  839     //erase .....
+//  840     ptrRxBufRead=((ptrRxBufRead+length)<ptrRxBufOver)?\ 
+//  841 	              (ptrRxBufRead+length):(ptrRxBufRead-(RX_BUFFER_SIZE-length));
+??CC1101_Erase_Buffer_0:
+        MOV.W   &ptrRxBufRead, R15
+        ADD.W   R12, R15
+        CMP.W   &ptrRxBufOver, R15
+        JC      ??CC1101_Erase_Buffer_3
+        ADD.W   R12, &ptrRxBufRead
+        JMP     ??CC1101_Erase_Buffer_4
+??CC1101_Erase_Buffer_3:
+        MOV.W   #0x14, R15
+        SUB.W   R12, R15
+        SUB.W   R15, &ptrRxBufRead
+//  842 	//enable rf rx interrupt 
+//  843     RestoreRfInterrupt(Rex);
+??CC1101_Erase_Buffer_4:
+        BIS.B   #0x1, &0x2d
+//  844  }
+        RET
+          CFI EndBlock cfiBlock32
+        REQUIRE P2IE
+//  845 
+//  846 /* ============================================ *
+//  847  *           Get cc1101 rx data packet          *
+//  848  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  849  void CC1101_Get_Rx_Data(unsigned char *Dst,unsigned int length)
+CC1101_Get_Rx_Data:
+          CFI Block cfiBlock33 Using cfiCommon0
+          CFI Function CC1101_Get_Rx_Data
+//  850  {
+//  851     unsigned char  *pDst=Dst;
+//  852     unsigned int   i;
+//  853     for(i=0;i<length;i++)
+        MOV.W   #0x0, R15
+        JMP     ??CC1101_Get_Rx_Data_1
+//  854     {
+//  855         *pDst++ = *ptrRxBufRead++;
+??CC1101_Get_Rx_Data_0:
+        MOV.W   &ptrRxBufRead, R14
+        MOV.B   @R14, 0(R12)
+        ADD.W   #0x1, &ptrRxBufRead
+        ADD.W   #0x1, R12
+//  856         if(ptrRxBufRead == ptrRxBufOver)
+        CMP.W   &ptrRxBufOver, &ptrRxBufRead
+        JNE     ??CC1101_Get_Rx_Data_2
+//  857         {
+//  858            ptrRxBufRead=&RxBuf[0];
+        MOV.W   #RxBuf, &ptrRxBufRead
+//  859         }
+//  860     }
+??CC1101_Get_Rx_Data_2:
+        ADD.W   #0x1, R15
+??CC1101_Get_Rx_Data_1:
+        CMP.W   R13, R15
+        JNC     ??CC1101_Get_Rx_Data_0
+//  861  }
+        RET
+          CFI EndBlock cfiBlock33
+//  862  
+//  863 /* ============================================ *
+//  864  *        Get cc1101 current signal strong      *
+//  865  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  866  void CC1101_Get_Channel_RSSI(unsigned char *Rssi)
+CC1101_Get_Channel_RSSI:
+          CFI Block cfiBlock34 Using cfiCommon0
+          CFI Function CC1101_Get_Channel_RSSI
+//  867  {
+        FUNCALL CC1101_Get_Channel_RSSI, CC1101_Read_Status
+        LOCFRAME CSTACK, 4, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        MOV.W   R12, R10
+//  868     *Rssi = CC1101_Read_Status(cc1101_RSSI);
+        MOV.B   #0x34, R12
+        CALL    #CC1101_Read_Status
+        MOV.B   R12, 0(R10)
+//  869  }
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock34
+//  870  
+//  871 /* ============================================ *
+//  872  *         Get cc1101 current signal LQI        *
+//  873  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  874  void CC1101_Get_Channel_LQI(unsigned char *Lqi)
+CC1101_Get_Channel_LQI:
+          CFI Block cfiBlock35 Using cfiCommon0
+          CFI Function CC1101_Get_Channel_LQI
+//  875  {
+        FUNCALL CC1101_Get_Channel_LQI, CC1101_Read_Status
+        LOCFRAME CSTACK, 4, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        MOV.W   R12, R10
+//  876     *Lqi = CC1101_Read_Status(cc1101_LQI)&cc1101_CRC_OK;
+        MOV.B   #0x33, R12
+        CALL    #CC1101_Read_Status
+        AND.B   #0x80, R12
+        MOV.B   R12, 0(R10)
+//  877  }
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock35
+//  878 
+//  879 /* ============================================ *
+//  880  *          RF cc1101 frequency adjust          *
+//  881  * ============================================ */ 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  882  void CC1101_Frequency_Adjust(void)
+CC1101_Frequency_Adjust:
+          CFI Block cfiBlock36 Using cfiCommon0
+          CFI Function CC1101_Frequency_Adjust
+//  883  {
+//  884     //rf frequency scal 
+//  885     CC1101_Entry_XMode(Rf_Frq_Scal);
+        FUNCALL CC1101_Frequency_Adjust, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL CC1101_Frequency_Adjust, CC1101_Entry_XMode
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   #0x5, R12
+        CALL    #CC1101_Entry_XMode
+//  886     //rx mode after tx 
+//  887     CC1101_Entry_XMode(Rf_Rx_Mode);
+        MOV.B   #0x0, R12
+        BR      #CC1101_Entry_XMode
+          CFI EndBlock cfiBlock36
+//  888  }
+//  889  
+//  890 /* ============================================ *
+//  891  *               RF cc1101 Routine              *
+//  892  * ============================================ */
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  893  void CC1101_Routine_Check(void)
+CC1101_Routine_Check:
+          CFI Block cfiBlock37 Using cfiCommon0
+          CFI Function CC1101_Routine_Check
+//  894  {
+        FUNCALL CC1101_Routine_Check, spi_readwrite
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Routine_Check, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Routine_Check, CC1101_Strobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Routine_Check, CC1101_Frequency_Adjust
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL CC1101_Routine_Check
+        LOCFRAME CSTACK, 4, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+//  895     RoutineCounter += 1;
+        ADD.B   #0x1, &RoutineCounter
+//  896     if(RoutineCounter < CC1101_ROUTINE_CHECK_COUTER)
+        CMP.B   #0x4, &RoutineCounter
+        JC      ??CC1101_Routine_Check_1
+//  897     {
+//  898 //        unsigned char   Rex;
+//  899         unsigned char   status;
+//  900         //disable rf interrupt
+//  901         StoreAndDisRfInterrupt(Rex);
+        BIC.B   #0x1, &0x2d
+//  902         //enable cc1101
+//  903 	    Enable_CC1101;
+        BIC.B   #0x20, &0x21
+//  904         //wait for ....
+//  905 	    while(CC1101_Check_So);
+??CC1101_Routine_Check_0:
+        BIT.B   #0x2, &0x20
+        JC      ??CC1101_Routine_Check_0
+//  906         //get cc1101 status
+//  907         status = spi_readwrite(0xff);
+        MOV.B   #0xff, R12
+        CALL    #spi_readwrite
+        MOV.B   R12, R10
+//  908 	    //disable cc1101
+//  909 	    Disable_CC1101;
+        BIS.B   #0x20, &0x21
+//  910 
+//  911         //检查发送是否溢出
+//  912 	    if(CHECK_TXFIFO(status) == TX_OVERFLOW)
+        MOV.B   R10, R14
+        AND.B   #0x70, R14
+        CMP.B   #0x70, R14
+        JNE     ??CC1101_Routine_Check_2
+//  913 	    {
+//  914 	        //清洗发送缓冲区
+//  915 	        CC1101_Strobe(cc1101_SFTX);  
+        MOV.B   #0x3b, R12
+        CALL    #CC1101_Strobe
+//  916         }
+//  917 	    if((CHECK_RXFIFO(status) == RX_OVERFLOW))
+??CC1101_Routine_Check_2:
+        AND.B   #0x60, R10
+        CMP.B   #0x60, R10
+        JNE     ??CC1101_Routine_Check_3
+//  918   	    {
+//  919 	        //清空接收缓冲区
+//  920 	        CC1101_Strobe(cc1101_SFRX); 
+        MOV.B   #0x3a, R12
+        CALL    #CC1101_Strobe
+//  921    	    }
+//  922  
+//  923         //RF cc1101 frequency adjust
+//  924         CC1101_Frequency_Adjust();
+??CC1101_Routine_Check_3:
+        CALL    #CC1101_Frequency_Adjust
+//  925 
+//  926         //enable rf rx interrupt
+//  927         RestoreRfInterrupt(Rex);
+        BIS.B   #0x1, &0x2d
+        JMP     ??CC1101_Routine_Check_4
+//  928         
+//  929     }
+//  930     else
+//  931     {
+//  932         RoutineCounter = 0;
+??CC1101_Routine_Check_1:
+        MOV.B   #0x0, &RoutineCounter
+//  933 	    if(pRfResetCallBack != NULL)
+        CMP.W   #0x0, &pRfResetCallBack
+        JEQ     ??CC1101_Routine_Check_4
+//  934         {
+//  935            pRfResetCallBack();
+        CALL    &pRfResetCallBack
+//  936         }
+//  937     }    
+//  938  }
+??CC1101_Routine_Check_4:
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock37
+        REQUIRE P2IE
+        REQUIRE P1OUT
+        REQUIRE P1IN
+
+        RSEG DATA16_ID:CONST:SORT:NOROOT(0)
+`?<Initializer for dat>`:
+        DC8 177, 1
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r4:
+        REQUIRE ?setjmp_r4
+        REQUIRE ?longjmp_r4
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r5:
+        REQUIRE ?setjmp_r5
+        REQUIRE ?longjmp_r5
+
+        END
+// 
+// 2 138 bytes in segment CODE
+//     8 bytes in segment DATA16_AN
+//     2 bytes in segment DATA16_C
+//     2 bytes in segment DATA16_I
+//     2 bytes in segment DATA16_ID
+//    28 bytes in segment DATA16_Z
+// 
+// 2 138 bytes of CODE  memory
+//     4 bytes of CONST memory
+//    30 bytes of DATA  memory (+ 8 bytes shared)
+//
+//Errors: none
+//Warnings: none
