@@ -15,10 +15,10 @@
 #define SPI_CHIP_SEL 0
 
 /* Clock polarity. */
-#define SPI_CLK_POLARITY 0
+#define SPI_CLK_POLARITY 1
 
 /* Clock phase. */
-#define SPI_CLK_PHASE 1
+#define SPI_CLK_PHASE 0
 
 /* Delay before SPCK. */
 #define SPI_DLYBS 0x40
@@ -55,10 +55,10 @@ void configure_cc1101_int(void)
 	/* Initialize pios interrupt handlers, see PIO definition in board.h. */
 	pio_handler_set(CC1101_INT_PIO, CC1101_INT_ID, CC1101_INT_PIN_MSK,
 					CC1101_INT_ATTR, button_handler);
-
+	
 	/* Enable PIO controller IRQs. */
 	NVIC_EnableIRQ((IRQn_Type)CC1101_INT_ID);
-
+	
 	/* Enable PIO line interrupts. */
 	pio_enable_interrupt(CC1101_INT_PIO, CC1101_INT_PIN_MSK);
 }
@@ -138,15 +138,7 @@ void Disable_CC1101(void)
 
 uint8_t CC1101_Check_So(void)
 {
-	//spi_disable(SPI_MASTER_BASE);
-	//spi_disable_clock(SPI_MASTER_BASE);
-	//gpio_configure_pin(SPI0_MISO_GPIO, (PIO_INPUT | PIO_DEFAULT));
-	//
 	while(gpio_pin_is_high(SPI0_MISO_GPIO));
-	//
-	//gpio_configure_pin(SPI0_MISO_GPIO, (PIO_PERIPH_A | PIO_DEFAULT));
-	//spi_enable_clock(SPI_MASTER_BASE);
-	//spi_enable(SPI_MASTER_BASE);
 	
 	return 0;
 }
@@ -179,7 +171,7 @@ portTASK_FUNCTION(vAppSpiTask, pvParameters)
 {
 	(void)pvParameters;
 	
-	configure_cc1101_int();
+//	configure_cc1101_int();
 	
 	CC1101_Initialization();
 	
