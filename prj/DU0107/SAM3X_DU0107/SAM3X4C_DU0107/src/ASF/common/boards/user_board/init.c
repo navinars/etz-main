@@ -37,5 +37,5 @@ void board_init(void)
 	gpio_configure_pin(SPI0_MOSI_GPIO, (PIO_PERIPH_A | PIO_DEFAULT));
 	gpio_configure_pin(SPI0_SPCK_GPIO, (PIO_PERIPH_A | PIO_DEFAULT));
 	
-	gpio_configure_pin(SPI0_NPCS0_GPIO, (PIO_PERIPH_A | PIO_DEFAULT));
+	gpio_configure_pin(SPI0_NPCS0_GPIO, (PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT));
 }

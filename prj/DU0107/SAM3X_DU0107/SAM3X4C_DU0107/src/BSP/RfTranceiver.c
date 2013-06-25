@@ -18,23 +18,23 @@
 #include "RfTranceiver.h"
 #include "stdio.h"
  
- // From module: FreeRTOS mini Real-Time Kernel
- #include <FreeRTOS.h>
- #include "task.h"
- #include "status_codes.h"
+// From module: FreeRTOS mini Real-Time Kernel
+#include <FreeRTOS.h>
+#include "task.h"
+#include "status_codes.h"
  
- #define StoreAndDisRfInterrupt(x)
- #define RestoreRfInterrupt(x)
- #define APIReadArrayBytes(x)
- #define Disable_Interrupt
+#define StoreAndDisRfInterrupt(x)
+#define RestoreRfInterrupt(x)
+#define APIReadArrayBytes(x)
+#define Disable_Interrupt
  
- //routine check counter 
- static unsigned char          RoutineCounter = 0;
- //cc1101 reset call back function  
- static RfResetCallBack        pRfResetCallBack = NULL;
+//routine check counter 
+static unsigned char          RoutineCounter = 0;
+//cc1101 reset call back function  
+static RfResetCallBack        pRfResetCallBack = NULL;
  
- unsigned char dat[2] = {0xB1, 0x01};
- unsigned char sys_send = 0;
+unsigned char dat[2] = {0xB1, 0x01};
+unsigned char sys_send = 0;
 
 /* ============================================ *
  *    register cc1101 reset callback function   *
@@ -626,11 +626,11 @@ void CC1101_Interrupt_Config(unsigned char priority)
     CC1101_Config_Gpio2(IOCFG2);
     CC1101_Config_Gpio0(IOCFG0);
 	//check CC1101 initial whether success.....
-	if(CC1101_Read_Reg(cc1101_IOCFG0) != IOCFG0)
+	if(CC1101_Read_Reg(cc1101_IOCFG0) != IOCFG0)					// 读取MISO为低电平，Debug可能不会通过
 	{
 	    for(;;)
 		{
-			CC1101_Config_Gpio0(IOCFG0);
+//			CC1101_Config_Gpio0(IOCFG0);
 		    vTaskDelay(2);
 		}
 	}
@@ -639,7 +639,7 @@ void CC1101_Interrupt_Config(unsigned char priority)
 	CC1101_Setting_Channel(RF_Frequency_Channel10);
 	CC1101_CarrierSense_Threshold(RF_Threshold_72dbm);
 	CC1101_Setting_Address(0x01);
-	CC1101_Setting_FreSection(RF_ISM_915MHz);
+	CC1101_Setting_FreSection(RF_ISM_868MHz);
 //	CC1101_Entry_XMode(Rf_Rx_Mode);
 	
 	
