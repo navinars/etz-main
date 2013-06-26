@@ -5,21 +5,6 @@
  *
  */
 
-/**
- * \mainpage User Application template doxygen documentation
- *
- * \par Empty user application template
- *
- * Bare minimum empty user application template
- *
- * \par Content
- *
- * -# Include the ASF header files (through asf.h)
- * -# Minimal main function that starts with a call to board_init()
- * -# "Insert application code here" comment
- *
- */
-
 /*
  * Include header files for all drivers that have been imported from
  * Atmel Software Framework (ASF).
@@ -37,7 +22,8 @@
 #include "ethernet.h"
 #include "netif/etharp.h"
 #include <compiler.h>
-#include "cc1101_spi.h"
+#include "cc1101_port.h"
+#include "radio_handle.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 

@@ -560,19 +560,25 @@
     <Compile Include="src\ASF\sam\drivers\spi\spi.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\BSP\cc1101_spi.c">
+    <Compile Include="src\BSP\cc1101_defs.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\BSP\cc1101_spi.h">
+    <Compile Include="src\BSP\cc1101_port.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\BSP\Rfcc1101.h">
+    <Compile Include="src\BSP\cc1101_port.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\BSP\RfTranceiver.c">
+    <Compile Include="src\BSP\cc1101_radio.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\BSP\RfTranceiver.h">
+    <Compile Include="src\BSP\cc1101_radio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BSP\radio_handle.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BSP\radio_handle.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ethernet.c">
