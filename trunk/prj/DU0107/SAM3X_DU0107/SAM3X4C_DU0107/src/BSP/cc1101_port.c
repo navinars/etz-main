@@ -66,7 +66,7 @@ void configure_cc1101_int(void)
 /**
  * \brief Initialize SPI as master.
  */
-static void spi_master_initialize(void)
+static void radioSpiInit(void)
 {
 	puts("-I- Initialize SPI as master\r");
 
@@ -98,7 +98,7 @@ void spi_set_clock_configuration(uint8_t configuration)
 {
 	gs_ul_spi_clock = gs_ul_clock_configurations[configuration];
 	printf("Setting SPI clock #%lu ... \n\r", (unsigned long)gs_ul_spi_clock);
-	spi_master_initialize();
+	radioSpiInit();
 }
 
 /**
@@ -126,12 +126,55 @@ static void spi_master_transfer(void *p_buf, uint32_t size)
 	}
 }
 
-void Enable_CC1101(void)
+/*-------------------------------------------------------------------------------------------------
+ * @fn          Mrfi_DelayUsec
+ *
+ * @brief       delay us.
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
+void Mrfi_DelayUsec(uint16_t howlong)
+{
+	uint16_t i;
+	
+	while(howlong --)
+	{
+		for(i = 0;i < 10000;i++)
+		{
+			asm("NOP");
+		}
+	}
+}
+
+/*-------------------------------------------------------------------------------------------------
+ * @fn          MRFI_SPI_CSN_IS_LOW
+ *
+ * @brief       Low
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
+void MRFI_SPI_DRIVE_CSN_LOW(void)
 {
 	gpio_set_pin_low(SPI0_NPCS0_GPIO);
 }
 
-void Disable_CC1101(void)
+/*-------------------------------------------------------------------------------------------------
+ * @fn          MRFI_SPI_CSN_IS_HIGH
+ *
+ * @brief       HIGH
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
+void MRFI_SPI_DRIVE_CSN_HIGH(void)
 {
 	gpio_set_pin_high(SPI0_NPCS0_GPIO);
 }
@@ -165,26 +208,4 @@ uint8_t APIReadByte(void)
 uint8_t Check_Rf_Level(void)
 {
 	return gpio_pin_is_high(SPI0_MISO_GPIO);
-}
-
-portTASK_FUNCTION(vAppSpiTask, pvParameters)
-{
-	(void)pvParameters;
-	
-//	configure_cc1101_int();
-	
-	CC1101_Initialization();
-	
-	for(;;)
-	{
-		vTaskDelay(1000);
-	}
-}
-
-void vStartSpiTaskLauncher( unsigned portBASE_TYPE uxPriority )
-{
-	/* Spawn the Sentinel task. */
-	xTaskCreate( vAppSpiTask, (const signed portCHAR *)"SPILAUNCH",
-				configMINIMAL_STACK_SIZE, NULL, uxPriority,
-				(xTaskHandle *)NULL );
 }
