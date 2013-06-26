@@ -4,7 +4,7 @@
 #include "conf_board.h"
 #include "conf_clock.h"
 #include "conf_spi.h"
-#include "RfTranceiver.h"
+#include "cc1101_port.h"
 
 // From module: FreeRTOS mini Real-Time Kernel
 #include <FreeRTOS.h>
@@ -30,11 +30,16 @@
 static const uint32_t gs_ul_clock_configurations[] =
 { 500000, 1000000, 2000000, 5000000 };
 
-
-void button_handler(uint32_t id, uint32_t mask)
+/**
+ *  \brief GPIO0 handle function.
+ *
+ *  Configure the PIOs as inputs and generate corresponding interrupt when
+ *  pressed or released.
+ */
+static void button_handler(uint32_t id, uint32_t mask)
 {
 	if ((CC1101_INT_ID == id) && (CC1101_INT_PIN_MSK == mask)) {
-		CC1101_Receive_Packet();
+//		CC1101_Receive_Packet();
 	}
 }
 
@@ -44,7 +49,7 @@ void button_handler(uint32_t id, uint32_t mask)
  *  Configure the PIOs as inputs and generate corresponding interrupt when
  *  pressed or released.
  */
-void configure_cc1101_int(void)
+void BSP_ENABLE_INTERRUPTS(void)
 {
 	/* Configure PIO clock. */
 	//pmc_enable_periph_clk(CC1101_INT_ID);
@@ -179,23 +184,62 @@ void MRFI_SPI_DRIVE_CSN_HIGH(void)
 	gpio_set_pin_high(SPI0_NPCS0_GPIO);
 }
 
-uint8_t CC1101_Check_So(void)
+/*-------------------------------------------------------------------------------------------------
+ * @fn          MRFI_SPI_SO_IS_HIGH
+ *
+ * @brief       HIGH
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
+uint8_t MRFI_SPI_SO_IS_HIGH(void)
 {
-	while(gpio_pin_is_high(SPI0_MISO_GPIO));
-	
-	return 0;
+	return gpio_pin_is_high(SPI0_MISO_GPIO);
 }
 
-void APIWriteByte(uint8_t data)
+/*-------------------------------------------------------------------------------------------------
+ * @fn          MRFI_SPI_WRITE_BYTE
+ *
+ * @brief       data
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
+uint8_t mrfiSpiWriteByte(uint8_t data)
 {
 	spi_master_transfer(&data, 1);
+	return data;
 }
 
+/*-------------------------------------------------------------------------------------------------
+ * @fn          APIWriteArrayBytes
+ *
+ * @brief       data
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
 void APIWriteArrayBytes(uint8_t *buf, uint8_t cnt)
 {
 	spi_master_transfer(buf, cnt);
 }
 
+/*-------------------------------------------------------------------------------------------------
+ * @fn          APIReadByte
+ *
+ * @brief       data
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
 uint8_t APIReadByte(void)
 {
 	uint8_t tmp;
@@ -205,6 +249,16 @@ uint8_t APIReadByte(void)
 	return tmp;
 }
 
+/*-------------------------------------------------------------------------------------------------
+ * @fn          Check_Rf_Level
+ *
+ * @brief       data
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
 uint8_t Check_Rf_Level(void)
 {
 	return gpio_pin_is_high(SPI0_MISO_GPIO);
