@@ -16,16 +16,16 @@
  */
 void spi_set_clock_configuration(uint8_t configuration);
 
-void MRFI_SPI_DRIVE_CSN_LOW(void);
+void SPI_DRIVE_CSN_LOW(void);
 
-void MRFI_SPI_DRIVE_CSN_HIGH(void);
+void SPI_DRIVE_CSN_HIGH(void);
 
 void Mrfi_DelayUsec(uint16_t howlong);
 
-uint8_t MRFI_SPI_SO_IS_HIGH(void);
-uint8_t mrfiSpiWriteByte(uint8_t data);
-void APIWriteArrayBytes(uint8_t *buf, uint8_t cnt);
+uint8_t SPI_SO_IS_HIGH(void);
+uint8_t SpiWriteByte(uint8_t data);
+void SPIWriteArrayBytes(uint8_t *buf, uint8_t cnt);
 uint8_t APIReadByte(void);
-uint8_t Check_Rf_Level(void);
-void BSP_ENABLE_INTERRUPTS(void);
+uint8_t Spi_CheckGpio0(void);
+void Mifi_ConfigInt(void);
 #endif

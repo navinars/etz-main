@@ -15,10 +15,10 @@
 #define SPI_CHIP_SEL 0
 
 /* Clock polarity. */
-#define SPI_CLK_POLARITY 1
+#define SPI_CLK_POLARITY 0
 
 /* Clock phase. */
-#define SPI_CLK_PHASE 0
+#define SPI_CLK_PHASE 1
 
 /* Delay before SPCK. */
 #define SPI_DLYBS 0x40
@@ -38,8 +38,9 @@ static const uint32_t gs_ul_clock_configurations[] =
  */
 static void button_handler(uint32_t id, uint32_t mask)
 {
-	if ((CC1101_INT_ID == id) && (CC1101_INT_PIN_MSK == mask)) {
+	if ((CC1101_INT_ID == id) && (CC1101_GPIO0 == mask)) {
 //		CC1101_Receive_Packet();
+		NVIC_EnableIRQ((IRQn_Type)CC1101_INT_ID);
 	}
 }
 
@@ -49,7 +50,7 @@ static void button_handler(uint32_t id, uint32_t mask)
  *  Configure the PIOs as inputs and generate corresponding interrupt when
  *  pressed or released.
  */
-void BSP_ENABLE_INTERRUPTS(void)
+void Mifi_ConfigInt(void)
 {
 	/* Configure PIO clock. */
 	//pmc_enable_periph_clk(CC1101_INT_ID);
@@ -58,14 +59,14 @@ void BSP_ENABLE_INTERRUPTS(void)
 	//pio_set_debounce_filter(CC1101_INT_PIO, CC1101_INT_PIN_MSK, 10);
 
 	/* Initialize pios interrupt handlers, see PIO definition in board.h. */
-	pio_handler_set(CC1101_INT_PIO, CC1101_INT_ID, CC1101_INT_PIN_MSK,
+	pio_handler_set(CC1101_GPIO0_PIO, CC1101_INT_ID, CC1101_GPIO0,
 					CC1101_INT_ATTR, button_handler);
 	
 	/* Enable PIO controller IRQs. */
 	NVIC_EnableIRQ((IRQn_Type)CC1101_INT_ID);
 	
 	/* Enable PIO line interrupts. */
-	pio_enable_interrupt(CC1101_INT_PIO, CC1101_INT_PIN_MSK);
+	pio_enable_interrupt(CC1101_GPIO0_PIO, CC1101_GPIO0);
 }
 
 /**
@@ -85,8 +86,7 @@ static void radioSpiInit(void)
 	spi_set_peripheral_chip_select_value(SPI_MASTER_BASE, SPI_CHIP_SEL);
 	spi_set_clock_polarity(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CLK_POLARITY);
 	spi_set_clock_phase(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CLK_PHASE);
-	spi_set_bits_per_transfer(SPI_MASTER_BASE, SPI_CHIP_SEL,
-								SPI_CSR_BITS_8_BIT);
+	spi_set_bits_per_transfer(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CSR_BITS_8_BIT);
 	spi_set_baudrate_div(SPI_MASTER_BASE, SPI_CHIP_SEL,
 						(sysclk_get_cpu_hz() / gs_ul_spi_clock));
 	spi_set_transfer_delay(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_DLYBS,
@@ -164,7 +164,7 @@ void Mrfi_DelayUsec(uint16_t howlong)
  * @return      none
  *
  */
-void MRFI_SPI_DRIVE_CSN_LOW(void)
+void SPI_DRIVE_CSN_LOW(void)
 {
 	gpio_set_pin_low(SPI0_NPCS0_GPIO);
 }
@@ -179,7 +179,7 @@ void MRFI_SPI_DRIVE_CSN_LOW(void)
  * @return      none
  *
  */
-void MRFI_SPI_DRIVE_CSN_HIGH(void)
+void SPI_DRIVE_CSN_HIGH(void)
 {
 	gpio_set_pin_high(SPI0_NPCS0_GPIO);
 }
@@ -194,7 +194,7 @@ void MRFI_SPI_DRIVE_CSN_HIGH(void)
  * @return      none
  *
  */
-uint8_t MRFI_SPI_SO_IS_HIGH(void)
+uint8_t SPI_SO_IS_HIGH(void)
 {
 	return gpio_pin_is_high(SPI0_MISO_GPIO);
 }
@@ -209,7 +209,7 @@ uint8_t MRFI_SPI_SO_IS_HIGH(void)
  * @return      none
  *
  */
-uint8_t mrfiSpiWriteByte(uint8_t data)
+uint8_t SpiWriteByte(uint8_t data)
 {
 	spi_master_transfer(&data, 1);
 	return data;
@@ -225,7 +225,7 @@ uint8_t mrfiSpiWriteByte(uint8_t data)
  * @return      none
  *
  */
-void APIWriteArrayBytes(uint8_t *buf, uint8_t cnt)
+void SPIWriteArrayBytes(uint8_t *buf, uint8_t cnt)
 {
 	spi_master_transfer(buf, cnt);
 }
@@ -259,7 +259,7 @@ uint8_t APIReadByte(void)
  * @return      none
  *
  */
-uint8_t Check_Rf_Level(void)
+uint8_t Spi_CheckGpio0(void)
 {
-	return gpio_pin_is_high(SPI0_MISO_GPIO);
+	return gpio_pin_is_high(CC1101_GPIO0_GPIO);
 }

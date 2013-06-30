@@ -77,10 +77,12 @@
 #define SPI0_NPCS0_FLAGS           (PIO_PERIPH_A | PIO_DEFAULT)
 
 /** Push button pin definition. */
-#define CC1101_INT_PIO          PIOA
+#define CC1101_GPIO0_PIO          PIOA
 #define CC1101_INT_ID           ID_PIOA
-#define CC1101_INT_PIN_MSK      (1 << 23)
+#define CC1101_GPIO0			(1 << 23)
 #define CC1101_INT_ATTR         (PIO_PULLUP | PIO_DEBOUNCE | PIO_IT_RISE_EDGE)
+#define CC1101_GPIO0_GPIO		(PIO_PA23_IDX)
+#define CC1101_GPIO0_FLAGS      (PIO_INPUT | PIO_PULLUP)
 
 /** Enable Com Port. */
 #define CONF_BOARD_UART_CONSOLE

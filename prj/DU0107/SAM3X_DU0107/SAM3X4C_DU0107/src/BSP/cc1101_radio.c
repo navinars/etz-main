@@ -25,42 +25,6 @@
 #define READ_BIT                    0x80
 #define BURST_BIT                   0x40
 
-/* GDO functionality */
-#define MRFI_GDO_SYNC           6
-#define MRFI_GDO_CCA            9
-#define MRFI_GDO_PA_PD          27  /* low when transmit is active, low during sleep */
-#define MRFI_GDO_LNA_PD         28  /* low when receive is active, low during sleep */
-
-/* GDO0 output pin configuration */
-#define MRFI_SETTING_IOCFG0     MRFI_GDO_SYNC
-
-/* Main Radio Control State Machine control configuration:
- * - Remain RX state after RX
- * - Go to IDLE after TX
- * - RSSI below threshold and NOT receiving.
- */
-#define MRFI_SETTING_MCSM1      0x3C
-
-/* Main Radio Control State Machine control configuration:
- * Auto Calibrate - when going from IDLE to RX/TX
- * PO_TIMEOUT is extracted from SmartRF setting.
- * XOSC is OFF in Sleep state.
- */
-#define MRFI_SETTING_MCSM0      (0x10 | (SMARTRF_SETTING_MCSM0 & ((1 <<2)|(1<<3))))
-
-/*
- *  Packet Length - Setting for maximum allowed packet length.
- *  The PKTLEN setting does not include the length field but maximum frame size does.
- *  Subtract length field size from maximum frame size to get value for PKTLEN.
- */
-#define MRFI_SETTING_PKTLEN     0xff	//(MRFI_MAX_FRAME_SIZE - MRFI_LENGTH_FIELD_SIZE)
-
-/* Packet automation control - Original value except WHITE_DATA is extracted from SmartRF setting. */
-#define MRFI_SETTING_PKTCTRL0   (0x05 | (SMARTRF_SETTING_PKTCTRL0 & (1 << 6)))
-
-/* FIFO threshold - this register has fields that need to be configured for the CC1101 */
-#define MRFI_SETTING_FIFOTHR    (0x07 | (SMARTRF_SETTING_FIFOTHR & ((1<<4)|(1<<5)|(1<<6))))
-
 /* ------------------------------------------------------------------------------------------------
  *                                           Macros
  * ------------------------------------------------------------------------------------------------
@@ -71,50 +35,15 @@
  *                                    Local Constants
  * ------------------------------------------------------------------------------------------------
  */
-static const uint8_t mrfiRadioCfg[][2] =
-{
-  /* internal radio configuration */
-  {  IOCFG0,    MRFI_SETTING_IOCFG0       },
-  {  MCSM1,     MRFI_SETTING_MCSM1        }, /* CCA mode, RX_OFF_MODE and TX_OFF_MODE */
-  {  MCSM0,     MRFI_SETTING_MCSM0        }, /* AUTO_CAL and XOSC state in sleep */
-  {  PKTLEN,    MRFI_SETTING_PKTLEN       },
-  {  PKTCTRL0,  MRFI_SETTING_PKTCTRL0     },
-#ifdef MRFI_CC1101
-  {  FIFOTHR,   MRFI_SETTING_FIFOTHR      },
-#endif
-
-  /* imported SmartRF radio configuration */
-  {  FSCTRL1,   SMARTRF_SETTING_FSCTRL1   },
-  {  FSCTRL0,   SMARTRF_SETTING_FSCTRL0   },
-  {  FREQ2,     SMARTRF_SETTING_FREQ2     },
-  {  FREQ1,     SMARTRF_SETTING_FREQ1     },
-  {  FREQ0,     SMARTRF_SETTING_FREQ0     },
-  {  MDMCFG4,   SMARTRF_SETTING_MDMCFG4   },
-  {  MDMCFG3,   SMARTRF_SETTING_MDMCFG3   },
-  {  MDMCFG2,   SMARTRF_SETTING_MDMCFG2   },
-  {  MDMCFG1,   SMARTRF_SETTING_MDMCFG1   },
-  {  MDMCFG0,   SMARTRF_SETTING_MDMCFG0   },
-  {  DEVIATN,   SMARTRF_SETTING_DEVIATN   },
-  {  FOCCFG,    SMARTRF_SETTING_FOCCFG    },
-  {  BSCFG,     SMARTRF_SETTING_BSCFG     },
-  {  AGCCTRL2,  SMARTRF_SETTING_AGCCTRL2  },
-  {  AGCCTRL1,  SMARTRF_SETTING_AGCCTRL1  },
-  {  AGCCTRL0,  SMARTRF_SETTING_AGCCTRL0  },
-  {  FREND1,    SMARTRF_SETTING_FREND1    },
-  {  FREND0,    SMARTRF_SETTING_FREND0    },
-  {  FSCAL3,    SMARTRF_SETTING_FSCAL3    },
-  {  FSCAL2,    SMARTRF_SETTING_FSCAL2    },
-  {  FSCAL1,    SMARTRF_SETTING_FSCAL1    },
-  {  FSCAL0,    SMARTRF_SETTING_FSCAL0    },
-  {  TEST2,     SMARTRF_SETTING_TEST2     },
-  {  TEST1,     SMARTRF_SETTING_TEST1     },
-  {  TEST0,     SMARTRF_SETTING_TEST0     },
-};
 
 /* ------------------------------------------------------------------------------------------------
  *                                       Local Prototypes
  * ------------------------------------------------------------------------------------------------
  */
+uint8_t Mrfi_SpiReadReg(uint8_t addr);
+void Mrfi_SpiWriteReg(uint8_t addr, uint8_t value);
+uint8_t Mrfi_SpiReadRxFifo(uint8_t * pData, uint8_t len);
+
 
 /* ------------------------------------------------------------------------------------------------
  *                                       Local Variables
@@ -123,6 +52,73 @@ static const uint8_t mrfiRadioCfg[][2] =
 static uint8_t mrfiRadioState = MRFI_RADIO_STATE_UNKNOWN;
 
 
+// Product = CC1100
+// Crystal accuracy = 40 ppm
+// X-tal frequency = 26 MHz
+// RF output power = 0 dBm
+// RX filterbandwidth = 540.000000 kHz
+// Deviation = 0.000000
+// Return state:  Return to RX state upon leaving either TX or RX
+// Datarate = 250.000000 kbps
+// Modulation = (7) MSK
+// Manchester enable = (0) Manchester disabled
+// RF Frequency = 868.000000 MHz
+// Channel spacing = 199.951172 kHz
+// Channel number = 0
+// Optimization = Sensitivity
+// Sync mode = (3) 30/32 sync word bits detected
+// Format of RX/TX data = (0) Normal mode, use FIFOs for RX and TX
+// CRC operation = (1) CRC calculation in TX and CRC check in RX enabled
+// Forward Error Correction = (0) FEC disabled
+// Length configuration = (1) Variable length packets, packet length configured by the first received byte after sync word.
+// Packetlength = 255
+// Preamble count = (2)  4 bytes
+// Append status = 1
+// Address check = (0) No address check
+// FIFO autoflush = 0
+// Device address = 0
+// GDO0 signal selection = ( 6) Asserts when sync word has been sent / received, and de-asserts at the end of the packet
+// GDO2 signal selection = (11) Serial Clock
+
+void writeRFSettings(void)
+{
+	// Write register settings
+	Mrfi_SpiWriteReg(TI_CCxxx0_IOCFG2,   0x0B); // GDO2 output pin config.
+	Mrfi_SpiWriteReg(TI_CCxxx0_IOCFG0,   0x06); // GDO0 output pin config.
+	Mrfi_SpiWriteReg(TI_CCxxx0_PKTLEN,   0xFF); // Packet length.
+	Mrfi_SpiWriteReg(TI_CCxxx0_PKTCTRL1, 0x05); // Packet automation control.
+	Mrfi_SpiWriteReg(TI_CCxxx0_PKTCTRL0, 0x05); // Packet automation control.
+	Mrfi_SpiWriteReg(TI_CCxxx0_ADDR,     0x01); // Device address.
+	Mrfi_SpiWriteReg(TI_CCxxx0_CHANNR,   0x00); // Channel number.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FSCTRL1,  0x0B); // Freq synthesizer control.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FSCTRL0,  0x00); // Freq synthesizer control.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FREQ2,    0x21); // Freq control word, high byte
+	Mrfi_SpiWriteReg(TI_CCxxx0_FREQ1,    0x62); // Freq control word, mid byte.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FREQ0,    0x76); // Freq control word, low byte.
+	Mrfi_SpiWriteReg(TI_CCxxx0_MDMCFG4,  0x2D); // Modem configuration.
+	Mrfi_SpiWriteReg(TI_CCxxx0_MDMCFG3,  0x3B); // Modem configuration.
+	Mrfi_SpiWriteReg(TI_CCxxx0_MDMCFG2,  0x73); // Modem configuration.
+	Mrfi_SpiWriteReg(TI_CCxxx0_MDMCFG1,  0x22); // Modem configuration.
+	Mrfi_SpiWriteReg(TI_CCxxx0_MDMCFG0,  0xF8); // Modem configuration.
+	Mrfi_SpiWriteReg(TI_CCxxx0_DEVIATN,  0x00); // Modem dev (when FSK mod en)
+	Mrfi_SpiWriteReg(TI_CCxxx0_MCSM1 ,   0x3F); //MainRadio Cntrl State Machine
+	Mrfi_SpiWriteReg(TI_CCxxx0_MCSM0 ,   0x18); //MainRadio Cntrl State Machine
+	Mrfi_SpiWriteReg(TI_CCxxx0_FOCCFG,   0x1D); // Freq Offset Compens. Config
+	Mrfi_SpiWriteReg(TI_CCxxx0_BSCFG,    0x1C); //  Bit synchronization config.
+	Mrfi_SpiWriteReg(TI_CCxxx0_AGCCTRL2, 0xC7); // AGC control.
+	Mrfi_SpiWriteReg(TI_CCxxx0_AGCCTRL1, 0x00); // AGC control.
+	Mrfi_SpiWriteReg(TI_CCxxx0_AGCCTRL0, 0xB2); // AGC control.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FREND1,   0xB6); // Front end RX configuration.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FREND0,   0x10); // Front end RX configuration.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FSCAL3,   0xEA); // Frequency synthesizer cal.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FSCAL2,   0x0A); // Frequency synthesizer cal.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FSCAL1,   0x00); // Frequency synthesizer cal.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FSCAL0,   0x11); // Frequency synthesizer cal.
+	Mrfi_SpiWriteReg(TI_CCxxx0_FSTEST,   0x59); // Frequency synthesizer cal.
+	Mrfi_SpiWriteReg(TI_CCxxx0_TEST2,    0x88); // Various test settings.
+	Mrfi_SpiWriteReg(TI_CCxxx0_TEST1,    0x31); // Various test settings.
+	Mrfi_SpiWriteReg(TI_CCxxx0_TEST0,    0x0B); // Various test settings.
+}
 /*-------------------------------------------------------------------------------------------------
  * @fn          spiRegAccess
  *
@@ -140,19 +136,19 @@ static uint8_t spiRegAccess(uint8_t addrByte, uint8_t writeValue)
 	/* disable interrupts that use SPI */
 //	MRFI_SPI_ENTER_CRITICAL_SECTION(s);
 	
-	MRFI_SPI_DRIVE_CSN_LOW();
+	SPI_DRIVE_CSN_LOW();
 	
 	/* send register address byte, the read/write bit is already configured */
-	mrfiSpiWriteByte(addrByte);
+	SpiWriteByte(addrByte);
 	
 	/*
 	*  Send the byte value to write.  If this operation is a read, this value
 	*  is not used and is just dummy data.  Wait for SPI access to complete.
 	*/
-	readValue = mrfiSpiWriteByte(writeValue);
+	readValue = SpiWriteByte(writeValue);
 	
 	/* turn off chip select; enable interrupts that call SPI functions */
-	MRFI_SPI_DRIVE_CSN_HIGH();
+	SPI_DRIVE_CSN_HIGH();
 //	MRFI_SPI_EXIT_CRITICAL_SECTION(s);
 	
 	/* return the register value */
@@ -169,7 +165,7 @@ static uint8_t spiRegAccess(uint8_t addrByte, uint8_t writeValue)
  * @return      none
  *
  */
-static uint8_t mrfiSpiReadReg(uint8_t addr)
+uint8_t Mrfi_SpiReadReg(uint8_t addr)
 {
 	/*
 	*  The burst bit is set to allow access to read-only status registers.
@@ -188,24 +184,20 @@ static uint8_t mrfiSpiReadReg(uint8_t addr)
  * @return      none
  *
  */
-static void mrfiSpiWriteReg(uint8_t addr, uint8_t value)
+void Mrfi_SpiWriteReg(uint8_t addr, uint8_t value)
 {
 	spiRegAccess(addr, value);
 }
 
-
-/**************************************************************************************************
- * @fn          mrfiSpiCmdStrobe
- *
- * @brief       Send command strobe to the radio.  Returns status byte read during transfer
- *              of strobe command.
- *
- * @param       addr - address of register to strobe
- *
- * @return      status byte of radio
- **************************************************************************************************
+/*-------------------------------------------------------------------------------------------------
+ * \brief 
+ * 
+ * \param pPacket
+ * \param txType
+ * 
+ * \return uint8_t
  */
-uint8_t mrfiSpiCmdStrobe(uint8_t addr)
+static uint8_t Mrfi_SpiCmdStrobe(uint8_t cmd)
 {
 	uint8_t statusByte;
 
@@ -213,32 +205,112 @@ uint8_t mrfiSpiCmdStrobe(uint8_t addr)
 //	MRFI_SPI_ENTER_CRITICAL_SECTION(s);
 
 	/* turn chip select "off" and then "on" to clear any current SPI access */
-	MRFI_SPI_DRIVE_CSN_LOW();
+	SPI_DRIVE_CSN_LOW();
 
 	/* send the command strobe, wait for SPI access to complete */
-	statusByte = mrfiSpiWriteByte(addr);
+	statusByte = SpiWriteByte(cmd);
 
 	/* read the readio status byte returned by the command strobe */
 	
 
 	/* turn off chip select; enable interrupts that call SPI functions */
-	MRFI_SPI_DRIVE_CSN_HIGH();
+	SPI_DRIVE_CSN_HIGH();
 //	MRFI_SPI_EXIT_CRITICAL_SECTION(s);
 
 	/* return the status byte */
 	return(statusByte);
 }
 
-/**************************************************************************************************
- * @fn          MRFI_RxOn
- *
- * @brief       Turn on the receiver.  No harm is done if this function is called when
- *              receiver is already on.
- *
- * @param       none
- *
- * @return      none
- **************************************************************************************************
+/*-------------------------------------------------------------------------------------------------
+ * \brief 
+ * 
+ * \param pPacket
+ * \param txType
+ * 
+ * \return uint8_t
+ */
+static uint8_t spiBurstFifoAccess(uint8_t addrByte, uint8_t * pData, uint8_t len)
+{
+	/* disable interrupts that use SPI */
+//	MRFI_SPI_ENTER_CRITICAL_SECTION(s);
+
+	/* turn chip select "off" and then "on" to clear any current SPI access */
+	SPI_DRIVE_CSN_HIGH();
+	SPI_DRIVE_CSN_LOW();
+
+	/* send FIFO access command byte, wait for SPI access to complete */
+	SpiWriteByte(addrByte);
+	SPIWriteArrayBytes(pData, len);
+	
+	/* turn off chip select; enable interrupts that call SPI functions */
+	SPI_DRIVE_CSN_HIGH();
+//	MRFI_SPI_EXIT_CRITICAL_SECTION(s);
+	
+	return 1;
+}
+
+/*-------------------------------------------------------------------------------------------------
+ * \brief 
+ * 
+ * \param pPacket
+ * \param txType
+ * 
+ * \return uint8_t
+ */
+uint8_t Mrfi_SpiWriteTxFifo(uint8_t * pData, uint8_t len)
+{
+  return spiBurstFifoAccess(TXFIFO | BURST_BIT, pData, len);
+}
+
+/*-------------------------------------------------------------------------------------------------
+ * \brief 
+ * 
+ * \param pPacket
+ * \param txType
+ * 
+ * \return uint8_t
+ */
+uint8_t Mrfi_SpiReadRxFifo(uint8_t * pData, uint8_t len)
+{
+  return spiBurstFifoAccess(RXFIFO | BURST_BIT | READ_BIT, pData, len);
+}
+
+/*-------------------------------------------------------------------------------------------------
+ * \brief 
+ * 
+ * \param pPacket
+ * \param txType
+ * 
+ * \return uint8_t
+ */
+uint8_t Radio_Transmit(uint8_t * pPacket, uint8_t len)
+{
+	Mrfi_SpiWriteReg(TXFIFO, len);
+	//
+	//len = Mrfi_SpiReadReg(TXFIFO);
+	//if(len == 4)
+		//len =0;
+	Mrfi_SpiWriteTxFifo(pPacket, len);
+	
+	Mrfi_SpiCmdStrobe(SIDLE);
+	Mrfi_SpiCmdStrobe(STX);
+	while(!Spi_CheckGpio0());
+	while(Spi_CheckGpio0());
+	Mrfi_SpiCmdStrobe(SIDLE);
+	Mrfi_SpiCmdStrobe(SFTX);
+	Mrfi_SpiCmdStrobe(SIDLE);
+	Mrfi_SpiCmdStrobe(SRX);
+	
+	return 1;
+}
+
+/*-------------------------------------------------------------------------------------------------
+ * \brief 
+ * 
+ * \param pPacket
+ * \param txType
+ * 
+ * \return uint8_t
  */
 void Mrfi_RxModeOn(void)
 {
@@ -246,22 +318,19 @@ void Mrfi_RxModeOn(void)
 //	MRFI_CLEAR_SYNC_PIN_INT_FLAG();
 
 	/* send strobe to enter receive mode */
-	mrfiSpiCmdStrobe( SRX );
+	Mrfi_SpiCmdStrobe( SRX );
 
 	/* enable receive interrupts */
 //	MRFI_ENABLE_SYNC_PIN_INT();
 }
 
-/**************************************************************************************************
- * @fn          MRFI_RxOn
- *
- * @brief       Turn on the receiver.  No harm is done if this function is called when
- *              receiver is already on.
- *
- * @param       none
- *
- * @return      none
- **************************************************************************************************
+/*-------------------------------------------------------------------------------------------------
+ * \brief 
+ * 
+ * \param pPacket
+ * \param txType
+ * 
+ * \return uint8_t
  */
 void Mrfi_RxModeOff(void)
 {
@@ -269,7 +338,7 @@ void Mrfi_RxModeOff(void)
 //	MRFI_CLEAR_SYNC_PIN_INT_FLAG();
 
 	/* send strobe to enter receive mode */
-	mrfiSpiCmdStrobe( SFRX );
+	Mrfi_SpiCmdStrobe( SIDLE );
 
 	/* enable receive interrupts */
 //	MRFI_ENABLE_SYNC_PIN_INT();
@@ -285,12 +354,12 @@ void Mrfi_RxModeOff(void)
  * @return      none
  *
  */
-void MRFI_SetLogicalChannel(uint8_t chan)
+void Mrfi_SetLogicalChannel(uint8_t chan)
 {
 	/* make sure radio is off before changing channels */
 	Mrfi_RxModeOff();
 
-	mrfiSpiWriteReg( CHANNR, chan );
+	Mrfi_SpiWriteReg( CHANNR, chan );
 
 	/* turn radio back on if it was on before channel change */
 	if(mrfiRadioState == MRFI_RADIO_STATE_RX)
@@ -309,12 +378,12 @@ void MRFI_SetLogicalChannel(uint8_t chan)
  * @return      none
  *
  */
-void MRFI_SetRFPwr(uint8_t idx) 
+void Mrfi_SetRFPwr(uint8_t idx) 
 {
 	/* make sure radio is off before changing power levels */
 	Mrfi_RxModeOff();
 
-	mrfiSpiWriteReg( PA_TABLE0, idx);
+	Mrfi_SpiWriteReg( PA_TABLE0, idx);
 
 	/* turn radio back on if it was on before power level change */
 	if(mrfiRadioState == MRFI_RADIO_STATE_RX)
@@ -333,7 +402,7 @@ void MRFI_SetRFPwr(uint8_t idx)
  * @return      none
  *
  */
-void radio_init(void)
+void Radio_Init(void)
 {
 	
 	/* Initial radio state is IDLE state */
@@ -342,54 +411,53 @@ void radio_init(void)
 //	radioSpiInit();													// SPI modle init in main.c
 	
 	/* pulse CSn low then high */
-	MRFI_SPI_DRIVE_CSN_LOW();
+	SPI_DRIVE_CSN_LOW();
 	Mrfi_DelayUsec(10);
-	MRFI_SPI_DRIVE_CSN_HIGH();
+	SPI_DRIVE_CSN_HIGH();
 
 	/* hold CSn high for at least 40 microseconds */
 	Mrfi_DelayUsec(40);
 	
 	/* pull CSn low and wait for SO to go low */
-	MRFI_SPI_DRIVE_CSN_LOW();
-	while (MRFI_SPI_SO_IS_HIGH());
+	SPI_DRIVE_CSN_LOW();
+	while (SPI_SO_IS_HIGH());
 	
 	/* send the command strobe, wait for SPI access to complete */
-	mrfiSpiWriteByte(SRES);
+	SpiWriteByte(SRES);
 	
 	/* wait for SO to go low again, reset is complete at that point */
-	while (MRFI_SPI_SO_IS_HIGH());
+	while (SPI_SO_IS_HIGH());
 
 	/* return CSn pin to its default high level */
-	MRFI_SPI_DRIVE_CSN_HIGH();
+	SPI_DRIVE_CSN_HIGH();
 	
 	/* initialize radio registers */
-	{
-		uint8_t i;
-
-		for (i=0; i<(sizeof(mrfiRadioCfg)/sizeof(mrfiRadioCfg[0])); i++)
-		{
-			mrfiSpiWriteReg(mrfiRadioCfg[i][0], mrfiRadioCfg[i][1]);
-		}
-	}
+	writeRFSettings();
 	
 	/* Initial radio state is IDLE state */
 	mrfiRadioState = MRFI_RADIO_STATE_IDLE;
-
+	
 	/* set default channel */
-	MRFI_SetLogicalChannel( 0 );
+//	Mrfi_SetLogicalChannel( 10 );
 	
 	/* set default power */
-	MRFI_SetRFPwr(RF_TxPower_5dbm);
-
+//	Mrfi_SetRFPwr(RF_TxPower_5dbm);
+	
 	Mrfi_RxModeOn();												// Put the radio in RX state.
 	
 	/* Turn off RF. */
 	Mrfi_RxModeOff();
 	
-	mrfiSpiWriteReg(IOCFG0, MRFI_GDO_SYNC);							// Set SYNC signal interrupt.
+	Mrfi_SpiWriteReg(IOCFG0, 0x06);									// Set SYNC signal interrupt.
 	
+	{
+		uint8_t d;
+		d = Mrfi_SpiReadReg(MCSM0);
+		if(d == 0x18)
+			d = 0;
+	}
 	Mrfi_RxModeOn();
 	
-	BSP_ENABLE_INTERRUPTS();
+//	Mifi_ConfigInt();												// Config GPIO0 interrupt.
 }
 
