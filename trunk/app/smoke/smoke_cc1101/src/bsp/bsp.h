@@ -33,6 +33,7 @@
 #include "cc1101_port.h"
 #include "cc1101_radio.h"
 #include "radio_handle.h"
+#include "cc1101_defs.h"
 
 //#include "RfTranceiver.h"
 /*

@@ -1,5 +1,7 @@
 #include "bsp.h"
 
+uint8_t d1,d2;
+	
 void GPIO_init(void)
 {
 	// Config LED pin.
@@ -20,7 +22,16 @@ __interrupt void Port_2(void)
 {
 	if(!!(P2IFG & BIT0))											// Rx receive.
 	{
+//		d1 = Mrfi_SpiReadReg(RXBYTES);
 		
+//		do
+		{
+//			d2 = Mrfi_SpiReadReg(RXBYTES);
+		}
+//		while(d2==0);
+		
+		Mrfi_SpiCmdStrobe(SFRX);
+		Mrfi_SpiCmdStrobe(SRX);
 		P2IFG &= ~BIT0;                           					// P2.2 IFG cleared
 	}
 }

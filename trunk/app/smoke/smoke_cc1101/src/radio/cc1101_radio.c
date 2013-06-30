@@ -86,9 +86,9 @@ void writeRFSettings(void)
 	Mrfi_SpiWriteReg(TI_CCxxx0_IOCFG2,   0x0B); // GDO2 output pin config.
 	Mrfi_SpiWriteReg(TI_CCxxx0_IOCFG0,   0x06); // GDO0 output pin config.
 	Mrfi_SpiWriteReg(TI_CCxxx0_PKTLEN,   0xFF); // Packet length.
-	Mrfi_SpiWriteReg(TI_CCxxx0_PKTCTRL1, 0x05); // Packet automation control.
+	Mrfi_SpiWriteReg(TI_CCxxx0_PKTCTRL1, 0x04); // Packet automation control.
 	Mrfi_SpiWriteReg(TI_CCxxx0_PKTCTRL0, 0x05); // Packet automation control.
-	Mrfi_SpiWriteReg(TI_CCxxx0_ADDR,     0x01); // Device address.
+	Mrfi_SpiWriteReg(TI_CCxxx0_ADDR,     0x00); // Device address.
 	Mrfi_SpiWriteReg(TI_CCxxx0_CHANNR,   0x00); // Channel number.
 	Mrfi_SpiWriteReg(TI_CCxxx0_FSCTRL1,  0x0B); // Freq synthesizer control.
 	Mrfi_SpiWriteReg(TI_CCxxx0_FSCTRL0,  0x00); // Freq synthesizer control.
@@ -197,7 +197,7 @@ void Mrfi_SpiWriteReg(uint8_t addr, uint8_t value)
  * 
  * \return uint8_t
  */
-static uint8_t Mrfi_SpiCmdStrobe(uint8_t cmd)
+uint8_t Mrfi_SpiCmdStrobe(uint8_t cmd)
 {
 	uint8_t statusByte;
 
@@ -292,6 +292,12 @@ uint8_t Radio_Transmit(uint8_t * pPacket, uint8_t len)
 		//len =0;
 	Mrfi_SpiWriteTxFifo(pPacket, len);
 	
+	{
+		uint8_t len;
+		len = Mrfi_SpiReadReg(TXBYTES);
+		if(len == 5)
+			len =0;
+	}
 	Mrfi_SpiCmdStrobe(SIDLE);
 	Mrfi_SpiCmdStrobe(STX);
 	while(!Spi_CheckGpio0());
