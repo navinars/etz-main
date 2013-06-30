@@ -32,6 +32,9 @@ void board_init(void)
 	/* Configure USART TXD pin */
 	gpio_configure_pin(PIN_USART1_TXD_IDX, PIN_USART1_TXD_FLAGS);
 	
+	/* Configure SW1 pin */
+	gpio_configure_pin(SW1_GPIO, (PIO_INPUT | PIO_PULLUP));
+	
 	/* Configure SPI0 pins */
 	gpio_configure_pin(SPI0_MISO_GPIO, (PIO_PERIPH_A | PIO_DEFAULT));
 	gpio_configure_pin(SPI0_MOSI_GPIO, (PIO_PERIPH_A | PIO_DEFAULT));

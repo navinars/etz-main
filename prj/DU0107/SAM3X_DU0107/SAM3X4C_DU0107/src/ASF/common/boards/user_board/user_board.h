@@ -41,6 +41,10 @@
 #define CONSOLE_UART			   UART
 #define CONSOLE_UART_ID            ID_UART
 
+
+#define SW1_GPIO     (PIO_PA20_IDX)
+#define SW1_FLAGS    (PIO_INPUT | PIO_DEFAULT)
+
 //! LED #0 pin definition (BLUE).
 #define LED_0_NAME    "green LED D2"
 #define LED0_GPIO     (PIO_PA2_IDX)

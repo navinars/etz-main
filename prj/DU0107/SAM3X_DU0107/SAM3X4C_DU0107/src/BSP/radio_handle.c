@@ -21,7 +21,7 @@
  */
 portTASK_FUNCTION(vAppSpiTask, pvParameters)
 {
-	uint8_t d[] = {0x01,0x02,0x03,0x04};
+	uint8_t d[] = {0x01,0x02,0x03,0x04,0x05};
 		
 	(void)pvParameters;
 	
@@ -29,7 +29,7 @@ portTASK_FUNCTION(vAppSpiTask, pvParameters)
 	
 	for(;;)
 	{
-		Radio_Transmit(d, 4);
+//		Radio_Transmit(d, sizeof(d));
 
 		vTaskDelay(1000);
 	}

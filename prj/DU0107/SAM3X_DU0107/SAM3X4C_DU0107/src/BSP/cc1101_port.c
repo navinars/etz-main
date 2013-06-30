@@ -5,6 +5,9 @@
 #include "conf_clock.h"
 #include "conf_spi.h"
 #include "cc1101_port.h"
+#include "cc1101_defs.h"
+#include "cc1101_radio.h"
+#include "string.h"
 
 // From module: FreeRTOS mini Real-Time Kernel
 #include <FreeRTOS.h>
@@ -30,6 +33,7 @@
 static const uint32_t gs_ul_clock_configurations[] =
 { 500000, 1000000, 2000000, 5000000 };
 
+uint8_t rxBuf[64] = {0};
 /**
  *  \brief GPIO0 handle function.
  *
@@ -38,8 +42,31 @@ static const uint32_t gs_ul_clock_configurations[] =
  */
 static void button_handler(uint32_t id, uint32_t mask)
 {
-	if ((CC1101_INT_ID == id) && (CC1101_GPIO0 == mask)) {
-//		CC1101_Receive_Packet();
+	uint8_t d1,len;
+	
+	if ((CC1101_INT_ID == id) && (CC1101_GPIO0 == mask))			// GPIO0 interrupt 
+	{
+		
+		d1 = Mrfi_SpiReadReg(RXBYTES);
+		d1 = Mrfi_SpiReadReg(RXBYTES);
+		if(d1 != 0)
+		{
+			len = Mrfi_SpiReadReg(RXFIFO);
+			if( (len > 0) && (len < 64))
+			{
+				Mrfi_SpiReadRxFifo(rxBuf, len);
+				memset(rxBuf, 0, 64);
+			}
+		}
+		else
+		{
+			
+		}
+		
+		Mrfi_SpiCmdStrobe(SIDLE);
+		Mrfi_SpiCmdStrobe(SFRX);
+		Mrfi_SpiCmdStrobe(SRX);
+		
 		NVIC_EnableIRQ((IRQn_Type)CC1101_INT_ID);
 	}
 }
