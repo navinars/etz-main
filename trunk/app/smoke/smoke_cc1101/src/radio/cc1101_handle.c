@@ -9,6 +9,5 @@ void radio_handle(void)
 
 void radio_timer_send(void)
 {
-	CC1101_Write_Fifo(send_dat, sizeof(send_dat));
-	CC1101_Send_Packet();
+
 }

@@ -13,7 +13,8 @@ void spi_init(void)
 	P1SEL = BIT1 + BIT2 + BIT4;
 	P1SEL2 = BIT1 + BIT2 + BIT4;
 	
-	UCA0CTL0 |= UCCKPL + UCMSB + UCMST + UCSYNC;  					// 3-pin, 8-bit SPI master
+//	UCA0CTL0 |= UCCKPL + UCMSB + UCMST + UCSYNC;  					// 3-pin, 8-bit SPI master
+	UCA0CTL0 |= UCCKPH + UCMSB + UCMST + UCSYNC;  					// 3-pin, 8-bit SPI master
 	UCA0CTL1 |= UCSSEL_2;                     						// SMCLK
 	
 	UCA0BR0 |= 0x02;                          						// /2
@@ -21,6 +22,9 @@ void spi_init(void)
 	
 	UCA0MCTL = 0;                             						// No modulation
 	UCA0CTL1 &= ~UCSWRST;                     						// **Initialize USCI state machine**
+	
+	P1DIR |= SPI_STE;
+	P1OUT |= SPI_STE; 
 }
 
 void spi_isr_enable(void)
@@ -59,16 +63,17 @@ unsigned char spi_readwrite(unsigned char data)
 
 void spi_write_buf(unsigned char *pdata, unsigned char len)
 {
-	while(len-- < 1)
+	while(len-- > 0)
 	{
 		UCA0TXBUF = *pdata;
 		while (!(IFG2 & UCA0TXIFG));
+		*pdata = UCA0RXBUF;
 	}
 }
 
 void spi_read_buf(unsigned char *pdata, unsigned char len)
 {
-	while(len-- < 1)
+	while(len-- > 0)
 	{
 		UCA0TXBUF = 0xFF;
 		while (!(IFG2 & UCA0TXIFG));
