@@ -2,13 +2,15 @@
 
 void GPIO_init(void)
 {
+	// Config LED pin.
 	P1DIR |= BIT0;
 	P1OUT |= BIT0;
 	
+	/* Config GPIO0 pin.*/
 	P2DIR &=~BIT0;
 	P2IE  |= BIT0;
 	P2IES |= BIT0;													// Ñ¡ÔñÉÏÉý/ÏÂ½µÑØ
-//	P2REN |= BIT0;													// push-up disable
+	P2REN |= BIT0;													// push-up disable
 	
 }
 
@@ -21,4 +23,4 @@ __interrupt void Port_2(void)
 		
 		P2IFG &= ~BIT0;                           					// P2.2 IFG cleared
 	}
- }
+}

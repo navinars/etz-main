@@ -2,13 +2,35 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>1521279647</fileChecksum>
+  <fileChecksum>3600907042</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\..\src\app\hal_defs.h</file>
+      <file>$PROJ_DIR$\..\src\radio\radio_handle.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
+      <file>$PROJ_DIR$\Debug\List\RfTranceiver.s43</file>
+      <file>$PROJ_DIR$\Debug\Obj\msp430_a.r43</file>
+      <file>$PROJ_DIR$\..\src\bsp\RfTranceiver.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\si4455_nirq.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio_comm.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio_hal.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio_handle.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ystdio.h</file>
+      <file>$PROJ_DIR$\..\src\bsp\Rfcc1101.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
+      <file>$PROJ_DIR$\..\src\bsp\RfTranceiver.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\cc1101_radio.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio_handle.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio_hal.pbi</file>
+      <file>$PROJ_DIR$\Debug\List\smoke.map</file>
+      <file>$PROJ_DIR$\Debug\List\radio_comm.lst</file>
+      <file>$PROJ_DIR$\Debug\Obj\cc1101_port.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\gpio.r43</file>
       <file>$PROJ_DIR$\..\src\app\hal_types.h</file>
       <file>$PROJ_DIR$\..\src\app\main.c</file>
+      <file>$PROJ_DIR$\..\src\app\hal_defs.h</file>
       <file>$PROJ_DIR$\..\src\bsp\bsp.h</file>
       <file>$PROJ_DIR$\..\src\app\radio.c</file>
       <file>$PROJ_DIR$\..\src\app\radio.h</file>
@@ -29,95 +51,128 @@
       <file>$PROJ_DIR$\..\src\radio\Si4455\si4455_defs.h</file>
       <file>$PROJ_DIR$\..\src\radio\Si4455\si4455_nirq.c</file>
       <file>$PROJ_DIR$\..\src\radio\Si4455\si4455_nirq.h</file>
-      <file>$PROJ_DIR$\..\src\radio\radio_comm.c</file>
       <file>$PROJ_DIR$\..\src\radio\cc1101_handle.c</file>
+      <file>$PROJ_DIR$\..\src\radio\cc1101_defs.h</file>
+      <file>$PROJ_DIR$\..\src\radio\cc1101_port.c</file>
+      <file>$PROJ_DIR$\..\src\radio\cc1101_port.h</file>
+      <file>$PROJ_DIR$\..\src\radio\cc1101_radio.c</file>
+      <file>$PROJ_DIR$\..\src\radio\cc1101_radio.h</file>
+      <file>$PROJ_DIR$\..\src\radio\radio_comm.c</file>
       <file>$PROJ_DIR$\..\src\radio\radio_comm.h</file>
       <file>$PROJ_DIR$\..\src\radio\radio_hal.c</file>
       <file>$PROJ_DIR$\..\src\radio\radio_hal.h</file>
-      <file>$PROJ_DIR$\Debug\List\RfTranceiver.s43</file>
-      <file>$PROJ_DIR$\Debug\Obj\radio.pbi</file>
-      <file>$PROJ_DIR$\..\src\bsp\RfTranceiver.c</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\si4455_nirq.pbi</file>
-      <file>$PROJ_DIR$\..\src\bsp\RfTranceiver.h</file>
-      <file>$PROJ_DIR$\Debug\List\radio_comm.lst</file>
-      <file>$PROJ_DIR$\Debug\Obj\radio_comm.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\radio_hal.pbi</file>
+      <file>$PROJ_DIR$\..\src\radio\radio_handle.c</file>
+      <file>$PROJ_DIR$\Debug\List\RfTranceiver.lst</file>
+      <file>$PROJ_DIR$\Debug\Obj\cc1101_port.r43</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\stdarg.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\timer.r43</file>
-      <file>$PROJ_DIR$\Debug\List\smoke.map</file>
-      <file>$PROJ_DIR$\Debug\Obj\gpio.r43</file>
-      <file>$TOOLKIT_DIR$\config\lnk430G2433.xcl</file>
-      <file>$PROJ_DIR$\Debug\Obj\gpio.pbi</file>
       <file>$PROJ_DIR$\Debug\List\main.lst</file>
-      <file>$PROJ_DIR$\Debug\List\main.s43</file>
-      <file>$PROJ_DIR$\Debug\List\gpio.s43</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\spi.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\cc1101_handle.pbi</file>
+      <file>$PROJ_DIR$\Debug\List\cc1101_port.s43</file>
+      <file>$PROJ_DIR$\Debug\List\cc1101_radio.s43</file>
+      <file>$PROJ_DIR$\Debug\List\radio_handle.lst</file>
+      <file>$PROJ_DIR$\Debug\List\cc1101_port.lst</file>
+      <file>$PROJ_DIR$\Debug\List\radio_handle.s43</file>
+      <file>$PROJ_DIR$\Debug\List\cc1101_radio.lst</file>
+      <file>$PROJ_DIR$\Debug\Obj\cc1101_radio.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\config\lnk430G2433.xcl</file>
       <file>$PROJ_DIR$\Debug\List\cc1101_handle.lst</file>
-      <file>$TOOLKIT_DIR$\inc\msp430g2433.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\cc1101_handle.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
+      <file>$PROJ_DIR$\Debug\List\gpio.s43</file>
+      <file>$PROJ_DIR$\Debug\Obj\gpio.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\cc1101_handle.r43</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\stdint.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
-      <file>$PROJ_DIR$\Debug\List\cc1101_handle.s43</file>
-      <file>$PROJ_DIR$\Debug\List\si4455_nirq.lst</file>
+      <file>$TOOLKIT_DIR$\inc\msp430g2433.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\spi.r43</file>
       <file>$PROJ_DIR$\Debug\List\radio_hal.lst</file>
-      <file>$PROJ_DIR$\Debug\Obj\si4455_api_lib.pbi</file>
-      <file>$PROJ_DIR$\Debug\List\spi.s43</file>
+      <file>$PROJ_DIR$\Debug\List\main.s43</file>
       <file>$PROJ_DIR$\Debug\List\si4455_api_lib.lst</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdint.h</file>
       <file>$TOOLKIT_DIR$\inc\msp430.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.h</file>
-      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\RfTranceiver.pbi</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\RfTranceiver.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\si4455_api_lib.pbi</file>
+      <file>$PROJ_DIR$\Debug\List\cc1101_handle.s43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
+      <file>$PROJ_DIR$\Debug\List\spi.s43</file>
       <file>$PROJ_DIR$\Debug\List\spi.lst</file>
-      <file>$TOOLKIT_DIR$\inc\in430.h</file>
-      <file>$PROJ_DIR$\Debug\Exe\smoke.ulp</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$PROJ_DIR$\Debug\List\si4455_nirq.lst</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\RfTranceiver.pbi</file>
       <file>$PROJ_DIR$\Debug\Exe\smoke.d43</file>
       <file>$PROJ_DIR$\Debug\Obj\smoke.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
       <file>$PROJ_DIR$\Debug\List\timer.s43</file>
       <file>$PROJ_DIR$\Debug\List\timer.lst</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
       <file>$TOOLKIT_DIR$\inc\msp430g2303.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\spi.pbi</file>
-      <file>$PROJ_DIR$\Debug\List\RfTranceiver.lst</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\msp430_a.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\timer.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
-      <file>$PROJ_DIR$\Debug\List\radio.lst</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\smoke.ulp</file>
+      <file>$PROJ_DIR$\Debug\Obj\RfTranceiver.r43</file>
       <file>$PROJ_DIR$\Debug\List\gpio.lst</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\radio_hal.r43</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\ystdio.h</file>
-      <file>$PROJ_DIR$\..\src\bsp\Rfcc1101.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\spi.pbi</file>
+      <file>$PROJ_DIR$\Debug\List\radio.lst</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer.pbi</file>
     </outputs>
     <file>
-      <name>$PROJ_DIR$\..\src\app\main.c</name>
+      <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 45 44 47</file>
+          <name>XLINK</name>
+          <file> 93 18</file>
         </tool>
         <tool>
+          <name>ULP430</name>
+          <file> 100</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\bsp\RfTranceiver.c</name>
+      <outputs>
+        <tool>
           <name>BICOMP</name>
-          <file> 73</file>
+          <file> 92</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 2 56 101</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 3 54 86 32 31 62 90 83 76 80 53 61 51 68 63 9 13 15 0 1 17 12 10</file>
+          <name>BICOMP</name>
+          <file> 83 98 99 89 35 14 12 32 108 8 73 13 91 67 104 103 1 11</file>
         </tool>
         <tool>
+          <name>ICC430</name>
+          <file> 83 98 99 89 35 14 12 32 108 8 73 13 91 67 104 103 1 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\app\main.c</name>
+      <outputs>
+        <tool>
           <name>BICOMP</name>
-          <file> 3 54 86 32 31 62 90 83 76 80 53 61 51 68 63 9 13 15 0 1 17 12 10</file>
+          <file> 105</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 80 59 71</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
         </tool>
       </inputs>
     </file>
@@ -125,22 +180,22 @@
       <name>$PROJ_DIR$\..\src\app\radio.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 84</file>
+          <name>BICOMP</name>
+          <file> 7</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 29</file>
+          <name>ICC430</name>
+          <file> 107</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 3 61 77 68 63 13 0 1 17 12 10 6 5 27 25 19 20 22</file>
+          <name>BICOMP</name>
+          <file> 25 83 98 99 89 35 24 22 39 34 32 28 27 54 52 41 42 44</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 3 61 77 68 63 13 0 1 17 12 10 6 5 27 25 19 20 22</file>
+          <name>ICC430</name>
+          <file> 25 83 98 99 89 35 24 22 39 34 32 28 27 54 52 41 42 44</file>
         </tool>
       </inputs>
     </file>
@@ -148,22 +203,22 @@
       <name>$PROJ_DIR$\..\src\lib\spi.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 59 67 48</file>
+          <name>BICOMP</name>
+          <file> 106</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 78</file>
+          <name>ICC430</name>
+          <file> 87 88 78</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 61 51 68 63 13</file>
+          <name>BICOMP</name>
+          <file> 83 77 99 89 35</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 61 51 68 63 13</file>
+          <name>ICC430</name>
+          <file> 83 77 99 89 35</file>
         </tool>
       </inputs>
     </file>
@@ -171,22 +226,22 @@
       <name>$PROJ_DIR$\..\src\lib\gpio.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 46 85 41</file>
+          <name>BICOMP</name>
+          <file> 75</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 43</file>
+          <name>ICC430</name>
+          <file> 74 102 21</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 3 54 86 32 31 62 90 83 76 80 53 61 51 68 63 9 13 15 0 1 17 12 10</file>
+          <name>BICOMP</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 3 54 86 32 31 62 90 83 76 80 53 61 51 68 63 9 13 15 0 1 17 12 10</file>
+          <name>ICC430</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
         </tool>
       </inputs>
     </file>
@@ -195,13 +250,13 @@
       <outputs>
         <tool>
           <name>A430</name>
-          <file> 81</file>
+          <file> 3</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>A430</name>
-          <file> 61 77</file>
+          <file> 83 98</file>
         </tool>
       </inputs>
     </file>
@@ -209,58 +264,45 @@
       <name>$PROJ_DIR$\..\src\lib\timer.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 74 75 39</file>
+          <name>BICOMP</name>
+          <file> 109</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 82</file>
+          <name>ICC430</name>
+          <file> 95 96 70</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 61 51 68 63 15</file>
+          <name>BICOMP</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 61 51 68 63 15</file>
+          <name>ICC430</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
         </tool>
       </inputs>
-    </file>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 70 40</file>
-        </tool>
-        <tool>
-          <name>ULP430</name>
-          <file> 69</file>
-        </tool>
-      </outputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\src\radio\CC1101\RfTranceiver.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 28 79 66</file>
+          <name>BICOMP</name>
+          <file> 92</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 64</file>
+          <name>ICC430</name>
+          <file> 2 56 101</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 61 51 68 63 13 17 12 10 72 86 32 31 62 90 83 76 80 88</file>
+          <name>BICOMP</name>
+          <file> 83 77 99 89 35 39 34 32 108 8 73 13 91 67 104 103 1 11</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 61 51 68 63 13 17 12 10 72 86 32 31 62 90 83 76 80 88</file>
+          <name>ICC430</name>
+          <file> 83 77 99 89 35 39 34 32 108 8 73 13 91 67 104 103 1 11</file>
         </tool>
       </inputs>
     </file>
@@ -268,22 +310,22 @@
       <name>$PROJ_DIR$\..\src\radio\Si4455\si4455_api_lib.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 60</file>
+          <name>BICOMP</name>
+          <file> 84</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 58</file>
+          <name>ICC430</name>
+          <file> 81</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 3 61 77 68 63 13 0 1 17 12 10 38 86 32 31 62 90 83 76</file>
+          <name>BICOMP</name>
+          <file> 25 83 98 99 89 35 24 22 39 34 32 58 8 73 13 91 67 104 103</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 3 61 77 68 63 13 0 1 17 12 10 38 86 32 31 62 90 83 76</file>
+          <name>ICC430</name>
+          <file> 25 83 98 99 89 35 24 22 39 34 32 58 8 73 13 91 67 104 103</file>
         </tool>
       </inputs>
     </file>
@@ -291,45 +333,22 @@
       <name>$PROJ_DIR$\..\src\radio\Si4455\si4455_nirq.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 56</file>
+          <name>BICOMP</name>
+          <file> 5</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 33</file>
+          <name>ICC430</name>
+          <file> 90</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 3 13 0 1 6 5 27 25 19 20 22</file>
-        </tool>
-        <tool>
           <name>BICOMP</name>
-          <file> 3 13 0 1 6 5 27 25 19 20 22</file>
+          <file> 25 35 24 22 28 27 54 52 41 42 44</file>
         </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\radio\radio_comm.c</name>
-      <outputs>
         <tool>
           <name>ICC430</name>
-          <file> 35</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICC430</name>
-          <file> 3 61 77 68 63 13 0 1 17 12 10 6 5 27 25 19 20 22</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 3 61 77 68 63 13 0 1 17 12 10 6 5 27 25 19 20 22</file>
+          <file> 25 35 24 22 28 27 54 52 41 42 44</file>
         </tool>
       </inputs>
     </file>
@@ -337,22 +356,91 @@
       <name>$PROJ_DIR$\..\src\radio\cc1101_handle.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 55 50 52</file>
+          <name>BICOMP</name>
+          <file> 72</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 49</file>
+          <name>ICC430</name>
+          <file> 85 69 76</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 3 54 86 32 31 62 90 83 76 80 53 61 51 68 63 9 13 15 0 1 17 12 10</file>
+          <name>BICOMP</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22</file>
         </tool>
         <tool>
+          <name>ICC430</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\cc1101_port.c</name>
+      <outputs>
+        <tool>
           <name>BICOMP</name>
-          <file> 3 54 86 32 31 62 90 83 76 80 53 61 51 68 63 9 13 15 0 1 17 12 10</file>
+          <file> 20</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 60 63 57</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\cc1101_radio.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 66</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 61 65 15</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0 46</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0 46</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\radio_comm.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 6</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 19</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 83 98 99 89 35 24 22 39 34 32 28 27 54 52 41 42 44</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 25 83 98 99 89 35 24 22 39 34 32 28 27 54 52 41 42 44</file>
         </tool>
       </inputs>
     </file>
@@ -360,45 +448,45 @@
       <name>$PROJ_DIR$\..\src\radio\radio_hal.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 57 87</file>
+          <name>BICOMP</name>
+          <file> 17</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 37</file>
+          <name>ICC430</name>
+          <file> 79 9</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 3 61 77 68 63 13 0 1 17 12 10 6 5 27 25 19 20 22</file>
+          <name>BICOMP</name>
+          <file> 25 83 98 99 89 35 24 22 39 34 32 28 27 54 52 41 42 44</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 3 61 77 68 63 13 0 1 17 12 10 6 5 27 25 19 20 22</file>
+          <name>ICC430</name>
+          <file> 25 83 98 99 89 35 24 22 39 34 32 28 27 54 52 41 42 44</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\bsp\RfTranceiver.c</name>
+      <name>$PROJ_DIR$\..\src\radio\radio_handle.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 28 79 66</file>
+          <name>BICOMP</name>
+          <file> 16</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 64</file>
+          <name>ICC430</name>
+          <file> 64 62 10</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICC430</name>
-          <file> 61 77 68 63 13 34 89 10 72 86 32 31 62 90 83 76 80 88</file>
+          <name>BICOMP</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 61 77 68 63 13 34 89 10 72 86 32 31 62 90 83 76 80 88</file>
+          <name>ICC430</name>
+          <file> 25 86 8 73 13 91 67 104 103 1 82 83 77 99 89 31 35 37 24 22 48 50 0</file>
         </tool>
       </inputs>
     </file>
@@ -407,13 +495,13 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 40</file>
+          <file> 18</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 42 66 52 41 47 48 39 65</file>
+          <file> 68 57 15 21 71 10 78 70 97</file>
         </tool>
       </inputs>
     </file>
@@ -425,6 +513,28 @@
   <configuration>
     <name>Release</name>
     <outputs>
+      <file>$PROJ_DIR$\Release\Obj\main.r43</file>
+      <file>$PROJ_DIR$\..\src\app\&lt;invalid loc&gt;</file>
+      <file>$PROJ_DIR$\Release\Obj\si4455_nirq.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\radio_comm.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\spi.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\radio_hal.r43</file>
+      <file>$PROJ_DIR$\Release\Exe\smoke.txt</file>
+      <file>$PROJ_DIR$\Release\Obj\gpio.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\timer.r43</file>
+      <file>$PROJ_DIR$\Release\Exe\smoke.ulp</file>
+      <file>$PROJ_DIR$\Release\Obj\radio_comm.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\si4455_nirq.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\radio.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\si4455_api_lib.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\timer.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\spi.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\msp430_a.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\gpio.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\radio_hal.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\radio.r43</file>
+      <file>$PROJ_DIR$\Release\Obj\si4455_api_lib.r43</file>
       <file>$PROJ_DIR$\..\src\app\main.c</file>
       <file>$PROJ_DIR$\..\src\app\radio.c</file>
       <file>$PROJ_DIR$\..\src\lib\spi.c</file>
@@ -438,45 +548,36 @@
       <file>$PROJ_DIR$\..\src\radio\radio_comm.c</file>
       <file>$PROJ_DIR$\..\src\radio\radio_hal.c</file>
       <file>$TOOLKIT_DIR$\inc\msp430.h</file>
-      <file>$PROJ_DIR$\Release\Obj\si4455_api_lib.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\timer.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\spi.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\msp430_a.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\gpio.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\radio.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\radio_hal.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\si4455_api_lib.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\main.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\si4455_nirq.pbi</file>
-      <file>$PROJ_DIR$\..\src\app\&lt;invalid loc&gt;</file>
-      <file>$PROJ_DIR$\Release\Obj\radio_comm.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\spi.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\radio_hal.r43</file>
-      <file>$PROJ_DIR$\Release\Exe\smoke.txt</file>
-      <file>$PROJ_DIR$\Release\Obj\gpio.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\timer.r43</file>
-      <file>$PROJ_DIR$\Release\Exe\smoke.ulp</file>
-      <file>$PROJ_DIR$\Release\Obj\radio_comm.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\si4455_nirq.r43</file>
-      <file>$PROJ_DIR$\Release\Obj\radio.pbi</file>
-      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
     </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 6</file>
+        </tool>
+        <tool>
+          <name>ULP430</name>
+          <file> 9</file>
+        </tool>
+      </outputs>
+    </file>
     <file>
       <name>$PROJ_DIR$\..\src\app\main.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 21</file>
+          <name>BICOMP</name>
+          <file> 13</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 34</file>
+          <name>ICC430</name>
+          <file> 0</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 23</file>
+          <file> 1</file>
         </tool>
       </inputs>
     </file>
@@ -484,18 +585,18 @@
       <name>$PROJ_DIR$\..\src\app\radio.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 18</file>
+          <name>BICOMP</name>
+          <file> 12</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 33</file>
+          <name>ICC430</name>
+          <file> 20</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 23</file>
+          <file> 1</file>
         </tool>
       </inputs>
     </file>
@@ -503,18 +604,18 @@
       <name>$PROJ_DIR$\..\src\lib\spi.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 15</file>
+          <name>BICOMP</name>
+          <file> 4</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 25</file>
+          <name>ICC430</name>
+          <file> 16</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 12 6</file>
+          <file> 34 28</file>
         </tool>
       </inputs>
     </file>
@@ -522,18 +623,18 @@
       <name>$PROJ_DIR$\..\src\lib\gpio.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 17</file>
+          <name>BICOMP</name>
+          <file> 7</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 28</file>
+          <name>ICC430</name>
+          <file> 18</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 12 4</file>
+          <file> 34 26</file>
         </tool>
       </inputs>
     </file>
@@ -542,7 +643,7 @@
       <outputs>
         <tool>
           <name>A430</name>
-          <file> 16</file>
+          <file> 17</file>
         </tool>
       </outputs>
     </file>
@@ -550,25 +651,12 @@
       <name>$PROJ_DIR$\..\src\lib\timer.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 29</file>
-        </tool>
-        <tool>
           <name>BICOMP</name>
-          <file> 14</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 27</file>
+          <file> 15</file>
         </tool>
         <tool>
-          <name>ULP430</name>
-          <file> 30</file>
+          <name>ICC430</name>
+          <file> 8</file>
         </tool>
       </outputs>
     </file>
@@ -576,12 +664,12 @@
       <name>$PROJ_DIR$\..\src\radio\Si4455\si4455_api_lib.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 20</file>
+          <name>BICOMP</name>
+          <file> 14</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 13</file>
+          <name>ICC430</name>
+          <file> 21</file>
         </tool>
       </outputs>
     </file>
@@ -589,12 +677,12 @@
       <name>$PROJ_DIR$\..\src\radio\Si4455\si4455_nirq.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 32</file>
+          <name>BICOMP</name>
+          <file> 2</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 22</file>
+          <name>ICC430</name>
+          <file> 11</file>
         </tool>
       </outputs>
     </file>
@@ -602,12 +690,12 @@
       <name>$PROJ_DIR$\..\src\radio\radio_comm.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 24</file>
+          <name>BICOMP</name>
+          <file> 10</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 31</file>
+          <name>ICC430</name>
+          <file> 3</file>
         </tool>
       </outputs>
     </file>
@@ -615,12 +703,12 @@
       <name>$PROJ_DIR$\..\src\radio\radio_hal.c</name>
       <outputs>
         <tool>
-          <name>ICC430</name>
-          <file> 26</file>
-        </tool>
-        <tool>
           <name>BICOMP</name>
           <file> 19</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 5</file>
         </tool>
       </outputs>
     </file>

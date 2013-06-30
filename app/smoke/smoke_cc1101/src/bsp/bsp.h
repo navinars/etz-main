@@ -30,7 +30,11 @@
 #include "hal_defs.h"
 #include "hal_types.h"
 
-#include "RfTranceiver.h"
+#include "cc1101_port.h"
+#include "cc1101_radio.h"
+#include "radio_handle.h"
+
+//#include "RfTranceiver.h"
 /*
 #include "radio_config.h"
 #include "radio.h"

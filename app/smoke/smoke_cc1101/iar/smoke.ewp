@@ -2025,6 +2025,9 @@
     <name>Radio</name>
     <group>
       <name>CC1101</name>
+      <excluded>
+        <configuration>Debug</configuration>
+      </excluded>
       <file>
         <name>$PROJ_DIR$\..\src\radio\CC1101\Rfcc1101.h</name>
       </file>
@@ -2060,7 +2063,25 @@
       </file>
     </group>
     <file>
+      <name>$PROJ_DIR$\..\src\radio\cc1101_defs.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\src\radio\cc1101_handle.c</name>
+      <excluded>
+        <configuration>Debug</configuration>
+      </excluded>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\cc1101_port.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\cc1101_port.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\cc1101_radio.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\cc1101_radio.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\src\radio\radio_comm.c</name>
@@ -2085,6 +2106,12 @@
       <excluded>
         <configuration>Debug</configuration>
       </excluded>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\radio_handle.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\radio\radio_handle.h</name>
     </file>
   </group>
 </project>

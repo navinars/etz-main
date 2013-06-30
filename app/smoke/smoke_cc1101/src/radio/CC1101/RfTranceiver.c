@@ -663,7 +663,6 @@ void _delay_us(unsigned char x)
 	CC1101_Setting_FreSection(RF_ISM_868MHz);
 //	CC1101_Entry_XMode(Rf_Rx_Mode);
 	
-	
     //wish cc1101 rx fifo ...
     CC1101_Entry_XMode(Rf_Flush_RxFifo);
     //wish cc1101 tx fifo ...
@@ -678,8 +677,8 @@ void _delay_us(unsigned char x)
 /* ============================================ *
  *              rf cc1101 write FIFO            *
  * ============================================ */
- void CC1101_Write_Fifo(unsigned char *txptr,unsigned char size)
- {
+void CC1101_Write_Fifo(unsigned char *txptr,unsigned char size)
+{
 //	unsigned char Rex;
     StoreAndDisRfInterrupt(Rex);
     //length
@@ -687,13 +686,13 @@ void _delay_us(unsigned char x)
     //write data buffer 
 	CC1101_Write_Burst_Reg(cc1101_TXFIFO,txptr,size);
     RestoreRfInterrupt(Rex);
- }
- 
+}
+
 /* ============================================ *
  *              rf cc1101 send packet           *
  * ============================================ */
  void CC1101_Send_Packet(void)
- {	
+ {
 //    unsigned char Rex;
     //disable rf interrupt
     StoreAndDisRfInterrupt(Rex);
