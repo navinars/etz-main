@@ -125,7 +125,6 @@ static void configure_console(void)
 void task_led(void *pvParameters)
 {
 	
-	uint16_t crc;
 	(void) pvParameters;
 
 	for (;;)
