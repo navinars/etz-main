@@ -45,19 +45,21 @@ void spi_cs_disable(void)
 void Spi_Write_Byte(unsigned char data)
 {
 	UCA0TXBUF = data;
-	while (!(IFG2 & UCA0TXIFG));
+	while (!!(UCA0STAT & UCBUSY));
 }
 
 //spi read byte
 unsigned char Spi_Read_Byte(void)
 {
-	Spi_Write_Byte(0x00);
+	UCA0TXBUF = 0x00;
+	while (!!(UCA0STAT & UCBUSY));
 	return UCA0RXBUF;
 }
 
 unsigned char spi_readwrite(unsigned char data)
 {
-	Spi_Write_Byte(data);
+	UCA0TXBUF = data;
+	while (!!(UCA0STAT & UCBUSY));									// Wait transmitting finish.
 	return UCA0RXBUF;
 }
 
@@ -66,8 +68,9 @@ void spi_write_buf(unsigned char *pdata, unsigned char len)
 	while(len-- > 0)
 	{
 		UCA0TXBUF = *pdata;
-		while (!(IFG2 & UCA0TXIFG));
+		while (!!(UCA0STAT & UCBUSY));
 		*pdata = UCA0RXBUF;
+		pdata ++;
 	}
 }
 
@@ -76,8 +79,9 @@ void spi_read_buf(unsigned char *pdata, unsigned char len)
 	while(len-- > 0)
 	{
 		UCA0TXBUF = 0xFF;
-		while (!(IFG2 & UCA0TXIFG));
+		while (!!(UCA0STAT & UCBUSY));
 		*pdata = UCA0RXBUF;
+		pdata ++;
 	}
 }
 /*

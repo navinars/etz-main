@@ -23,7 +23,6 @@ int main(void)
 	
 	_BIS_SR(GIE);													// Enable genration interrupt.
 	
-	/* Main loop.*/
 	for(;;)
 	{
 		

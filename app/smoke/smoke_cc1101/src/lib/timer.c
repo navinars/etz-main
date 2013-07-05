@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-uint8_t frm[] = {0x01,0x02,0x03,0x04,0x05};
+uint8_t frm[] = {0x05,0x00,0x02,0x03,0x04,0x05};
 
 void timer_A_init(void)
 {
@@ -18,8 +18,6 @@ extern void radio_timer_send(void);
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void Timer_A(void)
 {
-	
-	Radio_Transmit(frm, sizeof(frm));
-	P1OUT ^= BIT0;													// Turn LED0..
-	
+//	Radio_Transmit(frm, 6);
+//	P1OUT ^= BIT0;													// Turn LED0..
 }
