@@ -68,7 +68,7 @@ void SPI_DRIVE_CSN_HIGH(void)
  */
 uint8_t SPI_SO_IS_HIGH(void)
 {
-	return (!!P2IN&BIT0);
+	return (!!(P1IN&BIT1));
 }
 
 /*-------------------------------------------------------------------------------------------------
@@ -102,25 +102,6 @@ void SPIWriteArrayBytes(uint8_t *buf, uint8_t cnt)
 }
 
 /*-------------------------------------------------------------------------------------------------
- * @fn          APIReadByte
- *
- * @brief       data
- *
- * @param       none
- *
- * @return      none
- *
- */
-uint8_t APIReadByte(void)
-{
-	uint8_t tmp;
-	
-	spi_write_buf(&tmp, 1);
-	
-	return tmp;
-}
-
-/*-------------------------------------------------------------------------------------------------
  * @fn          Check_Rf_Level
  *
  * @brief       data
@@ -132,5 +113,24 @@ uint8_t APIReadByte(void)
  */
 uint8_t Spi_CheckGpio0(void)
 {
-	return (!!P2IN&BIT0);
+	return (!!(P2IN&BIT0));
+}
+
+/*-------------------------------------------------------------------------------------------------
+ * @fn          Config GPIO0 pin
+ *
+ * @brief       data
+ *
+ * @param       none
+ *
+ * @return      none
+ *
+ */
+void Mifi_ConfigInt(void)
+{
+	P2DIR &=~BIT0;
+	P2IES |= BIT0;													// Ñ¡ÔñÉÏÉý/ÏÂ½µÑØ
+	P2REN |= BIT0;													// push-up enable
+	P2IFG &=~BIT0;
+	P2IE  |= BIT0;
 }
