@@ -1,0 +1,386 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+//                                                      07/Jul/2013  23:04:13 /
+// IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430        /
+// Copyright 1996-2012 IAR Systems AB.                                        /
+//                                                                            /
+//    __rt_version  =  3                                                      /
+//    __double_size =  32                                                     /
+//    __reg_r4      =  free                                                   /
+//    __reg_r5      =  free                                                   /
+//    __pic         =  no                                                     /
+//    __core        =  430                                                    /
+//    Source file   =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\radio /
+//                     _handle.c                                              /
+//    Command line  =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\radio /
+//                     _handle.c -lC E:\DOOYA\dooya_dev\DU0106\Source\test\cc /
+//                     1101_rcv\Debug\List\ -lA E:\DOOYA\dooya_dev\DU0106\Sou /
+//                     rce\test\cc1101_rcv\Debug\List\ -o                     /
+//                     E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug /
+//                     \Obj\ --no_cse --no_unroll --no_inline                 /
+//                     --no_code_motion --no_tbaa --debug -D__MSP430G2433__   /
+//                     -e --double=32 --dlib_config "C:\Program Files         /
+//                     (x86)\IAR Systems\Embedded Workbench 6.4               /
+//                     Evaluation\430\LIB\DLIB\dl430fn.h" -On                 /
+//    List file     =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug /
+//                     \List\radio_handle.s43                                 /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME radio_handle
+
+        RTMODEL "__SystemLibrary", "DLib"
+        RTMODEL "__core", "430"
+        RTMODEL "__double_size", "32"
+        RTMODEL "__pic", "no"
+        RTMODEL "__reg_r4", "free"
+        RTMODEL "__reg_r5", "free"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:SORT:NOROOT(0)
+
+        EXTERN ?cstart_init_zero
+        EXTERN ?longjmp_r4
+        EXTERN ?longjmp_r5
+        EXTERN ?setjmp_r4
+        EXTERN ?setjmp_r5
+
+        PUBWEAK `??Port_2??INTVEC 6`
+        PUBWEAK ?setjmp_save_r4
+        PUBWEAK ?setjmp_save_r5
+        PUBWEAK P1OUT
+        PUBWEAK P2IFG
+        PUBLIC Port_2
+        FUNCTION Port_2,021233H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 16, STACK
+        PUBLIC flag_rcv
+        PUBLIC flag_send
+        PUBLIC frm
+        PUBLIC frm_rcv
+        PUBLIC radio_handle
+        FUNCTION radio_handle,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA SP DATA
+          CFI Resource PC:16, SP:16, SR:16, R4:16, R5:16, R6:16, R7:16, R8:16
+          CFI Resource R9:16, R10:16, R11:16, R12:16, R13:16, R14:16, R15:16
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 2
+          CFI ReturnAddress PC CODE
+          CFI CFA SP+2
+          CFI PC Frame(CFA, -2)
+          CFI SR Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 Undefined
+          CFI R13 Undefined
+          CFI R14 Undefined
+          CFI R15 Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 2
+          CFI ReturnAddress PC CODE
+          CFI CFA SP+4
+          CFI PC Frame(CFA, -2)
+          CFI SR Frame(CFA, -4)
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI EndCommon cfiCommon1
+        
+Port_2              SYMBOL "Port_2"
+`??Port_2??INTVEC 6` SYMBOL "??INTVEC 6", Port_2
+
+        EXTERN Mrfi_SpiReadReg
+        FUNCTION Mrfi_SpiReadReg,0202H
+        EXTERN Mrfi_SpiReadRxFifo
+        FUNCTION Mrfi_SpiReadRxFifo,0202H
+        EXTERN Mrfi_SpiCmdStrobe
+        FUNCTION Mrfi_SpiCmdStrobe,0202H
+        EXTERN memcpy
+        FUNCTION memcpy,010202H
+        EXTERN Radio_Transmit
+        FUNCTION Radio_Transmit,0202H
+
+// E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\radio_handle.c
+//    1 #include <msp430.h>
+
+        ASEGN DATA16_AN:DATA:NOROOT,021H
+// unsigned char volatile P1OUT
+P1OUT:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02bH
+// unsigned char volatile P2IFG
+P2IFG:
+        DS8 1
+//    2 #include <stdint.h>
+//    3 #include <string.h>
+//    4 #include "cc1101.h"
+//    5 #include "cc1101_defs.h"
+//    6 #include "radio_handle.h"
+//    7 
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(0)
+        REQUIRE ?cstart_init_zero
+//    8 uint8_t flag_send = 0;
+flag_send:
+        DS8 1
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(0)
+        REQUIRE ?cstart_init_zero
+//    9 uint8_t flag_rcv = 0;
+flag_rcv:
+        DS8 1
+//   10 
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(0)
+        REQUIRE ?cstart_init_zero
+//   11 uint8_t frm[10] = {0};
+frm:
+        DS8 10
+
+        RSEG DATA16_Z:DATA:SORT:NOROOT(0)
+        REQUIRE ?cstart_init_zero
+//   12 uint8_t frm_rcv[10] = {0};
+frm_rcv:
+        DS8 10
+//   13 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   14 void radio_handle(void)
+radio_handle:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function radio_handle
+//   15 {
+//   16 	if(flag_send == 1)
+        FUNCALL radio_handle, memcpy
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL radio_handle, Radio_Transmit
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL radio_handle, memcpy
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL radio_handle, Radio_Transmit
+        LOCFRAME CSTACK, 2, STACK
+        CMP.B   #0x1, &flag_send
+        JNE     ??radio_handle_0
+//   17 	{
+//   18 		flag_send = 0;
+        MOV.B   #0x0, &flag_send
+//   19 		
+//   20 		memcpy(frm, "dooya", 5);
+        MOV.W   #0x5, R14
+        MOV.W   #`?<Constant "dooya">`, R13
+        MOV.W   #frm, R12
+        CALL    #memcpy
+//   21 		Radio_Transmit(frm, 5);
+        MOV.B   #0x5, R13
+        MOV.W   #frm, R12
+        CALL    #Radio_Transmit
+//   22 	}
+//   23 	
+//   24 	if(flag_rcv == 1)
+??radio_handle_0:
+        CMP.B   #0x1, &flag_rcv
+        JNE     ??radio_handle_1
+//   25 	{
+//   26 		flag_rcv = 0;
+        MOV.B   #0x0, &flag_rcv
+//   27 		
+//   28 		if ((frm_rcv[0] == 'd') && (frm_rcv[1] == 'o'))
+        CMP.B   #0x64, &frm_rcv
+        JNE     ??radio_handle_1
+        CMP.B   #0x6f, &frm_rcv + 1
+        JNE     ??radio_handle_1
+//   29 		{
+//   30 			memcpy(frm, "dooya", 5);
+        MOV.W   #0x5, R14
+        MOV.W   #`?<Constant "dooya">`, R13
+        MOV.W   #frm, R12
+        CALL    #memcpy
+//   31 			Radio_Transmit(frm, 5);
+        MOV.B   #0x5, R13
+        MOV.W   #frm, R12
+        CALL    #Radio_Transmit
+//   32 			P1OUT ^= BIT0;											// Turn LED0..
+        XOR.B   #0x1, &0x21
+//   33 		}
+//   34 	}
+//   35 }
+??radio_handle_1:
+        RET
+          CFI EndBlock cfiBlock0
+        REQUIRE P1OUT
+//   36 
+//   37 
+//   38 
+//   39 // Port 2 interrupt service routine
+//   40 #pragma vector=PORT2_VECTOR
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   41 __interrupt void Port_2(void)
+Port_2:
+          CFI Block cfiBlock1 Using cfiCommon1
+          CFI Function Port_2
+//   42 {
+        FUNCALL Port_2, Mrfi_SpiReadReg
+        LOCFRAME CSTACK, 16, STACK
+        FUNCALL Port_2, Mrfi_SpiReadReg
+        LOCFRAME CSTACK, 16, STACK
+        FUNCALL Port_2, Mrfi_SpiReadRxFifo
+        LOCFRAME CSTACK, 16, STACK
+        FUNCALL Port_2, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 16, STACK
+        FUNCALL Port_2, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 16, STACK
+        FUNCALL Port_2, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 16, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -6)
+          CFI CFA SP+6
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -8)
+          CFI CFA SP+8
+        PUSH.W  R13
+          CFI R13 Frame(CFA, -10)
+          CFI CFA SP+10
+        PUSH.W  R12
+          CFI R12 Frame(CFA, -12)
+          CFI CFA SP+12
+        PUSH.W  R15
+          CFI R15 Frame(CFA, -14)
+          CFI CFA SP+14
+        PUSH.W  R14
+          CFI R14 Frame(CFA, -16)
+          CFI CFA SP+16
+//   43 	uint8_t d1, len;
+//   44 	if(!!(P2IFG & BIT0))											// Rx receive.
+        BIT.B   #0x1, &0x2b
+        JNC     ??Port_2_0
+//   45 	{
+//   46 		d1 = Mrfi_SpiReadReg(RXBYTES);								// Read RxBytes register.
+        MOV.B   #0x3b, R12
+        CALL    #Mrfi_SpiReadReg
+        MOV.B   R12, R10
+//   47 		if (d1 != 0)
+        CMP.B   #0x0, R10
+        JEQ     ??Port_2_1
+//   48 		{
+//   49 			len = Mrfi_SpiReadReg(RXFIFO);
+        MOV.B   #0x3f, R12
+        CALL    #Mrfi_SpiReadReg
+        MOV.B   R12, R11
+//   50 			if ((len > 0) && (len < 10))
+        CMP.B   #0x1, R11
+        JNC     ??Port_2_1
+        CMP.B   #0xa, R11
+        JC      ??Port_2_1
+//   51 			{
+//   52 				Mrfi_SpiReadRxFifo(frm_rcv, len+2);					// Receive data to buffer.
+        MOV.B   R11, R13
+        ADD.B   #0x2, R13
+        MOV.W   #frm_rcv, R12
+        CALL    #Mrfi_SpiReadRxFifo
+//   53 				flag_rcv = 1;										
+        MOV.B   #0x1, &flag_rcv
+//   54 //				P1OUT ^= BIT0;										// Turn LED0..
+//   55 			}
+//   56 		}
+//   57 		
+//   58 		Mrfi_SpiCmdStrobe(SFRX);
+??Port_2_1:
+        MOV.B   #0x3a, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//   59 		Mrfi_SpiCmdStrobe(SIDLE);
+        MOV.B   #0x36, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//   60 		Mrfi_SpiCmdStrobe(SRX);
+        MOV.B   #0x34, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//   61 
+//   62 		P2IFG &= ~BIT0;                           					// P2.2 IFG cleared
+        BIC.B   #0x1, &0x2b
+//   63 	}
+//   64 }
+??Port_2_0:
+        POP.W   R14
+          CFI R14 SameValue
+          CFI CFA SP+14
+        POP.W   R15
+          CFI R15 SameValue
+          CFI CFA SP+12
+        POP.W   R12
+          CFI R12 SameValue
+          CFI CFA SP+10
+        POP.W   R13
+          CFI R13 SameValue
+          CFI CFA SP+8
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+6
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+4
+        RETI
+          CFI EndBlock cfiBlock1
+        REQUIRE P2IFG
+
+        COMMON INTVEC:CONST:ROOT(1)
+        ORG 6
+`??Port_2??INTVEC 6`:
+        DC16    Port_2
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r4:
+        REQUIRE ?setjmp_r4
+        REQUIRE ?longjmp_r4
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r5:
+        REQUIRE ?setjmp_r5
+        REQUIRE ?longjmp_r5
+
+        RSEG DATA16_C:CONST:SORT:NOROOT(0)
+`?<Constant "dooya">`:
+        DC8 "dooya"
+
+        END
+//   65 
+// 
+// 208 bytes in segment CODE
+//   2 bytes in segment DATA16_AN
+//   6 bytes in segment DATA16_C
+//  22 bytes in segment DATA16_Z
+//   2 bytes in segment INTVEC
+// 
+// 208 bytes of CODE  memory
+//   6 bytes of CONST memory (+ 2 bytes shared)
+//  22 bytes of DATA  memory (+ 2 bytes shared)
+//
+//Errors: none
+//Warnings: none

@@ -1,0 +1,1069 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+//                                                      07/Jul/2013  23:05:42 /
+// IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430        /
+// Copyright 1996-2012 IAR Systems AB.                                        /
+//                                                                            /
+//    __rt_version  =  3                                                      /
+//    __double_size =  32                                                     /
+//    __reg_r4      =  free                                                   /
+//    __reg_r5      =  free                                                   /
+//    __pic         =  no                                                     /
+//    __core        =  430                                                    /
+//    Source file   =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\cc110 /
+//                     1.c                                                    /
+//    Command line  =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\cc110 /
+//                     1.c -lC E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_r /
+//                     cv\Debug\List\ -lA E:\DOOYA\dooya_dev\DU0106\Source\te /
+//                     st\cc1101_rcv\Debug\List\ -o                           /
+//                     E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug /
+//                     \Obj\ --no_cse --no_unroll --no_inline                 /
+//                     --no_code_motion --no_tbaa --debug -D__MSP430G2433__   /
+//                     -e --double=32 --dlib_config "C:\Program Files         /
+//                     (x86)\IAR Systems\Embedded Workbench 6.4               /
+//                     Evaluation\430\LIB\DLIB\dl430fn.h" -On                 /
+//    List file     =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug /
+//                     \List\cc1101.s43                                       /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME cc1101
+
+        RTMODEL "__SystemLibrary", "DLib"
+        RTMODEL "__core", "430"
+        RTMODEL "__double_size", "32"
+        RTMODEL "__pic", "no"
+        RTMODEL "__reg_r4", "free"
+        RTMODEL "__reg_r5", "free"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:SORT:NOROOT(0)
+
+        EXTERN ?ShiftLeft16
+        EXTERN ?Epilogue3
+        EXTERN ?Epilogue4
+        EXTERN ?longjmp_r4
+        EXTERN ?longjmp_r5
+        EXTERN ?setjmp_r4
+        EXTERN ?setjmp_r5
+
+        PUBWEAK ?setjmp_save_r4
+        PUBWEAK ?setjmp_save_r5
+        PUBLIC Mrfi_DelayUsec
+        FUNCTION Mrfi_DelayUsec,080203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC Mrfi_SpiCmdStrobe
+        FUNCTION Mrfi_SpiCmdStrobe,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        PUBLIC Mrfi_SpiReadReg
+        FUNCTION Mrfi_SpiReadReg,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        PUBLIC Mrfi_SpiReadRxFifo
+        FUNCTION Mrfi_SpiReadRxFifo,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        PUBLIC Mrfi_SpiWriteReg
+        FUNCTION Mrfi_SpiWriteReg,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        PUBLIC Mrfi_SpiWriteTxFifo
+        FUNCTION Mrfi_SpiWriteTxFifo,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        PUBWEAK P1DIR
+        PUBWEAK P1IN
+        PUBWEAK P1OUT
+        PUBWEAK P1REN
+        PUBWEAK P2DIR
+        PUBWEAK P2IE
+        PUBWEAK P2IES
+        PUBWEAK P2IFG
+        PUBWEAK P2IN
+        PUBWEAK P2REN
+        PUBLIC Radio_Transmit
+        FUNCTION Radio_Transmit,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        PUBLIC RfWriteRfSettings
+        FUNCTION RfWriteRfSettings,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC SPI_WriteBuf
+        FUNCTION SPI_WriteBuf,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 10, STACK
+        PUBLIC cc1101_init
+        FUNCTION cc1101_init,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        PUBLIC gpio_init
+        FUNCTION gpio_init,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC spiBurstFifoAccess
+        FUNCTION spiBurstFifoAccess,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 8, STACK
+        PUBLIC spiRegAccess
+        FUNCTION spiRegAccess,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 8, STACK
+        PUBLIC spi_writebyte
+        FUNCTION spi_writebyte,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA SP DATA
+          CFI Resource PC:16, SP:16, SR:16, R4:16, R5:16, R6:16, R7:16, R8:16
+          CFI Resource R9:16, R10:16, R11:16, R12:16, R13:16, R14:16, R15:16
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 2
+          CFI ReturnAddress PC CODE
+          CFI CFA SP+2
+          CFI PC Frame(CFA, -2)
+          CFI SR Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 Undefined
+          CFI R13 Undefined
+          CFI R14 Undefined
+          CFI R15 Undefined
+          CFI EndCommon cfiCommon0
+        
+// E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\cc1101.c
+//    1 #include "msp430.h"
+
+        ASEGN DATA16_AN:DATA:NOROOT,020H
+// unsigned char const volatile P1IN
+P1IN:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,021H
+// unsigned char volatile P1OUT
+P1OUT:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,022H
+// unsigned char volatile P1DIR
+P1DIR:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,027H
+// unsigned char volatile P1REN
+P1REN:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,028H
+// unsigned char const volatile P2IN
+P2IN:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02aH
+// unsigned char volatile P2DIR
+P2DIR:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02bH
+// unsigned char volatile P2IFG
+P2IFG:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02cH
+// unsigned char volatile P2IES
+P2IES:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02dH
+// unsigned char volatile P2IE
+P2IE:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,02fH
+// unsigned char volatile P2REN
+P2REN:
+        DS8 1
+//    2 #include <stdint.h>
+//    3 #include <string.h>
+//    4 #include "cc1101.h"
+//    5 #include "cc1101_defs.h"
+//    6 
+//    7 #define MISO			BIT1
+//    8 #define MOSI			BIT2
+//    9 #define CLK				BIT4
+//   10 #define CSN				BIT5
+//   11 #define GPIO0			BIT0
+//   12 
+//   13 #define SPI_SCLK_H()	P1OUT |= CLK
+//   14 #define SPI_SCLK_L()	P1OUT &=~CLK
+//   15 
+//   16 #define SPI_MOSI_H()	P1OUT |= MOSI
+//   17 #define SPI_MOSI_L()	P1OUT &=~MOSI
+//   18 
+//   19 #define SPI_CSN_H()		P1OUT |= CSN
+//   20 #define SPI_CSN_L()		P1OUT &=~CSN
+//   21 
+//   22 #define SPI_MISO_READ()	(!!(P1IN&MISO))
+//   23 #define SPI_GPIO0_READ()	(!!(P2IN&GPIO0))
+//   24 
+//   25 #define DUMMY_BYTE                  0xDB
+//   26 #define READ_BIT                    0x80
+//   27 #define BURST_BIT                   0x40
+//   28 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   29 void Mrfi_DelayUsec(uint16_t howlong)
+Mrfi_DelayUsec:
+??Mrfi_DelayUsec_0:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function Mrfi_DelayUsec
+//   30 {
+//   31 	uint16_t i;
+//   32 	
+//   33 	while(howlong --)
+        MOV.W   R12, R15
+        MOV.W   R15, R12
+        ADD.W   #0xffff, R12
+        CMP.W   #0x0, R15
+        JEQ     ??Mrfi_DelayUsec_2
+//   34 	{
+//   35 		for(i = 0;i < 10000;i++)
+        MOV.W   #0x0, R14
+??Mrfi_DelayUsec_1:
+        CMP.W   #0x2710, R14
+        JC      ??Mrfi_DelayUsec_0
+//   36 		{
+//   37 			asm("NOP");
+        NOP
+//   38 		}
+        ADD.W   #0x1, R14
+        JMP     ??Mrfi_DelayUsec_1
+//   39 	}
+//   40 }
+??Mrfi_DelayUsec_2:
+        RET
+          CFI EndBlock cfiBlock0
+//   41 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   42 void gpio_init(void)
+gpio_init:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function gpio_init
+//   43 {
+//   44 	P1DIR |= BIT0;
+        BIS.B   #0x1, &0x22
+//   45 	P1DIR |= MOSI + CLK + CSN;
+        BIS.B   #0x34, &0x22
+//   46 	P1DIR &=~MISO;
+        BIC.B   #0x2, &0x22
+//   47 	P2DIR &=~GPIO0;
+        BIC.B   #0x1, &0x2a
+//   48 	
+//   49 	P1REN |= MISO;
+        BIS.B   #0x2, &0x27
+//   50 	
+//   51 	SPI_SCLK_L();
+        BIC.B   #0x10, &0x21
+//   52 	SPI_MOSI_L();
+        BIC.B   #0x4, &0x21
+//   53 	SPI_CSN_H();
+        BIS.B   #0x20, &0x21
+//   54 }
+        RET
+          CFI EndBlock cfiBlock1
+        REQUIRE P1DIR
+        REQUIRE P2DIR
+        REQUIRE P1REN
+        REQUIRE P1OUT
+//   55 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   56 uint8_t spi_writebyte (uint8_t value)
+spi_writebyte:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function spi_writebyte
+//   57 {
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.B   R12, R13
+//   58 	uint8_t i,temp,data;
+//   59 	
+//   60 	data = value;
+        MOV.B   R13, R11
+//   61 	temp = 0;
+        MOV.B   #0x0, R15
+//   62 	
+//   63 	for(i = 0;i < 8;i ++)
+        MOV.B   #0x0, R10
+??spi_writebyte_0:
+        CMP.B   #0x8, R10
+        JC      ??spi_writebyte_1
+//   64 	{
+//   65 		if((data&0x80) == 0x80)
+        CMP.B   #0x0, R11
+        JGE     ??spi_writebyte_2
+//   66 			SPI_MOSI_H();
+        BIS.B   #0x4, &0x21
+        JMP     ??spi_writebyte_3
+//   67 		else
+//   68 			SPI_MOSI_L();
+??spi_writebyte_2:
+        BIC.B   #0x4, &0x21
+//   69 		
+//   70 		SPI_SCLK_H();
+??spi_writebyte_3:
+        BIS.B   #0x10, &0x21
+//   71 		
+//   72 		data = data<<1;
+        RLA.B   R11
+//   73 		
+//   74 		if(SPI_MISO_READ() == 1)
+        BIT.B   #0x2, &0x20
+        JNC     ??spi_writebyte_4
+//   75 		{
+//   76 			temp = temp | (1<<(7-i));
+        MOV.W   #0x1, R12
+        MOV.B   #0x7, R14
+        SUB.B   R10, R14
+        CALL    #?ShiftLeft16
+        BIS.B   R12, R15
+//   77 		}
+//   78 		
+//   79 		SPI_MOSI_L();
+??spi_writebyte_4:
+        BIC.B   #0x4, &0x21
+//   80 		
+//   81 		SPI_SCLK_L();
+        BIC.B   #0x10, &0x21
+//   82 	}
+        ADD.B   #0x1, R10
+        JMP     ??spi_writebyte_0
+//   83 	
+//   84 	return temp;
+??spi_writebyte_1:
+        MOV.B   R15, R12
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock2
+        REQUIRE P1OUT
+        REQUIRE P1IN
+//   85 }
+//   86 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   87 uint8_t spiRegAccess(uint8_t addrByte, uint8_t writeValue)
+spiRegAccess:
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Function spiRegAccess
+//   88 {
+        FUNCALL spiRegAccess, spi_writebyte
+        LOCFRAME CSTACK, 8, STACK
+        FUNCALL spiRegAccess, spi_writebyte
+        LOCFRAME CSTACK, 8, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        PUSH.W  R8
+          CFI R8 Frame(CFA, -8)
+          CFI CFA SP+8
+        MOV.B   R12, R11
+        MOV.B   R13, R10
+//   89 	uint8_t readValue;
+//   90 	SPI_CSN_L();
+        BIC.B   #0x20, &0x21
+//   91 //	while (SPI_MISO_READ());
+//   92 	spi_writebyte(addrByte);
+        MOV.B   R11, R12
+        CALL    #spi_writebyte
+//   93 	readValue = spi_writebyte(writeValue);
+        MOV.B   R10, R12
+        CALL    #spi_writebyte
+        MOV.B   R12, R8
+//   94 	SPI_CSN_H();
+        BIS.B   #0x20, &0x21
+//   95 	return(readValue);
+        MOV.B   R8, R12
+        BR      #?Epilogue3
+          CFI EndBlock cfiBlock3
+        REQUIRE P1OUT
+//   96 }
+//   97 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   98 uint8_t Mrfi_SpiReadReg(uint8_t addr)
+Mrfi_SpiReadReg:
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function Mrfi_SpiReadReg
+//   99 {
+        FUNCALL Mrfi_SpiReadReg, spiRegAccess
+        LOCFRAME CSTACK, 4, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        MOV.B   R12, R10
+//  100 	return( spiRegAccess(addr | BURST_BIT | READ_BIT, DUMMY_BYTE) );
+        MOV.B   #0xdb, R13
+        MOV.B   R10, R12
+        BIS.B   #0xc0, R12
+        CALL    #spiRegAccess
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock4
+//  101 }
+//  102 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  103 void Mrfi_SpiWriteReg(uint8_t addr, uint8_t value)
+Mrfi_SpiWriteReg:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function Mrfi_SpiWriteReg
+//  104 {
+        FUNCALL Mrfi_SpiWriteReg, spiRegAccess
+        LOCFRAME CSTACK, 6, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.B   R12, R10
+        MOV.B   R13, R11
+//  105 	spiRegAccess(addr, value);
+        MOV.B   R11, R13
+        MOV.B   R10, R12
+        CALL    #spiRegAccess
+//  106 }
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock5
+//  107 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  108 uint8_t Mrfi_SpiCmdStrobe(uint8_t cmd)
+Mrfi_SpiCmdStrobe:
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Function Mrfi_SpiCmdStrobe
+//  109 {
+        FUNCALL Mrfi_SpiCmdStrobe, spi_writebyte
+        LOCFRAME CSTACK, 6, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.B   R12, R10
+//  110 	uint8_t statusByte;
+//  111 	SPI_CSN_L();
+        BIC.B   #0x20, &0x21
+//  112 //	while (SPI_MISO_READ());
+//  113 	statusByte = spi_writebyte(cmd);
+        MOV.B   R10, R12
+        CALL    #spi_writebyte
+        MOV.B   R12, R11
+//  114 	SPI_CSN_H();
+        BIS.B   #0x20, &0x21
+//  115 	return(statusByte);
+        MOV.B   R11, R12
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock6
+        REQUIRE P1OUT
+//  116 }
+//  117 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  118 void SPI_WriteBuf(uint8_t *buf, uint8_t cnt)
+SPI_WriteBuf:
+          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Function SPI_WriteBuf
+//  119 {
+        FUNCALL SPI_WriteBuf, spi_writebyte
+        LOCFRAME CSTACK, 10, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        PUSH.W  R8
+          CFI R8 Frame(CFA, -8)
+          CFI CFA SP+8
+        PUSH.W  R9
+          CFI R9 Frame(CFA, -10)
+          CFI CFA SP+10
+        MOV.W   R12, R8
+        MOV.B   R13, R10
+//  120 	uint8_t statusByte,i;
+//  121 	
+//  122 	for(i = 0;i < cnt;i ++)
+        MOV.B   #0x0, R11
+??SPI_WriteBuf_0:
+        CMP.B   R10, R11
+        JC      ??SPI_WriteBuf_1
+//  123 	{
+//  124 		statusByte = spi_writebyte(buf[i]);
+        MOV.B   R11, R11
+        MOV.W   R8, R15
+        ADD.W   R11, R15
+        MOV.B   @R15, R12
+        CALL    #spi_writebyte
+        MOV.B   R12, R9
+//  125 		buf[i] = statusByte;
+        MOV.B   R11, R11
+        MOV.W   R8, R15
+        ADD.W   R11, R15
+        MOV.B   R9, 0(R15)
+//  126 	}
+        ADD.B   #0x1, R11
+        JMP     ??SPI_WriteBuf_0
+//  127 }
+??SPI_WriteBuf_1:
+        BR      #?Epilogue4
+          CFI EndBlock cfiBlock7
+//  128 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  129 uint8_t spiBurstFifoAccess(uint8_t addrByte, uint8_t * pData, uint8_t len)
+spiBurstFifoAccess:
+          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Function spiBurstFifoAccess
+//  130 {
+        FUNCALL spiBurstFifoAccess, spi_writebyte
+        LOCFRAME CSTACK, 8, STACK
+        FUNCALL spiBurstFifoAccess, SPI_WriteBuf
+        LOCFRAME CSTACK, 8, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        PUSH.W  R8
+          CFI R8 Frame(CFA, -8)
+          CFI CFA SP+8
+        MOV.B   R12, R11
+        MOV.W   R13, R8
+        MOV.B   R14, R10
+//  131 	SPI_CSN_L();
+        BIC.B   #0x20, &0x21
+//  132 //	while (SPI_MISO_READ());
+//  133 	spi_writebyte(addrByte);
+        MOV.B   R11, R12
+        CALL    #spi_writebyte
+//  134 	SPI_WriteBuf(pData, len);
+        MOV.B   R10, R13
+        MOV.W   R8, R12
+        CALL    #SPI_WriteBuf
+//  135 	SPI_CSN_H();
+        BIS.B   #0x20, &0x21
+//  136 	return 1;
+        MOV.B   #0x1, R12
+        BR      #?Epilogue3
+          CFI EndBlock cfiBlock8
+        REQUIRE P1OUT
+//  137 }
+//  138 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  139 uint8_t Mrfi_SpiWriteTxFifo(uint8_t * pData, uint8_t len)
+Mrfi_SpiWriteTxFifo:
+          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Function Mrfi_SpiWriteTxFifo
+//  140 {
+        FUNCALL Mrfi_SpiWriteTxFifo, spiBurstFifoAccess
+        LOCFRAME CSTACK, 6, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.W   R12, R11
+        MOV.B   R13, R10
+//  141 	return spiBurstFifoAccess(TXFIFO | BURST_BIT, pData, len);
+        MOV.B   R10, R14
+        MOV.W   R11, R13
+        MOV.B   #0x7f, R12
+        CALL    #spiBurstFifoAccess
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock9
+//  142 }
+//  143 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  144 uint8_t Mrfi_SpiReadRxFifo(uint8_t * pData, uint8_t len)
+Mrfi_SpiReadRxFifo:
+          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Function Mrfi_SpiReadRxFifo
+//  145 {
+        FUNCALL Mrfi_SpiReadRxFifo, spiBurstFifoAccess
+        LOCFRAME CSTACK, 6, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.W   R12, R11
+        MOV.B   R13, R10
+//  146 	return spiBurstFifoAccess(RXFIFO | BURST_BIT | READ_BIT, pData, len);
+        MOV.B   R10, R14
+        MOV.W   R11, R13
+        MOV.B   #0xff, R12
+        CALL    #spiBurstFifoAccess
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock10
+//  147 }
+//  148 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  149 uint8_t Radio_Transmit(uint8_t * pPacket, uint8_t len)
+Radio_Transmit:
+          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Function Radio_Transmit
+//  150 {
+        FUNCALL Radio_Transmit, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL Radio_Transmit, Mrfi_SpiWriteTxFifo
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL Radio_Transmit, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL Radio_Transmit, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL Radio_Transmit, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL Radio_Transmit, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 6, STACK
+        FUNCALL Radio_Transmit, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 6, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+        PUSH.W  R11
+          CFI R11 Frame(CFA, -6)
+          CFI CFA SP+6
+        MOV.W   R12, R10
+        MOV.B   R13, R11
+//  151 	P2IFG &=~GPIO0;
+        BIC.B   #0x1, &0x2b
+//  152 	P2IE  &=~GPIO0;
+        BIC.B   #0x1, &0x2d
+//  153 	
+//  154 	Mrfi_SpiWriteReg(TXFIFO, len);
+        MOV.B   R11, R13
+        MOV.B   #0x3f, R12
+        CALL    #Mrfi_SpiWriteReg
+//  155 	Mrfi_SpiWriteTxFifo(pPacket, len);
+        MOV.B   R11, R13
+        MOV.W   R10, R12
+        CALL    #Mrfi_SpiWriteTxFifo
+//  156 	Mrfi_SpiCmdStrobe(SIDLE);
+        MOV.B   #0x36, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//  157 	Mrfi_SpiCmdStrobe(STX);
+        MOV.B   #0x35, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//  158 	while(!SPI_GPIO0_READ());
+??Radio_Transmit_0:
+        BIT.B   #0x1, &0x28
+        JNC     ??Radio_Transmit_0
+//  159 	while(SPI_GPIO0_READ());
+??Radio_Transmit_1:
+        BIT.B   #0x1, &0x28
+        JC      ??Radio_Transmit_1
+//  160 	Mrfi_SpiCmdStrobe(SFTX);
+        MOV.B   #0x3b, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//  161 	Mrfi_SpiCmdStrobe(SIDLE);
+        MOV.B   #0x36, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//  162 	Mrfi_SpiCmdStrobe(SRX);
+        MOV.B   #0x34, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//  163 	
+//  164 	P2IFG &=~GPIO0;
+        BIC.B   #0x1, &0x2b
+//  165 	P2IE  |= GPIO0;
+        BIS.B   #0x1, &0x2d
+//  166 	
+//  167 	return 1;
+        MOV.B   #0x1, R12
+        POP.W   R11
+          CFI R11 SameValue
+          CFI CFA SP+4
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock11
+        REQUIRE P2IFG
+        REQUIRE P2IE
+        REQUIRE P2IN
+//  168 }
+//  169 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  170 void RfWriteRfSettings(void) 
+RfWriteRfSettings:
+          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Function RfWriteRfSettings
+//  171 {
+//  172 	Mrfi_SpiWriteReg(IOCFG0,0x06);
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL RfWriteRfSettings, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 2, STACK
+        MOV.B   #0x6, R13
+        MOV.B   #0x2, R12
+        CALL    #Mrfi_SpiWriteReg
+//  173 	Mrfi_SpiWriteReg(PKTCTRL0,0x05);
+        MOV.B   #0x5, R13
+        MOV.B   #0x8, R12
+        CALL    #Mrfi_SpiWriteReg
+//  174 	Mrfi_SpiWriteReg(CHANNR,0x0C);
+        MOV.B   #0xc, R13
+        MOV.B   #0xa, R12
+        CALL    #Mrfi_SpiWriteReg
+//  175 	Mrfi_SpiWriteReg(FSCTRL1,0x08);
+        MOV.B   #0x8, R13
+        MOV.B   #0xb, R12
+        CALL    #Mrfi_SpiWriteReg
+//  176 	Mrfi_SpiWriteReg(FREQ2,0x21);
+        MOV.B   #0x21, R13
+        MOV.B   #0xd, R12
+        CALL    #Mrfi_SpiWriteReg
+//  177 	Mrfi_SpiWriteReg(FREQ1,0x62);
+        MOV.B   #0x62, R13
+        MOV.B   #0xe, R12
+        CALL    #Mrfi_SpiWriteReg
+//  178 	Mrfi_SpiWriteReg(FREQ0,0x76);
+        MOV.B   #0x76, R13
+        MOV.B   #0xf, R12
+        CALL    #Mrfi_SpiWriteReg
+//  179 	Mrfi_SpiWriteReg(MDMCFG4,0xC7);
+        MOV.B   #0xc7, R13
+        MOV.B   #0x10, R12
+        CALL    #Mrfi_SpiWriteReg
+//  180 	Mrfi_SpiWriteReg(MDMCFG3,0x83);
+        MOV.B   #0x83, R13
+        MOV.B   #0x11, R12
+        CALL    #Mrfi_SpiWriteReg
+//  181 	Mrfi_SpiWriteReg(MDMCFG2,0x93);
+        MOV.B   #0x93, R13
+        MOV.B   #0x12, R12
+        CALL    #Mrfi_SpiWriteReg
+//  182 	Mrfi_SpiWriteReg(DEVIATN,0x40);
+        MOV.B   #0x40, R13
+        MOV.B   #0x15, R12
+        CALL    #Mrfi_SpiWriteReg
+//  183 	Mrfi_SpiWriteReg(MCSM0,0x18);
+        MOV.B   #0x18, R13
+        MOV.B   #0x18, R12
+        CALL    #Mrfi_SpiWriteReg
+//  184 	Mrfi_SpiWriteReg(FOCCFG,0x16);
+        MOV.B   #0x16, R13
+        MOV.B   #0x19, R12
+        CALL    #Mrfi_SpiWriteReg
+//  185 	Mrfi_SpiWriteReg(AGCCTRL2,0x43);
+        MOV.B   #0x43, R13
+        MOV.B   #0x1b, R12
+        CALL    #Mrfi_SpiWriteReg
+//  186 	Mrfi_SpiWriteReg(WORCTRL,0xFB);
+        MOV.B   #0xfb, R13
+        MOV.B   #0x20, R12
+        CALL    #Mrfi_SpiWriteReg
+//  187 	Mrfi_SpiWriteReg(FSCAL3,0xE9);
+        MOV.B   #0xe9, R13
+        MOV.B   #0x23, R12
+        CALL    #Mrfi_SpiWriteReg
+//  188 	Mrfi_SpiWriteReg(FSCAL2,0x2A);
+        MOV.B   #0x2a, R13
+        MOV.B   #0x24, R12
+        CALL    #Mrfi_SpiWriteReg
+//  189 	Mrfi_SpiWriteReg(FSCAL1,0x00);
+        MOV.B   #0x0, R13
+        MOV.B   #0x25, R12
+        CALL    #Mrfi_SpiWriteReg
+//  190 	Mrfi_SpiWriteReg(FSCAL0,0x1F);
+        MOV.B   #0x1f, R13
+        MOV.B   #0x26, R12
+        CALL    #Mrfi_SpiWriteReg
+//  191 	Mrfi_SpiWriteReg(TEST2,0x81);
+        MOV.B   #0x81, R13
+        MOV.B   #0x2c, R12
+        CALL    #Mrfi_SpiWriteReg
+//  192 	Mrfi_SpiWriteReg(TEST1,0x35);
+        MOV.B   #0x35, R13
+        MOV.B   #0x2d, R12
+        CALL    #Mrfi_SpiWriteReg
+//  193 	Mrfi_SpiWriteReg(TEST0,0x09);
+        MOV.B   #0x9, R13
+        MOV.B   #0x2e, R12
+        CALL    #Mrfi_SpiWriteReg
+//  194 
+//  195 	//SPIWriteReg(CCxxx0_IOCFG2,   0x0e);
+//  196 	Mrfi_SpiWriteReg(IOCFG2,   0x0b);
+        MOV.B   #0xb, R13
+        MOV.B   #0x0, R12
+        CALL    #Mrfi_SpiWriteReg
+//  197 	Mrfi_SpiWriteReg(FSCTRL0,  0x00);
+        MOV.B   #0x0, R13
+        MOV.B   #0xc, R12
+        CALL    #Mrfi_SpiWriteReg
+//  198 	Mrfi_SpiWriteReg(BSCFG,    0x6c);
+        MOV.B   #0x6c, R13
+        MOV.B   #0x1a, R12
+        CALL    #Mrfi_SpiWriteReg
+//  199 	Mrfi_SpiWriteReg(FSTEST,   0x59);
+        MOV.B   #0x59, R13
+        MOV.B   #0x29, R12
+        CALL    #Mrfi_SpiWriteReg
+//  200 	Mrfi_SpiWriteReg(PKTCTRL1, 0x04);
+        MOV.B   #0x4, R13
+        MOV.B   #0x7, R12
+        CALL    #Mrfi_SpiWriteReg
+//  201 	//SPIWriteReg(CCxxx0_ADDR,     0x00);
+//  202     Mrfi_SpiWriteReg(PKTLEN,   0xff); 
+        MOV.B   #0xff, R13
+        MOV.B   #0x6, R12
+        CALL    #Mrfi_SpiWriteReg
+//  203 	Mrfi_SpiWriteReg(AGCCTRL1,0x41);
+        MOV.B   #0x41, R13
+        MOV.B   #0x1c, R12
+        CALL    #Mrfi_SpiWriteReg
+//  204 	Mrfi_SpiWriteReg(AGCCTRL0,0xb2);
+        MOV.B   #0xb2, R13
+        MOV.B   #0x1d, R12
+        BR      #Mrfi_SpiWriteReg
+          CFI EndBlock cfiBlock12
+//  205 }
+//  206 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//  207 void cc1101_init(void)
+cc1101_init:
+          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Function cc1101_init
+//  208 {
+        FUNCALL cc1101_init, Mrfi_DelayUsec
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL cc1101_init, Mrfi_DelayUsec
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL cc1101_init, spi_writebyte
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL cc1101_init, RfWriteRfSettings
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL cc1101_init, Mrfi_SpiWriteReg
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL cc1101_init, Mrfi_SpiReadReg
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL cc1101_init, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 4, STACK
+        FUNCALL cc1101_init, Mrfi_SpiCmdStrobe
+        LOCFRAME CSTACK, 4, STACK
+        PUSH.W  R10
+          CFI R10 Frame(CFA, -4)
+          CFI CFA SP+4
+//  209 	SPI_CSN_L();
+        BIC.B   #0x20, &0x21
+//  210 	Mrfi_DelayUsec(10);
+        MOV.W   #0xa, R12
+        CALL    #Mrfi_DelayUsec
+//  211 	SPI_CSN_H();
+        BIS.B   #0x20, &0x21
+//  212 	Mrfi_DelayUsec(40);
+        MOV.W   #0x28, R12
+        CALL    #Mrfi_DelayUsec
+//  213 	SPI_CSN_L();
+        BIC.B   #0x20, &0x21
+//  214 	while (SPI_MISO_READ());
+??cc1101_init_0:
+        BIT.B   #0x2, &0x20
+        JC      ??cc1101_init_0
+//  215 	spi_writebyte(SRES);
+        MOV.B   #0x30, R12
+        CALL    #spi_writebyte
+//  216 	while (SPI_MISO_READ());
+??cc1101_init_1:
+        BIT.B   #0x2, &0x20
+        JC      ??cc1101_init_1
+//  217 	SPI_CSN_H();
+        BIS.B   #0x20, &0x21
+//  218 	
+//  219 	RfWriteRfSettings();
+        CALL    #RfWriteRfSettings
+//  220 	
+//  221 	Mrfi_SpiWriteReg(TI_CCxxx0_IOCFG0, 0x06);
+        MOV.B   #0x6, R13
+        MOV.B   #0x2, R12
+        CALL    #Mrfi_SpiWriteReg
+//  222 	{
+//  223 		uint8_t tmp = 0;
+        MOV.B   #0x0, R10
+//  224 		tmp = Mrfi_SpiReadReg(TI_CCxxx0_IOCFG0);
+        MOV.B   #0x2, R12
+        CALL    #Mrfi_SpiReadReg
+        MOV.B   R12, R10
+//  225 		if(tmp != 0x06)
+        CMP.B   #0x6, R10
+        JEQ     ??cc1101_init_3
+//  226 			while(1);
+??cc1101_init_2:
+        JMP     ??cc1101_init_2
+//  227 	}
+//  228 	Mrfi_SpiCmdStrobe(SIDLE);
+??cc1101_init_3:
+        MOV.B   #0x36, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//  229 	Mrfi_SpiCmdStrobe(SRX);
+        MOV.B   #0x34, R12
+        CALL    #Mrfi_SpiCmdStrobe
+//  230 	
+//  231 	P2IES |= GPIO0;													// Ñ¡ÔñÉÏÉý/ÏÂ½µÑØ
+        BIS.B   #0x1, &0x2c
+//  232 	P2REN |= GPIO0;													// push-up enable
+        BIS.B   #0x1, &0x2f
+//  233 	P2IFG &=~GPIO0;
+        BIC.B   #0x1, &0x2b
+//  234 	P2IE  |= GPIO0;
+        BIS.B   #0x1, &0x2d
+//  235 }
+        POP.W   R10
+          CFI R10 SameValue
+          CFI CFA SP+2
+        RET
+          CFI EndBlock cfiBlock13
+        REQUIRE P1OUT
+        REQUIRE P1IN
+        REQUIRE P2IES
+        REQUIRE P2REN
+        REQUIRE P2IFG
+        REQUIRE P2IE
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r4:
+        REQUIRE ?setjmp_r4
+        REQUIRE ?longjmp_r4
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r5:
+        REQUIRE ?setjmp_r5
+        REQUIRE ?longjmp_r5
+
+        END
+// 
+// 986 bytes in segment CODE
+//  10 bytes in segment DATA16_AN
+// 
+// 986 bytes of CODE memory
+//   0 bytes of DATA memory (+ 10 bytes shared)
+//
+//Errors: none
+//Warnings: none

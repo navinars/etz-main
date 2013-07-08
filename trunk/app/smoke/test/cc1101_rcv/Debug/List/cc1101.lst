@@ -1,0 +1,783 @@
+###############################################################################
+#                                                                             #
+#                                                       07/Jul/2013  23:05:42 #
+# IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430         #
+# Copyright 1996-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    __rt_version  =  3                                                       #
+#    __double_size =  32                                                      #
+#    __reg_r4      =  free                                                    #
+#    __reg_r5      =  free                                                    #
+#    __pic         =  no                                                      #
+#    __core        =  430                                                     #
+#    Source file   =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\cc1101 #
+#                     .c                                                      #
+#    Command line  =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\cc1101 #
+#                     .c -lC E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv #
+#                     \Debug\List\ -lA E:\DOOYA\dooya_dev\DU0106\Source\test\ #
+#                     cc1101_rcv\Debug\List\ -o E:\DOOYA\dooya_dev\DU0106\Sou #
+#                     rce\test\cc1101_rcv\Debug\Obj\ --no_cse --no_unroll     #
+#                     --no_inline --no_code_motion --no_tbaa --debug          #
+#                     -D__MSP430G2433__ -e --double=32 --dlib_config          #
+#                     "C:\Program Files (x86)\IAR Systems\Embedded Workbench  #
+#                     6.4 Evaluation\430\LIB\DLIB\dl430fn.h" -On              #
+#    List file     =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug\ #
+#                     List\cc1101.lst                                         #
+#    Object file   =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug\ #
+#                     Obj\cc1101.r43                                          #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\cc1101.c
+      1          #include "msp430.h"
+
+   \                                 In  segment DATA16_AN, at 0x20
+   \   unsigned char const volatile P1IN
+   \                     P1IN:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x21
+   \   unsigned char volatile P1OUT
+   \                     P1OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x22
+   \   unsigned char volatile P1DIR
+   \                     P1DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x27
+   \   unsigned char volatile P1REN
+   \                     P1REN:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x28
+   \   unsigned char const volatile P2IN
+   \                     P2IN:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2a
+   \   unsigned char volatile P2DIR
+   \                     P2DIR:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2b
+   \   unsigned char volatile P2IFG
+   \                     P2IFG:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2c
+   \   unsigned char volatile P2IES
+   \                     P2IES:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2d
+   \   unsigned char volatile P2IE
+   \                     P2IE:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x2f
+   \   unsigned char volatile P2REN
+   \                     P2REN:
+   \   000000                DS8 1
+      2          #include <stdint.h>
+      3          #include <string.h>
+      4          #include "cc1101.h"
+      5          #include "cc1101_defs.h"
+      6          
+      7          #define MISO			BIT1
+      8          #define MOSI			BIT2
+      9          #define CLK				BIT4
+     10          #define CSN				BIT5
+     11          #define GPIO0			BIT0
+     12          
+     13          #define SPI_SCLK_H()	P1OUT |= CLK
+     14          #define SPI_SCLK_L()	P1OUT &=~CLK
+     15          
+     16          #define SPI_MOSI_H()	P1OUT |= MOSI
+     17          #define SPI_MOSI_L()	P1OUT &=~MOSI
+     18          
+     19          #define SPI_CSN_H()		P1OUT |= CSN
+     20          #define SPI_CSN_L()		P1OUT &=~CSN
+     21          
+     22          #define SPI_MISO_READ()	(!!(P1IN&MISO))
+     23          #define SPI_GPIO0_READ()	(!!(P2IN&GPIO0))
+     24          
+     25          #define DUMMY_BYTE                  0xDB
+     26          #define READ_BIT                    0x80
+     27          #define BURST_BIT                   0x40
+     28          
+
+   \                                 In  segment CODE, align 2
+     29          void Mrfi_DelayUsec(uint16_t howlong)
+   \                     Mrfi_DelayUsec:
+   \                     ??Mrfi_DelayUsec_0:
+     30          {
+     31          	uint16_t i;
+     32          	
+     33          	while(howlong --)
+   \   000000   0F4C         MOV.W   R12, R15
+   \   000002   0C4F         MOV.W   R15, R12
+   \   000004   3C53         ADD.W   #0xffff, R12
+   \   000006   0F93         CMP.W   #0x0, R15
+   \   000008   0724         JEQ     ??Mrfi_DelayUsec_2
+     34          	{
+     35          		for(i = 0;i < 10000;i++)
+   \   00000A   0E43         MOV.W   #0x0, R14
+   \                     ??Mrfi_DelayUsec_1:
+   \   00000C   3E901027     CMP.W   #0x2710, R14
+   \   000010   F72F         JC      ??Mrfi_DelayUsec_0
+     36          		{
+     37          			asm("NOP");
+   \   000012   0343         NOP
+     38          		}
+   \   000014   1E53         ADD.W   #0x1, R14
+   \   000016   FA3F         JMP     ??Mrfi_DelayUsec_1
+     39          	}
+     40          }
+   \                     ??Mrfi_DelayUsec_2:
+   \   000018   3041         RET
+     41          
+
+   \                                 In  segment CODE, align 2
+     42          void gpio_init(void)
+   \                     gpio_init:
+     43          {
+     44          	P1DIR |= BIT0;
+   \   000000   D2D32200     BIS.B   #0x1, &0x22
+     45          	P1DIR |= MOSI + CLK + CSN;
+   \   000004   F2D034002200 BIS.B   #0x34, &0x22
+     46          	P1DIR &=~MISO;
+   \   00000A   E2C32200     BIC.B   #0x2, &0x22
+     47          	P2DIR &=~GPIO0;
+   \   00000E   D2C32A00     BIC.B   #0x1, &0x2a
+     48          	
+     49          	P1REN |= MISO;
+   \   000012   E2D32700     BIS.B   #0x2, &0x27
+     50          	
+     51          	SPI_SCLK_L();
+   \   000016   F2C010002100 BIC.B   #0x10, &0x21
+     52          	SPI_MOSI_L();
+   \   00001C   E2C22100     BIC.B   #0x4, &0x21
+     53          	SPI_CSN_H();
+   \   000020   F2D020002100 BIS.B   #0x20, &0x21
+     54          }
+   \   000026   3041         RET
+   \   000028                REQUIRE P1DIR
+   \   000028                REQUIRE P2DIR
+   \   000028                REQUIRE P1REN
+   \   000028                REQUIRE P1OUT
+     55          
+
+   \                                 In  segment CODE, align 2
+     56          uint8_t spi_writebyte (uint8_t value)
+   \                     spi_writebyte:
+     57          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   4D4C         MOV.B   R12, R13
+     58          	uint8_t i,temp,data;
+     59          	
+     60          	data = value;
+   \   000006   4B4D         MOV.B   R13, R11
+     61          	temp = 0;
+   \   000008   4F43         MOV.B   #0x0, R15
+     62          	
+     63          	for(i = 0;i < 8;i ++)
+   \   00000A   4A43         MOV.B   #0x0, R10
+   \                     ??spi_writebyte_0:
+   \   00000C   7A92         CMP.B   #0x8, R10
+   \   00000E   1C2C         JC      ??spi_writebyte_1
+     64          	{
+     65          		if((data&0x80) == 0x80)
+   \   000010   4B93         CMP.B   #0x0, R11
+   \   000012   0334         JGE     ??spi_writebyte_2
+     66          			SPI_MOSI_H();
+   \   000014   E2D22100     BIS.B   #0x4, &0x21
+   \   000018   023C         JMP     ??spi_writebyte_3
+     67          		else
+     68          			SPI_MOSI_L();
+   \                     ??spi_writebyte_2:
+   \   00001A   E2C22100     BIC.B   #0x4, &0x21
+     69          		
+     70          		SPI_SCLK_H();
+   \                     ??spi_writebyte_3:
+   \   00001E   F2D010002100 BIS.B   #0x10, &0x21
+     71          		
+     72          		data = data<<1;
+   \   000024   4B5B         RLA.B   R11
+     73          		
+     74          		if(SPI_MISO_READ() == 1)
+   \   000026   E2B32000     BIT.B   #0x2, &0x20
+   \   00002A   0728         JNC     ??spi_writebyte_4
+     75          		{
+     76          			temp = temp | (1<<(7-i));
+   \   00002C   1C43         MOV.W   #0x1, R12
+   \   00002E   7E400700     MOV.B   #0x7, R14
+   \   000032   4E8A         SUB.B   R10, R14
+   \   000034   B012....     CALL    #?ShiftLeft16
+   \   000038   4FDC         BIS.B   R12, R15
+     77          		}
+     78          		
+     79          		SPI_MOSI_L();
+   \                     ??spi_writebyte_4:
+   \   00003A   E2C22100     BIC.B   #0x4, &0x21
+     80          		
+     81          		SPI_SCLK_L();
+   \   00003E   F2C010002100 BIC.B   #0x10, &0x21
+     82          	}
+   \   000044   5A53         ADD.B   #0x1, R10
+   \   000046   E23F         JMP     ??spi_writebyte_0
+     83          	
+     84          	return temp;
+   \                     ??spi_writebyte_1:
+   \   000048   4C4F         MOV.B   R15, R12
+   \   00004A   3B41         POP.W   R11
+   \   00004C   3A41         POP.W   R10
+   \   00004E   3041         RET
+   \   000050                REQUIRE P1OUT
+   \   000050                REQUIRE P1IN
+     85          }
+     86          
+
+   \                                 In  segment CODE, align 2
+     87          uint8_t spiRegAccess(uint8_t addrByte, uint8_t writeValue)
+   \                     spiRegAccess:
+     88          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   0812         PUSH.W  R8
+   \   000006   4B4C         MOV.B   R12, R11
+   \   000008   4A4D         MOV.B   R13, R10
+     89          	uint8_t readValue;
+     90          	SPI_CSN_L();
+   \   00000A   F2C020002100 BIC.B   #0x20, &0x21
+     91          //	while (SPI_MISO_READ());
+     92          	spi_writebyte(addrByte);
+   \   000010   4C4B         MOV.B   R11, R12
+   \   000012   B012....     CALL    #spi_writebyte
+     93          	readValue = spi_writebyte(writeValue);
+   \   000016   4C4A         MOV.B   R10, R12
+   \   000018   B012....     CALL    #spi_writebyte
+   \   00001C   484C         MOV.B   R12, R8
+     94          	SPI_CSN_H();
+   \   00001E   F2D020002100 BIS.B   #0x20, &0x21
+     95          	return(readValue);
+   \   000024   4C48         MOV.B   R8, R12
+   \   000026   3040....     BR      #?Epilogue3
+   \   00002A                REQUIRE P1OUT
+     96          }
+     97          
+
+   \                                 In  segment CODE, align 2
+     98          uint8_t Mrfi_SpiReadReg(uint8_t addr)
+   \                     Mrfi_SpiReadReg:
+     99          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   4A4C         MOV.B   R12, R10
+    100          	return( spiRegAccess(addr | BURST_BIT | READ_BIT, DUMMY_BYTE) );
+   \   000004   7D40DB00     MOV.B   #0xdb, R13
+   \   000008   4C4A         MOV.B   R10, R12
+   \   00000A   7CD0C000     BIS.B   #0xc0, R12
+   \   00000E   B012....     CALL    #spiRegAccess
+   \   000012   3A41         POP.W   R10
+   \   000014   3041         RET
+    101          }
+    102          
+
+   \                                 In  segment CODE, align 2
+    103          void Mrfi_SpiWriteReg(uint8_t addr, uint8_t value)
+   \                     Mrfi_SpiWriteReg:
+    104          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   4A4C         MOV.B   R12, R10
+   \   000006   4B4D         MOV.B   R13, R11
+    105          	spiRegAccess(addr, value);
+   \   000008   4D4B         MOV.B   R11, R13
+   \   00000A   4C4A         MOV.B   R10, R12
+   \   00000C   B012....     CALL    #spiRegAccess
+    106          }
+   \   000010   3B41         POP.W   R11
+   \   000012   3A41         POP.W   R10
+   \   000014   3041         RET
+    107          
+
+   \                                 In  segment CODE, align 2
+    108          uint8_t Mrfi_SpiCmdStrobe(uint8_t cmd)
+   \                     Mrfi_SpiCmdStrobe:
+    109          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   4A4C         MOV.B   R12, R10
+    110          	uint8_t statusByte;
+    111          	SPI_CSN_L();
+   \   000006   F2C020002100 BIC.B   #0x20, &0x21
+    112          //	while (SPI_MISO_READ());
+    113          	statusByte = spi_writebyte(cmd);
+   \   00000C   4C4A         MOV.B   R10, R12
+   \   00000E   B012....     CALL    #spi_writebyte
+   \   000012   4B4C         MOV.B   R12, R11
+    114          	SPI_CSN_H();
+   \   000014   F2D020002100 BIS.B   #0x20, &0x21
+    115          	return(statusByte);
+   \   00001A   4C4B         MOV.B   R11, R12
+   \   00001C   3B41         POP.W   R11
+   \   00001E   3A41         POP.W   R10
+   \   000020   3041         RET
+   \   000022                REQUIRE P1OUT
+    116          }
+    117          
+
+   \                                 In  segment CODE, align 2
+    118          void SPI_WriteBuf(uint8_t *buf, uint8_t cnt)
+   \                     SPI_WriteBuf:
+    119          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   0812         PUSH.W  R8
+   \   000006   0912         PUSH.W  R9
+   \   000008   084C         MOV.W   R12, R8
+   \   00000A   4A4D         MOV.B   R13, R10
+    120          	uint8_t statusByte,i;
+    121          	
+    122          	for(i = 0;i < cnt;i ++)
+   \   00000C   4B43         MOV.B   #0x0, R11
+   \                     ??SPI_WriteBuf_0:
+   \   00000E   4B9A         CMP.B   R10, R11
+   \   000010   0E2C         JC      ??SPI_WriteBuf_1
+    123          	{
+    124          		statusByte = spi_writebyte(buf[i]);
+   \   000012   4B4B         MOV.B   R11, R11
+   \   000014   0F48         MOV.W   R8, R15
+   \   000016   0F5B         ADD.W   R11, R15
+   \   000018   6C4F         MOV.B   @R15, R12
+   \   00001A   B012....     CALL    #spi_writebyte
+   \   00001E   494C         MOV.B   R12, R9
+    125          		buf[i] = statusByte;
+   \   000020   4B4B         MOV.B   R11, R11
+   \   000022   0F48         MOV.W   R8, R15
+   \   000024   0F5B         ADD.W   R11, R15
+   \   000026   CF490000     MOV.B   R9, 0(R15)
+    126          	}
+   \   00002A   5B53         ADD.B   #0x1, R11
+   \   00002C   F03F         JMP     ??SPI_WriteBuf_0
+    127          }
+   \                     ??SPI_WriteBuf_1:
+   \   00002E   3040....     BR      #?Epilogue4
+    128          
+
+   \                                 In  segment CODE, align 2
+    129          uint8_t spiBurstFifoAccess(uint8_t addrByte, uint8_t * pData, uint8_t len)
+   \                     spiBurstFifoAccess:
+    130          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   0812         PUSH.W  R8
+   \   000006   4B4C         MOV.B   R12, R11
+   \   000008   084D         MOV.W   R13, R8
+   \   00000A   4A4E         MOV.B   R14, R10
+    131          	SPI_CSN_L();
+   \   00000C   F2C020002100 BIC.B   #0x20, &0x21
+    132          //	while (SPI_MISO_READ());
+    133          	spi_writebyte(addrByte);
+   \   000012   4C4B         MOV.B   R11, R12
+   \   000014   B012....     CALL    #spi_writebyte
+    134          	SPI_WriteBuf(pData, len);
+   \   000018   4D4A         MOV.B   R10, R13
+   \   00001A   0C48         MOV.W   R8, R12
+   \   00001C   B012....     CALL    #SPI_WriteBuf
+    135          	SPI_CSN_H();
+   \   000020   F2D020002100 BIS.B   #0x20, &0x21
+    136          	return 1;
+   \   000026   5C43         MOV.B   #0x1, R12
+   \   000028   3040....     BR      #?Epilogue3
+   \   00002C                REQUIRE P1OUT
+    137          }
+    138          
+
+   \                                 In  segment CODE, align 2
+    139          uint8_t Mrfi_SpiWriteTxFifo(uint8_t * pData, uint8_t len)
+   \                     Mrfi_SpiWriteTxFifo:
+    140          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   0B4C         MOV.W   R12, R11
+   \   000006   4A4D         MOV.B   R13, R10
+    141          	return spiBurstFifoAccess(TXFIFO | BURST_BIT, pData, len);
+   \   000008   4E4A         MOV.B   R10, R14
+   \   00000A   0D4B         MOV.W   R11, R13
+   \   00000C   7C407F00     MOV.B   #0x7f, R12
+   \   000010   B012....     CALL    #spiBurstFifoAccess
+   \   000014   3B41         POP.W   R11
+   \   000016   3A41         POP.W   R10
+   \   000018   3041         RET
+    142          }
+    143          
+
+   \                                 In  segment CODE, align 2
+    144          uint8_t Mrfi_SpiReadRxFifo(uint8_t * pData, uint8_t len)
+   \                     Mrfi_SpiReadRxFifo:
+    145          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   0B4C         MOV.W   R12, R11
+   \   000006   4A4D         MOV.B   R13, R10
+    146          	return spiBurstFifoAccess(RXFIFO | BURST_BIT | READ_BIT, pData, len);
+   \   000008   4E4A         MOV.B   R10, R14
+   \   00000A   0D4B         MOV.W   R11, R13
+   \   00000C   7C43         MOV.B   #0xff, R12
+   \   00000E   B012....     CALL    #spiBurstFifoAccess
+   \   000012   3B41         POP.W   R11
+   \   000014   3A41         POP.W   R10
+   \   000016   3041         RET
+    147          }
+    148          
+
+   \                                 In  segment CODE, align 2
+    149          uint8_t Radio_Transmit(uint8_t * pPacket, uint8_t len)
+   \                     Radio_Transmit:
+    150          {
+   \   000000   0A12         PUSH.W  R10
+   \   000002   0B12         PUSH.W  R11
+   \   000004   0A4C         MOV.W   R12, R10
+   \   000006   4B4D         MOV.B   R13, R11
+    151          	P2IFG &=~GPIO0;
+   \   000008   D2C32B00     BIC.B   #0x1, &0x2b
+    152          	P2IE  &=~GPIO0;
+   \   00000C   D2C32D00     BIC.B   #0x1, &0x2d
+    153          	
+    154          	Mrfi_SpiWriteReg(TXFIFO, len);
+   \   000010   4D4B         MOV.B   R11, R13
+   \   000012   7C403F00     MOV.B   #0x3f, R12
+   \   000016   B012....     CALL    #Mrfi_SpiWriteReg
+    155          	Mrfi_SpiWriteTxFifo(pPacket, len);
+   \   00001A   4D4B         MOV.B   R11, R13
+   \   00001C   0C4A         MOV.W   R10, R12
+   \   00001E   B012....     CALL    #Mrfi_SpiWriteTxFifo
+    156          	Mrfi_SpiCmdStrobe(SIDLE);
+   \   000022   7C403600     MOV.B   #0x36, R12
+   \   000026   B012....     CALL    #Mrfi_SpiCmdStrobe
+    157          	Mrfi_SpiCmdStrobe(STX);
+   \   00002A   7C403500     MOV.B   #0x35, R12
+   \   00002E   B012....     CALL    #Mrfi_SpiCmdStrobe
+    158          	while(!SPI_GPIO0_READ());
+   \                     ??Radio_Transmit_0:
+   \   000032   D2B32800     BIT.B   #0x1, &0x28
+   \   000036   FD2B         JNC     ??Radio_Transmit_0
+    159          	while(SPI_GPIO0_READ());
+   \                     ??Radio_Transmit_1:
+   \   000038   D2B32800     BIT.B   #0x1, &0x28
+   \   00003C   FD2F         JC      ??Radio_Transmit_1
+    160          	Mrfi_SpiCmdStrobe(SFTX);
+   \   00003E   7C403B00     MOV.B   #0x3b, R12
+   \   000042   B012....     CALL    #Mrfi_SpiCmdStrobe
+    161          	Mrfi_SpiCmdStrobe(SIDLE);
+   \   000046   7C403600     MOV.B   #0x36, R12
+   \   00004A   B012....     CALL    #Mrfi_SpiCmdStrobe
+    162          	Mrfi_SpiCmdStrobe(SRX);
+   \   00004E   7C403400     MOV.B   #0x34, R12
+   \   000052   B012....     CALL    #Mrfi_SpiCmdStrobe
+    163          	
+    164          	P2IFG &=~GPIO0;
+   \   000056   D2C32B00     BIC.B   #0x1, &0x2b
+    165          	P2IE  |= GPIO0;
+   \   00005A   D2D32D00     BIS.B   #0x1, &0x2d
+    166          	
+    167          	return 1;
+   \   00005E   5C43         MOV.B   #0x1, R12
+   \   000060   3B41         POP.W   R11
+   \   000062   3A41         POP.W   R10
+   \   000064   3041         RET
+   \   000066                REQUIRE P2IFG
+   \   000066                REQUIRE P2IE
+   \   000066                REQUIRE P2IN
+    168          }
+    169          
+
+   \                                 In  segment CODE, align 2
+    170          void RfWriteRfSettings(void) 
+   \                     RfWriteRfSettings:
+    171          {
+    172          	Mrfi_SpiWriteReg(IOCFG0,0x06);
+   \   000000   7D400600     MOV.B   #0x6, R13
+   \   000004   6C43         MOV.B   #0x2, R12
+   \   000006   B012....     CALL    #Mrfi_SpiWriteReg
+    173          	Mrfi_SpiWriteReg(PKTCTRL0,0x05);
+   \   00000A   7D400500     MOV.B   #0x5, R13
+   \   00000E   7C42         MOV.B   #0x8, R12
+   \   000010   B012....     CALL    #Mrfi_SpiWriteReg
+    174          	Mrfi_SpiWriteReg(CHANNR,0x0C);
+   \   000014   7D400C00     MOV.B   #0xc, R13
+   \   000018   7C400A00     MOV.B   #0xa, R12
+   \   00001C   B012....     CALL    #Mrfi_SpiWriteReg
+    175          	Mrfi_SpiWriteReg(FSCTRL1,0x08);
+   \   000020   7D42         MOV.B   #0x8, R13
+   \   000022   7C400B00     MOV.B   #0xb, R12
+   \   000026   B012....     CALL    #Mrfi_SpiWriteReg
+    176          	Mrfi_SpiWriteReg(FREQ2,0x21);
+   \   00002A   7D402100     MOV.B   #0x21, R13
+   \   00002E   7C400D00     MOV.B   #0xd, R12
+   \   000032   B012....     CALL    #Mrfi_SpiWriteReg
+    177          	Mrfi_SpiWriteReg(FREQ1,0x62);
+   \   000036   7D406200     MOV.B   #0x62, R13
+   \   00003A   7C400E00     MOV.B   #0xe, R12
+   \   00003E   B012....     CALL    #Mrfi_SpiWriteReg
+    178          	Mrfi_SpiWriteReg(FREQ0,0x76);
+   \   000042   7D407600     MOV.B   #0x76, R13
+   \   000046   7C400F00     MOV.B   #0xf, R12
+   \   00004A   B012....     CALL    #Mrfi_SpiWriteReg
+    179          	Mrfi_SpiWriteReg(MDMCFG4,0xC7);
+   \   00004E   7D40C700     MOV.B   #0xc7, R13
+   \   000052   7C401000     MOV.B   #0x10, R12
+   \   000056   B012....     CALL    #Mrfi_SpiWriteReg
+    180          	Mrfi_SpiWriteReg(MDMCFG3,0x83);
+   \   00005A   7D408300     MOV.B   #0x83, R13
+   \   00005E   7C401100     MOV.B   #0x11, R12
+   \   000062   B012....     CALL    #Mrfi_SpiWriteReg
+    181          	Mrfi_SpiWriteReg(MDMCFG2,0x93);
+   \   000066   7D409300     MOV.B   #0x93, R13
+   \   00006A   7C401200     MOV.B   #0x12, R12
+   \   00006E   B012....     CALL    #Mrfi_SpiWriteReg
+    182          	Mrfi_SpiWriteReg(DEVIATN,0x40);
+   \   000072   7D404000     MOV.B   #0x40, R13
+   \   000076   7C401500     MOV.B   #0x15, R12
+   \   00007A   B012....     CALL    #Mrfi_SpiWriteReg
+    183          	Mrfi_SpiWriteReg(MCSM0,0x18);
+   \   00007E   7D401800     MOV.B   #0x18, R13
+   \   000082   7C401800     MOV.B   #0x18, R12
+   \   000086   B012....     CALL    #Mrfi_SpiWriteReg
+    184          	Mrfi_SpiWriteReg(FOCCFG,0x16);
+   \   00008A   7D401600     MOV.B   #0x16, R13
+   \   00008E   7C401900     MOV.B   #0x19, R12
+   \   000092   B012....     CALL    #Mrfi_SpiWriteReg
+    185          	Mrfi_SpiWriteReg(AGCCTRL2,0x43);
+   \   000096   7D404300     MOV.B   #0x43, R13
+   \   00009A   7C401B00     MOV.B   #0x1b, R12
+   \   00009E   B012....     CALL    #Mrfi_SpiWriteReg
+    186          	Mrfi_SpiWriteReg(WORCTRL,0xFB);
+   \   0000A2   7D40FB00     MOV.B   #0xfb, R13
+   \   0000A6   7C402000     MOV.B   #0x20, R12
+   \   0000AA   B012....     CALL    #Mrfi_SpiWriteReg
+    187          	Mrfi_SpiWriteReg(FSCAL3,0xE9);
+   \   0000AE   7D40E900     MOV.B   #0xe9, R13
+   \   0000B2   7C402300     MOV.B   #0x23, R12
+   \   0000B6   B012....     CALL    #Mrfi_SpiWriteReg
+    188          	Mrfi_SpiWriteReg(FSCAL2,0x2A);
+   \   0000BA   7D402A00     MOV.B   #0x2a, R13
+   \   0000BE   7C402400     MOV.B   #0x24, R12
+   \   0000C2   B012....     CALL    #Mrfi_SpiWriteReg
+    189          	Mrfi_SpiWriteReg(FSCAL1,0x00);
+   \   0000C6   4D43         MOV.B   #0x0, R13
+   \   0000C8   7C402500     MOV.B   #0x25, R12
+   \   0000CC   B012....     CALL    #Mrfi_SpiWriteReg
+    190          	Mrfi_SpiWriteReg(FSCAL0,0x1F);
+   \   0000D0   7D401F00     MOV.B   #0x1f, R13
+   \   0000D4   7C402600     MOV.B   #0x26, R12
+   \   0000D8   B012....     CALL    #Mrfi_SpiWriteReg
+    191          	Mrfi_SpiWriteReg(TEST2,0x81);
+   \   0000DC   7D408100     MOV.B   #0x81, R13
+   \   0000E0   7C402C00     MOV.B   #0x2c, R12
+   \   0000E4   B012....     CALL    #Mrfi_SpiWriteReg
+    192          	Mrfi_SpiWriteReg(TEST1,0x35);
+   \   0000E8   7D403500     MOV.B   #0x35, R13
+   \   0000EC   7C402D00     MOV.B   #0x2d, R12
+   \   0000F0   B012....     CALL    #Mrfi_SpiWriteReg
+    193          	Mrfi_SpiWriteReg(TEST0,0x09);
+   \   0000F4   7D400900     MOV.B   #0x9, R13
+   \   0000F8   7C402E00     MOV.B   #0x2e, R12
+   \   0000FC   B012....     CALL    #Mrfi_SpiWriteReg
+    194          
+    195          	//SPIWriteReg(CCxxx0_IOCFG2,   0x0e);
+    196          	Mrfi_SpiWriteReg(IOCFG2,   0x0b);
+   \   000100   7D400B00     MOV.B   #0xb, R13
+   \   000104   4C43         MOV.B   #0x0, R12
+   \   000106   B012....     CALL    #Mrfi_SpiWriteReg
+    197          	Mrfi_SpiWriteReg(FSCTRL0,  0x00);
+   \   00010A   4D43         MOV.B   #0x0, R13
+   \   00010C   7C400C00     MOV.B   #0xc, R12
+   \   000110   B012....     CALL    #Mrfi_SpiWriteReg
+    198          	Mrfi_SpiWriteReg(BSCFG,    0x6c);
+   \   000114   7D406C00     MOV.B   #0x6c, R13
+   \   000118   7C401A00     MOV.B   #0x1a, R12
+   \   00011C   B012....     CALL    #Mrfi_SpiWriteReg
+    199          	Mrfi_SpiWriteReg(FSTEST,   0x59);
+   \   000120   7D405900     MOV.B   #0x59, R13
+   \   000124   7C402900     MOV.B   #0x29, R12
+   \   000128   B012....     CALL    #Mrfi_SpiWriteReg
+    200          	Mrfi_SpiWriteReg(PKTCTRL1, 0x04);
+   \   00012C   6D42         MOV.B   #0x4, R13
+   \   00012E   7C400700     MOV.B   #0x7, R12
+   \   000132   B012....     CALL    #Mrfi_SpiWriteReg
+    201          	//SPIWriteReg(CCxxx0_ADDR,     0x00);
+    202              Mrfi_SpiWriteReg(PKTLEN,   0xff); 
+   \   000136   7D43         MOV.B   #0xff, R13
+   \   000138   7C400600     MOV.B   #0x6, R12
+   \   00013C   B012....     CALL    #Mrfi_SpiWriteReg
+    203          	Mrfi_SpiWriteReg(AGCCTRL1,0x41);
+   \   000140   7D404100     MOV.B   #0x41, R13
+   \   000144   7C401C00     MOV.B   #0x1c, R12
+   \   000148   B012....     CALL    #Mrfi_SpiWriteReg
+    204          	Mrfi_SpiWriteReg(AGCCTRL0,0xb2);
+   \   00014C   7D40B200     MOV.B   #0xb2, R13
+   \   000150   7C401D00     MOV.B   #0x1d, R12
+   \   000154   3040....     BR      #Mrfi_SpiWriteReg
+    205          }
+    206          
+
+   \                                 In  segment CODE, align 2
+    207          void cc1101_init(void)
+   \                     cc1101_init:
+    208          {
+   \   000000   0A12         PUSH.W  R10
+    209          	SPI_CSN_L();
+   \   000002   F2C020002100 BIC.B   #0x20, &0x21
+    210          	Mrfi_DelayUsec(10);
+   \   000008   3C400A00     MOV.W   #0xa, R12
+   \   00000C   B012....     CALL    #Mrfi_DelayUsec
+    211          	SPI_CSN_H();
+   \   000010   F2D020002100 BIS.B   #0x20, &0x21
+    212          	Mrfi_DelayUsec(40);
+   \   000016   3C402800     MOV.W   #0x28, R12
+   \   00001A   B012....     CALL    #Mrfi_DelayUsec
+    213          	SPI_CSN_L();
+   \   00001E   F2C020002100 BIC.B   #0x20, &0x21
+    214          	while (SPI_MISO_READ());
+   \                     ??cc1101_init_0:
+   \   000024   E2B32000     BIT.B   #0x2, &0x20
+   \   000028   FD2F         JC      ??cc1101_init_0
+    215          	spi_writebyte(SRES);
+   \   00002A   7C403000     MOV.B   #0x30, R12
+   \   00002E   B012....     CALL    #spi_writebyte
+    216          	while (SPI_MISO_READ());
+   \                     ??cc1101_init_1:
+   \   000032   E2B32000     BIT.B   #0x2, &0x20
+   \   000036   FD2F         JC      ??cc1101_init_1
+    217          	SPI_CSN_H();
+   \   000038   F2D020002100 BIS.B   #0x20, &0x21
+    218          	
+    219          	RfWriteRfSettings();
+   \   00003E   B012....     CALL    #RfWriteRfSettings
+    220          	
+    221          	Mrfi_SpiWriteReg(TI_CCxxx0_IOCFG0, 0x06);
+   \   000042   7D400600     MOV.B   #0x6, R13
+   \   000046   6C43         MOV.B   #0x2, R12
+   \   000048   B012....     CALL    #Mrfi_SpiWriteReg
+    222          	{
+    223          		uint8_t tmp = 0;
+   \   00004C   4A43         MOV.B   #0x0, R10
+    224          		tmp = Mrfi_SpiReadReg(TI_CCxxx0_IOCFG0);
+   \   00004E   6C43         MOV.B   #0x2, R12
+   \   000050   B012....     CALL    #Mrfi_SpiReadReg
+   \   000054   4A4C         MOV.B   R12, R10
+    225          		if(tmp != 0x06)
+   \   000056   7A900600     CMP.B   #0x6, R10
+   \   00005A   0124         JEQ     ??cc1101_init_3
+    226          			while(1);
+   \                     ??cc1101_init_2:
+   \   00005C   FF3F         JMP     ??cc1101_init_2
+    227          	}
+    228          	Mrfi_SpiCmdStrobe(SIDLE);
+   \                     ??cc1101_init_3:
+   \   00005E   7C403600     MOV.B   #0x36, R12
+   \   000062   B012....     CALL    #Mrfi_SpiCmdStrobe
+    229          	Mrfi_SpiCmdStrobe(SRX);
+   \   000066   7C403400     MOV.B   #0x34, R12
+   \   00006A   B012....     CALL    #Mrfi_SpiCmdStrobe
+    230          	
+    231          	P2IES |= GPIO0;													// Ñ¡ÔñÉÏÉý/ÏÂ½µÑØ
+   \   00006E   D2D32C00     BIS.B   #0x1, &0x2c
+    232          	P2REN |= GPIO0;													// push-up enable
+   \   000072   D2D32F00     BIS.B   #0x1, &0x2f
+    233          	P2IFG &=~GPIO0;
+   \   000076   D2C32B00     BIC.B   #0x1, &0x2b
+    234          	P2IE  |= GPIO0;
+   \   00007A   D2D32D00     BIS.B   #0x1, &0x2d
+    235          }
+   \   00007E   3A41         POP.W   R10
+   \   000080   3041         RET
+   \   000082                REQUIRE P1OUT
+   \   000082                REQUIRE P1IN
+   \   000082                REQUIRE P2IES
+   \   000082                REQUIRE P2REN
+   \   000082                REQUIRE P2IFG
+   \   000082                REQUIRE P2IE
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+       2  Mrfi_DelayUsec
+       6  Mrfi_SpiCmdStrobe
+             6 -> spi_writebyte
+       4  Mrfi_SpiReadReg
+             4 -> spiRegAccess
+       6  Mrfi_SpiReadRxFifo
+             6 -> spiBurstFifoAccess
+       6  Mrfi_SpiWriteReg
+             6 -> spiRegAccess
+       6  Mrfi_SpiWriteTxFifo
+             6 -> spiBurstFifoAccess
+       6  Radio_Transmit
+             6 -> Mrfi_SpiCmdStrobe
+             6 -> Mrfi_SpiWriteReg
+             6 -> Mrfi_SpiWriteTxFifo
+       2  RfWriteRfSettings
+             2 -> Mrfi_SpiWriteReg
+      10  SPI_WriteBuf
+            10 -> spi_writebyte
+       4  cc1101_init
+             4 -> Mrfi_DelayUsec
+             4 -> Mrfi_SpiCmdStrobe
+             4 -> Mrfi_SpiReadReg
+             4 -> Mrfi_SpiWriteReg
+             4 -> RfWriteRfSettings
+             4 -> spi_writebyte
+       2  gpio_init
+       8  spiBurstFifoAccess
+             8 -> SPI_WriteBuf
+             8 -> spi_writebyte
+       8  spiRegAccess
+             8 -> spi_writebyte
+       6  spi_writebyte
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      26  Mrfi_DelayUsec
+      34  Mrfi_SpiCmdStrobe
+      22  Mrfi_SpiReadReg
+      24  Mrfi_SpiReadRxFifo
+      22  Mrfi_SpiWriteReg
+      26  Mrfi_SpiWriteTxFifo
+       1  P1DIR
+       1  P1IN
+       1  P1OUT
+       1  P1REN
+       1  P2DIR
+       1  P2IE
+       1  P2IES
+       1  P2IFG
+       1  P2IN
+       1  P2REN
+     102  Radio_Transmit
+     344  RfWriteRfSettings
+      50  SPI_WriteBuf
+     130  cc1101_init
+      40  gpio_init
+      44  spiBurstFifoAccess
+      42  spiRegAccess
+      80  spi_writebyte
+
+ 
+ 986 bytes in segment CODE
+  10 bytes in segment DATA16_AN
+ 
+ 986 bytes of CODE memory
+   0 bytes of DATA memory (+ 10 bytes shared)
+
+Errors: none
+Warnings: none
