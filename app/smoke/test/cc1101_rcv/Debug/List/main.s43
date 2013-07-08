@@ -1,0 +1,306 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+//                                                      07/Jul/2013  22:57:26 /
+// IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430        /
+// Copyright 1996-2012 IAR Systems AB.                                        /
+//                                                                            /
+//    __rt_version  =  3                                                      /
+//    __double_size =  32                                                     /
+//    __reg_r4      =  free                                                   /
+//    __reg_r5      =  free                                                   /
+//    __pic         =  no                                                     /
+//    __core        =  430                                                    /
+//    Source file   =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\main. /
+//                     c                                                      /
+//    Command line  =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\main. /
+//                     c -lC E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv /
+//                     \Debug\List\ -lA E:\DOOYA\dooya_dev\DU0106\Source\test /
+//                     \cc1101_rcv\Debug\List\ -o                             /
+//                     E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug /
+//                     \Obj\ --no_cse --no_unroll --no_inline                 /
+//                     --no_code_motion --no_tbaa --debug -D__MSP430G2433__   /
+//                     -e --double=32 --dlib_config "C:\Program Files         /
+//                     (x86)\IAR Systems\Embedded Workbench 6.4               /
+//                     Evaluation\430\LIB\DLIB\dl430fn.h" -On                 /
+//    List file     =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug /
+//                     \List\main.s43                                         /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RTMODEL "__SystemLibrary", "DLib"
+        RTMODEL "__core", "430"
+        RTMODEL "__double_size", "32"
+        RTMODEL "__pic", "no"
+        RTMODEL "__reg_r4", "free"
+        RTMODEL "__reg_r5", "free"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:SORT:NOROOT(0)
+
+        EXTERN ?longjmp_r4
+        EXTERN ?longjmp_r5
+        EXTERN ?setjmp_r4
+        EXTERN ?setjmp_r5
+
+        PUBWEAK `??Timer_A??INTVEC 18`
+        PUBWEAK ?setjmp_save_r4
+        PUBWEAK ?setjmp_save_r5
+        PUBWEAK BCSCTL1
+        PUBWEAK CALBC1_8MHZ
+        PUBWEAK CALDCO_8MHZ
+        PUBWEAK DCOCTL
+        PUBWEAK P1OUT
+        PUBWEAK TA0CCR0
+        PUBWEAK TA0CCTL0
+        PUBWEAK TA0CTL
+        PUBLIC Timer_A
+        FUNCTION Timer_A,0233H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        PUBWEAK WDTCTL
+        PUBLIC main
+        FUNCTION main,021a03H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        PUBLIC timer_A_init
+        FUNCTION timer_A_init,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA SP DATA
+          CFI Resource PC:16, SP:16, SR:16, R4:16, R5:16, R6:16, R7:16, R8:16
+          CFI Resource R9:16, R10:16, R11:16, R12:16, R13:16, R14:16, R15:16
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 2
+          CFI ReturnAddress PC CODE
+          CFI CFA SP+2
+          CFI PC Frame(CFA, -2)
+          CFI SR Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 Undefined
+          CFI R13 Undefined
+          CFI R14 Undefined
+          CFI R15 Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 2
+          CFI ReturnAddress PC CODE
+          CFI CFA SP+4
+          CFI PC Frame(CFA, -2)
+          CFI SR Frame(CFA, -4)
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI EndCommon cfiCommon1
+        
+Timer_A             SYMBOL "Timer_A"
+`??Timer_A??INTVEC 18` SYMBOL "??INTVEC 18", Timer_A
+
+        EXTERN gpio_init
+        FUNCTION gpio_init,0202H
+        EXTERN cc1101_init
+        FUNCTION cc1101_init,0202H
+        EXTERN radio_handle
+        FUNCTION radio_handle,0202H
+
+// E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\main.c
+//    1 #include "msp430.h"
+
+        ASEGN DATA16_AN:DATA:NOROOT,056H
+// unsigned char volatile DCOCTL
+DCOCTL:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,057H
+// unsigned char volatile BCSCTL1
+BCSCTL1:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,021H
+// unsigned char volatile P1OUT
+P1OUT:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,0160H
+// unsigned short volatile TA0CTL
+TA0CTL:
+        DS8 2
+
+        ASEGN DATA16_AN:DATA:NOROOT,0162H
+// unsigned short volatile TA0CCTL0
+TA0CCTL0:
+        DS8 2
+
+        ASEGN DATA16_AN:DATA:NOROOT,0172H
+// unsigned short volatile TA0CCR0
+TA0CCR0:
+        DS8 2
+
+        ASEGN DATA16_AN:DATA:NOROOT,0120H
+// unsigned short volatile WDTCTL
+WDTCTL:
+        DS8 2
+
+        ASEGN DATA16_AN:DATA:NOROOT,010fcH
+// unsigned char const volatile CALDCO_8MHZ
+CALDCO_8MHZ:
+        DS8 1
+
+        ASEGN DATA16_AN:DATA:NOROOT,010fdH
+// unsigned char const volatile CALBC1_8MHZ
+CALBC1_8MHZ:
+        DS8 1
+//    2 #include <stdint.h>
+//    3 #include <string.h>
+//    4 #include "cc1101.h"
+//    5 #include "cc1101_defs.h"
+//    6 #include "radio_handle.h"
+//    7 
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//    8 void timer_A_init(void)
+timer_A_init:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function timer_A_init
+//    9 {
+//   10 	CCTL0 = CCIE;                             						// CCR0 interrupt enabled
+        MOV.W   #0x10, &0x162
+//   11 	CCR0 = 4096;//24576;                             						// CCR0 Period
+        MOV.W   #0x1000, &0x172
+//   12 	
+//   13 	TACTL = TASSEL_1 + ID_3 + MC_1;	           						// ACLK, up mode, interrupt.
+        MOV.W   #0x1d0, &0x160
+//   14 	
+//   15 //	_BIS_SR(LPM3_bits);                       						// Enter LPM3
+//   16 }
+        RET
+          CFI EndBlock cfiBlock0
+        REQUIRE TA0CCTL0
+        REQUIRE TA0CCR0
+        REQUIRE TA0CTL
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   17 int main(void)
+main:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function main
+//   18 {
+//   19 	WDTCTL = WDTPW + WDTHOLD;										// Disable WDT.
+        FUNCALL main, gpio_init
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL main, cc1101_init
+        LOCFRAME CSTACK, 2, STACK
+        FUNCALL main, radio_handle
+        LOCFRAME CSTACK, 2, STACK
+        MOV.W   #0x5a80, &0x120
+//   20 	
+//   21 	if (CALBC1_8MHZ==0xFF)											// If calibration constant erased.
+        CMP.B   #0xff, &0x10fd
+        JNE     ??main_2
+//   22 	{
+//   23 		while(1);                               					// do not load, trap CPU!!	
+??main_0:
+        JMP     ??main_0
+//   24 	}
+//   25 	
+//   26 	DCOCTL = 0;
+??main_2:
+        MOV.B   #0x0, &0x56
+//   27 	BCSCTL1 = CALBC1_8MHZ;											// MCLK = 12Mhz.
+        MOV.B   &0x10fd, &0x57
+//   28 	DCOCTL = CALDCO_8MHZ;
+        MOV.B   &0x10fc, &0x56
+//   29 	
+//   30 	gpio_init();
+        CALL    #gpio_init
+//   31 	cc1101_init();
+        CALL    #cc1101_init
+//   32 //	timer_A_init();
+//   33 	
+//   34 	_BIS_SR(GIE);
+        BIS.W   #0x8, SR
+//   35 	
+//   36 	for(;;)
+//   37 	{
+//   38 		radio_handle();
+??main_1:
+        CALL    #radio_handle
+        JMP     ??main_1
+          CFI EndBlock cfiBlock1
+        REQUIRE WDTCTL
+        REQUIRE CALBC1_8MHZ
+        REQUIRE DCOCTL
+        REQUIRE BCSCTL1
+        REQUIRE CALDCO_8MHZ
+//   39 	}
+//   40 }
+//   41 
+//   42 // Timer A0 interrupt service routine
+//   43 #pragma vector=TIMER0_A0_VECTOR
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+//   44 __interrupt void Timer_A(void)
+Timer_A:
+          CFI Block cfiBlock2 Using cfiCommon1
+          CFI Function Timer_A
+//   45 {
+//   46 	P1OUT ^= BIT0;													// Turn LED0..
+        XOR.B   #0x1, &0x21
+//   47 }
+        RETI
+          CFI EndBlock cfiBlock2
+        REQUIRE P1OUT
+
+        COMMON INTVEC:CONST:ROOT(1)
+        ORG 18
+`??Timer_A??INTVEC 18`:
+        DC16    Timer_A
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r4:
+        REQUIRE ?setjmp_r4
+        REQUIRE ?longjmp_r4
+
+        RSEG CODE:CODE:REORDER:NOROOT(1)
+?setjmp_save_r5:
+        REQUIRE ?setjmp_r5
+        REQUIRE ?longjmp_r5
+
+        END
+// 
+// 72 bytes in segment CODE
+// 13 bytes in segment DATA16_AN
+//  2 bytes in segment INTVEC
+// 
+// 72 bytes of CODE  memory
+//  0 bytes of CONST memory (+  2 bytes shared)
+//  0 bytes of DATA  memory (+ 13 bytes shared)
+//
+//Errors: none
+//Warnings: none

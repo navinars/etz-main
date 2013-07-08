@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>440003021</fileChecksum>
+  <configuration>
+    <name>Debug</name>
+    <outputs>
+      <file>$PROJ_DIR$\Debug\Obj\radio_handle.pbi</file>
+      <file>$PROJ_DIR$\cc1101.c</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdint.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\radio_handle.c</file>
+      <file>$TOOLKIT_DIR$\config\lnk430G2433.xcl</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\cc1101_rcv.d43</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\cc1101_rcv.pbd</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\cc1101_rcv.ulp</file>
+      <file>$TOOLKIT_DIR$\inc\msp430.h</file>
+      <file>$TOOLKIT_DIR$\inc\msp430g2433.h</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\cc1101.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\cc1101.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
+      <file>$PROJ_DIR$\Debug\List\main.lst</file>
+      <file>$PROJ_DIR$\Debug\List\cc1101.s43</file>
+      <file>$PROJ_DIR$\Debug\List\cc1101.lst</file>
+      <file>$PROJ_DIR$\cc1101_defs.h</file>
+      <file>$PROJ_DIR$\cc1101.h</file>
+      <file>$PROJ_DIR$\Debug\List\main.s43</file>
+      <file>$PROJ_DIR$\Debug\List\radio_handle.lst</file>
+      <file>$PROJ_DIR$\Debug\List\radio_handle.s43</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio_handle.r43</file>
+      <file>$PROJ_DIR$\radio_handle.h</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 7</file>
+        </tool>
+        <tool>
+          <name>ULP430</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\cc1101.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 28 29 24</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 16 13 17 2 18 21 6 11 19 20 22 25 26 31 30</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 15 16 13 17 2 18 21 6 11 19 20 22 25 26 31 30</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 27 12</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 16 13 17 2 18 21 6 11 19 20 22 25 26 31 30 36</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 15 16 13 17 2 18 21 6 11 19 20 22 25 26 31 30 36</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\radio_handle.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 34 33 35</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15 16 13 17 2 18 21 6 11 19 20 22 25 26 31 30 36</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 15 16 13 17 2 18 21 6 11 19 20 22 25 26 31 30 36</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\cc1101_rcv.d43</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 5 24 12 35 8</file>
+        </tool>
+      </inputs>
+    </file>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <outputs/>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>XLINK</tool>
+    </forcedrebuild>
+  </configuration>
+</project>
+
+

@@ -1,0 +1,208 @@
+###############################################################################
+#                                                                             #
+#                                                       07/Jul/2013  22:57:26 #
+# IAR C/C++ Compiler V5.50.1.20465/W32, Evaluation edition for MSP430         #
+# Copyright 1996-2012 IAR Systems AB.                                         #
+#                                                                             #
+#    __rt_version  =  3                                                       #
+#    __double_size =  32                                                      #
+#    __reg_r4      =  free                                                    #
+#    __reg_r5      =  free                                                    #
+#    __pic         =  no                                                      #
+#    __core        =  430                                                     #
+#    Source file   =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\main.c #
+#    Command line  =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\main.c #
+#                      -lC E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\D #
+#                     ebug\List\ -lA E:\DOOYA\dooya_dev\DU0106\Source\test\cc #
+#                     1101_rcv\Debug\List\ -o E:\DOOYA\dooya_dev\DU0106\Sourc #
+#                     e\test\cc1101_rcv\Debug\Obj\ --no_cse --no_unroll       #
+#                     --no_inline --no_code_motion --no_tbaa --debug          #
+#                     -D__MSP430G2433__ -e --double=32 --dlib_config          #
+#                     "C:\Program Files (x86)\IAR Systems\Embedded Workbench  #
+#                     6.4 Evaluation\430\LIB\DLIB\dl430fn.h" -On              #
+#    List file     =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug\ #
+#                     List\main.lst                                           #
+#    Object file   =  E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\Debug\ #
+#                     Obj\main.r43                                            #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+E:\DOOYA\dooya_dev\DU0106\Source\test\cc1101_rcv\main.c
+      1          #include "msp430.h"
+
+   \                                 In  segment DATA16_AN, at 0x56
+   \   unsigned char volatile DCOCTL
+   \                     DCOCTL:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x57
+   \   unsigned char volatile BCSCTL1
+   \                     BCSCTL1:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x21
+   \   unsigned char volatile P1OUT
+   \                     P1OUT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x160
+   \   unsigned short volatile TA0CTL
+   \                     TA0CTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x162
+   \   unsigned short volatile TA0CCTL0
+   \                     TA0CCTL0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x172
+   \   unsigned short volatile TA0CCR0
+   \                     TA0CCR0:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x120
+   \   unsigned short volatile WDTCTL
+   \                     WDTCTL:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x10fc
+   \   unsigned char const volatile CALDCO_8MHZ
+   \                     CALDCO_8MHZ:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_AN, at 0x10fd
+   \   unsigned char const volatile CALBC1_8MHZ
+   \                     CALBC1_8MHZ:
+   \   000000                DS8 1
+      2          #include <stdint.h>
+      3          #include <string.h>
+      4          #include "cc1101.h"
+      5          #include "cc1101_defs.h"
+      6          #include "radio_handle.h"
+      7          
+
+   \                                 In  segment CODE, align 2
+      8          void timer_A_init(void)
+   \                     timer_A_init:
+      9          {
+     10          	CCTL0 = CCIE;                             						// CCR0 interrupt enabled
+   \   000000   B24010006201 MOV.W   #0x10, &0x162
+     11          	CCR0 = 4096;//24576;                             						// CCR0 Period
+   \   000006   B24000107201 MOV.W   #0x1000, &0x172
+     12          	
+     13          	TACTL = TASSEL_1 + ID_3 + MC_1;	           						// ACLK, up mode, interrupt.
+   \   00000C   B240D0016001 MOV.W   #0x1d0, &0x160
+     14          	
+     15          //	_BIS_SR(LPM3_bits);                       						// Enter LPM3
+     16          }
+   \   000012   3041         RET
+   \   000014                REQUIRE TA0CCTL0
+   \   000014                REQUIRE TA0CCR0
+   \   000014                REQUIRE TA0CTL
+
+   \                                 In  segment CODE, align 2
+     17          int main(void)
+   \                     main:
+     18          {
+     19          	WDTCTL = WDTPW + WDTHOLD;										// Disable WDT.
+   \   000000   B240805A2001 MOV.W   #0x5a80, &0x120
+     20          	
+     21          	if (CALBC1_8MHZ==0xFF)											// If calibration constant erased.
+   \   000006   F293FD10     CMP.B   #0xff, &0x10fd
+   \   00000A   0120         JNE     ??main_2
+     22          	{
+     23          		while(1);                               					// do not load, trap CPU!!	
+   \                     ??main_0:
+   \   00000C   FF3F         JMP     ??main_0
+     24          	}
+     25          	
+     26          	DCOCTL = 0;
+   \                     ??main_2:
+   \   00000E   C2435600     MOV.B   #0x0, &0x56
+     27          	BCSCTL1 = CALBC1_8MHZ;											// MCLK = 12Mhz.
+   \   000012   D242FD105700 MOV.B   &0x10fd, &0x57
+     28          	DCOCTL = CALDCO_8MHZ;
+   \   000018   D242FC105600 MOV.B   &0x10fc, &0x56
+     29          	
+     30          	gpio_init();
+   \   00001E   B012....     CALL    #gpio_init
+     31          	cc1101_init();
+   \   000022   B012....     CALL    #cc1101_init
+     32          //	timer_A_init();
+     33          	
+     34          	_BIS_SR(GIE);
+   \   000026   32D2         BIS.W   #0x8, SR
+     35          	
+     36          	for(;;)
+     37          	{
+     38          		radio_handle();
+   \                     ??main_1:
+   \   000028   B012....     CALL    #radio_handle
+   \   00002C   FD3F         JMP     ??main_1
+   \   00002E                REQUIRE WDTCTL
+   \   00002E                REQUIRE CALBC1_8MHZ
+   \   00002E                REQUIRE DCOCTL
+   \   00002E                REQUIRE BCSCTL1
+   \   00002E                REQUIRE CALDCO_8MHZ
+     39          	}
+     40          }
+     41          
+     42          // Timer A0 interrupt service routine
+     43          #pragma vector=TIMER0_A0_VECTOR
+
+   \                                 In  segment CODE, align 2
+     44          __interrupt void Timer_A(void)
+   \                     Timer_A:
+     45          {
+     46          	P1OUT ^= BIT0;													// Turn LED0..
+   \   000000   D2E32100     XOR.B   #0x1, &0x21
+     47          }
+   \   000004   0013         RETI
+   \   000006                REQUIRE P1OUT
+
+   \                                 In  segment INTVEC, offset 0x12, root
+   \                     `??Timer_A??INTVEC 18`:
+   \   000012   ....         DC16    Timer_A
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+       4  Timer_A
+       2  main
+            2 -> cc1101_init
+            2 -> gpio_init
+            2 -> radio_handle
+       2  timer_A_init
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  ??Timer_A??INTVEC 18
+       1  BCSCTL1
+       1  CALBC1_8MHZ
+       1  CALDCO_8MHZ
+       1  DCOCTL
+       1  P1OUT
+       2  TA0CCR0
+       2  TA0CCTL0
+       2  TA0CTL
+       6  Timer_A
+       2  WDTCTL
+      46  main
+      20  timer_A_init
+
+ 
+ 72 bytes in segment CODE
+ 13 bytes in segment DATA16_AN
+  2 bytes in segment INTVEC
+ 
+ 72 bytes of CODE  memory
+  0 bytes of CONST memory (+  2 bytes shared)
+  0 bytes of DATA  memory (+ 13 bytes shared)
+
+Errors: none
+Warnings: none
