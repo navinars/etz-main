@@ -51,6 +51,7 @@
   This file was adapted from a FreeRTOS lwIP slip demo supplied by a third
   party.
 */
+#include "asf.h"
 
 #if (HTTP_USED == 1)
 
@@ -83,9 +84,10 @@
 
 /* ethernet includes */
 #include "ethernet.h"
+#include "BasicWEB.h"
 
 /*! The size of the buffer in which the dynamic WEB page is created. */
-#define webMAX_PAGE_SIZE	512
+#define webMAX_PAGE_SIZE	1024
 
 /*! Standard GET response. */
 #define webHTTP_OK	"HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n"
@@ -101,17 +103,22 @@
 "<html>\
 <head>\
 </head>\
-<BODY onLoad=\"window.setTimeout(&quot;location.href='index.html'&quot;,1000)\" bgcolor=\"#FFFFFF\" text=\"#2477E6\">\
-\r\nPage Hits = "
+<BODY bgcolor=\"#FFFFFF\" text=\"#2477E6\"><form method='get'>\
+\r\n"
 
 #define webHTML_END \
 "\r\n</pre>\
-\r\n</font></BODY>\
+\r\n</font>\
+\r\n</p><select name='dhcp'><option value=1>πÃ∂®IP</option><option value=2>DHCP</option></select></p>\
+\r\n<span>192.168.1.</span><input type='text' name='msg_ip' /><span>IPµÿ÷∑</span></p>\
+\r\n<input type='submit' /></form></BODY>\
 </html>"
 
 portCHAR cDynamicPage[ webMAX_PAGE_SIZE ];
 portCHAR cPageHits[ 11 ];
 
+ip_save_t IPsave;
+ip_save_t IPsave_tmp;
 
 /*! Function to process the current connection */
 static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon );
@@ -166,11 +173,11 @@ struct netconn *pxHTTPListener, *pxNewConnection;
  */
 static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 {
-struct netbuf *pxRxBuffer;
-portCHAR *pcRxString;
-unsigned portSHORT usLength;
-static unsigned portLONG ulPageHits = 0;
+	struct netbuf *pxRxBuffer;
+	portCHAR *pcRxString;
+	unsigned portSHORT usLength;
 
+	uint8_t f_write = 0;
 
 #if ( (LWIP_VERSION) == ((1U << 24) | (3U << 16) | (2U << 8) | (LWIP_VERSION_RC)) )
 	/* We expect to immediately get data. */
@@ -185,27 +192,56 @@ static unsigned portLONG ulPageHits = 0;
 	{
 		/* Where is the data? */
 		netbuf_data( pxRxBuffer, ( void * ) &pcRxString, &usLength );
-
+		
 		/* Is this a GET?  We don't handle anything else. */
-		if(( NULL != pcRxString               )
-		&& ( !strncmp( pcRxString, "GET", 3 ) ))
+		if(( NULL != pcRxString )&& ( !strncmp( pcRxString, "GET", 3 ) ))
 		{
-			/* Update the hit count. */
-			ulPageHits++;
-			sprintf( cPageHits, "%d", (int)ulPageHits );
-
+			char *str_tmp,*str_len,len, *str_tmp1;
+			
 			/* Write out the HTTP OK header. */
 			netconn_write( pxNetCon, webHTTP_OK, (u16_t) strlen( webHTTP_OK ), NETCONN_COPY );
+			
+			//if (( NULL != pcRxString )&& ( !strncmp( pcRxString, "GET", 3 ) ))
+			//{
+				//
+			//}
+			str_tmp = strstr(pcRxString, "dhcp");					// Set net mode..
+			if ( str_tmp != NULL)
+			{
+				IPsave.mode = *(str_tmp + 5) - 0x30;
+				f_write = 1;
+			}
+			
+			str_tmp = strstr(pcRxString, "msg_ip");					// Set IP address..
+			if (str_tmp != NULL)
+			{
+				str_len = strstr(str_tmp, "=");
+				if (str_len != NULL)
+				{
+					str_tmp1 = strstr(str_len, " ");
+					if (str_tmp1 != NULL)
+					{
+						uint8_t i;
+						len = str_tmp1 - str_len;
 
+						if(len < 5)									// Textbox number < 5 byte.
+						{
+							for(i = 1;i < len;i ++)
+							{
+								IPsave.ip[0] = IPsave.ip[0] * 10;
+								IPsave.ip[0] += (str_len[i] - 0x30);
+								
+								f_write = 1;						// Can be write FLASH..
+							}
+						}
+					}
+				}
+			}
+			
 			/* Generate the dynamic page... First the page header. */
 			strcpy( cDynamicPage, webHTML_START );
-
-			/* ... Then the hit count... */
-			strcat( cDynamicPage, cPageHits );
-			strcat( cDynamicPage, "<p><pre>Task          State  Priority  Stack	#<br>************************************************<br>" );
-
-			/* ... Then the list of tasks and their status... */
-			vTaskList( ( signed portCHAR * ) cDynamicPage + strlen( cDynamicPage ) );
+			
+//			strcat( cDynamicPage, pcRxString );						// Web display debug information..
 
 			/* ... Finally the page footer. */
 			strcat( cDynamicPage, webHTML_END );
@@ -219,6 +255,30 @@ static unsigned portLONG ulPageHits = 0;
 	netconn_close( pxNetCon );
 	netconn_delete( pxNetCon );
 
+	if ( f_write == 1)
+	{
+		uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
+		uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
+		
+		f_write = 0;
+		
+		/* Initialize flash: 6 wait states for flash writing. */
+		flash_init(FLASH_ACCESS_MODE_128, 6);
+		
+		/* Unlock page */
+		flash_unlock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+		
+		/* Copy information to FLASH buffer..*/
+		memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave), sizeof(ip_save_t));
+		
+		/* Write page */
+		flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
+		
+		/* Lock page */
+		flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+		
+		rstc_start_software_reset(RSTC);							// Reset SAM3X with software..
+	}
 }
 
 #endif

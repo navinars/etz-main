@@ -49,6 +49,16 @@
 #include "portmacro.h"
 
 
+typedef struct{
+	uint8_t mode;
+	uint8_t ip[4];
+	uint8_t mask[4];
+	uint8_t mac[4];
+}ip_save_t;
+
+extern ip_save_t IPsave;
+extern ip_save_t IPsave_tmp;
+
 /*! \brief WEB server main task
  *
  *  \param pvParameters   Input. Not Used.

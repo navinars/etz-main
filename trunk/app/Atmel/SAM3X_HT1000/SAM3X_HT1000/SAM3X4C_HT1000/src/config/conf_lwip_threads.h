@@ -65,7 +65,7 @@
 #define netifINTERFACE_TASK_STACK_SIZE    2048
 
 /*! define WEB server priority */
-#define lwipBASIC_WEB_SERVER_PRIORITY     (tskIDLE_PRIORITY + 2)
+#define lwipBASIC_WEB_SERVER_PRIORITY     (tskIDLE_PRIORITY + 5)
 
 /*! define TFTP server priority */
 #define lwipBASIC_TFTP_SERVER_PRIORITY    (tskIDLE_PRIORITY + 3)

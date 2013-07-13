@@ -59,8 +59,14 @@
 // From module: Common build items for user board support templates
 #include <user_board.h>
 
+// From module: EEFC - Enhanced Embedded Flash Controller
+#include <efc.h>
+
 // From module: Ethernet MAC (EMAC)
 #include <emac.h>
+
+// From module: Flash - SAM Flash Service API
+#include <flash_efc.h>
 
 // From module: GPIO - General purpose Input/Output
 #include <gpio.h>
