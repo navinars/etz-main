@@ -40,6 +40,7 @@
 #include "ht1000_spi.h"
 #include "net_handle.h"
 #include "spi_handle.h"
+#include "BasicWEB.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
@@ -140,49 +141,51 @@ static void configure_console(void)
 /*-----------------------------------------------------------*/
 void task_led(void *pvParameters)
 {
+	uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
+	uint32_t *pul_last_page = (uint32_t *) ul_last_page_addr;
 	
-	uint16_t crc;
 	(void) pvParameters;
-
+	
+//	memset(&IPsave_tmp, 0, sizeof(ip_save_t));
+	
+	/* Initialize flash: 6 wait states for flash writing. */
+	flash_init(FLASH_ACCESS_MODE_128, 6);
+	
+	/* Unlock page */
+	flash_unlock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+	
+	/* Read Flash page */
+	memcpy((uint8_t*)(&IPsave_tmp), (uint8_t*)pul_last_page, sizeof(ip_save_t));
+	
+//	IPsave_tmp.mode = 2;
+	
+	if (IPsave_tmp.ip[0] == 0)
+	{
+		IPsave_tmp.ip[0] = 223;
+	}
+	
+	if (gpio_pin_is_low(RESTKEY_GPIO) == 1)
+	{
+		uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
+		uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
+		
+		IPsave_tmp.mode = 1;
+		IPsave_tmp.ip[0] = 223;
+		
+		/* Copy information to FLASH buffer..*/
+		memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave_tmp), sizeof(ip_save_t));
+		
+		/* Write page */
+		flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
+	}
+	
+	/* Lock page */
+	flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+	
 	for (;;)
 	{
-		//spi_t.buf[0] = 0x01;
-		//spi_t.buf[1] = 0x06;
-		//spi_t.buf[2] = 0x00;
-		//spi_t.buf[3] = 0x01;
-		//spi_t.buf[4] = 0x00;
-		//spi_t.buf[5] = 0x64;
-		//
-		//crc = Crc16CheckSum(spi_t.buf, 6);
-		//spi_t.buf[6] = (uint8_t)crc;
-		//spi_t.buf[7] = crc>>8;
-		//spi_t.len    = 8;
-		//spi_csn0_disable();
-		//vTaskDelay(1);
-		//spi_soft_transfer(spi_t.buf, spi_t.len);
-		//vTaskDelay(5);												/* Wait 20 millisecond.*/
-		//spi_soft_transfer(spi_t.buf, spi_t.len);					/* Update to spi.buf[].*/
-		//spi_csn0_enable();
-		//
 		gpio_toggle_pin(LED0_GPIO);
 		vTaskDelay(1000);
-		//
-		//spi_t.buf[0] = 0x01;
-		//spi_t.buf[1] = 0x06;
-		//spi_t.buf[2] = 0x00;
-		//spi_t.buf[3] = 0x01;
-		//spi_t.buf[4] = 0x00;
-		//spi_t.buf[5] = 0x00;
-		//crc = Crc16CheckSum(spi_t.buf, 6);
-		//spi_t.buf[6] = (uint8_t)crc;
-		//spi_t.buf[7] = crc>>8;
-		//spi_t.len    = 8;
-		//spi_csn0_disable();
-		//vTaskDelay(1);
-		//spi_soft_transfer(spi_t.buf, spi_t.len);
-		//vTaskDelay(5);												/* Wait 20 millisecond.*/
-		//spi_soft_transfer(spi_t.buf, spi_t.len);					/* Update to spi.buf[].*/
-		//spi_csn0_enable();
 	}
 }
 /*-----------------------------------------------------------*/
@@ -227,7 +230,7 @@ int main (void)
 	
 	/* Ensure all priority bits are assigned as preemption priority bits. */
 	NVIC_SetPriorityGrouping( 0 );
-	
+		
 	/* Create freeRTOS START task.*/
 	xTaskCreate(task_start, (signed char *)"START", TASK_START_STACKSIZE, NULL,
 				TASK_START_PRIORITY, NULL);

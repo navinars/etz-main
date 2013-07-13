@@ -65,6 +65,7 @@
 #include <string.h>
 #include "conf_eth.h"
 
+#include "BasicWEB.h"
 #include "gpio.h"
 
 /** Define those to better describe your network interface */
@@ -154,12 +155,15 @@ static void low_level_init(struct netif *netif)
 
 	/* device capabilities */
 	/* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
-	netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP
-#if defined(DHCP_USED)
-			| NETIF_FLAG_DHCP
-#endif
-	;
-
+	if(IPsave_tmp.mode != 1)
+	{
+		netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_DHCP;
+	}
+	else
+	{
+		netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP ;
+	}
+	
 #ifdef FREERTOS_USED
 	/*
 	* NOTE: This routine contains code that polls status bits. If the Ethernet

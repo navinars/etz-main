@@ -78,7 +78,7 @@
 
 /* MEM_SIZE: the size of the heap memory. If the application will send
  * a lot of data that needs to be copied, this should be set high. */
-#define MEM_SIZE						6 * 1024
+#define MEM_SIZE						3 * 1024
 
 /* MEMP_NUM_PBUF: the number of memp struct pbufs. If the application
  * sends a lot of data out of ROM (or other static memory), this
@@ -102,12 +102,12 @@
 
 /* one PCB for DHCP (DNS used), one for TFTP */
   #undef MEMP_NUM_UDP_PCB
-  #define MEMP_NUM_UDP_PCB				14
+  #define MEMP_NUM_UDP_PCB				2
 
 #endif
 
 /* MEMP_NUM_TCP_PCB: the number of simultaneously active TCP connections. */
-#define MEMP_NUM_TCP_PCB        12
+#define MEMP_NUM_TCP_PCB        6
 /* MEMP_NUM_TCP_PCB_LISTEN: the number of listening TCP connections. */
 #define MEMP_NUM_TCP_PCB_LISTEN 2
 /* MEMP_NUM_TCP_SEG: the number of simultaneously queued TCP segments. */
@@ -120,7 +120,7 @@
 /* MEMP_NUM_NETBUF: the number of struct netbufs. */
 #define MEMP_NUM_NETBUF         3
 /* MEMP_NUM_NETCONN: the number of struct netconns. */
-#define MEMP_NUM_NETCONN        8
+#define MEMP_NUM_NETCONN        4
 
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */

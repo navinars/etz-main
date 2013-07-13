@@ -116,25 +116,28 @@ static void ethernet_configure_interface(void)
 	struct ip_addr x_ip_addr, x_net_mask, x_gateway;
 	extern err_t ethernetif_init(struct netif *netif);
 
-#if (DHCP_USED == 1)
-	x_ip_addr.addr = 0;
-	x_net_mask.addr = 0;
-#else
-	/* Default ip addr */
-	IP4_ADDR(&x_ip_addr, ETHERNET_CONF_IPADDR0, ETHERNET_CONF_IPADDR1,
-			ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
+	if(IPsave_tmp.mode != 1)
+	{
+		x_ip_addr.addr = 0;
+		x_net_mask.addr = 0;
+	}
+	else
+	{
+		/* Default ip addr */
+		IP4_ADDR(&x_ip_addr, ETHERNET_CONF_IPADDR0, ETHERNET_CONF_IPADDR1,
+				ETHERNET_CONF_IPADDR2, IPsave_tmp.ip[0]);
 
-	/* Default subnet mask */
-	IP4_ADDR(&x_net_mask, ETHERNET_CONF_NET_MASK0, ETHERNET_CONF_NET_MASK1,
-			ETHERNET_CONF_NET_MASK2, ETHERNET_CONF_NET_MASK3);
+		/* Default subnet mask */
+		IP4_ADDR(&x_net_mask, ETHERNET_CONF_NET_MASK0, ETHERNET_CONF_NET_MASK1,
+				ETHERNET_CONF_NET_MASK2, ETHERNET_CONF_NET_MASK3);
 
-	/* Default gateway addr */
-	IP4_ADDR(&x_gateway, ETHERNET_CONF_GATEWAY_ADDR0,
-			ETHERNET_CONF_GATEWAY_ADDR1,
-			ETHERNET_CONF_GATEWAY_ADDR2,
-			ETHERNET_CONF_GATEWAY_ADDR3);
-#endif
-
+		/* Default gateway addr */
+		IP4_ADDR(&x_gateway, ETHERNET_CONF_GATEWAY_ADDR0,
+				ETHERNET_CONF_GATEWAY_ADDR1,
+				ETHERNET_CONF_GATEWAY_ADDR2,
+				ETHERNET_CONF_GATEWAY_ADDR3);
+	}
+	
 	/* Add data to netif */
 	netif_add(&gs_net_if, &x_ip_addr, &x_net_mask, &x_gateway, NULL,
 			ethernetif_init, ethernet_input);
@@ -146,13 +149,16 @@ static void ethernet_configure_interface(void)
 	netif_set_status_callback(&gs_net_if, status_callback);
 
 	/* Bring it up */
-#if (DHCP_USED == 1)
-	printf("LwIP: DHCP Started");
-	dhcp_start(&gs_net_if);
-#else
-	printf("LwIP: Static IP Address Assigned");
-	netif_set_up(&gs_net_if);
-#endif
+	if(IPsave_tmp.mode != 1)
+	{
+		printf("LwIP: DHCP Started");
+		dhcp_start(&gs_net_if);
+	}
+	else
+	{
+		printf("LwIP: Static IP Address Assigned");
+		netif_set_up(&gs_net_if);
+	}
 }
 
 /**
@@ -214,9 +220,9 @@ portTASK_FUNCTION(vStartEthernetTask, pvParameters)
 
 #if (HTTP_USED == 1)
 	/* Create the WEB server task.  This uses the lwIP RTOS abstraction layer. */
-	//sys_thread_new("WEB", vBasicWEBServer, (void *)NULL,
-					//lwipBASIC_WEB_SERVER_STACK_SIZE,
-					//lwipBASIC_WEB_SERVER_PRIORITY);
+	sys_thread_new("WEB", vBasicWEBServer, (void *)NULL,
+					lwipBASIC_WEB_SERVER_STACK_SIZE,
+					lwipBASIC_WEB_SERVER_PRIORITY);
 #endif
 
 #if (TFTP_USED == 1)
@@ -235,8 +241,8 @@ portTASK_FUNCTION(vStartEthernetTask, pvParameters)
 
 #if (DATA_USED == 1)
 	/* Create the Socket Server task.  This uses the lwIP RTOS abstraction layer. */
-	sys_thread_new("NETS", vNetHandle, (void *)NULL, 
-					TASK_TCP_SERVER_STACK_SIZE, 
+	sys_thread_new("NETS", vNetHandle, (void *)NULL,
+					TASK_TCP_SERVER_STACK_SIZE,
 					TASK_TCP_SERVER_PRIORITY);
 #endif
 

@@ -115,6 +115,14 @@
 /*! EMAC RMII mode */
 #define BOARD_EMAC_MODE_RMII 1
 
+/* Internal Flash 0 base address. */
+#define IFLASH_ADDR     IFLASH0_ADDR
+/* Internal flash page size. */
+#define IFLASH_PAGE_SIZE     IFLASH0_PAGE_SIZE
+
+/* Last page start address. */
+#define LAST_PAGE_ADDRESS (IFLASH1_ADDR + IFLASH1_SIZE - IFLASH1_PAGE_SIZE)
+
 #define RS232printf					//printf
 
 #endif // CONF_BOARD_H

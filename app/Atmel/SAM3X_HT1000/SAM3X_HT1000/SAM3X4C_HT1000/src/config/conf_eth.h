@@ -67,7 +67,7 @@ extern "C" {
 #define ETHERNET_CONF_ETHADDR2                        0x25
 #define ETHERNET_CONF_ETHADDR3                        0x1C
 #define ETHERNET_CONF_ETHADDR4                        0xA0
-#define ETHERNET_CONF_ETHADDR5                        0x02
+#define ETHERNET_CONF_ETHADDR5                        0x0A
 
 /** WAN Address: 192.168.0.2 */
 
@@ -75,7 +75,7 @@ extern "C" {
 #define ETHERNET_CONF_IPADDR0                         192
 #define ETHERNET_CONF_IPADDR1                         168
 #define ETHERNET_CONF_IPADDR2                         1
-#define ETHERNET_CONF_IPADDR3                         1
+#define ETHERNET_CONF_IPADDR3                         223
 
 /** WAN gateway: 192.168.0.1 */
 
@@ -83,7 +83,7 @@ extern "C" {
 #define ETHERNET_CONF_GATEWAY_ADDR0                   192
 #define ETHERNET_CONF_GATEWAY_ADDR1                   168
 #define ETHERNET_CONF_GATEWAY_ADDR2                   1
-#define ETHERNET_CONF_GATEWAY_ADDR3                   223
+#define ETHERNET_CONF_GATEWAY_ADDR3                   1
 
 /** The network mask being used. */
 #define ETHERNET_CONF_NET_MASK0                       255
