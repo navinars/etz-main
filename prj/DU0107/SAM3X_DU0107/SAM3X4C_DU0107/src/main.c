@@ -144,11 +144,11 @@ void task_start(void *pvParameters)
 				TASK_LED_PRIORITY, ( xTaskHandle * ) NULL);
 	
 	///* Start the ethernet tasks. */
-	//vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
-	
-	/* Start the SPI app tasks. */
-	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
-	
+	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
+	//
+	///* Start the SPI app tasks. */
+	//vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
+	//
 	for (;;)
 	{
 		vTaskSuspend(vStartTaskHandler);							/* Suspend START task. */

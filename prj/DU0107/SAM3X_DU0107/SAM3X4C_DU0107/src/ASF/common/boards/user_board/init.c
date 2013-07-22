@@ -22,6 +22,7 @@ void board_init(void)
 	
 	/* Configure LED pins */
 	gpio_configure_pin(LED0_GPIO, LED0_FLAGS);
+	gpio_configure_pin(LED1_GPIO, LED1_FLAGS);
 	
 	/* Configure UART pins */
 	gpio_configure_group(PINS_UART_PIO, PINS_UART, PINS_UART_FLAGS);

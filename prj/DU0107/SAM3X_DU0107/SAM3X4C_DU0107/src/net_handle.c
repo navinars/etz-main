@@ -35,7 +35,6 @@
 
 /* user header file.*/
 #include "net_handle.h"
-#include "spi_handle.h"
 
 
 #define NETBUF_NUM				100									/* Maximum socket buffer number.*/
@@ -61,18 +60,13 @@ static void eth_data_handle( u_char* pbuf, int port )
 	
 	len = *pbuf;
 	
-	if ((len == 6 ) && (spi_t.alloc == false))
+	if ( len == 6 )
 	{
-		spi_t.alloc = true;
-		spi_t.len = len;// - 0x30;
-		spi_t.port = port;
-		
-		memcpy(spi_t.buf, (pbuf + 1), len);
 																	/* Take Semaphore in waiting 1 tick.*/
-		if (xSemaphoreTake(xSemaNetHandle, ( portTickType ) 1 ) == pdTRUE)
-		{
-			;
-		}
+		//if (xSemaphoreTake(xSemaNetHandle, ( portTickType ) 1 ) == pdTRUE)
+		//{
+			//;
+		//}
 		
 		RS232printf("\n\rTake Semaphore..");
 		bzero(pbuf, 100);
