@@ -51,10 +51,12 @@ static void button_handler(uint32_t id, uint32_t mask)
 		d1 = Mrfi_SpiReadReg(RXBYTES);
 		if(d1 != 0)
 		{
+			gpio_toggle_pin(LED1_GPIO);								// LED1 trun on.
+			
 			len = Mrfi_SpiReadReg(RXFIFO);
 			if( (len > 0) && (len < 64))
 			{
-				Mrfi_SpiReadRxFifo(rxBuf, len);
+				Mrfi_SpiReadRxFifo(rxBuf, len+5);
 				memset(rxBuf, 0, 64);
 			}
 		}
@@ -65,6 +67,7 @@ static void button_handler(uint32_t id, uint32_t mask)
 		
 		Mrfi_SpiCmdStrobe(SIDLE);
 		Mrfi_SpiCmdStrobe(SFRX);
+		Mrfi_SpiCmdStrobe(SIDLE);
 		Mrfi_SpiCmdStrobe(SRX);
 		
 		NVIC_EnableIRQ((IRQn_Type)CC1101_INT_ID);
@@ -81,10 +84,10 @@ void Mifi_ConfigInt(void)
 {
 	/* Configure PIO clock. */
 	//pmc_enable_periph_clk(CC1101_INT_ID);
-
+	
 	/* Adjust pio debounce filter parameters, uses 10 Hz filter. */
 	//pio_set_debounce_filter(CC1101_INT_PIO, CC1101_INT_PIN_MSK, 10);
-
+	
 	/* Initialize pios interrupt handlers, see PIO definition in board.h. */
 	pio_handler_set(CC1101_GPIO0_PIO, CC1101_INT_ID, CC1101_GPIO0,
 					CC1101_INT_ATTR, button_handler);
