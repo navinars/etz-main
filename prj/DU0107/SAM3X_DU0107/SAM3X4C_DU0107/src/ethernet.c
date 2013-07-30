@@ -143,14 +143,14 @@ static void ethernet_configure_interface(void)
 	netif_set_default(&gs_net_if);
 
 	/* Setup callback function for netif status change */
-	netif_set_status_callback(&gs_net_if, status_callback);
+	//netif_set_status_callback(&gs_net_if, status_callback);
 
 	/* Bring it up */
 #if (DHCP_USED == 1)
-	printf("LwIP: DHCP Started");
+	RS232printf("LwIP: DHCP Started");
 	dhcp_start(&gs_net_if);
 #else
-	printf("LwIP: Static IP Address Assigned");
+	RS232printf("LwIP: Static IP Address Assigned");
 	netif_set_up(&gs_net_if);
 #endif
 }
@@ -249,20 +249,19 @@ portTASK_FUNCTION(vStartEthernetTask, pvParameters)
  *
  * \param netif Instance to network interface.
  */
-void status_callback(struct netif *netif)
-{
-	int8_t c_mess[25];
-	if (netif_is_up(netif)) {
-		printf("Network up");
-		strcpy((char *)c_mess, "IP=");
-		strcat((char *)c_mess,
-				inet_ntoa(*(struct in_addr *)&(netif->ip_addr)));
-		printf((char const *)c_mess);
-	} else {
-		printf("Network down");
-	}
-}
-
+//void status_callback(struct netif *netif)
+//{
+	//int8_t c_mess[25];
+	//if (netif_is_up(netif)) {
+		//RS232printf("Network up");
+		//strcpy((char *)c_mess, "IP=");
+		//strcat((char *)c_mess,
+				//inet_ntoa(*(struct in_addr *)&(netif->ip_addr)));
+		//RS232printf((char const *)c_mess);
+	//} else {
+		//RS232printf("Network down");
+	//}
+//}
 
 unsigned long lwIPLocalIPAddrGet(void)
 {

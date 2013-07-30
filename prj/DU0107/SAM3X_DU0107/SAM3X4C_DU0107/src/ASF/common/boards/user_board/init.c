@@ -28,10 +28,10 @@ void board_init(void)
 	gpio_configure_group(PINS_UART_PIO, PINS_UART, PINS_UART_FLAGS);
 	
 	/* Configure USART RXD pin */
-	gpio_configure_pin(PIN_USART1_RXD_IDX, PIN_USART1_RXD_FLAGS);
+	gpio_configure_pin(PIN_USART0_RXD_IDX, PIN_USART0_RXD_FLAGS);
 	
 	/* Configure USART TXD pin */
-	gpio_configure_pin(PIN_USART1_TXD_IDX, PIN_USART1_TXD_FLAGS);
+	gpio_configure_pin(PIN_USART0_TXD_IDX, PIN_USART0_TXD_FLAGS);
 	
 	/* Configure SW1 pin */
 	gpio_configure_pin(SW1_GPIO, (PIO_INPUT | PIO_PULLUP));
