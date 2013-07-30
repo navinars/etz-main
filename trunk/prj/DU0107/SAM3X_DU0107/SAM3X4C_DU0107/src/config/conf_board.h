@@ -90,6 +90,15 @@
 /** Usart Hw ID used by the console (UART). */
 #define CONSOLE_UART_ID          ID_UART
 
+/** All interrupt mask. */
+#define ALL_INTERRUPT_MASK  0xffffffff
+
+#define BOARD_ID_USART             ID_USART0
+
+#define BOARD_USART                USART0
+
+#define USART_IRQn                 USART0_IRQn
+
 /** SPI0 MACRO definition */
 #define CONF_BOARD_SPI0
 
