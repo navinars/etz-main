@@ -792,7 +792,7 @@
     <None Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\gcc\arm_cm3\portmacro.h">
       <SubType>compile</SubType>
     </None>
-    <Compile Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\memmang\heap_4.c">
+    <Compile Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\memmang\heap_3.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\queue.c">
