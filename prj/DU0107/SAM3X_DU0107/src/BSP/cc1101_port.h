@@ -6,17 +6,17 @@
 
 void spi_set_clock_configuration(uint8_t configuration);
 
-void SPI_DRIVE_CSN_LOW(void);
+void Spi_CsLow(void);
 
-void SPI_DRIVE_CSN_HIGH(void);
+void Spi_CsHigh(void);
 
 void Mrfi_DelayUsec(uint16_t howlong);
 
-uint8_t SPI_SO_IS_HIGH(void);
+uint8_t SPI_CheckGpio1(void);
 
-uint8_t SpiWriteByte(uint8_t data);
+uint8_t Spi_WriteByte(uint8_t data);
 
-void SPIWriteArrayBytes(uint8_t *buf, uint8_t cnt);
+void Spi_WriteArrayBytes(uint8_t *buf, uint8_t cnt);
 
 uint8_t APIReadByte(void);
 

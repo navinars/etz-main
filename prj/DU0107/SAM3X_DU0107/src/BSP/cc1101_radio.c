@@ -29,7 +29,7 @@
  *                                           Macros
  * ------------------------------------------------------------------------------------------------
  */
-
+#define SPI_MAX_TIME				1000
 
 /* ------------------------------------------------------------------------------------------------
  *                                    Local Constants
@@ -135,26 +135,31 @@ static void writeRFSettings(void)
 static uint8_t spiRegAccess(uint8_t addrByte, uint8_t writeValue)
 {
 	uint8_t readValue;
-	
+	uint32_t howlong = 0;
 	/* disable interrupts that use SPI */
 //	MRFI_SPI_ENTER_CRITICAL_SECTION(s);
 	
-	SPI_DRIVE_CSN_HIGH();
-	SPI_DRIVE_CSN_LOW();
+	Spi_CsHigh();
+	Spi_CsLow();
 	
-	while(SPI_SO_IS_HIGH());
+	while(SPI_CheckGpio1())
+	{
+		howlong ++;
+		if(howlong > SPI_MAX_TIME)
+			break;
+	}
 	
 	/* send register address byte, the read/write bit is already configured */
-	SpiWriteByte(addrByte);
+	Spi_WriteByte(addrByte);
 	
 	/*
 	*  Send the byte value to write.  If this operation is a read, this value
 	*  is not used and is just dummy data.  Wait for SPI access to complete.
 	*/
-	readValue = SpiWriteByte(writeValue);
+	readValue = Spi_WriteByte(writeValue);
 	
 	/* turn off chip select; enable interrupts that call SPI functions */
-	SPI_DRIVE_CSN_HIGH();
+	Spi_CsHigh();
 //	MRFI_SPI_EXIT_CRITICAL_SECTION(s);
 	
 	/* return the register value */
@@ -206,21 +211,27 @@ void Mrfi_SpiWriteReg(uint8_t addr, uint8_t value)
 uint8_t Mrfi_SpiCmdStrobe(uint8_t cmd)
 {
 	uint8_t statusByte;
+	uint32_t howlong = 0;
 	
 	/* disable interrupts that use SPI */
 //	MRFI_SPI_ENTER_CRITICAL_SECTION(s);
 	
 	/* turn chip select "off" and then "on" to clear any current SPI access */
-	SPI_DRIVE_CSN_HIGH();
-	SPI_DRIVE_CSN_LOW();
+	Spi_CsHigh();
+	Spi_CsLow();
 	
-	while(SPI_SO_IS_HIGH());
+	while(SPI_CheckGpio1())
+	{
+		howlong ++;
+		if(howlong > SPI_MAX_TIME)
+		break;
+	}
 	
 	/* send the command strobe, wait for SPI access to complete */
-	statusByte = SpiWriteByte(cmd);	
+	statusByte = Spi_WriteByte(cmd);	
 	
 	/* turn off chip select; enable interrupts that call SPI functions */
-	SPI_DRIVE_CSN_HIGH();
+	Spi_CsHigh();
 	
 //	MRFI_SPI_EXIT_CRITICAL_SECTION(s);
 	
@@ -242,17 +253,17 @@ static uint8_t spiBurstFifoAccess(uint8_t addrByte, uint8_t * pData, uint8_t len
 //	MRFI_SPI_ENTER_CRITICAL_SECTION(s);
 
 	/* turn chip select "off" and then "on" to clear any current SPI access */
-	SPI_DRIVE_CSN_HIGH();
-	SPI_DRIVE_CSN_LOW();
+	Spi_CsHigh();
+	Spi_CsLow();
 	
-	while(SPI_SO_IS_HIGH());
+	while(SPI_CheckGpio1());
 
 	/* send FIFO access command byte, wait for SPI access to complete */
-	SpiWriteByte(addrByte);
-	SPIWriteArrayBytes(pData, len);
+	Spi_WriteByte(addrByte);
+	Spi_WriteArrayBytes(pData, len);
 	
 	/* turn off chip select; enable interrupts that call SPI functions */
-	SPI_DRIVE_CSN_HIGH();
+	Spi_CsHigh();
 //	MRFI_SPI_EXIT_CRITICAL_SECTION(s);
 	
 	return 1;
@@ -320,6 +331,33 @@ uint8_t Radio_Transmit(uint8_t * pPacket, uint8_t len)
 	return 1;
 }
 
+/**
+ * \brief 
+ * 
+ * \param pPacket
+ * 
+ * \return uint8_t
+ */
+uint8_t Radio_ReadFifo(uint8_t *pPacket)
+{
+	uint8_t rx_len,len;
+	
+	rx_len = Mrfi_SpiReadReg(RXBYTES);
+	if(rx_len != 0)
+	{
+		gpio_toggle_pin(LED1_GPIO);									// LED1 trun on.
+		
+		len = Mrfi_SpiReadReg(RXFIFO);
+		Mrfi_SpiReadRxFifo(pPacket, len + 2);
+		
+		return (len+2);
+	}
+	else
+	{
+		return (rx_len);
+	}
+}
+
 /*-------------------------------------------------------------------------------------------------
  * @fn          radio_init
  *
@@ -339,27 +377,27 @@ void Radio_Init(void)
 	spi_set_clock_configuration(1);									// SPI mode init on 1000000(1MHz)..
 	
 	/* pulse CSn low then high */
-	SPI_DRIVE_CSN_LOW();
+	Spi_CsLow();
 	
 	Mrfi_DelayUsec(100);
 	
-	SPI_DRIVE_CSN_HIGH();
+	Spi_CsHigh();
 
 	/* hold CSn high for at least 40 microseconds */
 	Mrfi_DelayUsec(400);
 	
 	/* pull CSn low and wait for SO to go low */
-	SPI_DRIVE_CSN_LOW();
-	while (SPI_SO_IS_HIGH());
+	Spi_CsLow();
+	while (SPI_CheckGpio1());
 	
 	/* send the command strobe, wait for SPI access to complete */
-	SpiWriteByte(SRES);
+	Spi_WriteByte(SRES);
 	
 	/* wait for SO to go low again, reset is complete at that point */
-	while (SPI_SO_IS_HIGH());
+	while (SPI_CheckGpio1());
 
 	/* return CSn pin to its default high level */
-	SPI_DRIVE_CSN_HIGH();
+	Spi_CsHigh();
 	
 	/* initialize radio registers */
 	writeRFSettings();

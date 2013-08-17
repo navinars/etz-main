@@ -1,6 +1,6 @@
 
 #include <asf.h>
-#include "stdio_serial.h"
+#include "stdio_serial.h"											// printf need this file.
 #include "conf_clock.h"
 #include "cc1101_port.h"
 #include "cc1101_defs.h"
@@ -28,41 +28,18 @@ static const uint32_t gs_ul_clock_configurations[] =
 
 static uint32_t gs_ul_spi_clock;
 
-uint8_t rxBuf[64] = {0};
-
 /**
  *  \brief GPIO0 handle function.
  *
  *  Configure the PIOs as inputs and generate corresponding interrupt when
  *  pressed or released.
  */
-static void button_handler(uint32_t id, uint32_t mask)
+extern void Radio_RcvHandler(void);
+static void Radio_ISRhandler(uint32_t id, uint32_t mask)
 {
-	uint8_t rx_len,len;
-	
 	if ((CC1101_INT_ID == id) && (CC1101_GPIO0 == mask))			// GPIO0 interrupt 
 	{
-		
-		rx_len = Mrfi_SpiReadReg(RXBYTES);
-		if(rx_len != 0)
-		{
-			gpio_toggle_pin(LED1_GPIO);								// LED1 trun on.
-			
-			len = Mrfi_SpiReadReg(RXFIFO);
-			if( len == 5 )
-			{
-				Mrfi_SpiReadRxFifo(rxBuf, len + 2);
-				memset(rxBuf, 0, 64);
-			}
-		}
-		else
-		{
-			
-		}
-		
-		Mrfi_SpiCmdStrobe(SFRX);
-		Mrfi_SpiCmdStrobe(SIDLE);
-		Mrfi_SpiCmdStrobe(SRX);
+		Radio_RcvHandler();
 		
 		NVIC_EnableIRQ((IRQn_Type)CC1101_INT_ID);
 	}
@@ -84,7 +61,7 @@ void Mifi_ConfigInt(void)
 	
 	/* Initialize pios interrupt handlers, see PIO definition in board.h. */
 	pio_handler_set(CC1101_GPIO0_PIO, CC1101_INT_ID, CC1101_GPIO0,
-					CC1101_INT_ATTR, button_handler);
+					CC1101_INT_ATTR, Radio_ISRhandler);
 	
 	/* Enable PIO controller IRQs. */
 	NVIC_EnableIRQ((IRQn_Type)CC1101_INT_ID);
@@ -212,7 +189,7 @@ void Mrfi_DelayUsec(uint16_t howlong)
  * @return      none
  *
  */
-void SPI_DRIVE_CSN_LOW(void)
+void Spi_CsLow(void)
 {
 	gpio_set_pin_low(SPI0_NPCS0_GPIO);
 }
@@ -227,22 +204,19 @@ void SPI_DRIVE_CSN_LOW(void)
  * @return      none
  *
  */
-void SPI_DRIVE_CSN_HIGH(void)
+void Spi_CsHigh(void)
 {
 	gpio_set_pin_high(SPI0_NPCS0_GPIO);
 }
 
-/*-------------------------------------------------------------------------------------------------
- * @fn          MRFI_SPI_SO_IS_HIGH
- *
- * @brief       HIGH
- *
- * @param       none
- *
- * @return      none
- *
+/**
+ * \brief Check GPIO1(SOMI) pin is high
+ * 
+ * \param none.
+ * 
+ * \return uint8_t SOMI pin is high return 1.
  */
-uint8_t SPI_SO_IS_HIGH(void)
+uint8_t SPI_CheckGpio1(void)
 {
 	return gpio_pin_is_high(SPI0_MISO_GPIO);
 }
@@ -257,7 +231,7 @@ uint8_t SPI_SO_IS_HIGH(void)
  * @return      none
  *
  */
-uint8_t SpiWriteByte(uint8_t data)
+uint8_t Spi_WriteByte(uint8_t data)
 {
 	uint8_t tmp;
 	tmp = data;
@@ -275,7 +249,7 @@ uint8_t SpiWriteByte(uint8_t data)
  * @return      none
  *
  */
-void SPIWriteArrayBytes(uint8_t *buf, uint8_t cnt)
+void Spi_WriteArrayBytes(uint8_t *buf, uint8_t cnt)
 {
 	uint8_t *p;
 	p = buf;

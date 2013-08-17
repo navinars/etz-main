@@ -10,15 +10,16 @@
 #include "radio_handle.h"
 #include "cc1101_radio.h"
 
-/*-------------------------------------------------------------------------------------------------
- * @fn          radio_init
- *
- * @brief       Initialize radio.
- *
- * @param       none
- *
- * @return      none
- *
+
+uint8_t rPHY_Buf[64] = {0};
+
+/**
+ * \brief 
+ * 
+ * \param 
+ * \param 
+ * 
+ * \return 
  */
 portTASK_FUNCTION(vAppSpiTask, pvParameters)
 {
@@ -31,7 +32,7 @@ portTASK_FUNCTION(vAppSpiTask, pvParameters)
 	for(;;)
 	{
 		memcpy(frm, "dooya", 5);
-		Radio_Transmit(frm, 5);
+//		Radio_Transmit(frm, 5);
 		
 		vTaskDelay(1000);
 	}
@@ -53,4 +54,20 @@ void vStartRadioTaskLauncher( unsigned portBASE_TYPE uxPriority )
 	xTaskCreate( vAppSpiTask, (const signed portCHAR *)"SPILAUNCH",
 				configMINIMAL_STACK_SIZE, NULL, uxPriority,
 				(xTaskHandle *)NULL );
+}
+
+/**
+ * \brief 
+ * 
+ * \param 
+ * 
+ * \return void
+ */
+void Radio_RcvHandler(void)
+{
+	Radio_ReadFifo();
+	
+	Mrfi_SpiCmdStrobe(SFRX);
+	Mrfi_SpiCmdStrobe(SIDLE);
+	Mrfi_SpiCmdStrobe(SRX);
 }

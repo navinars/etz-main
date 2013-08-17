@@ -60,7 +60,7 @@
 
 /* status registers */
 #define PARTNUM     0x30      /*  PARTNUM    - Chip ID */
-#define VERSION     0x31      /*  VERSION    - Chip ID */
+#define CHIP_VERSION     0x31      /*  VERSION    - Chip ID */
 #define FREQEST     0x32      /*  FREQEST    ?Frequency Offset Estimate from demodulator */
 #define LQI         0x33      /*  LQI        ?Demodulator estimate for Link Quality */
 #define RSSI        0x34      /*  RSSI       ?Received signal strength indication */
