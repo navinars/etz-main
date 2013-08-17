@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.1</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ProjectGuid>{b8a108b8-03e8-48d7-aee0-0a8771e649d5}</ProjectGuid>
+    <avrdevice>ATtiny828</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AssemblyName>GccApplication1</AssemblyName>
+    <Name>GccApplication1</Name>
+    <RootNamespace>GccApplication1</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress />
+    <UncachedRange />
+    <OverrideVtorValue />
+    <BootSegment>2</BootSegment>
+    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.11.0" />
+  </dependencies>
+</framework-data>
+    </AsfFrameworkConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGcc>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../freakz</Value>
+      <Value>../freakz/af</Value>
+      <Value>../freakz/aps</Value>
+      <Value>../freakz/mac</Value>
+      <Value>../freakz/misc</Value>
+      <Value>../freakz/nwk</Value>
+      <Value>../freakz/zcl</Value>
+      <Value>../freakz/zdo</Value>
+      <Value>../os/core</Value>
+      <Value>../os/core/lib</Value>
+      <Value>../os/core/sys</Value>
+      <Value>../os/platform/avr-raven</Value>
+      <Value>../os/cpu/native</Value>
+      <Value>../freakz/driver/avr_at86rf</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="freakz\af\af.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\af\af.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\af\af_conf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\af\af_conf_tbl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\af\af_ep.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\af\af_rx.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\af\af_tx.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps_bind.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps_dupe.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps_gen.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps_grp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps_grp_id.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps_parse.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\aps\aps_retry.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\constants.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\at86rf230_registermap.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\drvr_avr_at86.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\drvr_avr_at86.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\hal.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\hal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\mac_hw.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\mac_hw.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\radio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\driver\avr_at86rf\radio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\freakz.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\freakz.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_assoc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_gen.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_indir.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_parse.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_poll.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_queue.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_reset.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_retry.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_scan.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\mac\mac_start.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\buf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\buf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\debug.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\debug.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\mem_heap.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\mem_heap.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\mem_pool.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\mem_pool.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\misc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\misc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\slow_clock.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\slow_clock.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\misc\types.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_addr_map.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_brc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_disc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_form.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_gen.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_join.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_leave.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_neighbor_tbl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_parse.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_pend.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_permit_join.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_reset.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_rte_disc_tbl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_rte_mesh.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_rte_tbl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_rte_tree.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\nwk\nwk_sync.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_basic.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_basic.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_grp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_grp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_id.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_id.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_level.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_level.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_on_off.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_on_off.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_scenes.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\general\zcl_scenes.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\zcl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\zcl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\zcl_gen.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\zcl_parse.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zcl\zcl_rpt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo_bind_mgr.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo_cfg.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo_cmd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo_disc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo_gen.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo_nwk_mgr.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="freakz\zdo\zdo_parse.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="GccApplication1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\contiki-lib.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\contiki-version.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\contiki.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\energest.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\energest.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\list.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\list.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\memb.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\memb.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\mmem.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\mmem.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\rand.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\rand.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\random.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\lib\random.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\arg.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\arg.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\autostart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\autostart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\cc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\clock.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\ctimer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\ctimer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\dsc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\etimer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\etimer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\lc-addrlabels.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\lc-switch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\lc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\loader.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\log.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\process.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\process.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\procinit.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\procinit.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\profile-aggregates.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\profile.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\profile.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\pt-sem.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\pt.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\rtimer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\rtimer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\core\sys\timer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\cpu\native\mtarch.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\cpu\native\mtarch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\cpu\native\rtimer-arch.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\cpu\native\rtimer-arch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\platform\avr-raven\contiki-conf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\platform\avr-raven\contiki-raven-default-init-lowlevel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\platform\avr-raven\contiki-raven-default-init-net.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\platform\avr-raven\contiki-raven-main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\platform\avr-raven\contiki-raven.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\platform\avr-raven\loadable_prg.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\platform\avr-raven\raven-lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os\platform\avr-raven\raven-lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="freakz\" />
+    <Folder Include="freakz\af\" />
+    <Folder Include="freakz\aps\" />
+    <Folder Include="freakz\driver\" />
+    <Folder Include="freakz\driver\avr_at86rf\" />
+    <Folder Include="freakz\mac\" />
+    <Folder Include="freakz\misc\" />
+    <Folder Include="freakz\nwk\" />
+    <Folder Include="freakz\zcl\" />
+    <Folder Include="freakz\zcl\general\" />
+    <Folder Include="freakz\zdo\" />
+    <Folder Include="os\" />
+    <Folder Include="os\core\" />
+    <Folder Include="os\core\lib\" />
+    <Folder Include="os\core\sys\" />
+    <Folder Include="os\cpu\" />
+    <Folder Include="os\cpu\native\" />
+    <Folder Include="os\platform\" />
+    <Folder Include="os\platform\avr-raven\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="freakz\driver\avr_at86rf\Makefile.rf230">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="freakz\freakz.dox">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="freakz\Makefile.freakz">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="os\cpu\native\Makefile.native">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="os\platform\avr-raven\Makefile.avr-raven">
+      <SubType>compile</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>
