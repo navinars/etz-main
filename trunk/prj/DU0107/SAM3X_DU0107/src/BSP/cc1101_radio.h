@@ -39,7 +39,7 @@ void Radio_Init(void);
 uint8_t Mrfi_SpiReadReg(uint8_t addr);
 void Mrfi_SpiWriteReg(uint8_t addr, uint8_t value);
 uint8_t Mrfi_SpiReadRxFifo(uint8_t * pData, uint8_t len);
+uint8_t Mrfi_SpiWriteTxFifo(uint8_t * pData, uint8_t len);
 uint8_t Radio_Transmit(uint8_t * pPacket, uint8_t len);
 uint8_t Mrfi_SpiCmdStrobe(uint8_t cmd);
-
 #endif
