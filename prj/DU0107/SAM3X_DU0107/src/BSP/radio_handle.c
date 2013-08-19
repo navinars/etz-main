@@ -10,8 +10,10 @@
 #include "radio_handle.h"
 #include "cc1101_radio.h"
 
-
+phy_buf_t phy;
 uint8_t rPHY_Buf[64] = {0};
+
+xQueueHandle rQueueISR;
 
 /**
  * \brief 
@@ -27,14 +29,22 @@ portTASK_FUNCTION(vAppSpiTask, pvParameters)
 	
 	(void)pvParameters;
 	
+	rQueueISR = xQueueCreate(10, sizeof(unsigned portLONG));
+	if( rQueueISR == 0 )
+	{
+		
+	}
+	
 	Radio_Init();
 	
 	for(;;)
 	{
-		memcpy(frm, "dooya", 5);
-//		Radio_Transmit(frm, 5);
-		
-		vTaskDelay(1000);
+		if( xQueueReceive(rQueueISR, &(frm[0]), 10) == pdTRUE)
+		{
+			// handle received data.
+			
+			gpio_toggle_pin(LED1_GPIO);
+		}
 	}
 }
 
@@ -65,9 +75,22 @@ void vStartRadioTaskLauncher( unsigned portBASE_TYPE uxPriority )
  */
 void Radio_RcvHandler(void)
 {
-	Radio_ReadFifo();
+	portCHAR cIn = 100;
+	portBASE_TYPE xHigherPriorityTaskWoken = pdTRUE;
 	
-	Mrfi_SpiCmdStrobe(SFRX);
-	Mrfi_SpiCmdStrobe(SIDLE);
-	Mrfi_SpiCmdStrobe(SRX);
+	phy.alloc = true;
+	phy.len = Radio_ReadFifo(phy.buf);
+	
+	if(phy.len == 4) {
+		if(phy.buf[1] == 0x05){
+			
+			xQueueSendFromISR(rQueueISR, &cIn, &xHigherPriorityTaskWoken);
+			if(xHigherPriorityTaskWoken) {
+				taskYIELD();
+			}
+		}
+	}
+	memset(&phy, 0, sizeof(phy_buf_t));
+	Radio_ClearRcvFifo();
+	Radio_RcvMode();
 }
