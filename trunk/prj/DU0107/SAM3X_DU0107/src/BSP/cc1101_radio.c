@@ -334,6 +334,31 @@ uint8_t Radio_Transmit(uint8_t * pPacket, uint8_t len)
 /**
  * \brief 
  * 
+ * \param 
+ * 
+ * \return void
+ */
+void Radio_ClearRcvFifo(void)
+{
+	Mrfi_SpiCmdStrobe(SFRX);
+}
+
+/**
+ * \brief 
+ * 
+ * \param 
+ * 
+ * \return void
+ */
+void Radio_RcvMode(void)
+{
+	Mrfi_SpiCmdStrobe(SIDLE);
+	Mrfi_SpiCmdStrobe(SRX);
+}
+
+/**
+ * \brief 
+ * 
  * \param pPacket
  * 
  * \return uint8_t
@@ -345,8 +370,6 @@ uint8_t Radio_ReadFifo(uint8_t *pPacket)
 	rx_len = Mrfi_SpiReadReg(RXBYTES);
 	if(rx_len != 0)
 	{
-		gpio_toggle_pin(LED1_GPIO);									// LED1 trun on.
-		
 		len = Mrfi_SpiReadReg(RXFIFO);
 		Mrfi_SpiReadRxFifo(pPacket, len + 2);
 		

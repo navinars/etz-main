@@ -31,7 +31,7 @@ typedef enum _RF_Tx_Power_
 typedef struct{
 	uint8_t txFrame[10];
 	uint8_t len;
-	}nwkPacket_t;
+}nwkPacket_t;
 
 
 
@@ -42,4 +42,7 @@ uint8_t Mrfi_SpiReadRxFifo(uint8_t * pData, uint8_t len);
 uint8_t Mrfi_SpiWriteTxFifo(uint8_t * pData, uint8_t len);
 uint8_t Radio_Transmit(uint8_t * pPacket, uint8_t len);
 uint8_t Mrfi_SpiCmdStrobe(uint8_t cmd);
+void Radio_ClearRcvFifo(void);
+uint8_t Radio_ReadFifo(uint8_t *pPacket);
+void Radio_RcvMode(void);
 #endif

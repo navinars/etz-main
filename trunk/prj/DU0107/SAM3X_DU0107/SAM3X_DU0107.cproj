@@ -1106,6 +1106,9 @@
     <Compile Include="src\BSP\cc1101_radio.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\BSP\radio_config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\BSP\radio_handle.c">
       <SubType>compile</SubType>
     </Compile>
@@ -1478,6 +1481,12 @@
     <None Include="src\ASF\thirdparty\CMSIS\license.txt">
       <SubType>compile</SubType>
     </None>
+    <None Include="vsix\extension.xdkmanifest">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="vsix\License.txt">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />
@@ -1568,6 +1577,7 @@
     <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\netif\" />
     <Folder Include="src\BSP\" />
     <Folder Include="src\config\" />
+    <Folder Include="vsix\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
