@@ -67,18 +67,7 @@
 #if (HTTP_USED == 1)
 #include "BasicWEB.h"
 #endif
-
-#if (TFTP_USED == 1)
-#include "BasicTFTP.h"
-#endif
-
-#if (SMTP_USED == 1)
-#include "BasicSMTP.h"
-#endif
-
-#if (DATA_USED == 1)
 #include "net_handle.h"
-#endif
 
 #include "ethernet.h"
 /* lwIP includes */
@@ -225,26 +214,10 @@ portTASK_FUNCTION(vStartEthernetTask, pvParameters)
 					lwipBASIC_WEB_SERVER_PRIORITY);
 #endif
 
-#if (TFTP_USED == 1)
-	/* Create the TFTP server task.  This uses the lwIP RTOS abstraction layer. */
-	sys_thread_new("TFTP", vBasicTFTPServer, (void *)NULL,
-			lwipBASIC_TFTP_SERVER_STACK_SIZE,
-			lwipBASIC_TFTP_SERVER_PRIORITY);
-#endif
-
-#if (SMTP_USED == 1)
-	/* Create the SMTP Client task.  This uses the lwIP RTOS abstraction layer. */
-	sys_thread_new("SMTP", vBasicSMTPClient, (void *)NULL,
-			lwipBASIC_SMTP_CLIENT_STACK_SIZE,
-			lwipBASIC_SMTP_CLIENT_PRIORITY);
-#endif
-
-#if (DATA_USED == 1)
 	/* Create the Socket Server task.  This uses the lwIP RTOS abstraction layer. */
 	sys_thread_new("NETS", vNetHandle, (void *)NULL,
 					TASK_TCP_SERVER_STACK_SIZE,
 					TASK_TCP_SERVER_PRIORITY);
-#endif
 
 	/* Kill this task. */
 	vTaskDelete(NULL);

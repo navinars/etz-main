@@ -75,22 +75,22 @@ void vStartRadioTaskLauncher( unsigned portBASE_TYPE uxPriority )
  */
 void Radio_RcvHandler(void)
 {
-	portCHAR cIn = 100;
 	portBASE_TYPE xHigherPriorityTaskWoken = pdTRUE;
 	
 	phy.alloc = true;
 	phy.len = Radio_ReadFifo(phy.buf);
 	
 	if(phy.len == 4) {
-		if(phy.buf[1] == 0x05){
-			
-			xQueueSendFromISR(rQueueISR, &cIn, &xHigherPriorityTaskWoken);
-			if(xHigherPriorityTaskWoken) {
-				taskYIELD();
-			}
+		
+		xQueueSendFromISR(rQueueISR, &phy.buf[0], &xHigherPriorityTaskWoken);
+		
+		if(xHigherPriorityTaskWoken) {
+			taskYIELD();
 		}
 	}
+	
 	memset(&phy, 0, sizeof(phy_buf_t));
+	
 	Radio_ClearRcvFifo();
 	Radio_RcvMode();
 }
