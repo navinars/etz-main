@@ -589,10 +589,6 @@
     <Compile Include="src\net_handle.h">
       <SubType>compile</SubType>
     </Compile>
-    <None Include="Debug\.vsixContents\asf.xml">
-      <SubType>compile</SubType>
-      <Link>vsix\asf.xml</Link>
-    </None>
     <None Include="src\ASF\common\services\clock\genclk.h">
       <SubType>compile</SubType>
     </None>
@@ -1487,12 +1483,6 @@
     <None Include="src\ASF\thirdparty\CMSIS\license.txt">
       <SubType>compile</SubType>
     </None>
-    <None Include="vsix\extension.xdkmanifest">
-      <SubType>Code</SubType>
-    </None>
-    <None Include="vsix\License.txt">
-      <SubType>compile</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />
@@ -1583,7 +1573,6 @@
     <Folder Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\netif\" />
     <Folder Include="src\BSP\" />
     <Folder Include="src\config\" />
-    <Folder Include="vsix\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
