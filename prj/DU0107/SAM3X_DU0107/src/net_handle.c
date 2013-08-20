@@ -37,10 +37,6 @@
 /* user header file.*/
 #include "net_handle.h"
 
-
-#define NETBUF_NUM				100									/* Maximum socket buffer number.*/
-#define BACKLOG					6									/* Maximum socket client number.*/
-
 u_char sock_buf[NETBUF_NUM] = {0};									/* create socket buffer. */
 	
 int client_fd[BACKLOG] = {0};										/* create client file describe.*/
@@ -89,7 +85,7 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	memset(&server_addr, 0, sizeof(server_addr));					/* Clear socket server struct.*/
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_len = sizeof(server_addr);
-	server_addr.sin_port = PP_HTONS(SOCK_HOSR_PORT);
+	server_addr.sin_port = PP_HTONS(SOCKET_SERVER_PORT);			// bind port.
 	server_addr.sin_addr.s_addr = lwIPLocalIPAddrGet();				/* IP_ADDR_ANY is '0.0.0.0'.*/
 	
 	lwip_bind(listen_fd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr));
@@ -136,13 +132,10 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 					if (len != (ret - 1))
 					{
 						bzero(sock_buf, 100);
-						RS232printf("\n\rRead error length data from socket.");
 						continue;
 					}
 					
-					eth_data_handle( sock_buf, client_fd[i] );	/* !!handle socket data to SPI modle.!!*/
-					
-					RS232printf("\n\rRead from socket %d", client_fd[i]);
+					//eth_data_handle( sock_buf, client_fd[i] );		/* !!handle socket data to SPI modle.!!*/
 				}
 				else if(ret == 0)									/* If read ZERO,than return end of file .*/
 				{
@@ -150,7 +143,6 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				else												/* Read error, than close this socket.*/
 				{
 					lwip_close(client_fd[i]);						/* Can't decide which socket is closed.*/
-					RS232printf("\nClose old socket");
 					client_fd[i] = 0;
 				}
 			}
@@ -165,7 +157,6 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 			}
 			if (conn_amount < BACKLOG) {
 				client_fd[conn_amount ++] = new_fd;
-				RS232printf("\n\rNew socket");
 				
 				if(new_fd > max_fd) {
 					max_fd = new_fd;
@@ -174,9 +165,6 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 			else {
 				lwip_close(client_fd[old_fd]);
 				client_fd[old_fd ++] = new_fd;
-				
-				RS232printf("\nNew socket");
-				RS232printf("\nClose old socket");
 				
 				if (old_fd == BACKLOG) {
 					old_fd = 0;

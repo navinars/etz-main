@@ -581,6 +581,9 @@
     <GenerateEepFile>True</GenerateEepFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\config\radio_config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\net_handle.c">
       <SubType>compile</SubType>
     </Compile>
@@ -1101,9 +1104,6 @@
     <Compile Include="src\ASF\thirdparty\lwip\lwip-port-1.4.0\sam\sys_arch.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\BSP\cc1101_defs.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\BSP\cc1101_port.c">
       <SubType>compile</SubType>
     </Compile>
@@ -1114,9 +1114,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\BSP\cc1101_radio.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\BSP\radio_config.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\BSP\radio_handle.c">
