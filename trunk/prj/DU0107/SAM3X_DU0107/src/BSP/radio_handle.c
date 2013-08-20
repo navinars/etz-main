@@ -22,7 +22,6 @@
 
 /* ethernet includes */
 #include "ethernet.h"
-#include "BasicWEB.h"
 #include "net_handle.h"
 
 #include "radio_handle.h"
@@ -60,7 +59,7 @@ portTASK_FUNCTION(vAppSpiTask, pvParameters)
 		if( xQueueReceive(rQueueISR, &(frm[0]), 10) == pdTRUE)
 		{
 			uint8_t i = 0;
-			uint8_t ul_eth_data[10] = {0};
+			uint8_t ul_eth_data[] = "alarm";
 			// handle received data.
 			// Send gsm message to cell.
 			// Send data through ethernet.

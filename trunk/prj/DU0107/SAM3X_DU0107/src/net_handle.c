@@ -32,7 +32,6 @@
 
 /* ethernet includes */
 #include "ethernet.h"
-#include "BasicWEB.h"
 
 /* user header file.*/
 #include "net_handle.h"

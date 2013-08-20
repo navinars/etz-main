@@ -35,7 +35,7 @@ xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 void vApplicationMallocFailedHook( void )
 {
 	
-	gpio_set_pin_high(LED0_GPIO);									// If memory failed,LED0 is lighted.
+	gpio_set_pin_high(LED0_GPIO);									// If memory is failed,LED0 is lighted.
 	taskDISABLE_INTERRUPTS();
 	for( ;; );
 }

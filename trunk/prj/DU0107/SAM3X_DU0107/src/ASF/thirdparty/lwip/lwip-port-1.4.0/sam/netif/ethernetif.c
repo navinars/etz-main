@@ -65,7 +65,6 @@
 #include <string.h>
 #include "conf_eth.h"
 
-#include "BasicWEB.h"
 #include "gpio.h"
 
 /** Define those to better describe your network interface */
