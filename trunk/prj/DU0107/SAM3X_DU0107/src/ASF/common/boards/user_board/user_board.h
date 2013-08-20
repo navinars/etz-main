@@ -44,12 +44,12 @@
 //! LED #0 pin definition (BLUE).
 #define LED_0_NAME    "green LED D2"
 #define LED0_GPIO     (PIO_PA2_IDX)
-#define LED0_FLAGS    (PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT)
+#define LED0_FLAGS    (PIO_TYPE_PIO_OUTPUT_0 | PIO_DEFAULT)
 #define LED0_ACTIVE_LEVEL 0
 //! LED #1 pin definition (BLUE).
 #define LED_1_NAME    "green LED D1"
 #define LED1_GPIO     (PIO_PA3_IDX)
-#define LED1_FLAGS    (PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT)
+#define LED1_FLAGS    (PIO_TYPE_PIO_OUTPUT_0 | PIO_DEFAULT)
 #define LED1_ACTIVE_LEVEL 0
 
 

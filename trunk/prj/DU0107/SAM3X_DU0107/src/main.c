@@ -34,6 +34,8 @@ xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
 void vApplicationMallocFailedHook( void )
 {
+	
+	gpio_set_pin_high(LED0_GPIO);									// If memory failed,LED0 is lighted.
 	taskDISABLE_INTERRUPTS();
 	for( ;; );
 }
@@ -50,14 +52,14 @@ void task_start(void *pvParameters)
 	/* Start the ethernet tasks. */
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
 	
-	/* Start the Radio app tasks. */
+	/* Start the Radio tasks. */
 	vStartRadioTaskLauncher( TASK_RADIO_HANDLE_PRIORITY );
 	
 	for (;;)
 	{
-		gpio_toggle_pin(LED0_GPIO);
-		vTaskDelay(1000);
-		//vTaskSuspend(vStartTaskHandler);							/* Suspend START task. */
+		//gpio_toggle_pin(LED0_GPIO);
+		//vTaskDelay(1000);
+		vTaskSuspend(vStartTaskHandler);							/* Suspend START task. */
 	}
 }
 /*-----------------------------------------------------------*/

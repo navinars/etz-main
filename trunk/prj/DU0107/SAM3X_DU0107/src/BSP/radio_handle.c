@@ -2,10 +2,28 @@
 #include <asf.h>
 #include <string.h>
 
-// From module: FreeRTOS mini Real-Time Kernel
-#include <FreeRTOS.h>
-#include "task.h"
-#include "status_codes.h"
+#include "conf_board.h"
+#include "conf_eth.h"
+
+/* Demo includes. */
+/* Demo app includes. */
+#include "portmacro.h"
+
+/* lwIP includes */
+#include "lwip/api.h"
+#include "lwip/tcpip.h"
+#include "lwip/memp.h"
+#include "lwip/stats.h"
+#include "lwip/init.h"
+#include "lwip/sockets.h"
+#if ( (LWIP_VERSION) == ((1U << 24) | (3U << 16) | (2U << 8) | (LWIP_VERSION_RC)) )
+#include "netif/loopif.h"
+#endif
+
+/* ethernet includes */
+#include "ethernet.h"
+#include "BasicWEB.h"
+#include "net_handle.h"
 
 #include "radio_handle.h"
 #include "cc1101_radio.h"
@@ -29,20 +47,30 @@ portTASK_FUNCTION(vAppSpiTask, pvParameters)
 	
 	(void)pvParameters;
 	
-	rQueueISR = xQueueCreate(10, sizeof(unsigned portLONG));
+	rQueueISR = xQueueCreate(2, sizeof(unsigned portLONG));
 	if( rQueueISR == 0 )
 	{
 		
 	}
 	
-	Radio_Init();
+	Radio_Init();													// init cc1101.
 	
 	for(;;)
 	{
 		if( xQueueReceive(rQueueISR, &(frm[0]), 10) == pdTRUE)
 		{
+			uint8_t i = 0;
+			uint8_t ul_eth_data[10] = {0};
 			// handle received data.
-			
+			// Send gsm message to cell.
+			// Send data through ethernet.
+			for(i = 0;i < BACKLOG;i ++)
+			{
+				if(client_fd[i] != 0)
+				{
+					lwip_write(client_fd[i], ul_eth_data, sizeof(ul_eth_data));
+				}
+			}
 			gpio_toggle_pin(LED1_GPIO);
 		}
 	}
@@ -62,7 +90,7 @@ void vStartRadioTaskLauncher( unsigned portBASE_TYPE uxPriority )
 {
 	/* Spawn the Sentinel task. */
 	xTaskCreate( vAppSpiTask, (const signed portCHAR *)"SPILAUNCH",
-				configMINIMAL_STACK_SIZE, NULL, uxPriority,
+				TASK_RADIO_STACK_SIZE, NULL, uxPriority,
 				(xTaskHandle *)NULL );
 }
 
@@ -84,13 +112,14 @@ void Radio_RcvHandler(void)
 		
 		xQueueSendFromISR(rQueueISR, &phy.buf[0], &xHigherPriorityTaskWoken);
 		
-		if(xHigherPriorityTaskWoken) {
-			taskYIELD();
-		}
 	}
 	
 	memset(&phy, 0, sizeof(phy_buf_t));
 	
 	Radio_ClearRcvFifo();
 	Radio_RcvMode();
+	
+	if(xHigherPriorityTaskWoken) {
+		taskYIELD();
+	}
 }
