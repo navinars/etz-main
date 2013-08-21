@@ -29,6 +29,7 @@
 
 #include "ethernet.h"
 #include "radio_handle.h"
+#include "uart_handle.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
@@ -54,6 +55,8 @@ void task_start(void *pvParameters)
 	
 	/* Start the Radio tasks. */
 	vStartRadioTaskLauncher( TASK_RADIO_HANDLE_PRIORITY );
+	
+	vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );				/* Start the Uart task. */
 	
 	for (;;)
 	{
