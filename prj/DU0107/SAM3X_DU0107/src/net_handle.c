@@ -35,6 +35,7 @@
 
 /* user header file.*/
 #include "net_handle.h"
+#include "radio_handle.h"
 
 u_char sock_buf[NETBUF_NUM] = {0};									/* create socket buffer. */
 	
@@ -66,7 +67,6 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	u_char i;
 	
 	vSemaphoreCreateBinary(xSemaNetHandle);							/* Create binary semaphore.*/
-	RS232printf("\nCreate binary semaphore.");
 	
 	listen_fd = lwip_socket(AF_INET, SOCK_STREAM, 0);				/* Create new socket.*/
 	
@@ -75,8 +75,6 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	
 	if(ret == -1)
 	{
-		RS232printf("Socket server don't create!!!\n");
-		
 		/* Suspend this task, not kill itself. */
 		vTaskSuspend(vNetHandle);
 	}
@@ -126,15 +124,8 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
 				if (ret > 0)
 				{
-					len = sock_buf[0];
-					
-					if (len != (ret - 1))
-					{
-						bzero(sock_buf, 100);
-						continue;
-					}
-					
-					//eth_data_handle( sock_buf, client_fd[i] );		/* !!handle socket data to SPI modle.!!*/
+					xQueueSend(rQueueISR, &sock_buf, 10);
+					bzero(sock_buf, 100);
 				}
 				else if(ret == 0)									/* If read ZERO,than return end of file .*/
 				{

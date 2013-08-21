@@ -24,6 +24,7 @@
 #define TASK_ETH_INT_STACK_SIZE			(configMINIMAL_STACK_SIZE + 50)
 #define TASK_TCP_SERVER_STACK_SIZE		(configMINIMAL_STACK_SIZE + 150)
 #define TASK_RADIO_STACK_SIZE			(configMINIMAL_STACK_SIZE + 150)
+#define TASK_UART_STACK_SIZE			(configMINIMAL_STACK_SIZE + 150)
 
 
 /*******************************************************************************
@@ -33,6 +34,7 @@
 #define TASK_START_ETH_PRIORITY			(tskIDLE_PRIORITY + 2)
 #define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 3)
 #define TASK_RADIO_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 4)
+#define TASK_UART_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 5)
 
 
 /** Enable Com Port. */

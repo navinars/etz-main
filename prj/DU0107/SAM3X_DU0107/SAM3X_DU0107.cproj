@@ -589,6 +589,12 @@
     <Compile Include="src\net_handle.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\uart_handle.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\uart_handle.h">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\ASF\common\services\clock\genclk.h">
       <SubType>compile</SubType>
     </None>
