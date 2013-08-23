@@ -27,10 +27,10 @@ void board_init(void)
 	gpio_configure_group(PINS_UART_PIO, PINS_UART, PINS_UART_FLAGS);
 	
 	/* Configure USART RXD pin */
-	gpio_configure_pin(PIN_USART1_RXD_IDX, PIN_USART1_RXD_FLAGS);
+	gpio_configure_pin(PIN_USART0_RXD_IDX, PIN_USART0_RXD_FLAGS);
 	
 	/* Configure USART TXD pin */
-	gpio_configure_pin(PIN_USART1_TXD_IDX, PIN_USART1_TXD_FLAGS);
+	gpio_configure_pin(PIN_USART0_TXD_IDX, PIN_USART0_TXD_FLAGS);
 	
 	/* Configure Key pin init.*/
 	gpio_configure_pin(RESTKEY_GPIO, (PIO_INPUT | PIO_PULLUP));
@@ -42,4 +42,8 @@ void board_init(void)
 	
 	gpio_configure_pin(SPI0_NPCS0_GPIO, (PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT));
 	gpio_configure_pin(CC1101_GPIO0_GPIO, (PIO_INPUT | PIO_DEFAULT));
+	
+	/* Configure SMS pins */
+	gpio_configure_pin(SMS_RESET_GPIO, SMS_RESET_FLAGS);
+	gpio_configure_pin(SMS_CMD_GPIO, SMS_CMD_FLAGS);
 }

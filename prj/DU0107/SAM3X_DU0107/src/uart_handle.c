@@ -36,11 +36,30 @@
 void uart_config(void)
 {
 	const sam_uart_opt_t uart_settings = {
-		.ul_baudrate = 9600,
+		.ul_mck = sysclk_get_peripheral_hz(),
+		.ul_baudrate = 38400,
 		.ul_mode = UART_MR_PAR_NO
 	};
+	
+	const sam_usart_opt_t usart_console_settings = {
+		.baudrate = 38400,
+		.char_length = US_MR_CHRL_8_BIT,
+		.parity_type = US_MR_PAR_NO,
+		.stop_bits = US_MR_NBSTOP_1_BIT,
+		.channel_mode = US_MR_CHMODE_NORMAL,
+		/* This field is only used in IrDA mode. */
+		.irda_filter = 0
+	};
+	
 	sysclk_enable_peripheral_clock(ID_UART);
-	uart_init(ID_UART, &uart_settings);
+	uart_init(UART, &uart_settings);
+	
+	sysclk_enable_peripheral_clock(ID_USART0);
+	usart_init_rs232(USART0, &usart_console_settings, sysclk_get_peripheral_hz());
+	
+	/* Enable the receiver and transmitter. */
+	usart_enable_tx(USART0);
+	usart_enable_rx(USART0);
 }
 
 /**
@@ -68,11 +87,22 @@ void vStartUartTaskLauncher( unsigned portBASE_TYPE uxPriority )
  */
 portTASK_FUNCTION_PROTO( vUartTask, pvParameters )
 {
-	uint8_t	sms_text[] = "AT+SMS=0,0,8615000930605,123456";
+	uint8_t	i, sms_text[] = "AT+SMS=0,0,8615000930605,123456";
 	
 	(void)pvParameters;
-	uart_config();
-	uart_write(ID_UART, sms_text);
+	
+	uart_config();												/* Initialize UART model.*/
+	
+//	gpio_set_pin_high(SMS_CMD_GPIO);							/* Set DATA/CMD mode. */
+	gpio_set_pin_low(SMS_CMD_GPIO);
+	gpio_set_pin_high(SMS_RESET_GPIO);							/* Reset SMS model. */
+	
+	vTaskDelay(10000);
+	
+	for(i = 0;i < sizeof(sms_text);i ++)
+	{
+		while(usart_write(USART0, sms_text[i]));
+	}
 	
 	for (;;)
 	{
