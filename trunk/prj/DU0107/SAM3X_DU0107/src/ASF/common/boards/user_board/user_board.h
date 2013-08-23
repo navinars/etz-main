@@ -38,9 +38,10 @@
 /** board main clock xtal statup time */
 #define BOARD_OSC_STARTUP_US   15625
 
-#define CONSOLE_UART			   UART
-#define CONSOLE_UART_ID            ID_UART
 
+/* ------------------------------------------------------------------------ */
+/* LED0 LED1                                                                */
+/* ------------------------------------------------------------------------ */
 //! LED #0 pin definition (BLUE).
 #define LED_0_NAME    "green LED D2"
 #define LED0_GPIO     (PIO_PA2_IDX)
@@ -53,8 +54,14 @@
 #define LED1_ACTIVE_LEVEL 0
 
 
+/* ------------------------------------------------------------------------ */
+/* Reset Key                                                                */
+/* ------------------------------------------------------------------------ */
 #define RESTKEY_GPIO     (PIO_PA20_IDX)
 
+/* ------------------------------------------------------------------------ */
+/* UART                                                                     */
+/* ------------------------------------------------------------------------ */
 //! UART pins (UTXD0 and URXD0) definitions, PA8,9.
 #define PINS_UART		(PIO_PA8A_URXD | PIO_PA9A_UTXD)
 #define PINS_UART_FLAGS	(PIO_PERIPH_A | PIO_DEFAULT)
@@ -65,42 +72,41 @@
 #define PINS_UART_TYPE	PIO_PERIPH_A
 #define PINS_UART_ATTR	PIO_DEFAULT
 
-//! USART0
-#define PIN_USART0_RXD    {0x1 << 19, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
-#define PIN_USART0_RXD_IDX        (PIO_PA19_IDX)
-#define PIN_USART0_RXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
-#define PIN_USART0_TXD    {0x1 << 18, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
-#define PIN_USART0_TXD_IDX        (PIO_PA18_IDX)
-#define PIN_USART0_TXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
-#define PIN_USART0_CTS    {0x1 << 8, PIOB, ID_PIOB, PIO_PERIPH_A, PIO_DEFAULT}
-#define PIN_USART0_CTS_IDX        (PIO_PA8_IDX)
-#define PIN_USART0_CTS_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
-#define PIN_USART0_RTS    {0x1 << 7, PIOB, ID_PIOB, PIO_PERIPH_A, PIO_DEFAULT}
-#define PIN_USART0_RTS_IDX        (PIO_PA7_IDX)
-#define PIN_USART0_RTS_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
-#define PIN_USART0_SCK    {0x1 << 17, PIOA,ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
-#define PIN_USART0_SCK_IDX        (PIO_PA17_IDX)
-#define PIN_USART0_SCK_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
+/* ------------------------------------------------------------------------ */
+/* UART                                                                     */
+/* ------------------------------------------------------------------------ */
+//! UART pins (UTXD0 and URXD0) definitions, PA8,9.
+#define SMS_RESET_GPIO	(PIO_PA19_IDX)
+#define SMS_RESET_FLAGS	(PIO_TYPE_PIO_OUTPUT_0 | PIO_DEFAULT)
 
-//! USART1
-#define PIN_USART1_RXD    {0x1 << 21, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
-#define PIN_USART1_RXD_IDX        (PIO_PA21_IDX)
-#define PIN_USART1_RXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
-#define PIN_USART1_TXD    {0x1 << 20, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
-#define PIN_USART1_TXD_IDX        (PIO_PA20_IDX)
-#define PIN_USART1_TXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
-#define PIN_USART1_CTS    {0x1 << 23, PIOA, ID_PIOA, PIO_PERIPH_B, PIO_DEFAULT}
-#define PIN_USART1_CTS_IDX        (PIO_PA23_IDX)
-#define PIN_USART1_CTS_FLAGS      (PIO_PERIPH_B | PIO_DEFAULT)
-#define PIN_USART1_RTS    {0x1 << 22, PIOA, ID_PIOA, PIO_PERIPH_B, PIO_DEFAULT}
-#define PIN_USART1_RTS_IDX        (PIO_PA22_IDX)
-#define PIN_USART1_RTS_FLAGS      (PIO_PERIPH_B | PIO_DEFAULT)
-#define PIN_USART1_EN     {0x1 << 24, PIOA, ID_PIOA, PIO_OUTPUT_0, PIO_DEFAULT}
-#define PIN_USART1_EN_IDX         (PIO_PA24_IDX)
-#define PIN_USART1_EN_FLAGS       (PIO_OUTPUT_0 | PIO_DEFAULT)
-#define PIN_USART1_SCK    {0x1 << 24, PIOA, ID_PIOA, PIO_PERIPH_B, PIO_DEFAULT}
-#define PIN_USART1_SCK_IDX        (PIO_PA24_IDX)
-#define PIN_USART1_SCK_FLAGS      (PIO_PERIPH_B | PIO_DEFAULT)
+#define SMS_CMD_GPIO	(PIO_PA16_IDX)
+#define SMS_CMD_FLAGS	(PIO_TYPE_PIO_OUTPUT_0 | PIO_DEFAULT)
+
+/**
+ * \file
+ * USART0
+ * - \ref PIN_USART0_RXD
+ * - \ref PIN_USART0_TXD
+ * - \ref PIN_USART0_CTS
+ * - \ref PIN_USART0_RTS
+ * - \ref PIN_USART0_SCK
+ *
+ * - \ref PIN_USART0_EN
+ */
+
+/* ------------------------------------------------------------------------ */
+/* USART0                                                                   */
+/* ------------------------------------------------------------------------ */
+/*! USART0 pin RX */
+#define PIN_USART0_RXD\
+	{PIO_PA10A_RXD0, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
+#define PIN_USART0_RXD_IDX        (PIO_PA10_IDX)
+#define PIN_USART0_RXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
+/*! USART0 pin TX */
+#define PIN_USART0_TXD\
+	{PIO_PA11A_TXD0, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
+#define PIN_USART0_TXD_IDX        (PIO_PA11_IDX)
+#define PIN_USART0_TXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
 
 /**
  * \file

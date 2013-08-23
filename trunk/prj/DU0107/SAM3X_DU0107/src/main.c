@@ -36,7 +36,7 @@ xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 void vApplicationMallocFailedHook( void )
 {
 	
-	gpio_set_pin_high(LED0_GPIO);									// If memory is failed,LED0 is lighted.
+	gpio_set_pin_high(LED0_GPIO);								// If memory is failed,LED0 is lighted.
 	taskDISABLE_INTERRUPTS();
 	for( ;; );
 }
@@ -56,13 +56,13 @@ void task_start(void *pvParameters)
 	/* Start the Radio tasks. */
 	vStartRadioTaskLauncher( TASK_RADIO_HANDLE_PRIORITY );
 	
-	vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );				/* Start the Uart task. */
+	vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );		/* Start the Uart task. */
 	
 	for (;;)
 	{
 		//gpio_toggle_pin(LED0_GPIO);
 		//vTaskDelay(1000);
-		vTaskSuspend(vStartTaskHandler);							/* Suspend START task. */
+		vTaskSuspend(vStartTaskHandler);						/* Suspend START task. */
 	}
 }
 /*-----------------------------------------------------------*/
