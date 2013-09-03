@@ -96,7 +96,7 @@ void task_start(void *pvParameters)
 {
 	(void) pvParameters;
 	
-	netmode_init();													/* init net mode from flash.*/
+	netmode_init();												/* init net mode from flash.*/
 	
 	/* Start the ethernet tasks. */
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
@@ -104,11 +104,13 @@ void task_start(void *pvParameters)
 	/* Start the SPI app tasks. */
 	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
 	
+	vStartMotorTaskLauncher( TASK_MOTOR_HANDLE_PRIORITY );		/* Start motor status update tasks.*/
+	
 	for (;;)
 	{
 		gpio_toggle_pin(LED0_GPIO);
 		vTaskDelay(1000);
-		//vTaskSuspend(vStartTaskHandler);							/* Suspend START task. */
+		//vTaskSuspend(vStartTaskHandler);						/* Suspend START task. */
 	}
 }
 /*-----------------------------------------------------------*/
