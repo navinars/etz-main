@@ -24,6 +24,7 @@
 #define TASK_LED_STACK_SIZE				(configMINIMAL_STACK_SIZE + 50)
 #define TASK_ETH_INT_STACK_SIZE			(configMINIMAL_STACK_SIZE + 50)
 #define TASK_TCP_SERVER_STACK_SIZE		(configMINIMAL_STACK_SIZE + 550)
+#define TASK_MOTOR_STACK_SIZE			(configMINIMAL_STACK_SIZE + 550)
 
 
 /*******************************************************************************
@@ -34,6 +35,7 @@
 #define TASK_START_ETH_PRIORITY			(tskIDLE_PRIORITY + 17)
 #define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 16)
 #define TASK_SPI_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 15)
+#define TASK_MOTOR_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 14)
 
 
 /**

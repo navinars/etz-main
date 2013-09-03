@@ -36,24 +36,14 @@
 
 spi_data_send_t spi_t;
 
+spi_data_send_t update;
+
+	
+xSemaphoreHandle xSemaMotor = NULL;
+
+
 static unsigned int crc16(unsigned char buff, unsigned int fcs);
 static void spi_transmit(spi_data_send_t *p);
-
-
-/**
- * \brief 
- * 
- * \param uxPriority
- * 
- * \return void
- */
-void vStartSpiTaskLauncher( unsigned portBASE_TYPE uxPriority )
-{
-	/* Spawn the Sentinel task. */
-	xTaskCreate( vSpiHandle, (const signed portCHAR *)"SPIHANDLE",
-				configMINIMAL_STACK_SIZE + 550, NULL, uxPriority,
-				(xTaskHandle *)NULL );
-}
 
 static unsigned int crc16(unsigned char buff, unsigned int fcs)
 {
@@ -101,6 +91,21 @@ unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length)
 /**
  * \brief 
  * 
+ * \param uxPriority
+ * 
+ * \return void
+ */
+void vStartSpiTaskLauncher( unsigned portBASE_TYPE uxPriority )
+{
+	/* Spawn the Sentinel task. */
+	xTaskCreate( vSpiHandle, (const signed portCHAR *)"SPIHANDLE",
+				configMINIMAL_STACK_SIZE + 550, NULL, uxPriority,
+				(xTaskHandle *)NULL );
+}
+
+/**
+ * \brief 
+ * 
  * \param p
  * 
  * \return void
@@ -108,11 +113,11 @@ unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length)
 static void spi_transmit(spi_data_send_t* p)
 {
 	spi_csn0_disable();
-	vTaskDelay(1);													/* Wait 20 millisecond.*/
+	vTaskDelay(1);												/* Wait 20 millisecond.*/
 	spi_soft_transfer(&p->buf[1], p->len + 2);
-	vTaskDelay(6);													/* Wait 20 millisecond.*/
+	vTaskDelay(6);												/* Wait 20 millisecond.*/
 //	bzero(p, sizeof(spi_data_send_t));
-	spi_soft_transfer(&p->buf[1], p->len + 2);						/* Update to spi.buf[].*/
+	spi_soft_transfer(&p->buf[1], p->len + 2);					/* Update to spi.buf[].*/
 	spi_csn0_enable();
 }
 
@@ -130,9 +135,10 @@ static void spi_data_handle ( spi_data_send_t* pdata )
 	
 	spi_data_send_t spi;
 	
-	memcpy(&spi, pdata, sizeof(spi_data_send_t));					// Copy spi_data to temp struct.
+	memcpy(&spi, pdata, sizeof(spi_data_send_t));				// Copy spi_data to temp struct.
+	
+	spi.buf[0] = 6;												/* Set data length.*/
 	memcpy(&spi.buf[1], pdata->buf, sizeof(spi.buf));
-	spi.buf[0] = 6;
 	
 	if(spi.port >0)
 	{
@@ -172,9 +178,9 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 	u_char	len;
 	
 	(void)pvParameters;
-	memset(&spi_t, 0, sizeof(spi_data_send_t));						/* Clear struct spi_t. */
+	memset(&spi_t, 0, sizeof(spi_data_send_t));					/* Clear struct spi_t. */
 	
-	while(1)
+	for(;;)
 	{
 		if (xSemaNetHandle != NULL)
 		{
@@ -182,22 +188,89 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 			{
 				u_short crc;
 				
-				RS232printf("\r\nSPI_HANDLE is running...");
-				
 				len = spi_t.len;
 				
 				crc = Crc16CheckSum(&spi_t.buf[0], len);
 				*((u_short *)&spi_t.buf[len]) = crc;
 				
-				RS232printf("0x%x", spi_t.buf[0]);
-				
 				// enable spi receive data function.
 				spi_data_handle( &spi_t );
 				
-				memset(&spi_t, 0, sizeof(spi_data_send_t));			/* clear struct...*/
+				memset(&spi_t, 0, sizeof(spi_data_send_t));		/* clear struct...*/
 			}
 		}
 		vTaskDelay(1);
 	}
 }
 
+/**
+ * \brief 
+ * 
+ * \param uxPriority
+ * 
+ * \return void
+ */
+void vStartMotorTaskLauncher( unsigned portBASE_TYPE uxPriority )
+{
+	/* Spawn the Sentinel task. */
+	xTaskCreate( vMotorHandle, (const signed portCHAR *)"MotorTask",
+				TASK_MOTOR_STACK_SIZE, NULL, uxPriority,
+				(xTaskHandle *)NULL );
+}
+
+/**
+ * \brief 
+ * 
+ * \param 
+ * \param 
+ * 
+ * \return 
+ */
+portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
+{
+	uint8_t last_value = 0, present_value, i = 0,len;
+	
+	(void) pvParameters;
+	
+	vSemaphoreCreateBinary( xSemaMotor );
+	
+	for(;;)
+	{
+		if ( xSemaphoreGive( xSemaMotor ) == pdTRUE )
+		{
+			u_short crc;
+			
+			i = 50;
+			do{
+				
+				vTaskDelay(1000);								/* Delay 1s.*/
+				
+				len = update.len;
+				
+				update.buf[0] = 0x01;
+				update.buf[1] = 0x03;
+				update.buf[2] = 0x00;
+				update.buf[3] = 0x0D;
+				update.buf[4] = 0x00;
+				update.buf[5] = 0x00;
+				
+				crc = Crc16CheckSum( &update.buf[0], len );
+				*( (u_short *)&update.buf[len] ) = crc;
+				
+				spi_data_handle( &update );
+				
+				present_value = update.buf[3];
+				if ( present_value == last_value )
+				{
+					present_value = 0;
+					last_value    = 0;
+					
+					break;
+				}
+				
+				last_value = present_value;
+			}while( i --);
+		}
+		vTaskDelay(1);
+	}
+}

@@ -39,14 +39,14 @@
 #include "spi_handle.h"
 
 
-#define NETBUF_NUM				100									/* Maximum socket buffer number.*/
-#define BACKLOG					6									/* Maximum socket client number.*/
+#define NETBUF_NUM				100								/* Maximum socket buffer number.*/
+#define BACKLOG					6								/* Maximum socket client number.*/
 
-u_char sock_buf[NETBUF_NUM] = {0};									/* create socket buffer. */
+u_char sock_buf[NETBUF_NUM] = {0};								/* create socket buffer. */
 	
-int client_fd[BACKLOG] = {0};										/* create client file describe.*/
+int client_fd[BACKLOG] = {0};									/* create client file describe.*/
 	
-xSemaphoreHandle xSemaNetHandle = NULL;								/* initialize freeRTOS's Semaphore.*/
+xSemaphoreHandle xSemaNetHandle = NULL;							/* initialize freeRTOS's Semaphore.*/
 
 /**
  * \brief Net receive data handle..
@@ -97,7 +97,7 @@ static void eth_data_handle( u_char* pbuf, int port )
 				/* Lock page */
 				flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
 				
-				rstc_start_software_reset(RSTC);					// Reset SAM3X with software..
+				rstc_start_software_reset(RSTC);				/* Reset SAM3X with software..*/
 			}
 		}
 		else
@@ -113,7 +113,25 @@ static void eth_data_handle( u_char* pbuf, int port )
 				;
 			}
 			
-			RS232printf("\n\rTake Semaphore..");
+			extern xSemaphoreHandle xSemaMotor;
+			extern spi_data_send_t update;
+			`
+			memcpy( update.buf, (pbuf + 1), len );
+			
+			update.alloc = true;
+			update.len = len;
+			update.port = port;
+			
+			if ((spi_t.buf[1] == 0x06) && (spi_t.buf[5] != 0xFF))/* Check command, motor is running.*/
+			{
+				if ( xSemaMotor != NULL )
+				{
+					if (xSemaphoreTake(xSemaMotor, ( portTickType ) 1 ) == pdTRUE)
+					{
+						;
+					}
+				}
+			}
 		}
 		bzero(pbuf, 100);
 	}
@@ -139,18 +157,17 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	struct sockaddr_in server_addr;
 	struct sockaddr_in client_addr;
 	
-	fd_set allset;													/* Create file descriptor.*/
+	fd_set allset;												/* Create file descriptor.*/
 	u_char conn_amount = 0;
 	struct timeval tv;
 	
 	u_char i;
 	
-	vSemaphoreCreateBinary(xSemaNetHandle);							/* Create binary semaphore.*/
-	RS232printf("\nCreate binary semaphore.");
+	vSemaphoreCreateBinary(xSemaNetHandle);						/* Create binary semaphore.*/
 	
-	listen_fd = lwip_socket(AF_INET, SOCK_STREAM, 0);				/* Create new socket.*/
+	listen_fd = lwip_socket(AF_INET, SOCK_STREAM, 0);			/* Create new socket.*/
 	
-																	/* Set socket's options.*/
+																/* Set socket's options.*/
 	ret = lwip_setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
 	
 	if(ret == -1)
@@ -161,27 +178,27 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 		vTaskSuspend(vNetHandle);
 	}
 	
-	memset(&server_addr, 0, sizeof(server_addr));					/* Clear socket server struct.*/
+	memset(&server_addr, 0, sizeof(server_addr));				/* Clear socket server struct.*/
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_len = sizeof(server_addr);
 	server_addr.sin_port = PP_HTONS(SOCK_HOSR_PORT);
-	server_addr.sin_addr.s_addr = lwIPLocalIPAddrGet();				/* IP_ADDR_ANY is '0.0.0.0'.*/
+	server_addr.sin_addr.s_addr = lwIPLocalIPAddrGet();			/* IP_ADDR_ANY is '0.0.0.0'.*/
 	
 	lwip_bind(listen_fd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr));
-	lwip_listen(listen_fd, BACKLOG + 1);							/* MAX TCP client is BACKLOG.*/
+	lwip_listen(listen_fd, BACKLOG + 1);						/* MAX TCP client is BACKLOG.*/
 	
 	sin_size = sizeof(client_addr);
 	max_fd = listen_fd;
 	
-	tv.tv_sec = 10;													/* Timeout setting.*/
+	tv.tv_sec = 10;												/* Timeout setting.*/
 	tv.tv_usec = 0;
 	
 	while(1)
 	{
-		FD_ZERO(&allset);											/* Initialize file descriptor set.*/
+		FD_ZERO(&allset);										/* Initialize file descriptor set.*/
 		FD_SET(listen_fd, &allset);
 		
-		for (i = 0; i < BACKLOG; i++)								/* Add active connection to fd set.*/
+		for (i = 0; i < BACKLOG; i++)							/* Add active connection to fd set.*/
 		{
 			if (client_fd[i] != 0) {
 				FD_SET(client_fd[i], &allset);
@@ -190,17 +207,17 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 		
 		ret = lwip_select(max_fd + 1, &allset, NULL, NULL, &tv);
 		
-		if(ret < 0)													/* If FD is not add, than continue.*/
+		if(ret < 0)												/* If FD is not add, than continue.*/
 		{
 			continue;
 		}
 		
-		for(i = 0; i < conn_amount; i++)							/* Check every fd in the set.*/
+		for(i = 0; i < conn_amount; i++)						/* Check every fd in the set.*/
 		{
 			if (FD_ISSET(client_fd[i], &allset))
 			{
 				u_char	len;
-				int opt = 10;										/* set recv timeout (100 ms) */
+				int opt = 10;									/* set recv timeout (100 ms) */
 				lwip_setsockopt(client_fd[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 				
 				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
@@ -219,19 +236,19 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 					
 					RS232printf("\n\rRead from socket %d", client_fd[i]);
 				}
-				else if(ret == 0)									/* If read ZERO,than return end of file .*/
+				else if(ret == 0)								/* If read ZERO,than return end of file .*/
 				{
 				}
-				else												/* Read error, than close this socket.*/
+				else											/* Read error, than close this socket.*/
 				{
-					lwip_close(client_fd[i]);						/* Can't decide which socket is closed.*/
+					lwip_close(client_fd[i]);					/* Can't decide which socket is closed.*/
 					RS232printf("\nClose old socket");
 					client_fd[i] = 0;
 				}
 			}
 		}
 		
-		if (FD_ISSET(listen_fd, &allset))							/* Check whether a new connection comes.*/
+		if (FD_ISSET(listen_fd, &allset))						/* Check whether a new connection comes.*/
 		{
 			new_fd = lwip_accept(listen_fd, (struct sockaddr *)&client_addr, &sin_size);
 			
@@ -258,7 +275,7 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				}
 			}
 		}
-//		vTaskDelay(2);												/* Not need.*/
+//		vTaskDelay(2);											/* Not need.*/
 	}
 }
 
