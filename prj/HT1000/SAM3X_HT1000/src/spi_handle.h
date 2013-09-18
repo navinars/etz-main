@@ -7,11 +7,20 @@
 xSemaphoreHandle xSemaNetHandle;
 
 typedef struct{
-	bool	alloc;
-	int		port;
-	u_char	len;
-	u_char	buf[8];
-}spi_data_send_t ;
+	bool			alloc;
+	int				port;
+	uint8_t			len;
+	uint8_t			buf[20];
+	uint8_t*		dptr;
+}net_frm_send_t;
+
+typedef struct{
+	bool			alloc;
+	int				port;
+	uint8_t			len;
+	uint8_t			buf[20];
+	uint8_t*		dptr;
+}spi_data_send_t;
 
 extern spi_data_send_t spi_t;
 

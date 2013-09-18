@@ -32,18 +32,13 @@
 #include "spi_handle.h"
 #include "net_handle.h"
 
-#define ERROR_DATA_NUM					4
+#define ERROR_DATA_NUM					3						/* SPI write fail repeat frequency.*/
 
-spi_data_send_t spi_t;
-
-spi_data_send_t update;
-
+spi_data_send_t							spi_t;					/* SPI frame.*/
+net_frm_send_t							net_t;					/* NET frame.*/
 	
-xSemaphoreHandle xSemaMotor = NULL;
+xSemaphoreHandle						xSemaMotor = NULL;
 
-
-static unsigned int crc16(unsigned char buff, unsigned int fcs);
-static void spi_transmit(spi_data_send_t *p);
 
 static unsigned int crc16(unsigned char buff, unsigned int fcs)
 {
@@ -110,15 +105,43 @@ void vStartSpiTaskLauncher( unsigned portBASE_TYPE uxPriority )
  * 
  * \return void
  */
-static void spi_transmit(spi_data_send_t* p)
+static void spi_transmit( uint8_t *pdata ,uint8_t len)
 {
+	uint8_t *p = pdata;
+	
 	spi_csn0_disable();
-	vTaskDelay(1);												/* Wait 20 millisecond.*/
-	spi_soft_transfer(&p->buf[1], p->len + 2);
-	vTaskDelay(6);												/* Wait 20 millisecond.*/
+	
+	vTaskDelay(1);												/* Wait 1 millisecond.*/
+	
+	spi_soft_transfer( p, len);
+	
+	vTaskDelay(6);												/* Wait 6 millisecond.*/
+	
 //	bzero(p, sizeof(spi_data_send_t));
-	spi_soft_transfer(&p->buf[1], p->len + 2);					/* Update to spi.buf[].*/
+	spi_soft_transfer( p, len );								/* Update to spi.buf[].*/
+	
 	spi_csn0_enable();
+}
+
+/**
+ * \brief 
+ * 
+ * \param net
+ * 
+ * \return uint8_t
+ */
+static uint8_t net_data_send( net_frm_send_t *net )
+{
+	int ret;
+	
+	ret = lwip_write( net->port, &net->buf[0], net->len );
+	
+	if (ret < 0 )
+	{
+		return 1;
+	}
+	
+	return 0;
 }
 
 /**
@@ -128,40 +151,30 @@ static void spi_transmit(spi_data_send_t* p)
  * 
  * \return 
  */
-static void spi_data_handle ( spi_data_send_t* pdata )
+static void spi_data_req( spi_data_send_t* pdata )
 {
-	uint8_t i = 0, a;
+	
+	uint8_t i = 0, tmp_value;
 	int ret;
 	
-	spi_data_send_t spi;
+	spi_data_send_t tmp;
+	memcpy(&tmp, pdata, sizeof(spi_data_send_t));
 	
-	memcpy(&spi, pdata, sizeof(spi_data_send_t));				// Copy spi_data to temp struct.
-	
-	spi.buf[0] = 6;												/* Set data length.*/
-	memcpy(&spi.buf[1], pdata->buf, sizeof(spi.buf));
-	
-	if(spi.port >0)
+	if ( tmp.port > 0 )											/* socket descriptor must greater than ZERO! */
 	{
-		spi_transmit(&spi);
-		
-		a = spi.buf[1];
-		while(((a == 0xFF) || (a == 0x00)) && (i < ERROR_DATA_NUM))
+		do
 		{
-			memcpy(&spi, pdata, sizeof(spi_data_send_t));
-			memcpy(&spi.buf[1], pdata->buf, sizeof(spi.buf));
-			spi.buf[0] = 6;
+			memcpy(&tmp, pdata, sizeof(spi_data_send_t));		/* Copy spi_data to temp struct.*/
 			
-			spi_transmit(&spi);
+			spi_transmit( &tmp.buf, tmp.len );					/* send spi buffer. */
+			
 			vTaskDelay(6);
-			a = spi.buf[1];
+			tmp_value = tmp.buf[1];
+			
 			i ++;
-		}
+		}while( (tmp_value == 0xFF) && (i < ERROR_DATA_NUM) );
 		
-		ret = lwip_write(spi.port, &spi.buf[0], spi.len + 1);
-	}
-	
-	if(ret < 0){
-		RS232printf("\n\rAn error occurred lwip_write..");
+		memcpy( pdata, &tmp, sizeof(spi_data_send_t) );
 	}
 }
 
@@ -175,28 +188,35 @@ static void spi_data_handle ( spi_data_send_t* pdata )
  */
 portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 {
-	u_char	len;
+	uint16_t crc = 0;
 	
 	(void)pvParameters;
-	memset(&spi_t, 0, sizeof(spi_data_send_t));					/* Clear struct spi_t. */
+	bzero( &spi_t, sizeof(spi_data_send_t) );
 	
-	for(;;)
+	for (;;)
 	{
-		if (xSemaNetHandle != NULL)
+		if ( xSemaNetHandle != NULL )
 		{
-			if(xSemaphoreGive( xSemaNetHandle ) == pdTRUE)
+			if ( xSemaphoreGive( xSemaNetHandle ) == pdTRUE )
 			{
-				u_short crc;
+				spi_t.len = 8;
 				
-				len = spi_t.len;
-				
-				crc = Crc16CheckSum(&spi_t.buf[0], len);
-				*((u_short *)&spi_t.buf[len]) = crc;
+				crc = Crc16CheckSum( &spi_t.buf[0], 6 );		/* add CRC value. */
+				*((uint16_t *)&spi_t.buf[6]) = crc;
 				
 				// enable spi receive data function.
-				spi_data_handle( &spi_t );
+				spi_data_req( &spi_t );
 				
-				memset(&spi_t, 0, sizeof(spi_data_send_t));		/* clear struct...*/
+				net_t.alloc = true;
+				net_t.port  = spi_t.port;
+				net_t.len	= 7;
+				net_t.buf[0]= 6;
+				
+				memcpy( &net_t.buf[1], &spi_t.buf[0], spi_t.len );
+				
+				net_data_send( &net_t );
+				
+				memset( &spi_t, 0, sizeof(spi_data_send_t) );	/* clear struct...*/
 			}
 		}
 		vTaskDelay(1);
@@ -213,9 +233,9 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 void vStartMotorTaskLauncher( unsigned portBASE_TYPE uxPriority )
 {
 	/* Spawn the Sentinel task. */
-	xTaskCreate( vMotorHandle, (const signed portCHAR *)"MotorTask",
-				TASK_MOTOR_STACK_SIZE, NULL, uxPriority,
-				(xTaskHandle *)NULL );
+	//xTaskCreate( vMotorHandle, (const signed portCHAR *)"MotorTask",
+				//TASK_MOTOR_STACK_SIZE, NULL, uxPriority,
+				//(xTaskHandle *)NULL );
 }
 
 /**
@@ -228,49 +248,58 @@ void vStartMotorTaskLauncher( unsigned portBASE_TYPE uxPriority )
  */
 portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 {
-	uint8_t last_value = 0, present_value, i = 0,len;
+	uint8_t last_value = 0xF9, present_value,i = 0;
+	u_short crc;
+	
+	spi_data_send_t update_spi;
+	net_frm_send_t  update_net;
 	
 	(void) pvParameters;
 	
-	vSemaphoreCreateBinary( xSemaMotor );
-	
 	for(;;)
 	{
-		if ( xSemaphoreGive( xSemaMotor ) == pdTRUE )
-		{
-			u_short crc;
-			
-			i = 50;
-			do{
-				
-				vTaskDelay(1000);								/* Delay 1s.*/
-				
-				len = update.len;
-				
-				update.buf[0] = 0x01;
-				update.buf[1] = 0x03;
-				update.buf[2] = 0x00;
-				update.buf[3] = 0x0D;
-				update.buf[4] = 0x00;
-				update.buf[5] = 0x00;
-				
-				crc = Crc16CheckSum( &update.buf[0], len );
-				*( (u_short *)&update.buf[len] ) = crc;
-				
-				spi_data_handle( &update );
-				
-				present_value = update.buf[3];
-				if ( present_value == last_value )
-				{
-					present_value = 0;
-					last_value    = 0;
-					
-					break;
-				}
-				
-				last_value = present_value;
-			}while( i --);
+		vTaskDelay( 500 );										/* Delay 0.5s.*/
+		update_spi.len = 8;
+		
+		update_spi.buf[0] = 0x01;
+		update_spi.buf[1] = 0x03;
+		update_spi.buf[2] = 0x00;
+		update_spi.buf[3] = 0x0D;
+		update_spi.buf[4] = 0x00;
+		update_spi.buf[5] = 0x00;
+		
+		crc = Crc16CheckSum( &update_spi.buf[0], 6 );
+		*( (u_short *)&update_spi.buf[6] ) = crc;
+		
+		if(spi_t.alloc != true){
+			spi_data_req( &update_spi );
 		}
-		vTaskDelay(1);
+		else
+		{
+			memset( &update_spi, 0, sizeof(spi_data_send_t) );
+		}
+		
+		//present_value = update_spi.buf[5];
+		//if ( present_value == last_value )
+		//{
+			//continue;
+		//}
+		
+		update_net.alloc	= true;
+		update_net.len		= 7;
+		update_net.buf[0]	= 6;
+		
+		for(i = 0;i < BACKLOG;i ++)
+		{
+			if( client_fd[i] != 0 )
+			{
+				update_net.port	= client_fd[i];
+				memcpy( &update_net.buf[1], &update_spi.buf[0], update_spi.len );
+				
+				net_data_send( &update_net );
+			}
+		}
+		
+		last_value = present_value;
 	}
 }
