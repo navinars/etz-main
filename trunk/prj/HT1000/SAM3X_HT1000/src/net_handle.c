@@ -38,10 +38,6 @@
 #include "net_handle.h"
 #include "spi_handle.h"
 
-
-#define NETBUF_NUM				100								/* Maximum socket buffer number.*/
-#define BACKLOG					6								/* Maximum socket client number.*/
-
 u_char sock_buf[NETBUF_NUM] = {0};								/* create socket buffer. */
 	
 int client_fd[BACKLOG] = {0};									/* create client file describe.*/
@@ -102,34 +98,18 @@ static void eth_data_handle( u_char* pbuf, int port )
 		}
 		else
 		{
-			spi_t.alloc = true;
-			spi_t.len = len;// - 0x30;
-			spi_t.port = port;
-			
-			memcpy(spi_t.buf, (pbuf + 1), len);
-			/* Take Semaphore in waiting 1 tick.*/
-			if (xSemaphoreTake(xSemaNetHandle, ( portTickType ) 1 ) == pdTRUE)
+			if (spi_t.alloc != true)
 			{
-				;
-			}
-			
-			extern xSemaphoreHandle xSemaMotor;
-			extern spi_data_send_t update;
-			`
-			memcpy( update.buf, (pbuf + 1), len );
-			
-			update.alloc = true;
-			update.len = len;
-			update.port = port;
-			
-			if ((spi_t.buf[1] == 0x06) && (spi_t.buf[5] != 0xFF))/* Check command, motor is running.*/
-			{
-				if ( xSemaMotor != NULL )
+				spi_t.alloc = true;
+				spi_t.len = len;
+				spi_t.port = port;
+				
+				memcpy( spi_t.buf, (pbuf + 1), len );
+				
+				/* Take Semaphore in waiting 1 tick.*/
+				if ( xSemaphoreTake( xSemaNetHandle, 1 ) == pdTRUE )
 				{
-					if (xSemaphoreTake(xSemaMotor, ( portTickType ) 1 ) == pdTRUE)
-					{
-						;
-					}
+					;
 				}
 			}
 		}
@@ -195,16 +175,16 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	
 	while(1)
 	{
-		FD_ZERO(&allset);										/* Initialize file descriptor set.*/
-		FD_SET(listen_fd, &allset);
-		
-		for (i = 0; i < BACKLOG; i++)							/* Add active connection to fd set.*/
-		{
-			if (client_fd[i] != 0) {
-				FD_SET(client_fd[i], &allset);
-			}
-		}
-		
+ 		FD_ZERO(&allset);										/* Initialize file descriptor set.*/
+ 		FD_SET(listen_fd, &allset);
+ 		
+ 		for (i = 0; i < BACKLOG; i++)							/* Add active connection to fd set.*/
+ 		{
+	 		if (client_fd[i] != 0) {
+		 		FD_SET(client_fd[i], &allset);
+	 		}
+ 		}
+ 		
 		ret = lwip_select(max_fd + 1, &allset, NULL, NULL, &tv);
 		
 		if(ret < 0)												/* If FD is not add, than continue.*/
@@ -233,8 +213,6 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 					}
 					
 					eth_data_handle( sock_buf, client_fd[i] );	/* !!handle socket data to SPI modle.!!*/
-					
-					RS232printf("\n\rRead from socket %d", client_fd[i]);
 				}
 				else if(ret == 0)								/* If read ZERO,than return end of file .*/
 				{
@@ -275,7 +253,7 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				}
 			}
 		}
-//		vTaskDelay(2);											/* Not need.*/
+		vTaskDelay(2);											/* Not need.*/
 	}
 }
 
