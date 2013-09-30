@@ -27,6 +27,7 @@
 #include <asf.h>
 
 #include "ethernet.h"
+#include "uart_handle.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
@@ -46,21 +47,57 @@ void vApplicationMallocFailedHook( void )
 	for( ;; );
 }
 
+/**
+ * \brief Configure the console UART.
+ * 
+ * \param 
+ * 
+ * \return void
+ */
+static void configure_console(void)
+{
+	const sam_uart_opt_t uart_serial_options = {
+		.ul_mck = sysclk_get_peripheral_hz(),
+		.ul_baudrate = CONF_UART_BAUDRATE,
+		.ul_mode = UART_MR_PAR_NO
+	};
+	
+	/* Configure console UART. */
+	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
+	uart_init(CONF_UART, &uart_serial_options);
+	
+	/* Enable all the interrupts. */
+	uart_enable_interrupt(CONF_UART, UART_IER_RXRDY);
+	
+	/* Configure and enable interrupt of UART. */
+	NVIC_EnableIRQ(UART_IRQn);
+	
+	/* Specify that stdout should not be buffered. */
+	//setbuf(stdout, NULL);
+}
+
+/**
+ * \brief 
+ * 
+ * \param pvParameters
+ * 
+ * \return void
+ */
 void task_start(void *pvParameters)
 {
 	(void) pvParameters;
 	
 	/* Start the ethernet tasks. */
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
-	//
-	///* Start the SPI app tasks. */
-	//vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
+	
+	/* Start the SPI app tasks. */
+	vStartUartTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
 	
 	for (;;)
 	{
 		gpio_toggle_pin(LED0_GPIO);
 		vTaskDelay(1000);
-		//vTaskSuspend(vStartTaskHandler);							/* Suspend START task. */
+		//vTaskSuspend(vStartTaskHandler);						/* Suspend START task. */
 	}
 }
 /*-----------------------------------------------------------*/
@@ -72,6 +109,8 @@ int main (void)
 	
 	/* Initialize mcu's peripheral.*/
 	board_init();
+	
+	configure_console();										/* Config UART parameters.*/
 	
 	/* Ensure all priority bits are assigned as preemption priority bits. */
 	NVIC_SetPriorityGrouping( 0 );

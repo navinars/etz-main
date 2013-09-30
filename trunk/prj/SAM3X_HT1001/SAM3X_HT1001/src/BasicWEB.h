@@ -1,9 +1,10 @@
-/**
+/*****************************************************************************
+ *
  * \file
  *
- * \brief Serial USART service configuration.
+ * \brief Basic WEB Server for AVR32 UC3.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,30 +40,31 @@
  *
  * \asf_license_stop
  *
+ *****************************************************************************/
+
+
+#ifndef BASIC_WEB_SERVER_H
+#define BASIC_WEB_SERVER_H
+
+#include "portmacro.h"
+
+
+typedef struct{
+	uint8_t mode;
+	uint8_t ip[4];
+	uint8_t mask[4];
+	uint8_t mac[4];
+}ip_save_t;
+
+extern ip_save_t IPsave;
+extern ip_save_t IPsave_tmp;
+
+/*! \brief WEB server main task
+ *
+ *  \param pvParameters   Input. Not Used.
+ *
  */
+portTASK_FUNCTION_PROTO( vBasicWEBServer, pvParameters );
 
-#ifndef CONF_USART_SERIAL_H
-#define CONF_USART_SERIAL_H
+#endif
 
-/* A reference setting for UART */
-/** UART Interface */
-#define CONF_UART            CONSOLE_UART
-/** Baudrate setting */
-#define CONF_UART_BAUDRATE   9600
-/** Parity setting */
-#define CONF_UART_PARITY     UART_MR_PAR_NO
-
-
-/* A reference setting for USART */
-/** USART Interface */
-//#define CONF_UART              USART1
-/** Baudrate setting */
-//#define CONF_UART_BAUDRATE     115200
-/** Character length setting */
-//#define CONF_UART_CHAR_LENGTH  US_MR_CHRL_8_BIT
-/** Parity setting */
-//#define CONF_UART_PARITY       US_MR_PAR_NO
-/** Stop bits setting */
-//#define CONF_UART_STOP_BITS    US_MR_NBSTOP_1_BIT
-
-#endif/* CONF_USART_SERIAL_H_INCLUDED */
