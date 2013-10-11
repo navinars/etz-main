@@ -1,17 +1,6 @@
-/* Standard includes. */
-#include <stdio.h>
+
 #include <string.h>
-#include <stdlib.h>
-
 #include "asf.h"
-#include "conf_board.h"
-#include "conf_uart_serial.h"
-#include "conf_eth.h"
-
-/* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
 
 /* lwIP includes. */
 #include "lwip/api.h"
@@ -36,15 +25,15 @@
 
 #define ERROR_DATA_NUM					4
 
-spi_data_send_t spi_t;
-
+spi_data_send_t				spi_t;
+uart_hdr_t					UartHdr;							/**/
 static unsigned int crc16(unsigned char buff, unsigned int fcs);
 static void spi_transmit(spi_data_send_t *p);
 
 uart_data_rcv_t uart_t;
 
-#define STATE_READ				0
-#define STATE_WRITE				1
+#define STATE_READ						0
+#define STATE_WRITE						1
 
 volatile uint8_t g_uc_state = STATE_READ;;
 /**
@@ -238,7 +227,7 @@ void UART_Handler(void)
 		{
 			i ++;
 		}
-		if(i > 10)
+		if(i > 8)
 		{
 			uart_t.alloc = true;
 			i = 0;
