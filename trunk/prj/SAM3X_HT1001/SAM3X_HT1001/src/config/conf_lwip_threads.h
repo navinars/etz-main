@@ -67,12 +67,6 @@
 /*! define WEB server priority */
 #define lwipBASIC_WEB_SERVER_PRIORITY     (tskIDLE_PRIORITY + 5)
 
-/*! define TFTP server priority */
-#define lwipBASIC_TFTP_SERVER_PRIORITY    (tskIDLE_PRIORITY + 3)
-
-/*! define SMTP Client priority */
-#define lwipBASIC_SMTP_CLIENT_PRIORITY    (tskIDLE_PRIORITY + 5)
-
 /*! define lwIP task priority */
 #define lwipINTERFACE_TASK_PRIORITY       (configMAX_PRIORITIES - 1)
 

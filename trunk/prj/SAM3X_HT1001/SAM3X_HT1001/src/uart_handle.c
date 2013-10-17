@@ -23,17 +23,19 @@
 #include "uart_handle.h"
 #include "net_handle.h"
 
-#define ERROR_DATA_NUM					4
-
-spi_data_send_t				spi_t;
-uart_hdr_t					UartHdr;							/**/
-static unsigned int crc16(unsigned char buff, unsigned int fcs);
-static void spi_transmit(spi_data_send_t *p);
-
-uart_data_rcv_t uart_t;
 
 #define STATE_READ						0
 #define STATE_WRITE						1
+#define ERROR_DATA_NUM					4
+
+spi_data_send_t				spi_frm_t;
+uart_hdr_t					UartHdr;
+uart_data_frm_t				uart_frm_t;
+static uint8_t				uart_hdr_count;
+
+
+static unsigned int crc16(unsigned char buff, unsigned int fcs);
+static void spi_transmit(spi_data_send_t *p);
 
 volatile uint8_t g_uc_state = STATE_READ;;
 /**
@@ -103,45 +105,50 @@ unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length)
 }
 
 /**
+ * \brief 
+ * 
+ * \param spi
+ * 
+ * \return void
+ */
+void uart_transmit( uart_data_frm_t* pdata ) 
+{
+	uint8_t i;
+	
+	for (i = 0;i < pdata->txlen;i ++)
+	{
+		while (uart_write(CONF_UART, pdata->txbuf[i]));
+	}
+	
+	pdata->alloc	= true;
+	pdata->rxlen	= 7;
+	uart_hdr_count  = 0;
+	
+	vTaskDelay(20);												/* waiting to received data.*/
+//	assert(!"The method or operation is not implemented.");
+}
+
+/**
  * \brief SPI data handle function.
  * 
  * \param pdata
  * 
  * \return 
  */
-static void uart_data_handle ( spi_data_send_t* pdata )
+static void uart_data_handle ( uart_data_frm_t* pdata )
 {
-	uint8_t i = 0, a;
+	uint8_t i;
 	int ret;
 	
-	spi_data_send_t spi;
-	
-	memcpy(&spi, pdata, sizeof(spi_data_send_t));					// Copy spi_data to temp struct.
-	memcpy(&spi.buf[1], pdata->buf, sizeof(spi.buf));
-	spi.buf[0] = 6;
-	
-	if(spi.port >0)
+	if (pdata->port > 0)
 	{
-		spi_transmit(&spi);
+		uart_transmit( pdata );
 		
-		a = spi.buf[1];
-		while(((a == 0xFF) || (a == 0x00)) && (i < ERROR_DATA_NUM))
-		{
-			memcpy(&spi, pdata, sizeof(spi_data_send_t));
-			memcpy(&spi.buf[1], pdata->buf, sizeof(spi.buf));
-			spi.buf[0] = 6;
+		ret = lwip_write(pdata->port, &pdata->rxbuf[0], pdata->rxlen - 1);
+		
+		if(ret < 0){
 			
-			spi_transmit(&spi);
-			vTaskDelay(6);
-			a = spi.buf[1];
-			i ++;
 		}
-		
-		ret = lwip_write(spi.port, &spi.buf[0], spi.len + 1);
-	}
-	
-	if(ret < 0){
-		RS232printf("\n\rAn error occurred lwip_write..");
 	}
 }
 
@@ -155,53 +162,28 @@ static void uart_data_handle ( spi_data_send_t* pdata )
  */
 portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 {
-	u_char	len;
-	uint8_t i, frm_go[] = {0x01, 0x06, 0x00, 0x01, 0x00, 0x64, 0xD9, 0xE1};
-	uint8_t frm_stop[] = {0x01, 0x06, 0x00, 0x01, 0x00, 0xFF, 0x98, 0x4A};
-	uint8_t frm_back[] = {0x01, 0x06, 0x00, 0x01, 0x00, 0x00, 0xD8, 0x0A};
+	uint8_t	len = 6;
+	u_short crc;
 	
 	(void)pvParameters;
-	memset(&spi_t, 0, sizeof(spi_data_send_t));					/* Clear struct spi_t. */
 	
 	while(1)
 	{
 		if (xSemaNetHandle != NULL)
 		{
-			if(xSemaphoreGive( xSemaNetHandle ) == pdTRUE)
+			if (xSemaphoreGive( xSemaNetHandle) == pdTRUE)
 			{
-				//u_short crc;
-				//
-				//crc = Crc16CheckSum(&spi_t.buf[0], len);
-				//*((u_short *)&spi_t.buf[len]) = crc;
-				//
-				//RS232printf("0x%x", spi_t.buf[0]);
-				//
-				//// enable spi receive data function.
-				//spi_data_handle( &spi_t );
-				//
-				//memset(&spi_t, 0, sizeof(spi_data_send_t));	/* clear struct...*/
+				uart_frm_t.txlen = len + 2;
+				
+				crc = Crc16CheckSum( &uart_frm_t.txbuf[0], len );
+				*((uint16_t *)&uart_frm_t.txbuf[len]) = crc;
+				
+				uart_data_handle( &uart_frm_t );				/* process spi receive data function.*/
+				
+				memset(&uart_frm_t, 0, sizeof(uart_data_frm_t));/* clear struct...*/
 			}
 		}
-		for(i = 0;i < sizeof(frm_go);i ++)
-		{
-			while(uart_write(CONF_UART, frm_go[i]));
-		}
-		vTaskDelay(5000);
-		for(i = 0;i < sizeof(frm_stop);i ++)
-		{
-			while(uart_write(CONF_UART, frm_stop[i]));
-		}
-		vTaskDelay(1000);
-		for(i = 0;i < sizeof(frm_back);i ++)
-		{
-			while(uart_write(CONF_UART, frm_back[i]));
-		}
-		vTaskDelay(5000);
-		for(i = 0;i < sizeof(frm_stop);i ++)
-		{
-			while(uart_write(CONF_UART, frm_stop[i]));
-		}
-		vTaskDelay(1000);
+		vTaskDelay(1);
 	}
 }
 
@@ -215,7 +197,6 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 void UART_Handler(void)
 {
 	uint32_t ul_status;
-	static uint8_t i = 0;
 	
 	/* Read USART Status. */
 	ul_status = uart_get_status(CONF_UART);
@@ -223,14 +204,14 @@ void UART_Handler(void)
 	/* Receive buffer is full. */
 	if ((ul_status & UART_SR_RXRDY) && (g_uc_state == STATE_READ))
 	{
-		if (uart_read(CONF_UART, &uart_t.rxbuf[i]) == 0)
+		if (uart_read(CONF_UART, &uart_frm_t.rxbuf[uart_hdr_count]) == 0)
 		{
-			i ++;
+			uart_hdr_count ++;
 		}
-		if(i > 8)
+		if (uart_hdr_count > 8)
 		{
-			uart_t.alloc = true;
-			i = 0;
+			uart_frm_t.alloc = true;
+			uart_hdr_count   = 0;
 		}
 	}
 }

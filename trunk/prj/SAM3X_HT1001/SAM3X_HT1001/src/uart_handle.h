@@ -7,8 +7,6 @@
 #define SPI_BUF_NUM				16
 #define UART_BUF_NUM			100
 
-xSemaphoreHandle xSemaNetHandle;
-
 typedef struct{
 	bool			alloc;
 	int				port;
@@ -18,21 +16,25 @@ typedef struct{
 
 typedef struct{
 	bool			alloc;
-	uint8_t			len;
-	uint8_t			buf[UART_BUF_NUM]
+	uint8_t			rxlen;
+	uint8_t			txlen;
+	uint8_t			rebuf[UART_BUF_NUM];
+	uint8_t			txbuf[UART_BUF_NUM];
 }uart_hdr_t;
 
 typedef struct{
 	bool alloc;
 	int port;
 	uint8_t rxlen;
-	uint8_t txlen;
 	uint8_t rxbuf[8];
+	uint8_t txlen;
 	uint8_t txbuf[8];
-}uart_data_rcv_t;
+}uart_data_frm_t;
 
-extern spi_data_send_t spi_t;
-extern uart_data_rcv_t uart_t;
+xSemaphoreHandle xSemaNetHandle;
+
+extern spi_data_send_t spi_frm_t;
+extern uart_data_frm_t uart_frm_t;
 
 /*! \brief WEB server main task
  *
