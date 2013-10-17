@@ -53,9 +53,6 @@
 */
 #include "asf.h"
 
-#if (HTTP_USED == 1)
-
-
 /* Standard includes. */
 #include <stdio.h>
 #include <string.h>
@@ -281,5 +278,4 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 	}
 }
 
-#endif
 

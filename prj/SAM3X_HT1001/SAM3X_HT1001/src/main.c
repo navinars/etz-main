@@ -87,11 +87,13 @@ void task_start(void *pvParameters)
 {
 	(void) pvParameters;
 	
+	vSemaphoreCreateBinary(xSemaNetHandle);						/* Create binary semaphore.*/
+	
 	/* Start the ethernet tasks. */
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
 	
 	/* Start the SPI app tasks. */
-	vStartUartTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
+	vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );
 	
 	for (;;)
 	{
