@@ -79,27 +79,27 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 		vTaskSuspend(vNetHandle);
 	}
 	
-	memset(&server_addr, 0, sizeof(server_addr));					/* Clear socket server struct.*/
+	memset(&server_addr, 0, sizeof(server_addr));				/* Clear socket server struct.*/
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_len = sizeof(server_addr);
-	server_addr.sin_port = PP_HTONS(SOCKET_SERVER_PORT);			// bind port.
-	server_addr.sin_addr.s_addr = lwIPLocalIPAddrGet();				/* IP_ADDR_ANY is '0.0.0.0'.*/
+	server_addr.sin_port = PP_HTONS(SOCKET_SERVER_PORT);		// bind port.
+	server_addr.sin_addr.s_addr = lwIPLocalIPAddrGet();			/* IP_ADDR_ANY is '0.0.0.0'.*/
 	
 	lwip_bind(listen_fd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr));
-	lwip_listen(listen_fd, BACKLOG + 1);							/* MAX TCP client is BACKLOG.*/
+	lwip_listen(listen_fd, BACKLOG + 1);						/* MAX TCP client is BACKLOG.*/
 	
 	sin_size = sizeof(client_addr);
 	max_fd = listen_fd;
 	
-	tv.tv_sec = 10;													/* Timeout setting.*/
+	tv.tv_sec = 10;												/* Timeout setting.*/
 	tv.tv_usec = 0;
 	
 	while(1)
 	{
-		FD_ZERO(&allset);											/* Initialize file descriptor set.*/
+		FD_ZERO(&allset);										/* Initialize file descriptor set.*/
 		FD_SET(listen_fd, &allset);
 		
-		for (i = 0; i < BACKLOG; i++)								/* Add active connection to fd set.*/
+		for (i = 0; i < BACKLOG; i++)							/* Add active connection to fd set.*/
 		{
 			if (client_fd[i] != 0) {
 				FD_SET(client_fd[i], &allset);

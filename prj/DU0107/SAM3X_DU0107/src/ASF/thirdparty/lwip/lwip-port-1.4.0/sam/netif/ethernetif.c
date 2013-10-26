@@ -66,6 +66,7 @@
 #include "conf_eth.h"
 
 #include "gpio.h"
+#include "net_config.h"
 
 /** Define those to better describe your network interface */
 #define IFNAME0 'e'
@@ -154,11 +155,11 @@ static void low_level_init(struct netif *netif)
 
 	/* device capabilities */
 	/* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
-	//if(IPsave_tmp.mode != 1)
-	//{
-		//netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_DHCP;
-	//}
-	//else
+	if(IPsave_tmp.mode != 1)
+	{
+		netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_DHCP;
+	}
+	else
 	{
 		netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP ;
 	}
