@@ -30,13 +30,14 @@
 #include "ethernet.h"
 #include "radio_handle.h"
 #include "uart_handle.h"
+#include "net_config.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
 void vApplicationMallocFailedHook( void )
 {
 	
-	gpio_set_pin_high(LED0_GPIO);								// If memory is failed,LED0 is lighted.
+	gpio_set_pin_high(LED0_GPIO);								/* If memory is failed,LED0 is lighted.*/
 	taskDISABLE_INTERRUPTS();
 	for( ;; );
 }
@@ -50,11 +51,11 @@ void task_start(void *pvParameters)
 {
 	(void) pvParameters;
 	
-	/* Start the ethernet tasks. */
-	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
+	netmode_init();
 	
-	/* Start the Radio tasks. */
-	vStartRadioTaskLauncher( TASK_RADIO_HANDLE_PRIORITY );
+	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );		/* Start the ethernet tasks. */
+	
+	vStartRadioTaskLauncher( TASK_RADIO_HANDLE_PRIORITY );		/* Start the Radio tasks. */
 	
 	vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );		/* Start the Uart task. */
 	

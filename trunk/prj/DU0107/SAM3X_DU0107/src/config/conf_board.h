@@ -72,4 +72,7 @@
 
 #define RS232printf					//printf
 
+#define BOART_ID_USART0				ID_USART0
+#define BOARD_USART0					USART0
+
 #endif // CONF_BOARD_H

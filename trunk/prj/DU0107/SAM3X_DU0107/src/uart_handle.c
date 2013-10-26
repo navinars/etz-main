@@ -26,6 +26,8 @@
 #include "uart_handle.h"
 #include "net_handle.h"
 
+uint8_t gs_ul_read_buffer[100];
+
 /**
  * \brief 
  * 
@@ -54,12 +56,21 @@ void uart_config(void)
 	sysclk_enable_peripheral_clock(ID_UART);
 	uart_init(UART, &uart_settings);
 	
-	sysclk_enable_peripheral_clock(ID_USART0);
-	usart_init_rs232(USART0, &usart_console_settings, sysclk_get_peripheral_hz());
+	sysclk_enable_peripheral_clock(BOART_ID_USART0);
+	usart_init_rs232(BOARD_USART0, &usart_console_settings, sysclk_get_peripheral_hz());
 	
+	/* Disable all the interrupts. */
+	usart_disable_interrupt(BOARD_USART0, 0xffffffff);
+
 	/* Enable the receiver and transmitter. */
-	usart_enable_tx(USART0);
-	usart_enable_rx(USART0);
+	usart_enable_tx(BOARD_USART0);
+	usart_enable_rx(BOARD_USART0);
+
+	/* Configure and enable interrupt of USART. */
+	NVIC_EnableIRQ(USART0_IRQn);
+	
+	usart_enable_interrupt(BOARD_USART0, US_IER_RXRDY);
+	
 }
 
 /**
@@ -101,7 +112,7 @@ portTASK_FUNCTION_PROTO( vUartTask, pvParameters )
 	
 	for(i = 0;i < sizeof(sms_text);i ++)
 	{
-		while(usart_write(USART0, sms_text[i]));
+		while(usart_write(BOARD_USART0, sms_text[i]));
 	}
 	
 	for (;;)
@@ -117,15 +128,16 @@ portTASK_FUNCTION_PROTO( vUartTask, pvParameters )
  * 
  * \return void
  */
-void UART_Handler(void)
+void USART0_Handler(void)
 {
 	uint32_t ul_status;
 	
 	/* Read USART Status. */
-	ul_status = uart_get_status(ID_UART);
+	ul_status = usart_get_status(BOARD_USART0);
 	
 	/* Receive buffer is full. */
-	if (ul_status & UART_SR_RXRDY)
-	{		 
+	if (ul_status & US_CSR_RXRDY)
+	{
+		usart_read(BOARD_USART0, (uint32_t *)&gs_ul_read_buffer[0]);
 	}
 }

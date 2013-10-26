@@ -580,6 +580,18 @@
     <GenerateEepFile>True</GenerateEepFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\BasicWEB.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BasicWEB.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BSP\net_config.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BSP\net_config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\config\radio_config.h">
       <SubType>compile</SubType>
     </Compile>
