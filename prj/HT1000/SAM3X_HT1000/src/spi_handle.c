@@ -32,9 +32,9 @@
 #include "spi_handle.h"
 #include "net_handle.h"
 
-#define SPI_ERROR_SEQ					3						/* SPI write fail repeat frequency.*/
+#define SPI_ERROR_SEQ					1						/* SPI write fail repeat frequency.*/
 
-spi_data_send_t							spi_t;					/* SPI frame.*/
+spi_data_req_t							spi_t;					/* SPI frame.*/
 net_frm_send_t							net_t;					/* NET frame.*/
 	
 xSemaphoreHandle						xSemaMotor = NULL;
@@ -122,7 +122,7 @@ static void spi_transmit( uint8_t *pdata ,uint8_t len)
 	
 	spi_csn0_disable();
 	
-	vTaskDelay(1);												/* Wait 1 millisecond.*/
+	vTaskDelay(2);												/* Wait 1 millisecond.*/
 	
 	spi_soft_transfer( p, len);
 	
@@ -161,20 +161,20 @@ static uint8_t net_data_send( net_frm_send_t *net )
  * 
  * \return 
  */
-static void spi_data_req( spi_data_send_t* pdata )
+static void spi_data_req( spi_data_req_t* pdata )
 {
 	
 	uint8_t i = 0, tmp_value;
 	int ret;
 	
-	spi_data_send_t tmp;
-	memcpy(&tmp, pdata, sizeof(spi_data_send_t));
+	spi_data_req_t tmp;
+	memcpy(&tmp, pdata, sizeof(spi_data_req_t));
 	
 	if ( tmp.port > 0 )											/* socket descriptor must greater than ZERO! */
 	{
 		do
 		{
-			memcpy(&tmp, pdata, sizeof(spi_data_send_t));		/* Copy spi_data to temp struct.*/
+			memcpy(&tmp, pdata, sizeof(spi_data_req_t));		/* Copy spi_data to temp struct.*/
 			
 			spi_transmit( &tmp.buf, tmp.len );					/* send spi buffer. */
 			
@@ -182,9 +182,11 @@ static void spi_data_req( spi_data_send_t* pdata )
 			tmp_value = tmp.buf[1];
 			
 			i ++;
-		}while( (tmp_value == 0xFF) && (i < SPI_ERROR_SEQ) );
+		}while( (tmp_value == 0xFF) && (i < pdata->error_seq) );
 		
-		memcpy( pdata, &tmp, sizeof(spi_data_send_t) );
+		//vTaskDelay(5);
+		
+		memcpy( pdata, &tmp, sizeof(spi_data_req_t) );
 	}
 }
 
@@ -201,7 +203,7 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 	uint16_t crc = 0;
 	
 	(void)pvParameters;
-	bzero( &spi_t, sizeof(spi_data_send_t) );
+	bzero( &spi_t, sizeof(spi_data_req_t) );
 	
 	for (;;)
 	{
@@ -215,8 +217,10 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				*((uint16_t *)&spi_t.buf[6]) = crc;
 				
 				gf_spi_alloc = true;
-				// enable spi receive data function.
-				spi_data_req( &spi_t );
+				
+				spi_t.error_seq = SPI_ERROR_SEQ;
+				
+				spi_data_req( &spi_t );							/* enable spi receive data function.*/
 				gf_spi_alloc = false;
 				
 				net_t.alloc = true;
@@ -232,7 +236,7 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				{
 					last_cmd = spi_t.buf[5];
 				}
-				memset( &spi_t, 0, sizeof(spi_data_send_t) );	/* clear struct...*/
+				memset( &spi_t, 0, sizeof(spi_data_req_t) );	/* clear struct...*/
 			}
 		}
 		vTaskDelay(1);
@@ -268,7 +272,7 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 	uint16_t crc;
 	uint8_t last_value = 0xF9,pre_value;
 	
-	spi_data_send_t update_spi;
+	spi_data_req_t update_spi;
 	net_frm_send_t  update_net;
 	
 	(void) pvParameters;
@@ -290,11 +294,12 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 		*( (uint16_t *)&update_spi.buf[6] ) = crc;
 		
 		if(gf_spi_alloc != true) {								/* when spi isn't sending, process this.*/
+			update_spi.error_seq = 1;
 			spi_data_req( &update_spi );
 		}
 		else
 		{
-			memset( &update_spi, 0, sizeof(spi_data_send_t) );
+			memset( &update_spi, 0, sizeof(spi_data_req_t) );
 		}
 		
 		pre_value = update_spi.buf[5];

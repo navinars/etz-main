@@ -489,12 +489,12 @@ uint8_t spi_soft_write( uint8_t data )
 		else
 			SPI_MOSI_L();
 		
-		vTaskDelay(1);
+		delay_us(500);
 		
 		data = data<<1;
 		
 		SPI_SCLK_L();
-		vTaskDelay(1);
+		delay_us(500);
 		
 		if(SPI_MISO_READ() == 1)
 		{
