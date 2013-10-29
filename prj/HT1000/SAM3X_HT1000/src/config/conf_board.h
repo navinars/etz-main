@@ -21,21 +21,19 @@
                               任务堆栈大小定义
 *******************************************************************************/
 #define TASK_START_STACKSIZE			(configMINIMAL_STACK_SIZE + 50)
-#define TASK_LED_STACK_SIZE				(configMINIMAL_STACK_SIZE + 50)
 #define TASK_ETH_INT_STACK_SIZE			(configMINIMAL_STACK_SIZE + 50)
 #define TASK_TCP_SERVER_STACK_SIZE		(configMINIMAL_STACK_SIZE + 550)
 #define TASK_MOTOR_STACK_SIZE			(configMINIMAL_STACK_SIZE + 550)
 
 
 /*******************************************************************************
-                              任务优先级
+                              任务优先级(High value is high priority)
 *******************************************************************************/
 #define TASK_START_PRIORITY				(tskIDLE_PRIORITY + 19)
-#define TASK_LED_PRIORITY				(tskIDLE_PRIORITY + 18)
 #define TASK_START_ETH_PRIORITY			(tskIDLE_PRIORITY + 17)
-#define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 16)
-#define TASK_SPI_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 15)
-#define TASK_MOTOR_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 14)
+#define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 13)
+#define TASK_SPI_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 14)
+#define TASK_MOTOR_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 15)
 
 
 /**

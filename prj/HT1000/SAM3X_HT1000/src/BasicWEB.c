@@ -203,14 +203,14 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 			//{
 				//
 			//}
-			str_tmp = strstr(pcRxString, "dhcp");					// Set net mode..
+			str_tmp = strstr(pcRxString, "dhcp");				// Set net mode..
 			if ( str_tmp != NULL)
 			{
 				IPsave.mode = *(str_tmp + 5) - 0x30;
 				f_write = 1;
 			}
 			
-			str_tmp = strstr(pcRxString, "msg_ip");					// Set IP address..
+			str_tmp = strstr(pcRxString, "msg_ip");				// Set IP address..
 			if (str_tmp != NULL)
 			{
 				str_len = strstr(str_tmp, "=");
@@ -222,14 +222,14 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 						uint8_t i;
 						len = str_tmp1 - str_len;
 
-						if(len < 5)									// Textbox number < 5 byte.
+						if(len < 5)								// Textbox number < 5 byte.
 						{
 							for(i = 1;i < len;i ++)
 							{
 								IPsave.ip[0] = IPsave.ip[0] * 10;
 								IPsave.ip[0] += (str_len[i] - 0x30);
 								
-								f_write = 1;						// Can be write FLASH..
+								f_write = 1;					// Can be write FLASH..
 							}
 						}
 					}
@@ -239,7 +239,7 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 			/* Generate the dynamic page... First the page header. */
 			strcpy( cDynamicPage, webHTML_START );
 			
-//			strcat( cDynamicPage, pcRxString );						// Web display debug information..
+//			strcat( cDynamicPage, pcRxString );					// Web display debug information..
 
 			/* ... Finally the page footer. */
 			strcat( cDynamicPage, webHTML_END );
@@ -275,7 +275,13 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 		/* Lock page */
 		flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
 		
-		rstc_start_software_reset(RSTC);							// Reset SAM3X with software..
+		vTaskDelay(3000);
+		
+		wdt_disable(WDT);
+		
+		
+		rstc_start_software_reset(RSTC);						// Reset SAM3X with software..
+		//rstc_reset_extern(RSTC);
 	}
 }
 

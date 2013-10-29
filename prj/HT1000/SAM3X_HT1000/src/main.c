@@ -69,7 +69,32 @@ void netmode_init(void)
 	
 	if (IPsave_tmp.ip[0] == 0)
 	{
+		uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
+		uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
+		
+		IPsave_tmp.mode = 1;
 		IPsave_tmp.ip[0] = 223;
+		
+		/* Copy information to FLASH buffer..*/
+		memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave_tmp), sizeof(ip_save_t));
+		
+		/* Write page */
+		flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
+	}
+	
+	else if (IPsave_tmp.ip[0] == 0xFF)
+	{
+		uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
+		uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
+		
+		IPsave_tmp.mode = 1;
+		IPsave_tmp.ip[0] = 223;
+		
+		/* Copy information to FLASH buffer..*/
+		memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave_tmp), sizeof(ip_save_t));
+		
+		/* Write page */
+		flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
 	}
 	
 	if (gpio_pin_is_low(RESTKEY_GPIO) == 1)
@@ -104,7 +129,7 @@ void task_start(void *pvParameters)
 	/* Start the SPI app tasks. */
 	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
 	
-	vStartMotorTaskLauncher( TASK_MOTOR_HANDLE_PRIORITY );		/* Start motor status update tasks.*/
+	vStartMotorTaskLauncher( TASK_MOTOR_HANDLE_PRIORITY );	/* Start motor status update tasks.*/
 	
 	for (;;)
 	{
