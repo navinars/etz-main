@@ -20,9 +20,10 @@ typedef struct{
 	uint8_t			len;
 	uint8_t			buf[20];
 	uint8_t*		dptr;
-}spi_data_send_t;
+	uint8_t			error_seq;
+}spi_data_req_t;
 
-extern spi_data_send_t spi_t;
+extern spi_data_req_t spi_t;
 
 /*! \brief WEB server main task
  *

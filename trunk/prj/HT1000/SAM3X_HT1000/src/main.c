@@ -67,22 +67,7 @@ void netmode_init(void)
 	
 	//	IPsave_tmp.mode = 2;
 	
-	if (IPsave_tmp.ip[0] == 0)
-	{
-		uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
-		uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
-		
-		IPsave_tmp.mode = 1;
-		IPsave_tmp.ip[0] = 223;
-		
-		/* Copy information to FLASH buffer..*/
-		memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave_tmp), sizeof(ip_save_t));
-		
-		/* Write page */
-		flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
-	}
-	
-	else if (IPsave_tmp.ip[0] == 0xFF)
+	if ((IPsave_tmp.ip[0] == 0)|| (IPsave_tmp.ip[0] == 0xFF))
 	{
 		uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
 		uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
@@ -123,13 +108,11 @@ void task_start(void *pvParameters)
 	
 	netmode_init();												/* init net mode from flash.*/
 	
-	/* Start the ethernet tasks. */
-	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
+	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );		/* Start the ethernet tasks. */
 	
-	/* Start the SPI app tasks. */
-	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );
-	
-	vStartMotorTaskLauncher( TASK_MOTOR_HANDLE_PRIORITY );	/* Start motor status update tasks.*/
+	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );			/* Start the SPI app tasks. */
+	//
+	//vStartMotorTaskLauncher( TASK_MOTOR_HANDLE_PRIORITY );		/* Start motor status update tasks.*/
 	
 	for (;;)
 	{
