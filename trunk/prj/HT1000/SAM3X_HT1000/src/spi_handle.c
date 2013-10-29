@@ -32,14 +32,25 @@
 #include "spi_handle.h"
 #include "net_handle.h"
 
-#define ERROR_DATA_NUM					3						/* SPI write fail repeat frequency.*/
+#define SPI_ERROR_SEQ					3						/* SPI write fail repeat frequency.*/
 
 spi_data_send_t							spi_t;					/* SPI frame.*/
 net_frm_send_t							net_t;					/* NET frame.*/
 	
 xSemaphoreHandle						xSemaMotor = NULL;
 
+uint8_t									last_cmd;
 
+bool									gf_spi_alloc;			/* Global flag for SPI send.*/
+
+/**
+ * \brief 
+ * 
+ * \param buff
+ * \param fcs
+ * 
+ * \return unsigned int
+ */
 static unsigned int crc16(unsigned char buff, unsigned int fcs)
 {
 	unsigned char i,temp;
@@ -117,7 +128,6 @@ static void spi_transmit( uint8_t *pdata ,uint8_t len)
 	
 	vTaskDelay(6);												/* Wait 6 millisecond.*/
 	
-//	bzero(p, sizeof(spi_data_send_t));
 	spi_soft_transfer( p, len );								/* Update to spi.buf[].*/
 	
 	spi_csn0_enable();
@@ -168,11 +178,11 @@ static void spi_data_req( spi_data_send_t* pdata )
 			
 			spi_transmit( &tmp.buf, tmp.len );					/* send spi buffer. */
 			
-			vTaskDelay(6);
+			vTaskDelay(20);
 			tmp_value = tmp.buf[1];
 			
 			i ++;
-		}while( (tmp_value == 0xFF) && (i < ERROR_DATA_NUM) );
+		}while( (tmp_value == 0xFF) && (i < SPI_ERROR_SEQ) );
 		
 		memcpy( pdata, &tmp, sizeof(spi_data_send_t) );
 	}
@@ -204,8 +214,10 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				crc = Crc16CheckSum( &spi_t.buf[0], 6 );		/* add CRC value. */
 				*((uint16_t *)&spi_t.buf[6]) = crc;
 				
+				gf_spi_alloc = true;
 				// enable spi receive data function.
 				spi_data_req( &spi_t );
+				gf_spi_alloc = false;
 				
 				net_t.alloc = true;
 				net_t.port  = spi_t.port;
@@ -216,6 +228,10 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				
 				net_data_send( &net_t );
 				
+				if ( spi_t.buf[5] != 0xFF )
+				{
+					last_cmd = spi_t.buf[5];
+				}
 				memset( &spi_t, 0, sizeof(spi_data_send_t) );	/* clear struct...*/
 			}
 		}
@@ -233,9 +249,9 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 void vStartMotorTaskLauncher( unsigned portBASE_TYPE uxPriority )
 {
 	/* Spawn the Sentinel task. */
-	//xTaskCreate( vMotorHandle, (const signed portCHAR *)"MotorTask",
-				//TASK_MOTOR_STACK_SIZE, NULL, uxPriority,
-				//(xTaskHandle *)NULL );
+	xTaskCreate( vMotorHandle, (const signed portCHAR *)"MotorTask",
+				TASK_MOTOR_STACK_SIZE, NULL, uxPriority,
+				(xTaskHandle *)NULL );
 }
 
 /**
@@ -248,8 +264,9 @@ void vStartMotorTaskLauncher( unsigned portBASE_TYPE uxPriority )
  */
 portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 {
-	uint8_t last_value = 0xF9, present_value,i = 0;
-	u_short crc;
+	uint8_t i = 0;
+	uint16_t crc;
+	uint8_t last_value = 0xF9,pre_value;
 	
 	spi_data_send_t update_spi;
 	net_frm_send_t  update_net;
@@ -260,6 +277,7 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 	{
 		vTaskDelay( 500 );										/* Delay 0.5s.*/
 		update_spi.len = 8;
+		update_spi.port = 1;
 		
 		update_spi.buf[0] = 0x01;
 		update_spi.buf[1] = 0x03;
@@ -269,9 +287,9 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 		update_spi.buf[5] = 0x00;
 		
 		crc = Crc16CheckSum( &update_spi.buf[0], 6 );
-		*( (u_short *)&update_spi.buf[6] ) = crc;
+		*( (uint16_t *)&update_spi.buf[6] ) = crc;
 		
-		if(spi_t.alloc != true){
+		if(gf_spi_alloc != true) {								/* when spi isn't sending, process this.*/
 			spi_data_req( &update_spi );
 		}
 		else
@@ -279,11 +297,18 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 			memset( &update_spi, 0, sizeof(spi_data_send_t) );
 		}
 		
-		//present_value = update_spi.buf[5];
-		//if ( present_value == last_value )
-		//{
-			//continue;
-		//}
+		pre_value = update_spi.buf[5];
+																/* Using last command correct error.*/
+		if ( (pre_value > (last_cmd-4)) && (pre_value < (last_cmd+4)) )
+		{
+			update_spi.buf[5] = last_cmd;
+		}
+		pre_value = update_spi.buf[5];
+																/* Be not sending socket's data when twice value is same.*/
+		if ( (pre_value == last_value) || (pre_value == 0xFF) )
+		{
+			continue;
+		}
 		
 		update_net.alloc	= true;
 		update_net.len		= 7;
@@ -300,6 +325,6 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 			}
 		}
 		
-		last_value = present_value;
+		last_value = pre_value;
 	}
 }

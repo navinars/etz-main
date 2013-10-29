@@ -113,8 +113,9 @@ static void ethernet_configure_interface(void)
 	{
 		/* Default ip addr */
 		IP4_ADDR(&x_ip_addr, ETHERNET_CONF_IPADDR0, ETHERNET_CONF_IPADDR1,
-				ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
-
+				//ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
+				ETHERNET_CONF_IPADDR2, IPsave_tmp.ip[0]);
+				
 		/* Default subnet mask */
 		IP4_ADDR(&x_net_mask, ETHERNET_CONF_NET_MASK0, ETHERNET_CONF_NET_MASK1,
 				ETHERNET_CONF_NET_MASK2, ETHERNET_CONF_NET_MASK3);
@@ -134,7 +135,7 @@ static void ethernet_configure_interface(void)
 	netif_set_default(&gs_net_if);
 
 	/* Setup callback function for netif status change */
-//	netif_set_status_callback(&gs_net_if, status_callback);
+	netif_set_status_callback(&gs_net_if, status_callback);
 
 	/* Bring it up */
 	if(IPsave_tmp.mode != 1)

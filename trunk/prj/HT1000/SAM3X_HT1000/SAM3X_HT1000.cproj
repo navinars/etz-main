@@ -11,17 +11,18 @@
       <framework-data>
         <options>
           <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam.services.flash" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="thirdparty.os.freertos.version" value="Add" config="7.3.0" content-id="Atmel.ASF" />
+          <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.components.ethernet_phy.dm9161a" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.emac" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam.drivers.spi" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.rstc" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.drivers.spi" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.uart" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.usart" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam.components.ethernet_phy.dm9161a" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.services.flash" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="thirdparty.os.freertos.version" value="Add" config="7.3.0" content-id="Atmel.ASF" />
+          <option id="sam.drivers.wdt" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.utils.linker_scripts#atsam3x4" value="Add" config="" content-id="Atmel.ASF" />
         </options>
         <configurations>
@@ -217,6 +218,8 @@
           <file path="src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS_CLI.h" framework="" version="3.10.1" source="thirdparty\freertos\freertos-7.3.0\source\include\FreeRTOS_CLI.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/croutine.h" framework="" version="3.10.1" source="thirdparty\freertos\freertos-7.3.0\source\include\croutine.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/Config/FreeRTOSConfig.h" framework="" version="3.10.1" source="thirdparty\freertos\freertos-7.3.0\module_config\FreeRTOSConfig.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/wdt/wdt.c" framework="" version="3.10.1" source="sam\drivers\wdt\wdt.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/wdt/wdt.h" framework="" version="3.10.1" source="sam\drivers\wdt\wdt.h" changed="False" content-id="Atmel.ASF" />
         </files>
         <documentation help="http://asf.atmel.com/docs/3.10.1/common.applications.user_application.user_board.sam3x/html/index.html" />
         <offline-documentation help="" />
@@ -251,7 +254,7 @@
       <ToolOptions>
         <InterfaceProperties>
           <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
-          <SwdClock>4000000</SwdClock>
+          <SwdClock>5430000</SwdClock>
         </InterfaceProperties>
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
@@ -316,6 +319,7 @@
       <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/arm_cm3</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -372,6 +376,7 @@
       <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/arm_cm3</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM3=true -DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
@@ -411,6 +416,7 @@
       <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/arm_cm3</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -476,6 +482,7 @@
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include/ipv4</Value>
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include</Value>
       <Value>../src/BSP</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
@@ -532,6 +539,7 @@
       <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/arm_cm3</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
@@ -572,6 +580,7 @@
       <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/arm_cm3</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -583,6 +592,21 @@
     <GenerateEepFile>True</GenerateEepFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\ASF\sam\components\ethernet_phy\dp83848\ethernet_phy.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\sam\components\ethernet_phy\dp83848\ethernet_phy.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\sam\components\ethernet_phy\dp83848\mii.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\sam\drivers\wdt\wdt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\wdt\wdt.h">
+      <SubType>compile</SubType>
+    </None>
     <Compile Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\memmang\heap_3.c">
       <SubType>compile</SubType>
     </Compile>
@@ -664,15 +688,6 @@
     <None Include="src\ASF\sam\components\ethernet_phy\documentation.h">
       <SubType>compile</SubType>
     </None>
-    <Compile Include="src\ASF\sam\components\ethernet_phy\dp83848\ethernet_phy.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\ASF\sam\components\ethernet_phy\dp83848\ethernet_phy.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\ASF\sam\components\ethernet_phy\dp83848\mii.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\ASF\sam\drivers\efc\efc.c">
       <SubType>compile</SubType>
     </Compile>
@@ -1477,6 +1492,7 @@
     <Folder Include="src\ASF\sam\drivers\spi\" />
     <Folder Include="src\ASF\sam\drivers\uart\" />
     <Folder Include="src\ASF\sam\drivers\usart\" />
+    <Folder Include="src\ASF\sam\drivers\wdt\" />
     <Folder Include="src\ASF\sam\services\" />
     <Folder Include="src\ASF\sam\services\flash_efc\" />
     <Folder Include="src\ASF\sam\utils\" />
