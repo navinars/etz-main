@@ -25,9 +25,12 @@
  * Atmel Software Framework (ASF).
  */
 #include <asf.h>
+#include <string.h>
 
 #include "ethernet.h"
 #include "uart_handle.h"
+#include "BasicWEB.h"
+#include "net_config.h"
 
 xTaskHandle vStartTaskHandler = (xTaskHandle)NULL;
 
@@ -89,11 +92,13 @@ void task_start(void *pvParameters)
 	
 	vSemaphoreCreateBinary(xSemaNetHandle);						/* Create binary semaphore.*/
 	
+	netmode_init();												/* init net mode from flash.*/
+	
 	/* Start the ethernet tasks. */
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
 	
-	/* Start the SPI app tasks. */
-	vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );
+	/* Start the UART app tasks. */
+	//vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );
 	
 	for (;;)
 	{

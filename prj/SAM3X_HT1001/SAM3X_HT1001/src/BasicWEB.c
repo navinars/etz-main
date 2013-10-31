@@ -1,47 +1,3 @@
-/*****************************************************************************
- *
- * \file
- *
- * \brief Basic WEB Server for AVR32 UC3.
- *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
- *
- * \asf_license_start
- *
- * \page License
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * \asf_license_stop
- *
- *****************************************************************************/
-
 
 /*
   Implements a simplistic WEB server.  Every time a connection is made and
@@ -59,12 +15,6 @@
 
 #include "conf_eth.h"
 
-/* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-//#include "partest.h"
-
 /* Demo includes. */
 /* Demo app includes. */
 #include "portmacro.h"
@@ -80,6 +30,7 @@
 #endif
 
 /* ethernet includes */
+#include "net_config.h"
 #include "ethernet.h"
 #include "BasicWEB.h"
 
@@ -113,9 +64,6 @@
 
 portCHAR cDynamicPage[ webMAX_PAGE_SIZE ];
 portCHAR cPageHits[ 11 ];
-
-ip_save_t IPsave;
-ip_save_t IPsave_tmp;
 
 /*! Function to process the current connection */
 static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon );
@@ -202,14 +150,14 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 			//{
 				//
 			//}
-			str_tmp = strstr(pcRxString, "dhcp");					// Set net mode..
+			str_tmp = strstr(pcRxString, "dhcp");				/* Set net mode..*/
 			if ( str_tmp != NULL)
 			{
 				IPsave.mode = *(str_tmp + 5) - 0x30;
 				f_write = 1;
 			}
 			
-			str_tmp = strstr(pcRxString, "msg_ip");					// Set IP address..
+			str_tmp = strstr(pcRxString, "msg_ip");				/* Set IP address..*/
 			if (str_tmp != NULL)
 			{
 				str_len = strstr(str_tmp, "=");
@@ -221,14 +169,14 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 						uint8_t i;
 						len = str_tmp1 - str_len;
 
-						if(len < 5)									// Textbox number < 5 byte.
+						if(len < 5)								/* Textbox number < 5 byte.*/
 						{
 							for(i = 1;i < len;i ++)
 							{
 								IPsave.ip[0] = IPsave.ip[0] * 10;
 								IPsave.ip[0] += (str_len[i] - 0x30);
 								
-								f_write = 1;						// Can be write FLASH..
+								f_write = 1;					/* you can updata FLASH.*/
 							}
 						}
 					}
@@ -238,7 +186,7 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 			/* Generate the dynamic page... First the page header. */
 			strcpy( cDynamicPage, webHTML_START );
 			
-//			strcat( cDynamicPage, pcRxString );						// Web display debug information..
+//			strcat( cDynamicPage, pcRxString );					// Web display debug information..
 
 			/* ... Finally the page footer. */
 			strcat( cDynamicPage, webHTML_END );
@@ -274,7 +222,7 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 		/* Lock page */
 		flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
 		
-		rstc_start_software_reset(RSTC);							// Reset SAM3X with software..
+		rstc_start_software_reset(RSTC);						/* Reset SAM3X with software.*/
 	}
 }
 
