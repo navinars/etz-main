@@ -1,45 +1,3 @@
-/**
- * \file
- *
- * \brief Ethernet management for the FreeRTOS with lwIP example.
- *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
- *
- * \asf_license_start
- *
- * \page License
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * \asf_license_stop
- *
- */
 
 #include <string.h>
 
@@ -65,6 +23,7 @@
 #include "ethernet_phy.h"
 
 #include "BasicWEB.h"
+#include "net_config.h"
 #include "net_handle.h"
 
 #include "ethernet.h"
@@ -103,12 +62,12 @@ static void ethernet_configure_interface(void)
 	struct ip_addr x_ip_addr, x_net_mask, x_gateway;
 	extern err_t ethernetif_init(struct netif *netif);
 
-	//if(IPsave_tmp.mode != 1)
-	//{
-		//x_ip_addr.addr = 0;
-		//x_net_mask.addr = 0;
-	//}
-	//else
+	if(IPsave_tmp.mode != 1)
+	{
+		x_ip_addr.addr = 0;
+		x_net_mask.addr = 0;
+	}
+	else
 	{
 		/* Default ip addr */
 		IP4_ADDR(&x_ip_addr, ETHERNET_CONF_IPADDR0, ETHERNET_CONF_IPADDR1,
@@ -133,15 +92,15 @@ static void ethernet_configure_interface(void)
 	netif_set_default(&gs_net_if);
 
 	/* Setup callback function for netif status change */
-//	netif_set_status_callback(&gs_net_if, status_callback);
+	netif_set_status_callback(&gs_net_if, status_callback);
 
 	/* Bring it up */
-	//if(IPsave_tmp.mode != 1)
-	//{
-		//RS232printf("LwIP: DHCP Started");
-		//dhcp_start(&gs_net_if);
-	//}
-	//else
+	if(IPsave_tmp.mode != 1)
+	{
+		RS232printf("LwIP: DHCP Started");
+		dhcp_start(&gs_net_if);
+	}
+	else
 	{
 		RS232printf("LwIP: Static IP Address Assigned");
 		netif_set_up(&gs_net_if);
@@ -187,6 +146,13 @@ void prvlwIPInit( void )
 #endif
 }
 
+/**
+ * \brief 
+ * 
+ * \param uxPriority
+ * 
+ * \return void
+ */
 void vStartEthernetTaskLauncher( unsigned portBASE_TYPE uxPriority )
 {
 	/* Spawn the Sentinel task. */
@@ -238,7 +204,13 @@ void status_callback(struct netif *netif)
 	}
 }
 
-
+/**
+ * \brief 
+ * 
+ * \param 
+ * 
+ * \return unsigned long
+ */
 unsigned long lwIPLocalIPAddrGet(void)
 {
 	return((unsigned long)gs_net_if.ip_addr.addr);

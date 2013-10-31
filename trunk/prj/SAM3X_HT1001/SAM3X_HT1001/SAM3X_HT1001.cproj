@@ -254,7 +254,7 @@
       <ToolOptions>
         <InterfaceProperties>
           <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
-          <SwdClock>5290000</SwdClock>
+          <SwdClock>4410000</SwdClock>
         </InterfaceProperties>
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
@@ -478,6 +478,7 @@
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include/ipv4</Value>
       <Value>../src/ASF/thirdparty/lwip/lwip-1.4.0/src/include</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
+      <Value>../src/BSP</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
@@ -587,6 +588,12 @@
     <GenerateEepFile>True</GenerateEepFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\BSP\net_config.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BSP\net_config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ASF\sam\drivers\tc\tc.c">
       <SubType>compile</SubType>
     </Compile>
@@ -1451,6 +1458,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />
+    <Folder Include="src\BSP" />
     <Folder Include="src\ASF\" />
     <Folder Include="src\ASF\common\" />
     <Folder Include="src\ASF\common\boards\" />

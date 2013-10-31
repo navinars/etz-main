@@ -8,12 +8,6 @@
 #include "conf_board.h"
 #include "conf_eth.h"
 
-/* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-//#include "partest.h"
-
 /* Demo includes. */
 /* Demo app includes. */
 #include "portmacro.h"
@@ -32,6 +26,7 @@
 /* ethernet includes */
 #include "ethernet.h"
 #include "BasicWEB.h"
+#include "net_config.h"
 
 /* user header file.*/
 #include "net_handle.h"
