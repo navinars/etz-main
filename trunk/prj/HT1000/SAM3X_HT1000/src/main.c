@@ -111,8 +111,8 @@ void task_start(void *pvParameters)
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );		/* Start the ethernet tasks. */
 	
 	vStartSpiTaskLauncher( TASK_SPI_HANDLE_PRIORITY );			/* Start the SPI app tasks. */
-	//
-	//vStartMotorTaskLauncher( TASK_MOTOR_HANDLE_PRIORITY );		/* Start motor status update tasks.*/
+	
+	vStartMotorTaskLauncher( TASK_MOTOR_HANDLE_PRIORITY );		/* Start motor status update tasks.*/
 	
 	for (;;)
 	{
