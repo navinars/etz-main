@@ -94,11 +94,11 @@ void task_start(void *pvParameters)
 	
 	netmode_init();												/* init net mode from flash.*/
 	
-	/* Start the ethernet tasks. */
-	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );
+	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );		/* Start the ethernet tasks. */
 	
-	/* Start the UART app tasks. */
-	//vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );
+	vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );		/* Start the UART app tasks. */
+	
+	vStartMotorTaskLauncher( TASK_MOTOR_HANDLE_PRIORITY );		/* Start motor status update tasks.*/
 	
 	for (;;)
 	{

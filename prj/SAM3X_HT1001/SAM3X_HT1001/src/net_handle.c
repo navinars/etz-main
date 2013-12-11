@@ -33,9 +33,10 @@
 #include "uart_handle.h"
 
 uint8_t sock_buf[NETBUF_NUM];									/* create socket buffer. */
-int		client_fd[BACKLOG];											/* create client file describe.*/
 	
 xSemaphoreHandle xSemaNetHandle = NULL;							/* initialize freeRTOS's Semaphore.*/
+
+int		client_fd[BACKLOG];										/* create client file describe.*/
 
 /**
  * \brief Net receive data handle..
@@ -49,71 +50,55 @@ static void eth_data_handle( u_char* pbuf, int port )
 {
 	u_char len, cmd;
 	
-	len = *pbuf;
-	
-	if ((len == 6 ) && (spi_frm_t.alloc == false))
+	cmd = *(pbuf + 1);
+	if( cmd == 0x07 )
 	{
-		cmd = *(pbuf + 2);
-		if( cmd == 0x07 )
+		cmd = *(pbuf + 5);
+		if(cmd == 0)
 		{
-			cmd = *(pbuf + 6);
-			if(cmd == 0)
-			{
-				IPsave.mode = 2;
-				IPsave.ip[0] = 0;
-			}
-			else
-			{
-				IPsave.mode = 1;
-				IPsave.ip[0] = cmd;
-			}
-			{
-				uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
-				uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
-				
-				/* Initialize flash: 6 wait states for flash writing. */
-				flash_init(FLASH_ACCESS_MODE_128, 6);
-				
-				/* Unlock page */
-				flash_unlock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
-				
-				/* Copy information to FLASH buffer..*/
-				memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave), sizeof(ip_save_t));
-				
-				/* Write page */
-				flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
-				
-				/* Lock page */
-				flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
-				
-				rstc_start_software_reset(RSTC);				// Reset SAM3X with software..
-			}
+			IPsave.mode = 2;
+			IPsave.ip[0] = 0;
 		}
 		else
 		{
-			uint8_t len;
-			
-			len = pbuf[0];
-			if (len == 6)
-			{
-				uart_frm_t.alloc = true;
-				uart_frm_t.txlen = len;
-				uart_frm_t.port = port;
-				
-				memcpy(uart_frm_t.txbuf, (pbuf + 1), len);
-				/* Take Semaphore in waiting 1 tick.*/
-				if (xSemaphoreTake(xSemaNetHandle, ( portTickType ) 1 ) == pdTRUE)
-				{
-					;
-				}
-			}
+			IPsave.mode = 1;
+			IPsave.ip[0] = cmd;
 		}
-		bzero(pbuf, 100);
+		{
+			uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
+			uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
+				
+			/* Initialize flash: 6 wait states for flash writing. */
+			flash_init(FLASH_ACCESS_MODE_128, 6);
+				
+			/* Unlock page */
+			flash_unlock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+				
+			/* Copy information to FLASH buffer..*/
+			memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave), sizeof(ip_save_t));
+				
+			/* Write page */
+			flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
+				
+			/* Lock page */
+			flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+				
+			rstc_start_software_reset(RSTC);				// Reset SAM3X with software..
+		}
 	}
 	else
 	{
-		bzero(pbuf, 100);
+		uint8_t len = 6;
+		
+		uart_frm_t.alloc = true;
+		uart_frm_t.txlen = 8;
+		uart_frm_t.port = port;
+		
+		memcpy(uart_frm_t.txbuf, pbuf, len);
+		/* Take Semaphore in waiting 1 tick.*/
+		if (xSemaphoreTake(xSemaNetHandle, ( portTickType ) 3 ) == pdTRUE) { }
 	}
+	bzero(pbuf, 100);
 }
 
 /**
@@ -159,7 +144,7 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	lwip_listen(listen_fd, BACKLOG + 1);						/* MAX TCP client is BACKLOG.*/
 	
 	sin_size = sizeof(client_addr);
-	max_fd = listen_fd;
+	max_fd = listen_fd = 0;
 	
 	tv.tv_sec = 10;												/* Timeout setting.*/
 	tv.tv_usec = 0;
@@ -192,27 +177,9 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				lwip_setsockopt(client_fd[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 				
 				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
-				if (ret > 0)
+				if (ret == 6)
 				{
-					//len = sock_buf[0];
-					//
-					//if (len != (ret - 1))						/* If frame length is correct.*/
-					//{
-						//bzero(sock_buf, 100);
-						//
-						//continue;
-					//}
-					
 					eth_data_handle( sock_buf, client_fd[i] );	/* !!handle socket data to SPI modle.!!*/
-				}
-				else if(ret == 0)								/* If read ZERO,than return end of file .*/
-				{
-				}
-				else											/* Read error, than close this socket.*/
-				{
-					lwip_close(client_fd[i]);					/* Can't decide which socket is closed.*/
-					RS232printf("\nClose old socket");
-					client_fd[i] = 0;
 				}
 			}
 		}
@@ -226,22 +193,19 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 			}
 			if (conn_amount < BACKLOG) {
 				client_fd[conn_amount ++] = new_fd;
-				RS232printf("\n\rNew socket");
 				
-				if(new_fd > max_fd) {
+				if(new_fd > max_fd)
 					max_fd = new_fd;
-				}
 			}
 			else {
 				lwip_close(client_fd[old_fd]);
 				client_fd[old_fd ++] = new_fd;
 				
-				RS232printf("\nNew socket");
-				RS232printf("\nClose old socket");
-				
-				if (old_fd == BACKLOG) {
+				if (old_fd == BACKLOG)
 					old_fd = 0;
-				}
+				
+				if(new_fd > max_fd)
+					max_fd = new_fd;
 			}
 		}
 //		vTaskDelay(2);											/* No need.*/
