@@ -279,7 +279,6 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 		
 		wdt_disable(WDT);
 		
-		
 		rstc_start_software_reset(RSTC);						// Reset SAM3X with software..
 		//rstc_reset_extern(RSTC);
 	}

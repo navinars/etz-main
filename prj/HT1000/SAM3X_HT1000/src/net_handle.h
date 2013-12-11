@@ -6,7 +6,7 @@
 
 
 #define NETBUF_NUM				100								/* Maximum socket buffer number.*/
-#define BACKLOG					6								/* Maximum socket client number.*/
+#define BACKLOG					1								/* Maximum socket client number.*/
 
 
 extern int client_fd[BACKLOG];

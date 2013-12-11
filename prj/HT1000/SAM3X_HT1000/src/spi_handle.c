@@ -32,7 +32,7 @@
 #include "spi_handle.h"
 #include "net_handle.h"
 
-#define SPI_ERROR_SEQ					1						/* SPI write fail repeat frequency.*/
+#define SPI_ERROR_SEQ					2						/* SPI write fail repeat frequency.*/
 
 spi_data_req_t							spi_t;					/* SPI frame.*/
 net_frm_send_t							net_t;					/* NET frame.*/
@@ -97,6 +97,27 @@ unsigned int Crc16CheckSum(unsigned char *ptr, unsigned char length)
 /**
  * \brief 
  * 
+ * \param net
+ * 
+ * \return uint8_t
+ */
+static uint8_t net_data_send( net_frm_send_t *net )
+{
+	int ret;
+	
+	ret = lwip_write( net->port, &net->buf[0], net->len );
+	
+	if (ret < 0 )
+	{
+		return 1;
+	}
+	
+	return 0;
+}
+
+/**
+ * \brief 
+ * 
  * \param uxPriority
  * 
  * \return void
@@ -122,7 +143,7 @@ static void spi_transmit( uint8_t *pdata ,uint8_t len)
 	
 	spi_csn0_disable();
 	
-	vTaskDelay(2);												/* Wait 1 millisecond.*/
+	vTaskDelay(1);												/* Wait 1 millisecond.*/
 	
 	spi_soft_transfer( p, len);
 	
@@ -133,26 +154,6 @@ static void spi_transmit( uint8_t *pdata ,uint8_t len)
 	spi_csn0_enable();
 }
 
-/**
- * \brief 
- * 
- * \param net
- * 
- * \return uint8_t
- */
-static uint8_t net_data_send( net_frm_send_t *net )
-{
-	int ret;
-	
-	ret = lwip_write( net->port, &net->buf[0], net->len );
-	
-	if (ret < 0 )
-	{
-		return 1;
-	}
-	
-	return 0;
-}
 
 /**
  * \brief SPI data handle function.
@@ -178,13 +179,11 @@ static void spi_data_req( spi_data_req_t* pdata )
 			
 			spi_transmit( &tmp.buf, tmp.len );					/* send spi buffer. */
 			
-			vTaskDelay(20);
+			vTaskDelay(3);
 			tmp_value = tmp.buf[1];
 			
 			i ++;
 		}while( (tmp_value == 0xFF) && (i < pdata->error_seq) );
-		
-		//vTaskDelay(5);
 		
 		memcpy( pdata, &tmp, sizeof(spi_data_req_t) );
 	}
@@ -259,7 +258,7 @@ void vStartMotorTaskLauncher( unsigned portBASE_TYPE uxPriority )
 }
 
 /**
- * \brief 
+ * \brief The task of motoring the route.
  * 
  * \param 
  * \param 

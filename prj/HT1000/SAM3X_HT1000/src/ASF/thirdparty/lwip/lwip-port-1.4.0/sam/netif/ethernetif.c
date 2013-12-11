@@ -215,11 +215,12 @@ static void low_level_init(struct netif *netif)
 	}
 
 	/* Auto Negotiate, work in RMII mode */
-	if (ethernet_phy_auto_negotiate(EMAC, BOARD_EMAC_PHY_ADDR) != EMAC_OK) {
-		LWIP_DEBUGF(LWIP_DBG_TRACE, "Auto Negotiate ERROR!\r");
-		return;
-	}
-
+	//if (ethernet_phy_auto_negotiate(EMAC, BOARD_EMAC_PHY_ADDR) != EMAC_OK) {
+		//LWIP_DEBUGF(LWIP_DBG_TRACE, "Auto Negotiate ERROR!\r");
+		//return;
+	//}
+	while (ethernet_phy_auto_negotiate(EMAC, BOARD_EMAC_PHY_ADDR) != EMAC_OK);
+	
 	///* Establish ethernet link */
 	//while (ethernet_phy_set_link(EMAC, BOARD_EMAC_PHY_ADDR, 1) != EMAC_OK) {
 		//LWIP_DEBUGF(LWIP_DBG_TRACE, "Set link ERROR!\r");

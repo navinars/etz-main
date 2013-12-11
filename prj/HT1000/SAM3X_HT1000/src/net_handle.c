@@ -175,16 +175,16 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	
 	while(1)
 	{
- 		FD_ZERO(&allset);										/* Initialize file descriptor set.*/
- 		FD_SET(listen_fd, &allset);
- 		
- 		for (i = 0; i < BACKLOG; i++)							/* Add active connection to fd set.*/
- 		{
-	 		if (client_fd[i] != 0) {
-		 		FD_SET(client_fd[i], &allset);
-	 		}
- 		}
- 		
+		FD_ZERO(&allset);										/* Initialize file descriptor set.*/
+		FD_SET(listen_fd, &allset);
+		
+		for (i = 0; i < BACKLOG; i++)							/* Add active connection to fd set.*/
+		{
+			if (client_fd[i] != 0) {
+				FD_SET(client_fd[i], &allset);
+			}
+		}
+		
 		ret = lwip_select(max_fd + 1, &allset, NULL, NULL, &tv);
 		
 		if(ret < 0)												/* If FD is not add, than continue.*/
@@ -201,27 +201,9 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				lwip_setsockopt(client_fd[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 				
 				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
-				if (ret > 0)
+				if (ret == 7)
 				{
-					len = sock_buf[0];
-					
-					if (len != (ret - 1))
-					{
-						bzero(sock_buf, 100);
-						RS232printf("\n\rRead error length data from socket.");
-						continue;
-					}
-					
 					eth_data_handle( sock_buf, client_fd[i] );	/* !!handle socket data to SPI modle.!!*/
-				}
-				else if(ret == 0)								/* If read ZERO,than return end of file .*/
-				{
-				}
-				else											/* Read error, than close this socket.*/
-				{
-					lwip_close(client_fd[i]);					/* Can't decide which socket is closed.*/
-					RS232printf("\nClose old socket");
-					client_fd[i] = 0;
 				}
 			}
 		}
@@ -235,25 +217,22 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 			}
 			if (conn_amount < BACKLOG) {
 				client_fd[conn_amount ++] = new_fd;
-				RS232printf("\n\rNew socket");
 				
-				if(new_fd > max_fd) {
-					max_fd = new_fd;
-				}
+				if(new_fd > max_fd)
+				max_fd = new_fd;
 			}
 			else {
 				lwip_close(client_fd[old_fd]);
 				client_fd[old_fd ++] = new_fd;
 				
-				RS232printf("\nNew socket");
-				RS232printf("\nClose old socket");
+				if (old_fd == BACKLOG)
+				old_fd = 0;
 				
-				if (old_fd == BACKLOG) {
-					old_fd = 0;
-				}
+				if(new_fd > max_fd)
+				max_fd = new_fd;
 			}
 		}
-		vTaskDelay(2);											/* Not need.*/
+//		vTaskDelay(2);											/* Not need.*/
 	}
 }
 
