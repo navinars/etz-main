@@ -71,7 +71,8 @@ static void ethernet_configure_interface(void)
 	{
 		/* Default ip addr */
 		IP4_ADDR(&x_ip_addr, ETHERNET_CONF_IPADDR0, ETHERNET_CONF_IPADDR1,
-				ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
+				ETHERNET_CONF_IPADDR2, IPsave_tmp.ip[0]);
+				//ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
 
 		/* Default subnet mask */
 		IP4_ADDR(&x_net_mask, ETHERNET_CONF_NET_MASK0, ETHERNET_CONF_NET_MASK1,

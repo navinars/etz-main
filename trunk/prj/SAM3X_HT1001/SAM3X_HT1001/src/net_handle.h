@@ -5,12 +5,12 @@
 
 #define SERVER_PORT				8090
 
-#define NETBUF_NUM				100								/* Maximum socket buffer number.*/
-#define BACKLOG					6								/* Maximum socket client number.*/
+#define NETBUF_NUM				200								/* Maximum socket buffer number.*/
+#define BACKLOG					1								/* Maximum socket client number.*/
 
 
-extern uint8_t sock_buf[NETBUF_NUM];
-
+extern uint8_t	sock_buf[NETBUF_NUM];
+extern int		client_fd[BACKLOG];
 
 /*! \brief WEB server main task
  *
