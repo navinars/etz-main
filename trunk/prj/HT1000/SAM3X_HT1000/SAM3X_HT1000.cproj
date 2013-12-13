@@ -635,6 +635,12 @@
     <Compile Include="src\BSP\ht1000_spi.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\BSP\net_config.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BSP\net_config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\net_handle.c">
       <SubType>compile</SubType>
     </Compile>

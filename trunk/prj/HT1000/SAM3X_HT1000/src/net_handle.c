@@ -63,38 +63,38 @@ static void eth_data_handle( u_char* pbuf, int port )
 		cmd = *(pbuf + 2);
 		if( cmd == 0x07 )
 		{
-			cmd = *(pbuf + 6);
-			if(cmd == 0)
-			{
-				IPsave.mode = 2;
-				IPsave.ip[0] = 0;
-			}
-			else
-			{
-				IPsave.mode = 1;
-				IPsave.ip[0] = cmd;
-			}
-			{
-				uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
-				uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
-				
-				/* Initialize flash: 6 wait states for flash writing. */
-				flash_init(FLASH_ACCESS_MODE_128, 6);
-				
-				/* Unlock page */
-				flash_unlock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
-				
-				/* Copy information to FLASH buffer..*/
-				memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave), sizeof(ip_save_t));
-				
-				/* Write page */
-				flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
-				
-				/* Lock page */
-				flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
-				
-				rstc_start_software_reset(RSTC);				/* Reset SAM3X with software..*/
-			}
+			//cmd = *(pbuf + 6);
+			//if(cmd == 0)
+			//{
+				//IPsave.mode = 2;
+				//IPsave.ip[0] = 0;
+			//}
+			//else
+			//{
+				//IPsave.mode = 1;
+				//IPsave.ip[0] = cmd;
+			//}
+			//{
+				//uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
+				//uint32_t ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
+				//
+				///* Initialize flash: 6 wait states for flash writing. */
+				//flash_init(FLASH_ACCESS_MODE_128, 6);
+				//
+				///* Unlock page */
+				//flash_unlock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+				//
+				///* Copy information to FLASH buffer..*/
+				//memcpy((uint8_t*)ul_page_buffer, (uint8_t *)(&IPsave), sizeof(ip_save_t));
+				//
+				///* Write page */
+				//flash_write(ul_last_page_addr, ul_page_buffer, IFLASH_PAGE_SIZE, 1);
+				//
+				///* Lock page */
+				//flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+				//
+				//rstc_start_software_reset(RSTC);				/* Reset SAM3X with software..*/
+			//}
 		}
 		else
 		{
