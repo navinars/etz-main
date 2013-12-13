@@ -52,8 +52,18 @@ extern "C" {
 /** Ethernet MII/RMII mode */
 #define ETH_PHY_MODE  BOARD_EMAC_MODE_RMII
 
-
+/** Server port number. */
 #define SOCK_HOSR_PORT								8090
+
+enum net_config_mode_e{
+	IP_CONFIG_MODE_FIXEDIP,
+	IP_CONFIG_MODE_DHCP
+};
+
+enum net_config_alloc_e{
+	IP_CONFIG_ALLOC_FALSE,
+	IP_CONFIG_ALLOC_TRUE
+};
 
 /// @cond 0
 /**INDENT-OFF**/

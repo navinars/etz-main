@@ -84,6 +84,8 @@
 #include "lwip/inet.h"
 #endif
 
+#include "net_config.h"
+
 /* Global variable containing MAC Config (hw addr, IP, GW, ...) */
 struct netif gs_net_if;
 
@@ -104,7 +106,7 @@ static void ethernet_configure_interface(void)
 	struct ip_addr x_ip_addr, x_net_mask, x_gateway;
 	extern err_t ethernetif_init(struct netif *netif);
 
-	if(IPsave_tmp.mode != 1)
+	if(f_ip_config.mode == IP_CONFIG_MODE_DHCP)
 	{
 		x_ip_addr.addr = 0;
 		x_net_mask.addr = 0;
@@ -112,14 +114,13 @@ static void ethernet_configure_interface(void)
 	else
 	{
 		/* Default ip addr */
-		IP4_ADDR(&x_ip_addr, ETHERNET_CONF_IPADDR0, ETHERNET_CONF_IPADDR1,
-				//ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
-				ETHERNET_CONF_IPADDR2, IPsave_tmp.ip[0]);
-				
-		/* Default subnet mask */
-		IP4_ADDR(&x_net_mask, ETHERNET_CONF_NET_MASK0, ETHERNET_CONF_NET_MASK1,
-				ETHERNET_CONF_NET_MASK2, ETHERNET_CONF_NET_MASK3);
+		IP4_ADDR(&x_ip_addr, f_ip_config.ip[0], f_ip_config.ip[1],
+				f_ip_config.ip[2], f_ip_config.ip[3]);
 
+		/* Default subnet mask */
+		IP4_ADDR(&x_net_mask, f_ip_config.mask[0], f_ip_config.mask[1],
+				f_ip_config.mask[2], f_ip_config.mask[3]);
+		
 		/* Default gateway addr */
 		IP4_ADDR(&x_gateway, ETHERNET_CONF_GATEWAY_ADDR0,
 				ETHERNET_CONF_GATEWAY_ADDR1,
@@ -138,14 +139,12 @@ static void ethernet_configure_interface(void)
 	netif_set_status_callback(&gs_net_if, status_callback);
 
 	/* Bring it up */
-	if(IPsave_tmp.mode != 1)
+	if(f_ip_config.mode == IP_CONFIG_MODE_DHCP)
 	{
-		RS232printf("LwIP: DHCP Started");
 		dhcp_start(&gs_net_if);
 	}
 	else
 	{
-		RS232printf("LwIP: Static IP Address Assigned");
 		netif_set_up(&gs_net_if);
 	}
 }

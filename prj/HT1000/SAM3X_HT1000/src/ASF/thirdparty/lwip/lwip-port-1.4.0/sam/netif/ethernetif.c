@@ -67,6 +67,7 @@
 
 #include "BasicWEB.h"
 #include "gpio.h"
+#include "net_config.h"
 
 /** Define those to better describe your network interface */
 #define IFNAME0 'e'
@@ -131,12 +132,12 @@ static void low_level_init(struct netif *netif)
 	/* Set MAC hardware address length */
 	netif->hwaddr_len = sizeof(gs_uc_mac_address);
 	/* Set MAC hardware address */
-	netif->hwaddr[0] = gs_uc_mac_address[0];
-	netif->hwaddr[1] = gs_uc_mac_address[1];
-	netif->hwaddr[2] = gs_uc_mac_address[2];
-	netif->hwaddr[3] = gs_uc_mac_address[3];
-	netif->hwaddr[4] = gs_uc_mac_address[4];
-	netif->hwaddr[5] = gs_uc_mac_address[5];
+	netif->hwaddr[0] = f_ip_config.mac[0];
+	netif->hwaddr[1] = f_ip_config.mac[1];
+	netif->hwaddr[2] = f_ip_config.mac[2];
+	netif->hwaddr[3] = f_ip_config.mac[3];
+	netif->hwaddr[4] = f_ip_config.mac[4];
+	netif->hwaddr[5] = f_ip_config.mac[5];
 
 	/* Maximum transfer unit */
 	netif->mtu = NET_MTU;
@@ -155,7 +156,7 @@ static void low_level_init(struct netif *netif)
 
 	/* device capabilities */
 	/* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
-	if(IPsave_tmp.mode != 1)
+	if(f_ip_config.mode == IP_CONFIG_MODE_DHCP)
 	{
 		netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_DHCP;
 	}
@@ -197,8 +198,14 @@ static void low_level_init(struct netif *netif)
 	emac_option.uc_copy_all_frame = 0;
 	emac_option.uc_no_boardcast = 0;
 
-	memcpy(emac_option.uc_mac_addr, gs_uc_mac_address,
-			sizeof(gs_uc_mac_address));
+	//memcpy(emac_option.uc_mac_addr, gs_uc_mac_address,
+			//sizeof(gs_uc_mac_address));
+	emac_option.uc_mac_addr[0] = f_ip_config.mac[0];
+	emac_option.uc_mac_addr[1] = f_ip_config.mac[1];
+	emac_option.uc_mac_addr[2] = f_ip_config.mac[2];
+	emac_option.uc_mac_addr[3] = f_ip_config.mac[3];
+	emac_option.uc_mac_addr[4] = f_ip_config.mac[4];
+	emac_option.uc_mac_addr[5] = f_ip_config.mac[5];
 
 	gs_emac_dev.p_hw = EMAC;
 
