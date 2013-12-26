@@ -13,7 +13,7 @@ typedef struct{
 	uint8_t			mode;
 	uint8_t			ip[4];
 	uint8_t			mask[4];
-	uint8_t			mac[5];
+	uint8_t			mac[6];
 }f_ip_config_t;
 
 extern f_ip_config_t f_ip_config_tmp;
