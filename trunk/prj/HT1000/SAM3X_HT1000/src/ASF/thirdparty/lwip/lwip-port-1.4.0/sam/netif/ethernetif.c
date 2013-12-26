@@ -205,6 +205,7 @@ static void low_level_init(struct netif *netif)
 	emac_option.uc_mac_addr[2] = f_ip_config.mac[2];
 	emac_option.uc_mac_addr[3] = f_ip_config.mac[3];
 	emac_option.uc_mac_addr[4] = f_ip_config.mac[4];
+	emac_option.uc_mac_addr[5] = f_ip_config.mac[5];
 
 	gs_emac_dev.p_hw = EMAC;
 
