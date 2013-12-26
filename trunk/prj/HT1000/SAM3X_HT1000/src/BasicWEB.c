@@ -151,18 +151,48 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 			/* Write out the HTTP OK header. */
 			netconn_write( pxNetCon, webHTTP_OK, (u16_t) strlen( webHTTP_OK ), NETCONN_COPY );
 			
-			//if (( NULL != pcRxString )&& ( !strncmp( pcRxString, "GET", 3 ) ))
-			//{
-				//
-			//}
+			f_ip_config_tmp.ip[0]	 = ETHERNET_CONF_IPADDR0;
+			f_ip_config_tmp.ip[1]	 = ETHERNET_CONF_IPADDR1;
+			f_ip_config_tmp.ip[2]	 = 0;
+			f_ip_config_tmp.ip[3]    = 0;
+			
 			str_tmp = strstr(pcRxString, "dhcp");				/* Set net mode..*/
 			if ( str_tmp != NULL)
 			{
-				f_ip_config_tmp.mode = *(str_tmp + 5) - 0x30;
-				f_write = 1;
+				f_ip_config_tmp.mode = *(str_tmp + 5) - 0x31;
+				
+				//f_write = 1;
 			}
 			
-			str_tmp = strstr(pcRxString, "msg_ip");				/* Set IP address..*/
+			str_tmp = strstr(pcRxString, "msg_ip2");			/* Set IP address..*/
+			if (str_tmp != NULL)
+			{
+				str_len = strstr(str_tmp, "=");
+				if (str_len != NULL)
+				{
+					str_tmp1 = strstr(str_len, "&");
+					if (str_tmp1 != NULL)
+					{
+						uint8_t i;
+						len = str_tmp1 - str_len;
+
+						if(len < 5)								/* Textbox number < 5 byte.*/
+						{
+							for(i = 1;i < len;i ++)
+							{
+								f_ip_config_tmp.ip[2] = f_ip_config_tmp.ip[2] * 10;
+								f_ip_config_tmp.ip[2] += (str_len[i] - 0x30);
+							}
+						}
+						else
+						{
+							f_ip_config_tmp.ip[2] = 0;
+						}
+					}
+				}
+			}
+			
+			str_tmp = strstr(pcRxString, "msg_ip3");			/* Set IP address..*/
 			if (str_tmp != NULL)
 			{
 				str_len = strstr(str_tmp, "=");
@@ -178,11 +208,27 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 						{
 							for(i = 1;i < len;i ++)
 							{
-								f_ip_config_tmp.ip[0] = f_ip_config_tmp.ip[0] * 10;
-								f_ip_config_tmp.ip[0] += (str_len[i] - 0x30);
-								
-								f_write = 1;					/* you can updata FLASH.*/
+								f_ip_config_tmp.ip[3] = f_ip_config_tmp.ip[3] * 10;
+								f_ip_config_tmp.ip[3] += (str_len[i] - 0x30);
 							}
+						}
+						else
+						{
+							f_ip_config_tmp.ip[3] = 0;
+						}
+						
+						
+						if ( (f_ip_config_tmp.ip[2] > 0) && (f_ip_config_tmp.ip[3] > 1))
+						{
+							f_ip_config_tmp.alloc = IP_CONFIG_ALLOC_TRUE;
+							f_write = 1;									/* you can updata FLASH.*/
+						}
+						else
+						{
+							f_ip_config_tmp.ip[0]	 = f_ip_config.ip[0];
+							f_ip_config_tmp.ip[1]	 = f_ip_config.ip[1];
+							f_ip_config_tmp.ip[2]	 = f_ip_config.ip[2];
+							f_ip_config_tmp.ip[3]    = f_ip_config.ip[3];
 						}
 					}
 				}

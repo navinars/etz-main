@@ -61,8 +61,8 @@ enum net_config_mode_e{
 };
 
 enum net_config_alloc_e{
+	IP_CONFIG_ALLOC_TRUE,
 	IP_CONFIG_ALLOC_FALSE,
-	IP_CONFIG_ALLOC_TRUE
 };
 
 /// @cond 0

@@ -50,7 +50,7 @@
 #include "board.h"
 
 /*! define stack size for WEB server task */
-#define lwipBASIC_WEB_SERVER_STACK_SIZE   256
+#define lwipBASIC_WEB_SERVER_STACK_SIZE   512
 
 /*! define stack size for TFTP server task */
 #define lwipBASIC_TFTP_SERVER_STACK_SIZE  2048
