@@ -238,9 +238,9 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 			strcpy( cDynamicPage, webHTML_START );
 			
 			memcpy( pcTxString, "MAC µÿ÷∑:", sizeof("MAC µÿ÷∑:") );
-			sprintf( pcRxStringTmp, " 0x%02X %02X %02X %02X %02X\r\n</p>",
+			sprintf( pcRxStringTmp, " 0x%02X %02X %02X %02X %02X %02X\r\n</p>",
 					 f_ip_config.mac[0], f_ip_config.mac[1], f_ip_config.mac[2],
-					 f_ip_config.mac[3], f_ip_config.mac[4] );
+					 f_ip_config.mac[3], f_ip_config.mac[4], f_ip_config.mac[5] );
 			strcat( pcTxString, pcRxStringTmp);
 			strcat( cDynamicPage, pcTxString );					// display debug information..
 

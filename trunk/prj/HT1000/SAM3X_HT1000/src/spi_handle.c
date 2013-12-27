@@ -43,6 +43,8 @@ uint8_t									last_cmd;
 
 bool									gf_spi_alloc;			/* Global flag for SPI send.*/
 
+static void spi_transmit( uint8_t *pdata ,uint8_t len);
+
 /**
  * \brief 
  * 
@@ -177,7 +179,7 @@ static void spi_data_req( spi_data_req_t* pdata )
 		{
 			memcpy(&tmp, pdata, sizeof(spi_data_req_t));		/* Copy spi_data to temp struct.*/
 			
-			spi_transmit( &tmp.buf, tmp.len );					/* send spi buffer. */
+			spi_transmit( &tmp.buf[0], tmp.len );					/* send spi buffer. */
 			
 			vTaskDelay(3);
 			tmp_value = tmp.buf[1];
@@ -220,14 +222,15 @@ portTASK_FUNCTION_PROTO( vSpiHandle, pvParameters )
 				spi_t.error_seq = SPI_ERROR_SEQ;
 				
 				spi_data_req( &spi_t );							/* enable spi receive data function.*/
+				
 				gf_spi_alloc = false;
 				
 				net_t.alloc = true;
 				net_t.port  = spi_t.port;
-				net_t.len	= 7;
-				net_t.buf[0]= 6;
+				net_t.len	= 6;
+				//net_t.buf[0]= 6;
 				
-				memcpy( &net_t.buf[1], &spi_t.buf[0], spi_t.len );
+				memcpy( &net_t.buf[0], &spi_t.buf[0], spi_t.len );
 				
 				net_data_send( &net_t );
 				
@@ -315,15 +318,14 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 		}
 		
 		update_net.alloc	= true;
-		update_net.len		= 7;
-		update_net.buf[0]	= 6;
+		update_net.len		= 6;
 		
 		for(i = 0;i < BACKLOG;i ++)
 		{
 			if( client_fd[i] != 0 )
 			{
 				update_net.port	= client_fd[i];
-				memcpy( &update_net.buf[1], &update_spi.buf[0], update_spi.len );
+				memcpy( &update_net.buf[0], &update_spi.buf[0], update_spi.len );
 				
 				net_data_send( &update_net );
 			}

@@ -37,8 +37,9 @@ void f_config_handle(void)
 	f_ip_config.mac[0]   = ETHERNET_CONF_ETHADDR0;
 	f_ip_config.mac[1]   = ETHERNET_CONF_ETHADDR1;
 	f_ip_config.mac[2]   = ETHERNET_CONF_ETHADDR2;
-	f_ip_config.mac[3]   = unique_id[3]>>8;
-	f_ip_config.mac[4]   = unique_id[3];
+	f_ip_config.mac[3]   = ETHERNET_CONF_ETHADDR3;
+	f_ip_config.mac[4]   = unique_id[3]>>8;
+	f_ip_config.mac[5]   = unique_id[3];
 	
 	f_ip_config.mask[0]  = ETHERNET_CONF_NET_MASK0;
 	f_ip_config.mask[1]  = ETHERNET_CONF_NET_MASK1;
