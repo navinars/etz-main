@@ -54,12 +54,10 @@ xSemaphoreHandle xSemaNetHandle = NULL;							/* initialize freeRTOS's Semaphore
  */
 static void eth_data_handle( u_char* pbuf, int port )
 {
-	u_char len, cmd;
-	
-	len = *pbuf;
-	
-	if ((len == 6 ) && (spi_t.alloc == false))
+	if (spi_t.alloc == false)
 	{
+		u_char cmd;
+		
 		cmd = *(pbuf + 2);
 		if( cmd == 0x07 )
 		{
@@ -101,10 +99,10 @@ static void eth_data_handle( u_char* pbuf, int port )
 			if (spi_t.alloc != true)
 			{
 				spi_t.alloc = true;
-				spi_t.len = len;
+				spi_t.len = 6;
 				spi_t.port = port;
 				
-				memcpy( spi_t.buf, (pbuf + 1), len );
+				memcpy( &spi_t.buf[0], pbuf, spi_t.len );
 				
 				/* Take Semaphore in waiting 1 tick.*/
 				if ( xSemaphoreTake( xSemaNetHandle, 1 ) == pdTRUE )
@@ -200,10 +198,10 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 				int opt = 10;									/* set recv timeout (100 ms) */
 				lwip_setsockopt(client_fd[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 				
-				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
-				if (ret == 7)
+				ret = lwip_read(client_fd[i], &sock_buf[0], sizeof(sock_buf));
+				if (ret == 6)
 				{
-					eth_data_handle( sock_buf, client_fd[i] );	/* !!handle socket data to SPI modle.!!*/
+					eth_data_handle( &sock_buf[0], client_fd[i] );	/* !!handle socket data to SPI modle.!!*/
 				}
 			}
 		}
