@@ -282,7 +282,6 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 		
 		vTaskDelay(3000);										/* delay 3s before reset.*/
 		
-//		gpbr_write(GPBR1, 2);
 		rstc_start_software_reset(RSTC);						/* Reset SAM3X with software.*/
 	}
 }
