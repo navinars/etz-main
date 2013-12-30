@@ -113,6 +113,9 @@
 // From module: RSTC - Reset Controller
 #include <rstc.h>
 
+// From module: RTT - Real Time Timer
+#include <rtt.h>
+
 // From module: SAM3X startup code
 #include <exceptions.h>
 

@@ -1,4 +1,7 @@
 /* Standard includes. */
+
+#include "asf.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -272,6 +275,7 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 {
 	uint8_t i = 0;
 	uint16_t crc;
+	uint32_t rtt_value;
 	uint8_t last_value = 0xF9,pre_value;
 	
 	spi_data_req_t update_spi;
@@ -281,6 +285,16 @@ portTASK_FUNCTION_PROTO( vMotorHandle, pvParameters )
 	
 	for(;;)
 	{
+		rtt_value = rtt_read_timer_value( RTT );
+		
+		if (rtt_value > 259200)
+		{
+			
+			rtt_write_alarm_time( RTT, 0 );
+			rtt_value =0;
+			rstc_start_software_reset(RSTC);
+		}
+		
 		vTaskDelay( 500 );										/* Delay 0.5s.*/
 		update_spi.len = 8;
 		update_spi.port = 1;

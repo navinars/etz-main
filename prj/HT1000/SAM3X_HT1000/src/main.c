@@ -80,6 +80,9 @@ int main (void)
 	/* Initialize mcu's peripheral.*/
 	board_init();
 	
+	/* Initialize RTT peripheral.*/
+	rtt_init( RTT, 32768 );
+	
 	/* Ensure all priority bits are assigned as preemption priority bits. */
 	NVIC_SetPriorityGrouping( 0 );
 	
