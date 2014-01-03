@@ -11,6 +11,7 @@
       <framework-data>
         <options>
           <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.services.delay" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
@@ -23,7 +24,7 @@
           <option id="sam.drivers.usart" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.services.flash" value="Add" config="" content-id="Atmel.ASF" />
           <option id="thirdparty.os.freertos.version" value="Add" config="7.3.0" content-id="Atmel.ASF" />
-          <option id="common.services.delay" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.drivers.wdt" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.utils.linker_scripts#atsam3x4" value="Add" config="" content-id="Atmel.ASF" />
         </options>
         <configurations>
@@ -224,6 +225,8 @@
           <file path="src/ASF/common/services/delay/sam/cycle_counter.c" framework="" version="3.10.1" source="common\services\delay\sam\cycle_counter.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/common/services/delay/sam/cycle_counter.h" framework="" version="3.10.1" source="common\services\delay\sam\cycle_counter.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/common/services/delay/delay.h" framework="" version="3.10.1" source="common\services\delay\delay.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/wdt/wdt.c" framework="" version="3.10.1" source="sam\drivers\wdt\wdt.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/wdt/wdt.h" framework="" version="3.10.1" source="sam\drivers\wdt\wdt.h" changed="False" content-id="Atmel.ASF" />
         </files>
         <documentation help="http://asf.atmel.com/docs/3.10.1/common.applications.user_application.user_board.sam3x/html/index.html" />
         <offline-documentation help="" />
@@ -321,6 +324,7 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -379,6 +383,7 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM3=true -DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
@@ -420,6 +425,7 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -487,6 +493,7 @@
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/BSP</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
@@ -545,6 +552,7 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
@@ -587,6 +595,7 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/sam/drivers/wdt</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -605,6 +614,12 @@
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\common\services\delay\sam\cycle_counter.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\sam\drivers\wdt\wdt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\wdt\wdt.h">
       <SubType>compile</SubType>
     </None>
     <Compile Include="src\BSP\net_config.c">
@@ -1479,6 +1494,7 @@
     <Folder Include="src\" />
     <Folder Include="src\ASF\common\services\delay\" />
     <Folder Include="src\ASF\common\services\delay\sam\" />
+    <Folder Include="src\ASF\sam\drivers\wdt\" />
     <Folder Include="src\BSP" />
     <Folder Include="src\ASF\" />
     <Folder Include="src\ASF\common\" />

@@ -1,3 +1,45 @@
+/**
+ * \file
+ *
+ * \brief Ethernet management for the FreeRTOS with lwIP example.
+ *
+ * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ *
+ * \asf_license_start
+ *
+ * \page License
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. The name of Atmel may not be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * 4. This software may only be redistributed and used in connection with an
+ *    Atmel microcontroller product.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+ * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * \asf_license_stop
+ *
+ */
 
 #include <string.h>
 
@@ -23,7 +65,6 @@
 #include "ethernet_phy.h"
 
 #include "BasicWEB.h"
-#include "net_config.h"
 #include "net_handle.h"
 
 #include "ethernet.h"
@@ -42,6 +83,9 @@
 #else
 #include "lwip/inet.h"
 #endif
+
+#include "net_config.h"
+
 /* Global variable containing MAC Config (hw addr, IP, GW, ...) */
 struct netif gs_net_if;
 
@@ -62,7 +106,7 @@ static void ethernet_configure_interface(void)
 	struct ip_addr x_ip_addr, x_net_mask, x_gateway;
 	extern err_t ethernetif_init(struct netif *netif);
 
-	if(IPsave_tmp.mode != 1)
+	if(f_ip_config.mode == IP_CONFIG_MODE_DHCP)
 	{
 		x_ip_addr.addr = 0;
 		x_net_mask.addr = 0;
@@ -70,14 +114,13 @@ static void ethernet_configure_interface(void)
 	else
 	{
 		/* Default ip addr */
-		IP4_ADDR(&x_ip_addr, ETHERNET_CONF_IPADDR0, ETHERNET_CONF_IPADDR1,
-				ETHERNET_CONF_IPADDR2, IPsave_tmp.ip[0]);
-				//ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
+		IP4_ADDR(&x_ip_addr, f_ip_config.ip[0], f_ip_config.ip[1],
+				f_ip_config.ip[2], f_ip_config.ip[3]);
 
 		/* Default subnet mask */
-		IP4_ADDR(&x_net_mask, ETHERNET_CONF_NET_MASK0, ETHERNET_CONF_NET_MASK1,
-				ETHERNET_CONF_NET_MASK2, ETHERNET_CONF_NET_MASK3);
-
+		IP4_ADDR(&x_net_mask, f_ip_config.mask[0], f_ip_config.mask[1],
+				f_ip_config.mask[2], f_ip_config.mask[3]);
+		
 		/* Default gateway addr */
 		IP4_ADDR(&x_gateway, ETHERNET_CONF_GATEWAY_ADDR0,
 				ETHERNET_CONF_GATEWAY_ADDR1,
@@ -96,14 +139,12 @@ static void ethernet_configure_interface(void)
 	netif_set_status_callback(&gs_net_if, status_callback);
 
 	/* Bring it up */
-	if(IPsave_tmp.mode != 1)
+	if(f_ip_config.mode == IP_CONFIG_MODE_DHCP)
 	{
-		RS232printf("LwIP: DHCP Started");
 		dhcp_start(&gs_net_if);
 	}
 	else
 	{
-		RS232printf("LwIP: Static IP Address Assigned");
 		netif_set_up(&gs_net_if);
 	}
 }
@@ -147,13 +188,6 @@ void prvlwIPInit( void )
 #endif
 }
 
-/**
- * \brief 
- * 
- * \param uxPriority
- * 
- * \return void
- */
 void vStartEthernetTaskLauncher( unsigned portBASE_TYPE uxPriority )
 {
 	/* Spawn the Sentinel task. */
@@ -205,13 +239,7 @@ void status_callback(struct netif *netif)
 	}
 }
 
-/**
- * \brief 
- * 
- * \param 
- * 
- * \return unsigned long
- */
+
 unsigned long lwIPLocalIPAddrGet(void)
 {
 	return((unsigned long)gs_net_if.ip_addr.addr);
