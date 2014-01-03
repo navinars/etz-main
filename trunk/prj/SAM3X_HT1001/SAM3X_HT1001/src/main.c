@@ -92,7 +92,7 @@ void task_start(void *pvParameters)
 	
 	vSemaphoreCreateBinary(xSemaNetHandle);						/* Create binary semaphore.*/
 	
-	netmode_init();												/* init net mode from flash.*/
+	f_config_handle();											/* init net mode from flash.*/
 	
 	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );		/* Start the ethernet tasks. */
 	
