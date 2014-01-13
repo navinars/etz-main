@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SAMD20_TE3001", "SAMD20_TE3001\SAMD20_TE3001.cproj", "{6A50967C-90B8-479F-8CE3-1B51EA0374F8}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Release|ARM = Release|ARM
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A50967C-90B8-479F-8CE3-1B51EA0374F8}.Debug|ARM.ActiveCfg = Debug|ARM
+		{6A50967C-90B8-479F-8CE3-1B51EA0374F8}.Debug|ARM.Build.0 = Debug|ARM
+		{6A50967C-90B8-479F-8CE3-1B51EA0374F8}.Release|ARM.ActiveCfg = Release|ARM
+		{6A50967C-90B8-479F-8CE3-1B51EA0374F8}.Release|ARM.Build.0 = Release|ARM
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
