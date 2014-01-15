@@ -59,6 +59,9 @@
 // From module: Common build items for user board support templates
 #include <user_board.h>
 
+// From module: Delay routines
+#include <delay.h>
+
 // From module: FreeRTOS - kernel 7.4.2
 #include <FreeRTOS.h>
 #include <StackMacros.h>
@@ -75,11 +78,25 @@
 // From module: Generic board support
 #include <board.h>
 
+// From module: IOPORT - General purpose I/O service
+#include <ioport.h>
+
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
 
+// From module: PORT - GPIO Pin Control
+#include <port.h>
+
 // From module: Part identification macros
 #include <parts.h>
+
+// From module: SERCOM
+#include <sercom.h>
+#include <sercom_interrupt.h>
+
+// From module: SERCOM USART - Serial Communications (Callback APIs)
+#include <usart.h>
+#include <usart_interrupt.h>
 
 // From module: SYSTEM - Clock Management
 #include <clock.h>
@@ -93,5 +110,11 @@
 
 // From module: SYSTEM - Interrupt Driver
 #include <system_interrupt.h>
+
+// From module: Standard serial I/O (stdio)
+#include <stdio_serial.h>
+
+// From module: USART - Serial interface- SAM implementation for devices with only USART
+#include <serial.h>
 
 #endif // ASF_H

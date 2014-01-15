@@ -10,17 +10,19 @@
 void assert_triggered( const char * file, uint32_t line );
 #endif
 
+#include "clock.h"
+
 #define configUSE_PREEMPTION                    1
 #define configUSE_IDLE_HOOK                     0
 #define configUSE_TICK_HOOK                     0
 #define configPRIO_BITS                         2
-#define configCPU_CLOCK_HZ                      ( 8000000 )
+#define configCPU_CLOCK_HZ                      ( system_cpu_clock_get_hz() )
 #define configTICK_RATE_HZ                      ( ( portTickType ) 1000 )
 #define configMAX_PRIORITIES                    ( ( unsigned portBASE_TYPE ) 5 )
 #define configMINIMAL_STACK_SIZE                ( ( unsigned short ) 100 )
 /* configTOTAL_HEAP_SIZE is not used when heap_3.c is used. */
-#define configTOTAL_HEAP_SIZE                   ( ( size_t ) ( 15000 ) )
-#define configMAX_TASK_NAME_LEN                 ( 8 )
+#define configTOTAL_HEAP_SIZE                   ( ( size_t ) ( 0x2000 ) )
+#define configMAX_TASK_NAME_LEN                 ( 10 )
 #define configUSE_TRACE_FACILITY                0
 #define configUSE_16_BIT_TICKS                  0
 #define configIDLE_SHOULD_YIELD                 1
