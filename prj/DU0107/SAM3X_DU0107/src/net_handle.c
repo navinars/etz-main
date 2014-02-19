@@ -60,17 +60,17 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 	struct sockaddr_in server_addr;
 	struct sockaddr_in client_addr;
 	
-	fd_set allset;													/* Create file descriptor.*/
+	fd_set allset;												/* Create file descriptor.*/
 	u_char conn_amount = 0;
 	struct timeval tv;
 	
 	u_char i;
 	
-	vSemaphoreCreateBinary(xSemaNetHandle);							/* Create binary semaphore.*/
+	vSemaphoreCreateBinary(xSemaNetHandle);						/* Create binary semaphore.*/
 	
-	listen_fd = lwip_socket(AF_INET, SOCK_STREAM, 0);				/* Create new socket.*/
+	listen_fd = lwip_socket(AF_INET, SOCK_STREAM, 0);			/* Create new socket.*/
 	
-																	/* Set socket's options.*/
+																/* Set socket's options.*/
 	ret = lwip_setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
 	
 	if(ret == -1)
@@ -108,17 +108,17 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 		
 		ret = lwip_select(max_fd + 1, &allset, NULL, NULL, &tv);
 		
-		if(ret < 0)													/* If FD is not add, than continue.*/
+		if(ret < 0)												/* If FD is not add, than continue.*/
 		{
 			continue;
 		}
 		
-		for(i = 0; i < conn_amount; i++)							/* Check every fd in the set.*/
+		for(i = 0; i < conn_amount; i++)						/* Check every fd in the set.*/
 		{
 			if (FD_ISSET(client_fd[i], &allset))
 			{
 				u_char	len;
-				int opt = 10;										/* set recv timeout (100 ms) */
+				int opt = 10;									/* set recv timeout (100 ms) */
 				lwip_setsockopt(client_fd[i], SOL_SOCKET, SO_RCVTIMEO, &opt, sizeof(int));
 				
 				ret = lwip_read(client_fd[i], &sock_buf, sizeof(sock_buf));
@@ -127,18 +127,18 @@ portTASK_FUNCTION_PROTO( vNetHandle, pvParameters )
 					xQueueSend(rQueueISR, &sock_buf, 10);
 					bzero(sock_buf, 100);
 				}
-				else if(ret == 0)									/* If read ZERO,than return end of file .*/
+				else if(ret == 0)								/* If read ZERO,than return end of file .*/
 				{
 				}
-				else												/* Read error, than close this socket.*/
+				else											/* Read error, than close this socket.*/
 				{
-					lwip_close(client_fd[i]);						/* Can't decide which socket is closed.*/
+					lwip_close(client_fd[i]);					/* Can't decide which socket is closed.*/
 					client_fd[i] = 0;
 				}
 			}
 		}
 		
-		if (FD_ISSET(listen_fd, &allset))							/* Check whether a new connection comes.*/
+		if (FD_ISSET(listen_fd, &allset))						/* Check whether a new connection comes.*/
 		{
 			new_fd = lwip_accept(listen_fd, (struct sockaddr *)&client_addr, &sin_size);
 			

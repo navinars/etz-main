@@ -1,12 +1,9 @@
-/**************************************************************************
- *
+/**
  * \file
  *
- * \brief lwIP core & application threads configuration file.
+ * \brief Watchdog Timer (WDT) driver for SAM.
  *
- * This file contains the possible external configuration of the Ethernet module.
- *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,41 +39,37 @@
  *
  * \asf_license_stop
  *
- ***************************************************************************/
+ */
 
-#ifndef _CONF_LWIP_THREADS_H_
-#define _CONF_LWIP_THREADS_H_
+#ifndef WDT_H_INCLUDED
+#define WDT_H_INCLUDED
 
-#include "board.h"
+#include "compiler.h"
 
-/*! define stack size for WEB server task */
-#define lwipBASIC_WEB_SERVER_STACK_SIZE   256
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
-/*! define stack size for TFTP server task */
-#define lwipBASIC_TFTP_SERVER_STACK_SIZE  2048
+#define WDT_INVALID_ARGUMENT 0xFFFF
 
-/*! define stack size for SMTP Client task */
-#define lwipBASIC_SMTP_CLIENT_STACK_SIZE  256
+uint32_t wdt_get_timeout_value(uint32_t ul_us, uint32_t ul_sclk);
+void wdt_init(Wdt *p_wdt, uint32_t ul_mode, uint16_t us_counter, 
+		uint16_t us_delta);
+void wdt_disable(Wdt *p_wdt);
+void wdt_restart(Wdt *p_wdt);
+uint32_t wdt_get_status(Wdt *p_wdt);
+uint32_t wdt_get_us_timeout_period(Wdt *p_wdt, uint32_t ul_sclk);
 
-/*! define stack size for lwIP task */
-#define lwipINTERFACE_STACK_SIZE         2048
-
-/*! define stack size for netif task */
-#define netifINTERFACE_TASK_STACK_SIZE    2048
-
-/*! define WEB server priority */
-#define lwipBASIC_WEB_SERVER_PRIORITY     (tskIDLE_PRIORITY + 6)
-
-/*! define lwIP task priority */
-#define lwipINTERFACE_TASK_PRIORITY       (configMAX_PRIORITIES - 1)
-
-/*! define netif task priority */
-#define netifINTERFACE_TASK_PRIORITY      (configMAX_PRIORITIES - 2)
-
-/*! Number of threads that can be started with sys_thread_new() */
-#define SYS_THREAD_MAX                    8
-
-/*! LED used by the ethernet task, toggled on each activation */
-#define webCONN_LED                       LED1_GPIO
-
-#endif /* #ifndef _CONF_LWIP_THREADS_H_ */
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
+ 
+#endif /* WDT_H_INCLUDED */

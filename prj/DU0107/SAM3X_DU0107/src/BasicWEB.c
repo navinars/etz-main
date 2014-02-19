@@ -222,7 +222,13 @@ static void prvweb_ParseHTMLRequest( struct netconn *pxNetCon )
 		/* Lock page */
 		flash_lock(ul_last_page_addr, ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
 		
+		wdt_disable(WDT);
+		
+		vTaskDelay(3000);										/* delay 3s before reset.*/
+		
+//		gpbr_write(GPBR1, 2);
 		rstc_start_software_reset(RSTC);						/* Reset SAM3X with software.*/
+		//rstc_reset_extern(RSTC);
 	}
 }
 

@@ -1,12 +1,9 @@
-/**************************************************************************
- *
+/**
  * \file
  *
- * \brief lwIP core & application threads configuration file.
+ * \brief General Purpose Backup Registers (GPBR) driver for SAM.
  *
- * This file contains the possible external configuration of the Ethernet module.
- *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,41 +39,42 @@
  *
  * \asf_license_stop
  *
- ***************************************************************************/
+ */
 
-#ifndef _CONF_LWIP_THREADS_H_
-#define _CONF_LWIP_THREADS_H_
+#ifndef GPBR_H_INCLUDED
+#define GPBR_H_INCLUDED
 
-#include "board.h"
+#include "compiler.h"
 
-/*! define stack size for WEB server task */
-#define lwipBASIC_WEB_SERVER_STACK_SIZE   256
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
-/*! define stack size for TFTP server task */
-#define lwipBASIC_TFTP_SERVER_STACK_SIZE  2048
+/** GPBR register number type */
+typedef enum gpbr_num_type {
+	GPBR0 = 0,
+	GPBR1,
+	GPBR2,
+	GPBR3,
+	GPBR4,
+	GPBR5,
+	GPBR6,
+	GPBR7
+} gpbr_num_t;
 
-/*! define stack size for SMTP Client task */
-#define lwipBASIC_SMTP_CLIENT_STACK_SIZE  256
+uint32_t gpbr_read(gpbr_num_t ul_reg_num);
+void gpbr_write(gpbr_num_t ul_reg_num, uint32_t ul_value);
 
-/*! define stack size for lwIP task */
-#define lwipINTERFACE_STACK_SIZE         2048
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
 
-/*! define stack size for netif task */
-#define netifINTERFACE_TASK_STACK_SIZE    2048
-
-/*! define WEB server priority */
-#define lwipBASIC_WEB_SERVER_PRIORITY     (tskIDLE_PRIORITY + 6)
-
-/*! define lwIP task priority */
-#define lwipINTERFACE_TASK_PRIORITY       (configMAX_PRIORITIES - 1)
-
-/*! define netif task priority */
-#define netifINTERFACE_TASK_PRIORITY      (configMAX_PRIORITIES - 2)
-
-/*! Number of threads that can be started with sys_thread_new() */
-#define SYS_THREAD_MAX                    8
-
-/*! LED used by the ethernet task, toggled on each activation */
-#define webCONN_LED                       LED1_GPIO
-
-#endif /* #ifndef _CONF_LWIP_THREADS_H_ */
+#endif /* GPBR_H_INCLUDED */
