@@ -1,12 +1,9 @@
-/**************************************************************************
- *
+/**
  * \file
  *
- * \brief lwIP core & application threads configuration file.
+ * \brief General Purpose Backup Registers (GPBR) driver for SAM.
  *
- * This file contains the possible external configuration of the Ethernet module.
- *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,41 +39,56 @@
  *
  * \asf_license_stop
  *
- ***************************************************************************/
+ */
 
-#ifndef _CONF_LWIP_THREADS_H_
-#define _CONF_LWIP_THREADS_H_
+#include "gpbr.h"
 
-#include "board.h"
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
-/*! define stack size for WEB server task */
-#define lwipBASIC_WEB_SERVER_STACK_SIZE   256
+/**
+ * \defgroup sam_drivers_gpbr_group General Purpose Backup Registers (GPBR)
+ *
+ * Driver for the General Purpose Backup Registers. This driver provides access 
+ * to the main features of the GPBR controller.
+ *
+ * @{
+ */
 
-/*! define stack size for TFTP server task */
-#define lwipBASIC_TFTP_SERVER_STACK_SIZE  2048
+/**
+ * \brief Read the specified backup register.
+ *
+ * \param ul_reg_num General purpose backup register number.
+ * 
+ * \return Value of the specified backup register.
+ */
+uint32_t gpbr_read(gpbr_num_t ul_reg_num)
+{
+	return GPBR->SYS_GPBR[ul_reg_num];
+}
 
-/*! define stack size for SMTP Client task */
-#define lwipBASIC_SMTP_CLIENT_STACK_SIZE  256
+/**
+ * \brief Write a value to the specified backup register.
+ *
+ * \param ul_reg_num General purpose backup register number.
+ * \param ul_value Value to be written.
+ */
+void gpbr_write(gpbr_num_t ul_reg_num, uint32_t ul_value)
+{
+	GPBR->SYS_GPBR[ul_reg_num] = ul_value;
+}
 
-/*! define stack size for lwIP task */
-#define lwipINTERFACE_STACK_SIZE         2048
+//@}
 
-/*! define stack size for netif task */
-#define netifINTERFACE_TASK_STACK_SIZE    2048
-
-/*! define WEB server priority */
-#define lwipBASIC_WEB_SERVER_PRIORITY     (tskIDLE_PRIORITY + 6)
-
-/*! define lwIP task priority */
-#define lwipINTERFACE_TASK_PRIORITY       (configMAX_PRIORITIES - 1)
-
-/*! define netif task priority */
-#define netifINTERFACE_TASK_PRIORITY      (configMAX_PRIORITIES - 2)
-
-/*! Number of threads that can be started with sys_thread_new() */
-#define SYS_THREAD_MAX                    8
-
-/*! LED used by the ethernet task, toggled on each activation */
-#define webCONN_LED                       LED1_GPIO
-
-#endif /* #ifndef _CONF_LWIP_THREADS_H_ */
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond

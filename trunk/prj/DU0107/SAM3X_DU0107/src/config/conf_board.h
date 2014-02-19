@@ -32,9 +32,9 @@
 *******************************************************************************/
 #define TASK_START_PRIORITY				(tskIDLE_PRIORITY + 1)
 #define TASK_START_ETH_PRIORITY			(tskIDLE_PRIORITY + 2)
-#define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 3)
-#define TASK_RADIO_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 4)
-#define TASK_UART_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 5)
+#define TASK_TCP_SERVER_PRIORITY		(tskIDLE_PRIORITY + 13)
+#define TASK_RADIO_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 14)
+#define TASK_UART_HANDLE_PRIORITY		(tskIDLE_PRIORITY + 12)
 
 
 /** Enable Com Port. */

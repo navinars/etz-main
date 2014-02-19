@@ -113,7 +113,8 @@ static void ethernet_configure_interface(void)
 	{
 		/* Default ip addr */
 		IP4_ADDR(&x_ip_addr, ETHERNET_CONF_IPADDR0, ETHERNET_CONF_IPADDR1,
-				ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
+				//ETHERNET_CONF_IPADDR2, ETHERNET_CONF_IPADDR3);
+				ETHERNET_CONF_IPADDR2, IPsave_tmp.ip[0]);
 
 		/* Default subnet mask */
 		IP4_ADDR(&x_net_mask, ETHERNET_CONF_NET_MASK0, ETHERNET_CONF_NET_MASK1,
@@ -207,9 +208,9 @@ portTASK_FUNCTION(vStartEthernetTask, pvParameters)
 	prvlwIPInit();
 
 	/* Create the WEB server task.  This uses the lwIP RTOS abstraction layer. */
-	//sys_thread_new("WEB", vBasicWEBServer, (void *)NULL,
-					//lwipBASIC_WEB_SERVER_STACK_SIZE,
-					//lwipBASIC_WEB_SERVER_PRIORITY);
+	sys_thread_new("WEB", vBasicWEBServer, (void *)NULL,
+					lwipBASIC_WEB_SERVER_STACK_SIZE,
+					lwipBASIC_WEB_SERVER_PRIORITY);
 
 	/* Create the Socket Server task.  This uses the lwIP RTOS abstraction layer. */
 	sys_thread_new("NETS", vNetHandle, (void *)NULL,
