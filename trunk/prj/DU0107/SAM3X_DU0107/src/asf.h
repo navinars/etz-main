@@ -59,6 +59,9 @@
 // From module: Common build items for user board support templates
 #include <user_board.h>
 
+// From module: Delay routines
+#include <delay.h>
+
 // From module: EEFC - Enhanced Embedded Flash Controller
 #include <efc.h>
 
@@ -67,6 +70,9 @@
 
 // From module: Ethernet Physical Transceiver (DM9161A)
 #include <ethernet_phy.h>
+
+// From module: FIFO - First-In-First-Out circular buffer
+#include <fifo.h>
 
 // From module: Flash - SAM Flash Service API
 #include <flash_efc.h>
@@ -118,6 +124,10 @@
 
 // From module: SPI - Serial Peripheral Interface
 #include <spi.h>
+
+// From module: Sleep manager - SAM implementation
+#include <sam/sleepmgr.h>
+#include <sleepmgr.h>
 
 // From module: Standard serial I/O (stdio) - SAM implementation
 #include <stdio_serial.h>

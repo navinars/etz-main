@@ -53,11 +53,11 @@ void task_start(void *pvParameters)
 	
 	netmode_init();
 	
-	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );		/* Start the ethernet tasks. */
+//	vStartEthernetTaskLauncher( TASK_START_ETH_PRIORITY );		/* Start the ethernet tasks. */
 	
 	//vStartRadioTaskLauncher( TASK_RADIO_HANDLE_PRIORITY );	/* Start the Radio tasks. */
 	//
-	//vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );		/* Start the Uart task. */
+	vStartUartTaskLauncher( TASK_UART_HANDLE_PRIORITY );		/* Start the Uart task. */
 	
 	for (;;)
 	{
