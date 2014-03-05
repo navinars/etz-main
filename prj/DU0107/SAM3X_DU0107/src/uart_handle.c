@@ -35,7 +35,7 @@ uint8_t gs_ul_read_buffer[100];
  *
  * \return void
  */
-void usart0_config(void)
+void uart_config(void)
 {
 	const sam_uart_opt_t uart_settings = {
 		.ul_mck = sysclk_get_peripheral_hz(),
@@ -43,7 +43,21 @@ void usart0_config(void)
 		.ul_mode = UART_MR_PAR_NO
 	};
 
-	const sam_usart_opt_t usart_console_settings = {
+	sysclk_enable_peripheral_clock(ID_UART);
+	uart_init( BOARD_UART, &uart_settings );
+
+}
+/**
+ * \brief
+ *
+ * \param
+ *
+ * \return void
+ */
+void usart0_config(void)
+{
+
+	const sam_usart_opt_t usart_0_settings = {
 		.baudrate = 19200,
 		.char_length = US_MR_CHRL_8_BIT,
 		.parity_type = US_MR_PAR_NO,
@@ -52,12 +66,8 @@ void usart0_config(void)
 		/* This field is only used in IrDA mode. */
 		.irda_filter = 0
 	};
-
-	sysclk_enable_peripheral_clock(ID_UART);
-	uart_init( BOARD_UART, &uart_settings );
-
 	sysclk_enable_peripheral_clock(BOART_ID_USART0);
-	usart_init_rs232(BOARD_USART0, &usart_console_settings, sysclk_get_peripheral_hz());
+	usart_init_rs232(BOARD_USART0, &usart_0_settings, sysclk_get_peripheral_hz());
 
 	/* Disable all the interrupts. */
 	usart_disable_interrupt(BOARD_USART0, 0xffffffff);
@@ -70,7 +80,41 @@ void usart0_config(void)
 	NVIC_EnableIRQ(USART0_IRQn);
 
 	usart_enable_interrupt(BOARD_USART0, US_IER_RXRDY);
+}
 
+/**
+ * \brief
+ *
+ * \param
+ *
+ * \return void
+ */
+void usart1_config(void)
+{
+	const sam_usart_opt_t usart_1_settings = {
+		.baudrate = 115200,
+		.char_length = US_MR_CHRL_8_BIT,
+		.parity_type = US_MR_PAR_NO,
+		.stop_bits = US_MR_NBSTOP_1_BIT,
+		.channel_mode = US_MR_CHMODE_NORMAL,
+		/* This field is only used in IrDA mode. */
+		.irda_filter = 0
+	};
+
+	sysclk_enable_peripheral_clock( BOART_ID_USART1 );
+	usart_init_rs232( BOARD_USART1, &usart_1_settings, sysclk_get_peripheral_hz() );
+
+	/* Disable all the interrupts. */
+	usart_disable_interrupt(BOARD_USART1, 0xffffffff);
+
+	/* Enable the receiver and transmitter. */
+	usart_enable_tx(BOARD_USART1);
+	usart_enable_rx(BOARD_USART1);
+
+	/* Configure and enable interrupt of USART. */
+	NVIC_EnableIRQ( USART1_IRQn );
+
+	usart_enable_interrupt( BOARD_USART1, US_IER_RXRDY);
 }
 
 /**
@@ -102,21 +146,19 @@ portTASK_FUNCTION_PROTO( vUartTask, pvParameters )
 
 	(void)pvParameters;
 
-	usart0_config();											/* Initialize UART model.*/
-
-//	gpio_set_pin_high(SMS_CMD_GPIO);							/* Set DATA/CMD mode. */
-	//gpio_set_pin_low(SMS_CMD_GPIO);
-	//gpio_set_pin_high(SMS_RESET_GPIO);							/* Reset SMS model. */
+	/* Initialize UART model.*/
+	uart_config();
+	usart0_config();
+	usart1_config();
 
 	gpio_set_pin_low( PIO_PA17_IDX );
-	//vTaskDelay(10000);
-//
+
 	for (;;)
 	{
-		vTaskDelay(500);
+		vTaskDelay(1000);
 
 		uart_write( BOARD_UART, '1' );
-		//usart_serial_write_packet( BOARD_USART0, sms_text, sizeof(sms_text) );
+		usart_serial_write_packet( BOARD_USART1, sms_text, sizeof(sms_text) );
 	}
 }
 
@@ -137,6 +179,27 @@ void USART0_Handler(void)
 	/* Receive buffer is full. */
 	if (ul_status & US_CSR_RXRDY)
 	{
-		usart_read(BOARD_USART0, (uint32_t *)&gs_ul_read_buffer[0]);
+		usart_read( BOARD_USART0, (uint32_t *)&gs_ul_read_buffer[0] );
+	}
+}
+
+/**
+ * \brief
+ *
+ * \param
+ *
+ * \return void
+ */
+void USART1_Handler(void)
+{
+	uint32_t ul_status;
+
+	/* Read USART Status. */
+	ul_status = usart_get_status( BOARD_USART1 );
+
+	/* Receive buffer is full. */
+	if (ul_status & US_CSR_RXRDY)
+	{
+		usart_read( BOARD_USART1, (uint32_t *)&gs_ul_read_buffer[0] );
 	}
 }

@@ -29,8 +29,14 @@ void board_init(void)
 	/* Configure USART RXD pin */
 	gpio_configure_pin(PIN_USART0_RXD_IDX, PIN_USART0_RXD_FLAGS);
 
-	/* Configure USART TXD pin */
+	/* Configure USART1 TXD pin */
 	gpio_configure_pin(PIN_USART0_TXD_IDX, PIN_USART0_TXD_FLAGS);
+
+	/* Configure USART1 RXD pin */
+	gpio_configure_pin(PIN_USART1_RXD_IDX, PIN_USART1_RXD_FLAGS);
+
+	/* Configure USART TXD pin */
+	gpio_configure_pin(PIN_USART1_TXD_IDX, PIN_USART1_TXD_FLAGS);
 
 	/* Configure Key pin init.*/
 	gpio_configure_pin(RESTKEY_GPIO, (PIO_INPUT | PIO_PULLUP));
