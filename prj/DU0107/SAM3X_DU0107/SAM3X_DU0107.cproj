@@ -11,19 +11,23 @@
       <framework-data>
         <options>
           <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.services.delay" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.services.basic.fifo" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.services.basic.serial" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.services.basic.sleepmgr" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.components.ethernet_phy.dm9161a" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.emac" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.drivers.gpbr" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.rstc" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.spi" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.uart" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.usart" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="sam.drivers.wdt" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.services.flash" value="Add" config="" content-id="Atmel.ASF" />
           <option id="thirdparty.os.freertos.version" value="Add" config="7.3.0" content-id="Atmel.ASF" />
-          <option id="sam.drivers.wdt" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam.drivers.gpbr" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.utils.linker_scripts#atsam3x4" value="Add" config="" content-id="Atmel.ASF" />
         </options>
         <configurations>
@@ -223,6 +227,16 @@
           <file path="src/ASF/sam/drivers/gpbr/gpbr.h" framework="" version="3.10.1" source="sam\drivers\gpbr\gpbr.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam/drivers/wdt/wdt.c" framework="" version="3.10.1" source="sam\drivers\wdt\wdt.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam/drivers/wdt/wdt.h" framework="" version="3.10.1" source="sam\drivers\wdt\wdt.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/fifo/fifo.c" framework="" version="3.10.1" source="common\services\fifo\fifo.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/fifo/fifo.h" framework="" version="3.10.1" source="common\services\fifo\fifo.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/delay/sam/cycle_counter.c" framework="" version="3.10.1" source="common\services\delay\sam\cycle_counter.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/delay/sam/cycle_counter.h" framework="" version="3.10.1" source="common\services\delay\sam\cycle_counter.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/delay/delay.h" framework="" version="3.10.1" source="common\services\delay\delay.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/freertos/sam/freertos_uart_serial.h" framework="" version="3.10.1" source="common\services\freertos\sam\freertos_uart_serial.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/sleepmgr/sam/sleepmgr.c" framework="" version="3.10.1" source="common\services\sleepmgr\sam\sleepmgr.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/sleepmgr/sleepmgr.h" framework="" version="3.10.1" source="common\services\sleepmgr\sleepmgr.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/sleepmgr/sam/sleepmgr.h" framework="" version="3.10.1" source="common\services\sleepmgr\sam\sleepmgr.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/Config/conf_sleepmgr.h" framework="" version="3.10.1" source="common\services\sleepmgr\sam\module_config\conf_sleepmgr.h" changed="False" content-id="Atmel.ASF" />
         </files>
         <documentation help="http://asf.atmel.com/docs/3.10.1/common.applications.user_application.user_board.sam3x/html/index.html" />
         <offline-documentation help="" />
@@ -257,7 +271,7 @@
       <ToolOptions>
         <InterfaceProperties>
           <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
-          <SwdClock>4190000</SwdClock>
+          <SwdClock>4000000</SwdClock>
           <JtagInChain>false</JtagInChain>
           <JtagDevicesBefore>0</JtagDevicesBefore>
           <JtagDevicesAfter>0</JtagDevicesAfter>
@@ -326,6 +340,9 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/gpbr</Value>
       <Value>../src/ASF/sam/drivers/wdt</Value>
+      <Value>../src/ASF/common/services/fifo</Value>
+      <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/common/services/sleepmgr</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -378,6 +395,9 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/gpbr</Value>
       <Value>../src/ASF/sam/drivers/wdt</Value>
+      <Value>../src/ASF/common/services/fifo</Value>
+      <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/common/services/sleepmgr</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM3=true -DBOARD=USER_BOARD -Dprintf=iprintf</armgcc.preprocessingassembler.general.AssemblerFlags>
@@ -419,6 +439,9 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/gpbr</Value>
       <Value>../src/ASF/sam/drivers/wdt</Value>
+      <Value>../src/ASF/common/services/fifo</Value>
+      <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/common/services/sleepmgr</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -488,6 +511,9 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/FreeRTOS-Plus-Trace/Configuration - template</Value>
       <Value>../src/ASF/sam/drivers/gpbr</Value>
       <Value>../src/ASF/sam/drivers/wdt</Value>
+      <Value>../src/ASF/common/services/fifo</Value>
+      <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/common/services/sleepmgr</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.OtherFlags>-fdata-sections</armgcc.compiler.optimization.OtherFlags>
@@ -545,6 +571,9 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/gpbr</Value>
       <Value>../src/ASF/sam/drivers/wdt</Value>
+      <Value>../src/ASF/common/services/fifo</Value>
+      <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/common/services/sleepmgr</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
@@ -587,6 +616,9 @@
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/sam/drivers/gpbr</Value>
       <Value>../src/ASF/sam/drivers/wdt</Value>
+      <Value>../src/ASF/common/services/fifo</Value>
+      <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/common/services/sleepmgr</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -598,6 +630,30 @@
     <GenerateEepFile>True</GenerateEepFile>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="src\ASF\common\services\delay\delay.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\common\services\delay\sam\cycle_counter.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\common\services\delay\sam\cycle_counter.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\common\services\fifo\fifo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\common\services\fifo\fifo.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\common\services\sleepmgr\sam\sleepmgr.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\common\services\sleepmgr\sleepmgr.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\sleepmgr\sam\sleepmgr.h">
+      <SubType>compile</SubType>
+    </None>
     <Compile Include="src\ASF\sam\drivers\gpbr\gpbr.c">
       <SubType>compile</SubType>
     </Compile>
@@ -620,6 +676,15 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\BSP\net_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\config\conf_sleepmgr.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\BSP\sl808x.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\BSP\sl808x.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\config\radio_config.h">
@@ -1541,12 +1606,19 @@
     <Folder Include="src\ASF\common\services\" />
     <Folder Include="src\ASF\common\services\clock\" />
     <Folder Include="src\ASF\common\services\clock\sam3x\" />
+    <Folder Include="src\ASF\common\services\delay\" />
+    <Folder Include="src\ASF\common\services\delay\sam\" />
+    <Folder Include="src\ASF\common\services\fifo\" />
+    <Folder Include="src\ASF\common\services\freertos\" />
+    <Folder Include="src\ASF\common\services\freertos\sam\" />
     <Folder Include="src\ASF\common\services\gpio\" />
     <Folder Include="src\ASF\common\services\gpio\sam_gpio\" />
     <Folder Include="src\ASF\common\services\ioport\" />
     <Folder Include="src\ASF\common\services\ioport\sam\" />
     <Folder Include="src\ASF\common\services\serial\" />
     <Folder Include="src\ASF\common\services\serial\sam_uart\" />
+    <Folder Include="src\ASF\common\services\sleepmgr\" />
+    <Folder Include="src\ASF\common\services\sleepmgr\sam\" />
     <Folder Include="src\ASF\common\utils\" />
     <Folder Include="src\ASF\common\utils\interrupt\" />
     <Folder Include="src\ASF\common\utils\stdio\" />
