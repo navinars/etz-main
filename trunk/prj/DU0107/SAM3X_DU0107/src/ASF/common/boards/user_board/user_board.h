@@ -108,6 +108,21 @@
 #define PIN_USART0_TXD_IDX        (PIO_PA11_IDX)
 #define PIN_USART0_TXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
 
+/* ------------------------------------------------------------------------ */
+/* USART1                                                                   */
+/* ------------------------------------------------------------------------ */
+/*! USART1 pin RX */
+#define PIN_USART1_RXD\
+	{PIO_PA12A_RXD1, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
+#define PIN_USART1_RXD_IDX        (PIO_PA12_IDX)
+#define PIN_USART1_RXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
+/*! USART1 pin TX */
+#define PIN_USART1_TXD\
+	{PIO_PA13A_TXD1, PIOA, ID_PIOA, PIO_PERIPH_A, PIO_DEFAULT}
+#define PIN_USART1_TXD_IDX        (PIO_PA13_IDX)
+#define PIN_USART1_TXD_FLAGS      (PIO_PERIPH_A | PIO_DEFAULT)
+
+
 /**
  * \file
  * EMAC

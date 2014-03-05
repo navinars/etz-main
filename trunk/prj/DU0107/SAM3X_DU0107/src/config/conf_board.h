@@ -41,7 +41,19 @@
 #define CONF_BOARD_UART_CONSOLE
 
 /** Usart Hw ID used by the console (UART). */
-#define CONSOLE_UART_ID          ID_UART
+#define BOARD_UART						UART
+
+#define CONSOLE_UART_ID					ID_UART
+
+#define RS232printf						//printf
+
+/** Usart_0 Hw ID used by the console (UART). */
+#define BOART_ID_USART0					ID_USART0
+#define BOARD_USART0					USART0
+
+/** Usart_1 Hw ID used by the console (UART). */
+#define BOART_ID_USART1					ID_USART1
+#define BOARD_USART1					USART1
 
 /** SPI0 MACRO definition */
 #define CONF_BOARD_SPI0
@@ -70,11 +82,5 @@
 /* Last page start address. */
 #define LAST_PAGE_ADDRESS				(IFLASH1_ADDR + IFLASH1_SIZE - IFLASH1_PAGE_SIZE)
 
-#define RS232printf						//printf
-
-#define BOART_ID_USART0					ID_USART0
-#define BOARD_USART0					USART0
-
-#define BOARD_UART						UART
 
 #endif // CONF_BOARD_H
